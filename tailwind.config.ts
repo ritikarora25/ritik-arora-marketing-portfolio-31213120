@@ -29,16 +29,16 @@ export default {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         primary: {
-          DEFAULT: '#0080FF', // Electric Blue
+          DEFAULT: '#2B2E83', // Deep Blue
           foreground: '#FFFFFF'
         },
         secondary: {
-          DEFAULT: '#50C878', // Emerald Green
+          DEFAULT: '#0A66C2', // Hyperlink Blue
           foreground: '#FFFFFF'
         },
         accent: {
-          DEFAULT: '#D9D9D9', // Platinum Silver
-          foreground: '#262626'
+          DEFAULT: 'hsl(var(--accent))',
+          foreground: 'hsl(var(--accent-foreground))'
         },
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',

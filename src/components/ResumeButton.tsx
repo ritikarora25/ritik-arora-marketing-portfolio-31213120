@@ -5,7 +5,7 @@ const ResumeButton = () => (
   <a
     href="/lovable-uploads/ritik-arora-resume.pdf"
     download
-    className="inline-flex items-center gap-2 px-5 py-2 bg-primary text-white font-semibold rounded-lg shadow-md hover:bg-accent hover:scale-105 transition-all duration-300"
+    className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white font-medium rounded-lg shadow-sm hover:bg-primary/90 transition-all duration-300"
   >
     <Download size={18} />
     Download Resume

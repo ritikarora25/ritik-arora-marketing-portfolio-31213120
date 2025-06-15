@@ -18,12 +18,12 @@ const PortfolioLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="min-h-screen bg-background font-montserrat">
       {/* Sticky Navbar */}
-      <header className="sticky top-0 z-50 bg-card bg-opacity-95 backdrop-blur shadow-sm border-b border-border">
-        <nav className="container mx-auto flex items-center justify-between py-2">
-          <span className="font-bold text-lg text-primary tracking-wider">Ritik Arora</span>
+      <header className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
+        <nav className="container mx-auto flex items-center justify-between py-4">
+          <span className="font-bold text-xl text-primary">Ritik Arora</span>
           
           {/* Desktop Nav */}
-          <ul className="hidden md:flex gap-6 text-sm font-medium">
+          <ul className="hidden md:flex gap-8 text-sm font-medium">
             {NAV.map((item) => (
               <li key={item.id}>
                 <a
@@ -46,14 +46,14 @@ const PortfolioLayout = ({ children }: { children: React.ReactNode }) => {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden bg-card">
-            <ul className="flex flex-col items-center gap-4 text-sm font-medium py-4">
+          <div className="md:hidden bg-white border-t border-gray-200">
+            <ul className="flex flex-col items-center gap-4 text-sm font-medium py-6">
               {NAV.map((item) => (
                 <li key={item.id}>
                   <a
                     href={`#${item.id}`}
                     className="transition-colors hover:text-primary text-foreground p-2"
-                    onClick={() => setIsMenuOpen(false)} // Close menu on click
+                    onClick={() => setIsMenuOpen(false)}
                   >
                     {item.name}
                   </a>
@@ -63,7 +63,7 @@ const PortfolioLayout = ({ children }: { children: React.ReactNode }) => {
           </div>
         )}
       </header>
-      <main className="pt-8">{children}</main>
+      <main>{children}</main>
       <BackToTopButton />
     </div>
   );
