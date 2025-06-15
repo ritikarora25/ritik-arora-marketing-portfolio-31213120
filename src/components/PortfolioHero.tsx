@@ -1,13 +1,6 @@
 
 import { Linkedin } from "lucide-react";
 import ResumeButton from "./ResumeButton";
-import MetricCounter from "./MetricCounter";
-
-const metrics = [
-  { label: "Cost Savings", value: 8, prefix: "₹", suffix: "L/mo" },
-  { label: "Revenue Increase", value: 5, suffix: "%" },
-  { label: "Users Impacted", value: 200, suffix: "K+" },
-];
 
 const PortfolioHero = () => (
   <section
@@ -51,24 +44,7 @@ const PortfolioHero = () => (
           LinkedIn
         </a>
       </div>
-      <div className="flex gap-6 justify-center md:justify-start mt-4 mb-8">
-        {metrics.map((metric, i) => (
-          <div
-            key={i}
-            className="flex flex-col items-center bg-white/95 backdrop-blur-sm shadow-lg rounded-lg px-4 py-3 border border-white/20"
-          >
-            <MetricCounter
-              value={metric.value}
-              prefix={metric.prefix}
-              suffix={metric.suffix}
-              duration={1200 + i * 600}
-              className="text-primary"
-            />
-            <div className="text-xs text-muted-foreground font-medium uppercase tracking-wide mt-1">{metric.label}</div>
-          </div>
-        ))}
-      </div>
-      <div className="flex gap-4 justify-center md:justify-start">
+      <div className="flex gap-4 justify-center md:justify-start mt-4">
         <ResumeButton />
         <a
           href="#contact"
