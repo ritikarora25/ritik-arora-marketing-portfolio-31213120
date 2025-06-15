@@ -11,9 +11,7 @@ const PortfolioHero = () => <section className="w-full min-h-[68vh] container mx
       <h2 className="text-xl md:text-2xl font-medium text-white leading-snug mb-4 drop-shadow-sm">
         Growth Marketer<span className="font-normal text-white/90"> | CRM, Product Marketing &amp; CLM Specialist</span>
       </h2>
-      <div className="rounded-lg px-6 py-3 bg-white/95 backdrop-blur-sm text-foreground font-medium text-base md:text-lg mb-6 max-w-lg border border-white/20 shadow-lg">
-        Strategy, Data, and Growth Impact – helping brands go farther, faster.
-      </div>
+      <div className="rounded-lg px-6 py-3 bg-white/95 backdrop-blur-sm text-foreground font-medium text-base md:text-lg mb-6 max-w-lg border border-white/20 shadow-lg">Retention, CRM, and Lifecycle Strategy — helping brands say the right thing, at the right time, to the right users, and turn it into growth.</div>
       <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 mb-6 text-sm">
         <div className="flex items-center gap-2 text-white drop-shadow-sm">
           <span>Gurugram, Haryana, India</span>
