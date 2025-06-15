@@ -101,3 +101,24 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Animated Gradient Background */
+@keyframes animatedBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .animated-gradient {
+    background: linear-gradient(-45deg, #2B2E83, #3E43A8, #1C1C6B, #4C51BF);
+    background-size: 400% 400%;
+    animation: animatedBG 15s ease infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animated-gradient {
+    background: linear-gradient(-45deg, #2B2E83, #3E43A8, #1C1C6B, #4C51BF);
+  }
+}
