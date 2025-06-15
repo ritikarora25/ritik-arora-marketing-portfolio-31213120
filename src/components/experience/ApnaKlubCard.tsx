@@ -11,7 +11,7 @@ const ApnaKlubCard = () => {
     <div className="rounded-lg bg-white shadow-sm border border-gray-200 hover:shadow-md transition-all flex flex-col p-0">
       {/* Card Top: Logo & Company/Period */}
       <div className="flex items-center gap-4 px-6 pt-6 pb-3">
-        <img src="/lovable-uploads/5aa112b4-58a4-450b-8778-44fde9a2f81e.png" alt="ApnaKlub" className="w-12 h-12 object-contain rounded-full bg-white border-2 border-gray-200 shadow-sm" />
+        <img src="/lovable-uploads/5aa112b4-58a4-450b-8778-44fde9a2f81e.png" alt="ApnaKlub" className="w-12 h-12 object-contain" />
         <div className="flex flex-col flex-1">
           <div className="font-semibold text-foreground text-lg">ApnaKlub</div>
           <div className="text-xs text-muted-foreground bg-accent px-2 py-1 rounded w-fit mt-1 border border-gray-200">Feb 2024 - Dec 2024</div>
