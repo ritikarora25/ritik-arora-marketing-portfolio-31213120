@@ -102,7 +102,7 @@
   }
 }
 
-/* Animated Gradient Background - Subtle and Refined */
+/* Animated Gradient Background - Darker and More Visible */
 @keyframes animatedBG {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -122,9 +122,9 @@
     animation: animatedBG 20s ease infinite;
   }
   
-  /* Keep original classes for backward compatibility */
+  /* Main dark gradient for entire page */
   .animated-gradient {
-    background: linear-gradient(-45deg, #2B2E83, #3E43A8, #1C1C6B, #4C51BF);
+    background: linear-gradient(-45deg, #1a1f3a, #2B2E83, #1C1C6B, #3E43A8);
     background-size: 400% 400%;
     animation: animatedBG 15s ease infinite;
   }
@@ -146,7 +146,7 @@
   }
   
   .animated-gradient {
-    background: linear-gradient(-45deg, #2B2E83, #3E43A8, #1C1C6B, #4C51BF);
+    background: linear-gradient(-45deg, #1a1f3a, #2B2E83, #1C1C6B, #3E43A8);
   }
   
   .animated-gradient-light {

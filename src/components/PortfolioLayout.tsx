@@ -16,11 +16,11 @@ const PortfolioLayout = ({ children }: { children: React.ReactNode }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-white font-montserrat relative">
+    <div className="min-h-screen font-montserrat relative animated-gradient">
       {/* Sticky Navbar */}
-      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b border-gray-200 shadow-sm">
+      <header className="sticky top-0 z-50 bg-black/20 backdrop-blur-md border-b border-white/20 shadow-sm">
         <nav className="container mx-auto flex items-center justify-between py-4">
-          <span className="font-bold text-xl text-primary">Ritik Arora</span>
+          <span className="font-bold text-xl text-white">Ritik Arora</span>
           
           {/* Desktop Nav */}
           <ul className="hidden md:flex gap-8 text-sm font-medium">
@@ -28,7 +28,7 @@ const PortfolioLayout = ({ children }: { children: React.ReactNode }) => {
               <li key={item.id}>
                 <a
                   href={`#${item.id}`}
-                  className="transition-colors hover:text-primary text-foreground"
+                  className="transition-colors hover:text-white/80 text-white"
                 >
                   {item.name}
                 </a>
@@ -38,7 +38,7 @@ const PortfolioLayout = ({ children }: { children: React.ReactNode }) => {
 
           {/* Mobile Nav Toggle */}
           <div className="md:hidden">
-            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-primary">
+            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-white">
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
@@ -46,13 +46,13 @@ const PortfolioLayout = ({ children }: { children: React.ReactNode }) => {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden bg-white border-t border-gray-200">
+          <div className="md:hidden bg-black/30 backdrop-blur-md border-t border-white/20">
             <ul className="flex flex-col items-center gap-4 text-sm font-medium py-6">
               {NAV.map((item) => (
                 <li key={item.id}>
                   <a
                     href={`#${item.id}`}
-                    className="transition-colors hover:text-primary text-foreground p-2"
+                    className="transition-colors hover:text-white/80 text-white p-2"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     {item.name}
