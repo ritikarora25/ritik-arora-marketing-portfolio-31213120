@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../ui/collapsible";
 import { ChevronDown, ChevronUp } from "lucide-react";
@@ -31,7 +32,6 @@ const KiranaBazaarCard = () => {
             Engagement ↑
           </div>
         </div>
-        <div className="text-sm text-muted-foreground italic">Generated ₹50L+ revenue, doubled click rates, improved app ranking & engagement significantly.</div>
       </div>
       
       {/* Collapsible for Challenge, Action, Impact */}

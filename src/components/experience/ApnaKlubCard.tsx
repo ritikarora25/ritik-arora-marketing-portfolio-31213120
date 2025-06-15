@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../ui/collapsible";
 import { ChevronDown, ChevronUp } from "lucide-react";
@@ -31,7 +32,6 @@ const ApnaKlubCard = () => {
             Order Rate ↑
           </div>
         </div>
-        <div className="text-sm text-muted-foreground italic">Enabled 5% revenue lift, improved order rates by 5-7%, deepened cross-team collaboration.</div>
       </div>
       
       {/* Collapsible for Challenge, Action, Impact */}

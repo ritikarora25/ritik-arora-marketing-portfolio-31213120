@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../ui/collapsible";
 import { ChevronDown, ChevronUp } from "lucide-react";
@@ -31,7 +32,6 @@ const Cars24Card = () => {
             Channels Managed
           </div>
         </div>
-        <div className="text-sm text-muted-foreground italic">Cut CXM spend by ₹8L/mo (~20%), boosted process speed, improved funnel reporting.</div>
       </div>
       
       {/* Collapsible for Challenge, Action, Impact */}

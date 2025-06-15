@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../ui/collapsible";
 import { ChevronDown, ChevronUp } from "lucide-react";
@@ -31,7 +32,6 @@ const StupaSportCard = () => {
             Campaigns Run
           </div>
         </div>
-        <div className="text-sm text-muted-foreground italic">Achieved 13K+ followers, expanded to 3 international markets, delivered real-time dashboards.</div>
       </div>
       
       {/* Collapsible for Challenge, Action, Impact */}
