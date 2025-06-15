@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible";
 import { ChevronDown, ChevronUp } from "lucide-react";
@@ -33,7 +34,9 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({
 
   // Compose summary - prioritize showing a primary impact metric
   const summary = metrics && metrics.length > 0 ? metrics.filter(m => m.highlight).map(m => `${m.value} ${m.label}`).join(", ") : impact;
-  return <div className="rounded-xl bg-white shadow-md border hover:shadow-lg transition-all flex flex-col p-0">
+
+  return (
+    <div className="rounded-xl bg-white shadow-md border hover:shadow-lg transition-all flex flex-col p-0">
       {/* Card Top: Logo & Company/Period */}
       <div className="flex items-center gap-4 px-6 pt-5 pb-2">
         <img src={logo} alt={company} className="w-12 h-12 object-contain rounded-full bg-white border shadow" style={{
@@ -47,11 +50,25 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({
       {/* Card Content: Role & Key Metrics */}
       <div className="px-6 pb-4 pt-2 flex flex-col">
         <div className="text-gray-700 font-semibold text-base">{role}</div>
-        {metrics && metrics.length > 0 && <div className="flex flex-wrap gap-2 mt-2 mb-1">
-            {metrics.map((m, i) => <div key={i} className={`text-xs rounded bg-accent/10 px-3 py-1 font-medium whitespace-nowrap ${m.highlight ? "text-accent bg-accent/20 border-accent border" : "text-primary"}`}>
-                <span className="font-mono text-lg">{m.value}</span>&nbsp;{m.label}
-              </div>)}
-          </div>}
+        {metrics && metrics.length > 0 && (
+          <div className="flex flex-wrap gap-2 mt-2 mb-1">
+            {metrics.map((m, i) => (
+              <div
+                key={i}
+                className={
+                  m.highlight
+                    ? "text-xs rounded-lg border-2 border-accent bg-accent/10 px-4 py-2 font-bold text-accent flex items-center justify-center min-w-[120px] shadow-sm transition-all"
+                    : "text-xs rounded bg-accent/10 px-3 py-1 font-medium text-primary whitespace-nowrap"
+                }
+              >
+                <span className={m.highlight ? "font-mono text-xl font-extrabold mr-1" : "font-mono text-lg"}>
+                  {m.value}
+                </span>
+                {m.label}
+              </div>
+            ))}
+          </div>
+        )}
         {/* One-line summary */}
         <div className="mt-1 text-sm text-gray-600 italic">{summary}</div>
       </div>
@@ -80,6 +97,7 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({
           </div>
         </CollapsibleContent>
       </Collapsible>
-    </div>;
+    </div>
+  );
 };
 export default CaseStudyCard;
