@@ -1,6 +1,8 @@
 import { Linkedin } from "lucide-react";
 import ResumeButton from "./ResumeButton";
-const PortfolioHero = () => <section className="w-full min-h-[68vh] container mx-auto flex flex-col md:flex-row md:items-center gap-12 py-16 relative animate-fade-in animated-gradient" id="hero">
+
+const PortfolioHero = () => (
+  <section className="w-full min-h-[68vh] container mx-auto flex flex-col md:flex-row md:items-center gap-12 py-16 relative animate-fade-in animated-gradient-subtle" id="hero">
     <div className="flex-shrink-0 w-40 h-40 md:w-56 md:h-56 rounded-full overflow-hidden bg-muted border-2 border-gray-200 shadow-sm mx-auto md:mx-0 relative z-10">
       <img alt="Ritik Arora Headshot" className="w-full h-full object-cover" src="/lovable-uploads/b900e373-588f-4459-b950-6d8f999f7d94.jpg" />
     </div>
@@ -31,5 +33,7 @@ const PortfolioHero = () => <section className="w-full min-h-[68vh] container mx
         </a>
       </div>
     </div>
-  </section>;
+  </section>
+);
+
 export default PortfolioHero;

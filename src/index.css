@@ -102,7 +102,7 @@
   }
 }
 
-/* Animated Gradient Background */
+/* Animated Gradient Background - Subtle and Refined */
 @keyframes animatedBG {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
@@ -110,6 +110,19 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
+  .animated-gradient-subtle {
+    background: linear-gradient(-45deg, #4C5A8C, #5C6B9A, #3A4780, #6B7AAD);
+    background-size: 400% 400%;
+    animation: animatedBG 20s ease infinite;
+  }
+  
+  .animated-gradient-refined {
+    background: linear-gradient(-45deg, #f8f9ff, #f3f5ff, #eef2ff, #e8ecff);
+    background-size: 400% 400%;
+    animation: animatedBG 20s ease infinite;
+  }
+  
+  /* Keep original classes for backward compatibility */
   .animated-gradient {
     background: linear-gradient(-45deg, #2B2E83, #3E43A8, #1C1C6B, #4C51BF);
     background-size: 400% 400%;
@@ -124,6 +137,14 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .animated-gradient-subtle {
+    background: linear-gradient(-45deg, #4C5A8C, #5C6B9A, #3A4780, #6B7AAD);
+  }
+  
+  .animated-gradient-refined {
+    background: linear-gradient(-45deg, #f8f9ff, #f3f5ff, #eef2ff, #e8ecff);
+  }
+  
   .animated-gradient {
     background: linear-gradient(-45deg, #2B2E83, #3E43A8, #1C1C6B, #4C51BF);
   }
