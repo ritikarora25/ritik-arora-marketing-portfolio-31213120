@@ -1,4 +1,3 @@
-
 import { Linkedin } from "lucide-react";
 import ResumeButton from "./ResumeButton";
 import MetricCounter from "./MetricCounter";
@@ -11,7 +10,7 @@ const metrics = [
 
 const PortfolioHero = () => (
   <section
-    className="w-full min-h-[68vh] flex flex-col md:flex-row md:items-center gap-8 pb-12 border-b border-border relative animate-fade-in"
+    className="w-full min-h-[68vh] container mx-auto flex flex-col md:flex-row md:items-center gap-8 pb-12 border-b border-border relative animate-fade-in"
     id="hero"
     style={{
       background:
