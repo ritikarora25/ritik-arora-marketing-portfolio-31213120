@@ -1,14 +1,26 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import PortfolioLayout from "@/components/PortfolioLayout";
+import PortfolioHero from "@/components/PortfolioHero";
+import PortfolioAbout from "@/components/PortfolioAbout";
+import PortfolioSkills from "@/components/PortfolioSkills";
+import PortfolioExperience from "@/components/PortfolioExperience";
+import PortfolioAchievements from "@/components/PortfolioAchievements";
+import PortfolioEducation from "@/components/PortfolioEducation";
+import PortfolioRecognition from "@/components/PortfolioRecognition";
+import PortfolioContact from "@/components/PortfolioContact";
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
-    </div>
+    <PortfolioLayout>
+      <PortfolioHero />
+      <PortfolioAbout />
+      <PortfolioExperience />
+      <PortfolioSkills />
+      <PortfolioAchievements />
+      <PortfolioEducation />
+      <PortfolioRecognition />
+      <PortfolioContact />
+    </PortfolioLayout>
   );
 };
-
 export default Index;
