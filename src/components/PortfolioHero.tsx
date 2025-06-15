@@ -1,4 +1,3 @@
-
 import { Linkedin } from "lucide-react";
 import ResumeButton from "./ResumeButton";
 
@@ -15,7 +14,7 @@ const PortfolioHero = () => (
         Growth Marketer<span className="font-normal text-gray-600"> | CRM, Product Marketing &amp; CLM Specialist</span>
       </h2>
       <div className="rounded-lg px-6 py-3 bg-white/95 backdrop-blur-sm text-gray-800 font-medium text-sm md:text-base mb-6 border border-gray-200 shadow-lg">
-        Retention, CRM, and Lifecycle Strategy — helping brands say the right thing, at the right time, to the right users, and turn it into growth.
+        Retention, CRM, and Lifecycle Strategy — helping brands grow through targeted messaging.
       </div>
       <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 mb-6 text-sm">
         <div className="flex items-center gap-2 text-gray-700">
