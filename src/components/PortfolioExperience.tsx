@@ -1,5 +1,6 @@
 
 import CaseStudyCard from "./CaseStudyCard";
+
 const experiences = [
   {
     company: "ApnaKlub",
@@ -13,17 +14,15 @@ const experiences = [
       {
         label: "Users Impacted",
         value: "200K+",
-        highlight: true // primary highlight: largest impact
+        highlight: true
       },
       {
         label: "Revenue Lift",
         value: "5%"
-        // no highlight
       },
       {
-        label: "Order Rate",
+        label: "Order Rate ↑",
         value: "5-7%"
-        // no highlight
       }
     ]
   },
@@ -39,17 +38,15 @@ const experiences = [
       {
         label: "Monthly Savings",
         value: "₹8L",
-        highlight: true // primary highlight: biggest achievement
+        highlight: true
       },
       {
         label: "Cost Reduction",
         value: "20%"
-        // no highlight
       },
       {
-        label: "Channels",
+        label: "Channels Managed",
         value: "5+"
-        // no highlight
       }
     ]
   },
@@ -58,24 +55,22 @@ const experiences = [
     logo: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=80&h=80&fit=facearea&facepad=2",
     role: "Marketing Associate",
     period: "Nov 2021 - Jan 2023",
-    challenge: "Increase retention & monetize 150K+ users in offline-to-online retail.",
-    action: "Launched personalisation strategies, merchandising campaigns, and brand monetization initiatives.",
-    impact: "Generated ₹50L+, doubled click rates, improved app ranking & engagement.",
+    challenge: "Increase retention & monetize 150K+ users in offline-to-online retail transition.",
+    action: "Launched personalization strategies, merchandising campaigns, and brand monetization initiatives.",
+    impact: "Generated ₹50L+ revenue, doubled click rates, improved app ranking & engagement significantly.",
     metrics: [
       {
-        label: "Monetization",
-        value: "₹50L",
-        highlight: true // primary highlight: quantifiable result
+        label: "Revenue Generated",
+        value: "₹50L+",
+        highlight: true
       },
       {
         label: "Click Rate ↑",
-        value: "1.9%"
-        // no highlight
+        value: "100%"
       },
       {
         label: "Engagement ↑",
         value: "30%"
-        // no highlight
       }
     ]
   },
@@ -84,19 +79,22 @@ const experiences = [
     logo: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=80&h=80&fit=facearea&facepad=2",
     role: "Marketing Analyst",
     period: "Mar 2021 - Nov 2021",
-    challenge: "Build brand presence and drive social growth in sports analytics niche.",
-    action: "Grew social, ran global market research, and managed digital campaigns.",
-    impact: "Achieved 13K+ followers, ran ads in 3 countries, delivered real-time dashboards.",
+    challenge: "Build brand presence and drive social growth in competitive sports analytics niche.",
+    action: "Grew social media presence, conducted global market research, and managed targeted digital campaigns.",
+    impact: "Achieved 13K+ followers, expanded to 3 international markets, delivered real-time dashboards.",
     metrics: [
       {
-        label: "Followers",
+        label: "Social Growth",
         value: "13K+",
-        highlight: true // strongest single highlight
+        highlight: true
       },
       {
-        label: "Markets",
-        value: "3+"
-        // no highlight
+        label: "Markets Entered",
+        value: "3"
+      },
+      {
+        label: "Campaigns Run",
+        value: "25+"
       }
     ]
   }
@@ -122,4 +120,5 @@ const PortfolioExperience = () => (
     </div>
   </section>
 );
+
 export default PortfolioExperience;
