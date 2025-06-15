@@ -46,7 +46,7 @@ const PortfolioSkills = () => (
       {skills.map((skill, idx) => (
         <div
           key={skill.group}
-          className="bg-white rounded-lg shadow p-5 md:p-7 group transition hover:shadow-lg border-b-4 border-transparent hover:border-accent animate-fade-in"
+          className="bg-white rounded-lg shadow p-5 md:p-7 group transition-all duration-300 hover:shadow-lg hover:-translate-y-1 border-b-4 border-transparent hover:border-accent animate-fade-in"
         >
           <div className="flex items-center gap-3 mb-2">
             <skill.icon size={26} className="text-accent group-hover:text-primary transition" />
