@@ -1,4 +1,3 @@
-
 import CaseStudyCard from "./CaseStudyCard";
 
 const experiences = [
@@ -13,8 +12,7 @@ const experiences = [
     metrics: [
       {
         label: "Users Impacted",
-        value: "200K+",
-        highlight: true
+        value: "200K+"
       },
       {
         label: "Revenue Lift",
@@ -37,8 +35,7 @@ const experiences = [
     metrics: [
       {
         label: "Monthly Savings",
-        value: "₹8L",
-        highlight: true
+        value: "₹8L"
       },
       {
         label: "Cost Reduction",
@@ -61,8 +58,7 @@ const experiences = [
     metrics: [
       {
         label: "Revenue Generated",
-        value: "₹50L+",
-        highlight: true
+        value: "₹50L+"
       },
       {
         label: "Click Rate ↑",
@@ -85,8 +81,7 @@ const experiences = [
     metrics: [
       {
         label: "Social Growth",
-        value: "13K+",
-        highlight: true
+        value: "13K+"
       },
       {
         label: "Markets Entered",
