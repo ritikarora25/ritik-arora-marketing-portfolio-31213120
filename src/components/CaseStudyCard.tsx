@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import { Button } from "./ui/button";
 
 interface Metric {
   label: string;
@@ -80,9 +81,17 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({
       </div>
       {/* Collapsible for Challenge, Action, Impact */}
       <Collapsible open={open} onOpenChange={setOpen}>
-        <CollapsibleTrigger className="flex items-center justify-center gap-1 text-primary font-medium cursor-pointer py-2 border-t bg-accent/10 hover:bg-accent/20 transition rounded-b-xl w-full text-sm select-none">
-          <span>{open ? "Hide details" : "View details"}</span>
-          {open ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+        <CollapsibleTrigger asChild>
+          <Button
+            type="button"
+            variant="secondary"
+            size="sm"
+            className="rounded-b-xl w-full flex items-center justify-center gap-2 font-medium py-2"
+            aria-expanded={open}
+          >
+            <span>{open ? "Hide details" : "View details"}</span>
+            {open ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+          </Button>
         </CollapsibleTrigger>
         <CollapsibleContent>
           <div className="px-6 pb-5 pt-2 grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
@@ -106,3 +115,4 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({
 };
 
 export default CaseStudyCard;
+
