@@ -56,7 +56,7 @@ const PortfolioSkills = () => (
             {skill.items.map((item) => (
               <span
                 key={item}
-                className="px-3 py-1 rounded-full bg-accent text-foreground text-sm font-medium border border-gray-200"
+                className="px-3 py-1 rounded-full text-foreground text-sm font-medium border border-gray-200"
               >
                 {item}
               </span>
