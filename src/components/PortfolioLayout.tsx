@@ -19,7 +19,7 @@ const PortfolioLayout = ({ children }: { children: React.ReactNode }) => {
     <div className="min-h-screen bg-background font-montserrat">
       {/* Sticky Navbar */}
       <header className="sticky top-0 z-50 bg-card bg-opacity-95 backdrop-blur shadow-sm border-b border-border">
-        <nav className="container mx-auto flex items-center justify-between py-2 px-2">
+        <nav className="container mx-auto flex items-center justify-between py-2">
           <span className="font-bold text-lg text-primary tracking-wider">Ritik Arora</span>
           
           {/* Desktop Nav */}
