@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { Button } from "./ui/button";
-import { getCompanyLogo } from "../data/companyLogos";
 
 interface Metric {
   label: string;
@@ -13,6 +12,7 @@ interface Metric {
 
 interface CaseStudyCardProps {
   company: string;
+  logo: string;
   role: string;
   period: string;
   challenge: string;
@@ -24,6 +24,7 @@ interface CaseStudyCardProps {
 
 const CaseStudyCard: React.FC<CaseStudyCardProps> = ({
   company,
+  logo,
   role,
   period,
   challenge,
@@ -35,7 +36,6 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({
   const [open, setOpen] = useState(false);
 
   const summary = metrics && metrics.length > 0 ? metrics.filter(m => m.highlight).map(m => `${m.value} ${m.label}`).join(", ") : impact;
-  const logo = getCompanyLogo(company);
 
   return (
     <div className="rounded-lg bg-white shadow-sm border border-gray-200 hover:shadow-md transition-all flex flex-col p-0">
