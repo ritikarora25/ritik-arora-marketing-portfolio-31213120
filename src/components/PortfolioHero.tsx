@@ -5,7 +5,7 @@ const PortfolioHero = () => <section className="w-full min-h-[68vh] container mx
       <img alt="Ritik Arora Headshot" className="w-full h-full object-cover" src="/lovable-uploads/b900e373-588f-4459-b950-6d8f999f7d94.jpg" />
     </div>
     <div className="flex-1 flex flex-col items-center md:items-start text-center md:text-left gap-4">
-      <h1 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-wide mb-2 leading-tight">
+      <h1 className="text-4xl md:text-5xl font-bold tracking-wide mb-2 leading-tight text-[#2b2e83]">
         Ritik Arora
       </h1>
       <h2 className="text-xl md:text-2xl font-medium text-gray-800 leading-snug mb-4">
