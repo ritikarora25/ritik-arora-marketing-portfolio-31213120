@@ -37,7 +37,7 @@ const MetricCounter: React.FC<MetricCounterProps> = ({
   }, [value, duration]);
 
   return (
-    <span className={`font-bold text-primary text-2xl md:text-4xl ${className}`}>
+    <span className={`font-bold text-accent text-2xl md:text-4xl ${className}`}>
       {prefix}
       {displayValue.toLocaleString()}
       {suffix}

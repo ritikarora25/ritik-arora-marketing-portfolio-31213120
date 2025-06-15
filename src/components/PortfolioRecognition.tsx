@@ -2,7 +2,7 @@
 const PortfolioRecognition = () => (
   <section id="recognition" className="container mx-auto my-12">
     <h2 className="text-2xl md:text-3xl font-bold text-primary mb-4">Recognition & Languages</h2>
-    <div className="bg-white rounded shadow p-6 flex flex-col md:flex-row gap-8 items-center">
+    <div className="bg-white rounded-lg shadow-md p-6 flex flex-col md:flex-row gap-8 items-center border-l-4 border-accent">
       <div className="flex-1">
         <div className="font-bold text-accent mb-1">🏆 Top Gun Award @1K Kirana Bazaar</div>
         <div className="mb-4 text-gray-700 text-base">
@@ -10,7 +10,7 @@ const PortfolioRecognition = () => (
         </div>
       </div>
       <div>
-        <div className="text-md font-semibold mb-1">Languages</div>
+        <div className="text-md font-semibold mb-1 text-primary">Languages</div>
         <ul className="space-y-1 text-gray-700">
           <li>English <span className="ml-2 text-accent">(Professional Working)</span></li>
           <li>Hindi <span className="ml-2 text-accent">(Professional Working)</span></li>

@@ -46,17 +46,17 @@ const PortfolioSkills = () => (
       {skills.map((skill, idx) => (
         <div
           key={skill.group}
-          className="bg-white rounded-lg shadow p-5 md:p-7 group transition-all duration-300 hover:shadow-lg hover:-translate-y-1 border-b-4 border-transparent hover:border-accent animate-fade-in"
+          className="bg-white rounded-lg shadow-md p-5 md:p-7 group transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-l-4 border-accent animate-fade-in"
         >
           <div className="flex items-center gap-3 mb-2">
-            <skill.icon size={26} className="text-accent group-hover:text-primary transition" />
-            <span className="font-semibold text-lg md:text-xl">{skill.group}</span>
+            <skill.icon size={26} className="text-accent group-hover:text-primary transition-colors" />
+            <span className="font-semibold text-lg md:text-xl text-primary">{skill.group}</span>
           </div>
           <div className="flex flex-wrap gap-2 mt-1">
             {skill.items.map((item) => (
               <span
                 key={item}
-                className="px-3 py-1 rounded-full bg-gray-100 group-hover:bg-accent/20 text-gray-700 group-hover:text-accent text-sm font-medium transition"
+                className="px-3 py-1 rounded-full bg-secondary text-primary group-hover:bg-accent/10 group-hover:text-accent text-sm font-medium transition-colors"
               >
                 {item}
               </span>
