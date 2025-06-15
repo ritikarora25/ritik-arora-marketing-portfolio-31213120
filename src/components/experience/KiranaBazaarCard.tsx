@@ -1,17 +1,13 @@
-
 import React, { useState } from "react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../ui/collapsible";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { Button } from "../ui/button";
-
 const KiranaBazaarCard = () => {
   const [open, setOpen] = useState(false);
-
-  return (
-    <div className="rounded-lg bg-white shadow-sm border border-gray-200 hover:shadow-md transition-all flex flex-col p-0">
+  return <div className="rounded-lg bg-white shadow-sm border border-gray-200 hover:shadow-md transition-all flex flex-col p-0">
       {/* Card Top: Logo & Company/Period */}
       <div className="flex items-center gap-4 px-6 pt-6 pb-3">
-        <img src="/lovable-uploads/76cb2b52-5979-4197-ad4c-b277558937f3.png" alt="1K Kirana Bazaar" className="w-12 h-12 object-contain rounded-full bg-white border-2 border-gray-200 shadow-sm" />
+        <img alt="1K Kirana Bazaar" className="w-12 h-12 object-contain rounded-full bg-white border-2 border-gray-200 shadow-sm" src="/lovable-uploads/46a93d58-d6ec-416e-8a1f-2a897eab80a3.png" />
         <div className="flex flex-col flex-1">
           <div className="font-semibold text-foreground text-lg">1K Kirana Bazaar</div>
           <div className="text-xs text-muted-foreground bg-accent px-2 py-1 rounded w-fit mt-1 border border-gray-200">Nov 2021 - Jan 2023</div>
@@ -41,13 +37,7 @@ const KiranaBazaarCard = () => {
       {/* Collapsible for Challenge, Action, Impact */}
       <Collapsible open={open} onOpenChange={setOpen}>
         <CollapsibleTrigger asChild>
-          <Button 
-            type="button" 
-            variant="secondary" 
-            size="sm" 
-            aria-expanded={open} 
-            className="rounded-b-lg w-full flex items-center justify-center gap-2 font-medium py-3 bg-accent hover:bg-gray-100 text-foreground border-t border-gray-200"
-          >
+          <Button type="button" variant="secondary" size="sm" aria-expanded={open} className="rounded-b-lg w-full flex items-center justify-center gap-2 font-medium py-3 bg-accent hover:bg-gray-100 text-foreground border-t border-gray-200">
             <span>{open ? "Hide details" : "View details"}</span>
             {open ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
           </Button>
@@ -69,8 +59,6 @@ const KiranaBazaarCard = () => {
           </div>
         </CollapsibleContent>
       </Collapsible>
-    </div>
-  );
+    </div>;
 };
-
 export default KiranaBazaarCard;
