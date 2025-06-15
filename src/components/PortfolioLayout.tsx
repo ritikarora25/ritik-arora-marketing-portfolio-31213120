@@ -15,9 +15,15 @@ const PortfolioLayout = ({ children }: { children: React.ReactNode }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-background font-montserrat animated-gradient-refined">
+    <div className="min-h-screen bg-white font-montserrat relative">
+      {/* Top left purple gradient */}
+      <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-purple-100/40 via-purple-50/20 to-transparent pointer-events-none z-0"></div>
+      
+      {/* Bottom right pink gradient */}
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-tl from-pink-100/40 via-pink-50/20 to-transparent pointer-events-none z-0"></div>
+
       {/* Sticky Navbar */}
-      <header className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
+      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b border-gray-200 shadow-sm">
         <nav className="container mx-auto flex items-center justify-between py-4">
           <span className="font-bold text-xl text-primary">Ritik Arora</span>
           
@@ -62,7 +68,7 @@ const PortfolioLayout = ({ children }: { children: React.ReactNode }) => {
           </div>
         )}
       </header>
-      <main>{children}</main>
+      <main className="relative z-10">{children}</main>
       <BackToTopButton />
     </div>
   );
