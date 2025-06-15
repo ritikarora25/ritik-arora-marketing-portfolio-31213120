@@ -1,5 +1,7 @@
 
-import React from "react";
+import React, { useState } from "react";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 interface Metric {
   label: string;
@@ -30,46 +32,75 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({
   metrics = [],
   primaryColor = "#2155CD",
 }) => {
+  const [open, setOpen] = useState(false);
+
+  // Compose summary - prioritize showing a primary impact metric
+  const summary =
+    metrics && metrics.length > 0
+      ? metrics
+          .filter((m) => m.highlight)
+          .map((m) => `${m.value} ${m.label}`)
+          .join(", ")
+      : impact;
+
   return (
-    <div className="rounded-xl overflow-hidden bg-white shadow-md hover:shadow-xl border hover:border-accent transition-all group flex flex-col p-0 md:flex-row">
-      <div className="flex flex-col items-center justify-center md:min-w-44 bg-accent/10 px-6 py-8 md:py-0 md:px-6">
-        <img src={logo} alt={company} className="w-16 h-16 object-contain rounded-full bg-white border shadow mb-3" />
-        <div className="font-semibold text-primary text-lg text-center">{company}</div>
-        <div className="text-xs text-accent bg-accent/20 px-2 py-1 rounded mt-1">{period}</div>
+    <div className="rounded-xl bg-white shadow-md border hover:shadow-lg transition-all flex flex-col p-0">
+      {/* Card Top: Logo & Company/Period */}
+      <div className="flex items-center gap-4 px-6 pt-5 pb-2">
+        <img
+          src={logo}
+          alt={company}
+          className="w-12 h-12 object-contain rounded-full bg-white border shadow"
+          style={{ borderColor: primaryColor }}
+        />
+        <div className="flex flex-col flex-1">
+          <div className="font-semibold text-primary text-lg">{company}</div>
+          <div className="text-xs text-accent bg-accent/20 px-2 py-0.5 rounded w-fit mt-1">{period}</div>
+        </div>
       </div>
-      <div className="flex-1 px-6 py-5 flex flex-col justify-between">
-        <div>
-          <div className="text-gray-700 font-semibold text-base mb-1">{role}</div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mb-2 text-sm">
+      {/* Card Content: Role & Key Metrics */}
+      <div className="px-6 pb-4 pt-2 flex flex-col">
+        <div className="text-gray-700 font-semibold text-base">{role}</div>
+        {metrics && metrics.length > 0 && (
+          <div className="flex flex-wrap gap-2 mt-2 mb-1">
+            {metrics.map((m, i) => (
+              <div
+                key={i}
+                className={`text-xs rounded bg-accent/10 px-3 py-1 font-medium whitespace-nowrap ${
+                  m.highlight ? "text-accent bg-accent/20 border-accent border" : "text-primary"
+                }`}
+              >
+                <span className="font-mono text-lg">{m.value}</span>&nbsp;{m.label}
+              </div>
+            ))}
+          </div>
+        )}
+        {/* One-line summary */}
+        <div className="mt-1 text-sm text-gray-600 italic">{summary}</div>
+      </div>
+      {/* Collapsible for Challenge, Action, Impact */}
+      <Collapsible open={open} onOpenChange={setOpen}>
+        <CollapsibleTrigger className="flex items-center justify-center gap-1 text-primary font-medium cursor-pointer py-2 border-t bg-accent/10 hover:bg-accent/20 transition rounded-b-xl w-full text-sm select-none">
+          <span>{open ? "Hide details" : "View details"}</span>
+          {open ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+        </CollapsibleTrigger>
+        <CollapsibleContent>
+          <div className="px-6 pb-5 pt-2 grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
             <div>
               <span className="font-bold text-primary block mb-1">Challenge</span>
-              <span>{challenge}</span>
+              <span className="text-gray-700">{challenge}</span>
             </div>
             <div>
               <span className="font-bold text-primary block mb-1">Action</span>
-              <span>{action}</span>
+              <span className="text-gray-700">{action}</span>
             </div>
             <div>
               <span className="font-bold text-primary block mb-1">Impact</span>
-              <span>{impact}</span>
+              <span className="text-gray-700">{impact}</span>
             </div>
           </div>
-          {metrics && metrics.length > 0 && (
-            <div className="flex flex-wrap gap-3 mt-2">
-              {metrics.map((m, i) => (
-                <div
-                  key={i}
-                  className={`text-base rounded bg-accent/20 px-3 py-2 font-medium ${
-                    m.highlight ? "text-accent bg-accent/10 border-accent border" : "text-primary"
-                  }`}
-                >
-                  <span className="font-mono text-lg">{m.value}</span>&nbsp;{m.label}
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
+        </CollapsibleContent>
+      </Collapsible>
     </div>
   );
 };
