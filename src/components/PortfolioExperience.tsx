@@ -1,9 +1,10 @@
+
 import CaseStudyCard from "./CaseStudyCard";
 
 const experiences = [
   {
     company: "ApnaKlub",
-    logo: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=80&h=80&fit=facearea&facepad=2",
+    logo: "/lovable-uploads/5aa112b4-58a4-450b-8778-44fde9a2f81e.png",
     role: "Product Marketing Specialist",
     period: "Feb 2024 - Dec 2024",
     challenge: "Drive engagement and monetization for 200K+ B2B users in fragmented FMCG market.",
@@ -26,7 +27,7 @@ const experiences = [
   },
   {
     company: "CARS24",
-    logo: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=80&h=80&fit=facearea&facepad=2",
+    logo: "/lovable-uploads/a517b5d5-75d9-4571-b44a-457509f77441.png",
     role: "Marketing Team Lead / CRM Lead",
     period: "Mar 2023 - Jan 2024",
     challenge: "Scale CRM efficiency and reduce spend for high-volume car seller operations.",
@@ -49,7 +50,7 @@ const experiences = [
   },
   {
     company: "1K Kirana Bazaar",
-    logo: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=80&h=80&fit=facearea&facepad=2",
+    logo: "/lovable-uploads/76cb2b52-5979-4197-ad4c-b277558937f3.png",
     role: "Marketing Associate",
     period: "Nov 2021 - Jan 2023",
     challenge: "Increase retention & monetize 150K+ users in offline-to-online retail transition.",
@@ -72,7 +73,7 @@ const experiences = [
   },
   {
     company: "Stupa Sport Analytics",
-    logo: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=80&h=80&fit=facearea&facepad=2",
+    logo: "/lovable-uploads/919858fd-80d2-4b1c-89d5-1f1009a787f9.png",
     role: "Marketing Analyst",
     period: "Mar 2021 - Nov 2021",
     challenge: "Build brand presence and drive social growth in competitive sports analytics niche.",
