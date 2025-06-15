@@ -7,7 +7,7 @@ import StupaSportCard from "./experience/StupaSportCard";
 const PortfolioExperience = () => (
   <section id="experience" className="container mx-auto my-12">
     <h2 className="text-2xl md:text-3xl font-bold text-primary mb-6">Experience</h2>
-    <div className="grid gap-8 md:grid-cols-2">
+    <div className="grid gap-8 md:grid-cols-2 items-stretch">
       <ApnaKlubCard />
       <Cars24Card />
       <KiranaBazaarCard />
