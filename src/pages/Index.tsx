@@ -6,7 +6,6 @@ import PortfolioSkills from "@/components/PortfolioSkills";
 import PortfolioExperience from "@/components/PortfolioExperience";
 import PortfolioAchievements from "@/components/PortfolioAchievements";
 import PortfolioEducation from "@/components/PortfolioEducation";
-import PortfolioRecognition from "@/components/PortfolioRecognition";
 import PortfolioContact from "@/components/PortfolioContact";
 
 const Index = () => {
@@ -18,7 +17,6 @@ const Index = () => {
       <PortfolioSkills />
       <PortfolioAchievements />
       <PortfolioEducation />
-      <PortfolioRecognition />
       <PortfolioContact />
     </PortfolioLayout>
   );
