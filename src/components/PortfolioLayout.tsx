@@ -16,7 +16,7 @@ const PortfolioLayout = ({ children }: { children: React.ReactNode }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-background font-montserrat">
+    <div className="min-h-screen bg-background font-montserrat animated-gradient-light">
       {/* Sticky Navbar */}
       <header className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
         <nav className="container mx-auto flex items-center justify-between py-4">

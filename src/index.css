@@ -115,10 +115,20 @@
     background-size: 400% 400%;
     animation: animatedBG 15s ease infinite;
   }
+  
+  .animated-gradient-light {
+    background: linear-gradient(-45deg, #f8f9ff, #f1f4ff, #eef2ff, #e6ebff);
+    background-size: 400% 400%;
+    animation: animatedBG 15s ease infinite;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .animated-gradient {
     background: linear-gradient(-45deg, #2B2E83, #3E43A8, #1C1C6B, #4C51BF);
+  }
+  
+  .animated-gradient-light {
+    background: linear-gradient(-45deg, #f8f9ff, #f1f4ff, #eef2ff, #e6ebff);
   }
 }
