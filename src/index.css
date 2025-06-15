@@ -102,54 +102,46 @@
   }
 }
 
-/* Animated Gradient Background - Darker and More Visible */
-@keyframes animatedBG {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+/* Corner Gradient Overlays */
+.gradient-purple-topleft {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 50%;
+  background: radial-gradient(ellipse at top left, rgba(168, 85, 247, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.gradient-pink-bottomright {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 50%;
+  height: 50%;
+  background: radial-gradient(ellipse at bottom right, rgba(236, 72, 153, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Subtle Background Animations (Optional) */
+@keyframes subtleFloat {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-2px); }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .animated-gradient-subtle {
-    background: linear-gradient(-45deg, #4C5A8C, #5C6B9A, #3A4780, #6B7AAD);
-    background-size: 400% 400%;
-    animation: animatedBG 20s ease infinite;
+  .gradient-purple-topleft {
+    animation: subtleFloat 20s ease-in-out infinite;
   }
   
-  .animated-gradient-refined {
-    background: linear-gradient(-45deg, #f8f9ff, #f3f5ff, #eef2ff, #e8ecff);
-    background-size: 400% 400%;
-    animation: animatedBG 20s ease infinite;
-  }
-  
-  /* Main dark gradient for entire page */
-  .animated-gradient {
-    background: linear-gradient(-45deg, #1a1f3a, #2B2E83, #1C1C6B, #3E43A8);
-    background-size: 400% 400%;
-    animation: animatedBG 15s ease infinite;
-  }
-  
-  .animated-gradient-light {
-    background: linear-gradient(-45deg, #f8f9ff, #f1f4ff, #eef2ff, #e6ebff);
-    background-size: 400% 400%;
-    animation: animatedBG 15s ease infinite;
+  .gradient-pink-bottomright {
+    animation: subtleFloat 25s ease-in-out infinite reverse;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .animated-gradient-subtle {
-    background: linear-gradient(-45deg, #4C5A8C, #5C6B9A, #3A4780, #6B7AAD);
-  }
-  
-  .animated-gradient-refined {
-    background: linear-gradient(-45deg, #f8f9ff, #f3f5ff, #eef2ff, #e8ecff);
-  }
-  
-  .animated-gradient {
-    background: linear-gradient(-45deg, #1a1f3a, #2B2E83, #1C1C6B, #3E43A8);
-  }
-  
-  .animated-gradient-light {
-    background: linear-gradient(-45deg, #f8f9ff, #f1f4ff, #eef2ff, #e6ebff);
+  .gradient-purple-topleft,
+  .gradient-pink-bottomright {
+    animation: none;
   }
 }
