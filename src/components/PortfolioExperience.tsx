@@ -1,6 +1,5 @@
 
 import CaseStudyCard from "./CaseStudyCard";
-import { getCompanyLogo } from "../data/companyLogos";
 
 const experiences = [
   {
@@ -101,7 +100,6 @@ const PortfolioExperience = () => (
         <CaseStudyCard
           key={exp.company}
           company={exp.company}
-          logo={getCompanyLogo(exp.company)}
           role={exp.role}
           period={exp.period}
           challenge={exp.challenge}
