@@ -41,22 +41,22 @@ const skills = [
 
 const PortfolioSkills = () => (
   <section id="skills" className="container mx-auto my-12">
-    <h2 className="text-2xl md:text-3xl font-bold text-primary mb-4">Core Skills & Expertise</h2>
+    <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">Core Skills & Expertise</h2>
     <div className="grid md:grid-cols-2 gap-8">
       {skills.map((skill, idx) => (
         <div
           key={skill.group}
-          className="bg-white rounded-lg shadow-md p-5 md:p-7 group transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-l-4 border-accent animate-fade-in"
+          className="bg-card rounded-lg shadow-md p-5 md:p-7 group transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-l-4 border-secondary animate-fade-in"
         >
           <div className="flex items-center gap-3 mb-2">
-            <skill.icon size={26} className="text-accent group-hover:text-primary transition-colors" />
-            <span className="font-semibold text-lg md:text-xl text-primary">{skill.group}</span>
+            <skill.icon size={26} className="text-secondary group-hover:text-primary transition-colors" />
+            <span className="font-semibold text-lg md:text-xl text-card-foreground">{skill.group}</span>
           </div>
           <div className="flex flex-wrap gap-2 mt-1">
             {skill.items.map((item) => (
               <span
                 key={item}
-                className="px-3 py-1 rounded-full bg-secondary text-primary group-hover:bg-accent/10 group-hover:text-accent text-sm font-medium transition-colors"
+                className="px-3 py-1 rounded-full bg-accent/20 text-accent-foreground group-hover:bg-secondary/20 group-hover:text-secondary text-sm font-medium transition-colors"
               >
                 {item}
               </span>

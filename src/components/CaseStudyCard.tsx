@@ -28,7 +28,7 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({
   action,
   impact,
   metrics = [],
-  primaryColor = "#2155CD"
+  primaryColor = "#0080FF"
 }) => {
   const [open, setOpen] = useState(false);
 
@@ -36,32 +36,28 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({
   const summary = metrics && metrics.length > 0 ? metrics.filter(m => m.highlight).map(m => `${m.value} ${m.label}`).join(", ") : impact;
 
   return (
-    <div className="rounded-xl bg-white shadow-md border hover:shadow-lg transition-all flex flex-col p-0">
+    <div className="rounded-xl bg-card shadow-md border border-border hover:shadow-lg transition-all flex flex-col p-0">
       {/* Card Top: Logo & Company/Period */}
       <div className="flex items-center gap-4 px-6 pt-5 pb-2">
-        <img src={logo} alt={company} className="w-12 h-12 object-contain rounded-full bg-white border shadow" style={{
+        <img src={logo} alt={company} className="w-12 h-12 object-contain rounded-full bg-card border shadow" style={{
         borderColor: primaryColor
       }} />
         <div className="flex flex-col flex-1">
-          <div className="font-semibold text-primary text-lg">{company}</div>
-          <div className="text-xs text-accent bg-accent/20 px-2 py-0.5 rounded w-fit mt-1">{period}</div>
+          <div className="font-semibold text-card-foreground text-lg">{company}</div>
+          <div className="text-xs text-secondary bg-secondary/20 px-2 py-0.5 rounded w-fit mt-1">{period}</div>
         </div>
       </div>
       {/* Card Content: Role & Key Metrics */}
       <div className="px-6 pb-4 pt-2 flex flex-col">
-        <div className="text-gray-700 font-semibold text-base">{role}</div>
+        <div className="text-card-foreground font-semibold text-base">{role}</div>
         {metrics && metrics.length > 0 && (
           <div className="flex flex-wrap gap-2 mt-2 mb-1">
             {metrics.map((m, i) => (
               <div
                 key={i}
-                className={
-                  m.highlight
-                    ? "text-xs rounded-lg border-2 border-accent bg-accent/10 px-4 py-2 font-bold text-accent flex items-center justify-center min-w-[120px] shadow-sm transition-all"
-                    : "text-xs rounded bg-accent/10 px-3 py-1 font-medium text-primary whitespace-nowrap"
-                }
+                className="text-xs rounded bg-accent/20 px-3 py-1 font-medium text-accent-foreground whitespace-nowrap"
               >
-                <span className={m.highlight ? "font-mono text-xl font-extrabold mr-1" : "font-mono text-lg"}>
+                <span className="font-mono text-lg mr-1">
                   {m.value}
                 </span>
                 {m.label}
@@ -70,7 +66,7 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({
           </div>
         )}
         {/* One-line summary */}
-        <div className="mt-1 text-sm text-gray-600 italic">{summary}</div>
+        <div className="mt-1 text-sm text-muted-foreground italic">{summary}</div>
       </div>
       {/* Collapsible for Challenge, Action, Impact */}
       <Collapsible open={open} onOpenChange={setOpen}>
@@ -84,15 +80,15 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({
           <div className="px-6 pb-5 pt-2 grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
             <div>
               <span className="font-bold text-primary block mb-1">Challenge</span>
-              <span className="text-gray-700">{challenge}</span>
+              <span className="text-card-foreground">{challenge}</span>
             </div>
             <div>
               <span className="font-bold text-primary block mb-1">Action</span>
-              <span className="text-gray-700">{action}</span>
+              <span className="text-card-foreground">{action}</span>
             </div>
             <div>
               <span className="font-bold text-primary block mb-1">Impact</span>
-              <span className="text-gray-700">{impact}</span>
+              <span className="text-card-foreground">{impact}</span>
             </div>
           </div>
         </CollapsibleContent>
