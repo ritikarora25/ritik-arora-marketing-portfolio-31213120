@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Menu, X } from "lucide-react";
 import BackToTopButton from "./BackToTopButton";
@@ -15,12 +16,12 @@ const PortfolioLayout = ({ children }: { children: React.ReactNode }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-white font-montserrat relative">
+    <div className="min-h-screen bg-white font-montserrat relative overflow-x-hidden">
       {/* Top left purple gradient */}
-      <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-purple-100/40 via-purple-50/20 to-transparent pointer-events-none z-0"></div>
+      <div className="pointer-events-none z-0 absolute top-0 left-0 w-[430px] h-[410px] bg-gradient-to-br from-purple-300/80 via-purple-200/70 to-transparent" style={{filter: "blur(2px)"}}></div>
       
       {/* Bottom right pink gradient */}
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-tl from-pink-100/40 via-pink-50/20 to-transparent pointer-events-none z-0"></div>
+      <div className="pointer-events-none z-0 absolute bottom-0 right-0 w-[460px] h-[430px] bg-gradient-to-tl from-pink-200/70 via-pink-100/60 to-transparent" style={{filter: "blur(2px)"}}></div>
 
       {/* Sticky Navbar */}
       <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b border-gray-200 shadow-sm">
