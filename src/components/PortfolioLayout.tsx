@@ -16,13 +16,7 @@ const PortfolioLayout = ({ children }: { children: React.ReactNode }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-white font-montserrat relative overflow-x-hidden">
-      {/* Top left purple gradient */}
-      <div className="pointer-events-none z-0 absolute top-0 left-0 w-[430px] h-[410px] bg-gradient-to-br from-purple-300/80 via-purple-200/70 to-transparent" style={{filter: "blur(2px)"}}></div>
-      
-      {/* Bottom right pink gradient */}
-      <div className="pointer-events-none z-0 absolute bottom-0 right-0 w-[460px] h-[430px] bg-gradient-to-tl from-pink-200/70 via-pink-100/60 to-transparent" style={{filter: "blur(2px)"}}></div>
-
+    <div className="min-h-screen bg-white font-montserrat relative">
       {/* Sticky Navbar */}
       <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b border-gray-200 shadow-sm">
         <nav className="container mx-auto flex items-center justify-between py-4">
