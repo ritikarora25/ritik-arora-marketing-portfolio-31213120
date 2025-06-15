@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { toast } from "@/hooks/use-toast";
 import { Linkedin } from "lucide-react";
@@ -88,10 +87,10 @@ const PortfolioContact = () => {
           <div className="font-semibold text-gray-700 mb-2">Or reach out directly:</div>
           <div className="flex flex-col gap-2">
             <span className="flex items-center gap-2 text-gray-500"><strong>Email:</strong>
-              <a href="mailto:ritikchuchra1@gmail.com" className="text-secondary hover:underline">ritikchuchra1@gmail.com</a>
+              <a href="mailto:ritikchuchra1@gmail.com" className="text-accent hover:underline">ritikchuchra1@gmail.com</a>
             </span>
             <span className="flex items-center gap-2 text-gray-500"><strong>Phone:</strong>
-              <a href="tel:+918685026736" className="text-secondary hover:underline">+91-8685026736</a>
+              <a href="tel:+918685026736" className="text-accent hover:underline">+91-8685026736</a>
             </span>
             <span className="flex items-center gap-2 text-gray-500"><strong>LinkedIn:</strong>
               <a href="www.linkedin.com/in/ritikarora25" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-primary hover:text-accent transition">
