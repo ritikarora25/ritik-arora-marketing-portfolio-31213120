@@ -93,7 +93,7 @@ const PortfolioContact = () => {
               <a href="tel:+918685026736" className="text-accent hover:underline">+91-8685026736</a>
             </span>
             <span className="flex items-center gap-2 text-gray-500"><strong>LinkedIn:</strong>
-              <a href="www.linkedin.com/in/ritikarora25" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-primary hover:text-accent transition">
+              <a href="https://www.linkedin.com/in/ritikarora25" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-primary hover:text-accent transition">
                 <Linkedin size={18} />/ritikarora25
               </a>
             </span>
