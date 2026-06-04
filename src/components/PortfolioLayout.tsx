@@ -44,7 +44,7 @@ const PortfolioLayout = ({ children }: { children: React.ReactNode }) => {
 
           {/* Mobile Nav Toggle */}
           <div className="md:hidden">
-            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-gray-900">
+            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-gray-900" aria-label="Toggle navigation menu">
               {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>

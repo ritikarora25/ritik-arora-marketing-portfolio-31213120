@@ -45,6 +45,7 @@ const PortfolioContact = () => {
               type="text"
               name="name"
               placeholder="Your Name"
+              aria-label="Your Name"
               className={`w-full rounded px-4 py-2 border ${errors.name ? "border-red-400" : "border-gray-300"} focus:outline-accent transition`}
               value={data.name}
               onChange={onChange}
@@ -57,6 +58,7 @@ const PortfolioContact = () => {
               type="email"
               name="email"
               placeholder="Your Email"
+              aria-label="Your Email"
               className={`w-full rounded px-4 py-2 border ${errors.email ? "border-red-400" : "border-gray-300"} focus:outline-accent transition`}
               value={data.email}
               onChange={onChange}
@@ -68,6 +70,7 @@ const PortfolioContact = () => {
             <textarea
               name="message"
               placeholder="Your Message"
+              aria-label="Your Message"
               className={`w-full rounded px-4 py-2 border ${errors.message ? "border-red-400" : "border-gray-300"} focus:outline-accent transition`}
               value={data.message}
               rows={5}

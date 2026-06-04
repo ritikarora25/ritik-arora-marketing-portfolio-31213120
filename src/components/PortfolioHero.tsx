@@ -6,7 +6,7 @@ const PortfolioHero = () => <section className="w-full min-h-[68vh] container mx
     </div>
     <div className="flex-1 flex flex-col items-center md:items-start text-center md:text-left gap-4">
       <h1 className="text-4xl md:text-5xl font-bold tracking-wide mb-2 leading-tight text-[#2b2e83]">
-        Ritik Arora
+        Ritik Arora — Growth Marketer & CRM Specialist
       </h1>
       <h2 className="text-xl md:text-2xl font-medium text-gray-800 leading-snug mb-4">
         Growth Marketer<span className="font-normal text-gray-600"> | CRM, Product Marketing &amp; CLM Specialist</span>
