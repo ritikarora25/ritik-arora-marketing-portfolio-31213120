@@ -12,3 +12,5 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+Sitemap: https://ritik-marketing-portfolio.lovable.app/sitemap.xml
