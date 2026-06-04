@@ -13,6 +13,10 @@ const Index = () => {
     <>
       <Helmet>
         <link rel="canonical" href="https://ritik-arora-marketing-portfolio.lovable.app/" />
+        <meta property="og:title" content="Ritik Arora | Growth Marketer & CRM Specialist" />
+        <meta property="og:description" content="Portfolio showcasing CRM, product marketing, and customer lifecycle strategy work driving measurable growth." />
+        <meta property="og:type" content="profile" />
+        <meta property="og:url" content="https://ritik-arora-marketing-portfolio.lovable.app/" />
       </Helmet>
       <PortfolioLayout>
         <PortfolioHero />
