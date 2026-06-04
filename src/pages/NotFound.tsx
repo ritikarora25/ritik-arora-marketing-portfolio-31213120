@@ -19,6 +19,10 @@ const NotFound = () => {
       <Helmet>
         <title>Page Not Found | Ritik Arora</title>
         <meta name="description" content="The page you requested could not be found. Explore Ritik Arora's portfolio for growth marketing and CRM expertise." />
+        <meta property="og:title" content="Page Not Found | Ritik Arora" />
+        <meta property="og:description" content="This page doesn't exist. Head back to Ritik Arora's portfolio homepage." />
+        <meta property="og:type" content="website" />
+        <meta name="robots" content="noindex" />
         <link rel="canonical" href={canonical} />
       </Helmet>
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
