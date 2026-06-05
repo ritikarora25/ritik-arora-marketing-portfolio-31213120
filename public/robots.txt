@@ -13,4 +13,4 @@ Allow: /
 User-agent: *
 Allow: /
 
-Sitemap: https://ritik-marketing-portfolio.lovable.app/sitemap.xml
+Sitemap: https://ritik-arora-marketing-portfolio.lovable.app/sitemap.xml

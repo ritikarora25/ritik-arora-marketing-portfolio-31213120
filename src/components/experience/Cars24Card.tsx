@@ -12,7 +12,7 @@ const Cars24Card = () => {
       {/* Card Top: Logo & Company/Period */}
       <div className="flex items-center gap-4 px-6 pt-6 pb-3">
         <img 
-          alt="CARS24" 
+          alt="CARS24 company logo" 
           className="w-12 h-12 object-contain rounded-full bg-white border-2 border-gray-200 shadow-sm" 
           src="/lovable-uploads/04ea1105-3c28-4412-bb00-10ab6de08841.png" 
         />

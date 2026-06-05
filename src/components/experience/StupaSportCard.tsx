@@ -12,7 +12,7 @@ const StupaSportCard = () => {
       {/* Card Top: Logo & Company/Period */}
       <div className="flex items-center gap-4 px-6 pt-6 pb-3">
         <img 
-          alt="Stupa Sport Analytics" 
+          alt="Stupa Sport Analytics company logo" 
           className="w-12 h-12 object-contain rounded-full bg-white border-2 border-gray-200 shadow-sm" 
           src="/lovable-uploads/c30a59bf-ac74-4f15-97cf-b5cff06438cb.png" 
         />
