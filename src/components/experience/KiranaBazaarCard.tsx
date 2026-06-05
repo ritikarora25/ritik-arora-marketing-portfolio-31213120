@@ -12,7 +12,7 @@ const KiranaBazaarCard = () => {
       {/* Card Top: Logo & Company/Period */}
       <div className="flex items-center gap-4 px-6 pt-6 pb-3">
         <img 
-          alt="1K Kirana Bazaar" 
+          alt="1K Kirana Bazaar company logo" 
           className="w-12 h-12 object-contain rounded-full bg-white border-2 border-gray-200 shadow-sm" 
           src="/lovable-uploads/46a93d58-d6ec-416e-8a1f-2a897eab80a3.png" 
         />

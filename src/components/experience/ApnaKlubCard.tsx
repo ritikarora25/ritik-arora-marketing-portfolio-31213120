@@ -12,7 +12,7 @@ const ApnaKlubCard = () => {
       {/* Card Top: Logo & Company/Period */}
       <div className="flex items-center gap-4 px-6 pt-6 pb-3">
         <img 
-          alt="ApnaKlub" 
+          alt="ApnaKlub company logo" 
           className="w-12 h-12 object-contain rounded-full bg-white border-2 border-gray-200 shadow-sm" 
           src="/lovable-uploads/e13a6cc9-f71f-4aac-94aa-6feb74b2055c.png" 
         />
