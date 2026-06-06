@@ -12,9 +12,8 @@ const Index = () => {
   return (
     <>
       <Helmet>
-        <link rel="canonical" href="https://ritik-arora-marketing-portfolio.lovable.app/" />
-        <meta property="og:title" content="Ritik Arora | Growth Marketer & CRM Specialist" />
-        <meta property="og:description" content="Portfolio showcasing CRM, product marketing, and customer lifecycle strategy work driving measurable growth." />
+        <meta property="og:title" content="Ritik Arora | Growth Marketing, CRM & Customer Lifecycle Management" />
+        <meta property="og:description" content="Growth & Retention Marketer with 4+ years of experience in CRM, customer lifecycle management, customer engagement, retention marketing, and data driven growth across fintech, e-commerce, and retail." />
         <meta property="og:type" content="profile" />
         <meta property="og:url" content="https://ritik-arora-marketing-portfolio.lovable.app/" />
       </Helmet>
