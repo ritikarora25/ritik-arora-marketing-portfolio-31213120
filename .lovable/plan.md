@@ -1,26 +1,20 @@
-# Optimize hero image delivery
+Update the existing JSON-LD in `index.html` only.
 
-## Goal
-Reduce hero image payload without any visible change. Source is 800×800 JPEG (144 KB) but displayed at max 224×224 CSS px. Serve a properly sized WebP with a JPEG fallback.
+1. Add `hasOccupation` array inside the `Person` object with four `Occupation` entries:
+   - Product Marketing Specialist
+   - Marketing Team Lead CRM
+   - Marketing Associate
+   - Marketing Analyst
 
-## Steps
+2. Add `worksFor` array inside the `Person` object with four `Organization` entries:
+   - ApnaKlub
+   - CARS24
+   - 1K Kirana Bazaar
+   - Stupa Sport Analytics
 
-1. **Generate optimized assets** (via `nix run nixpkgs#libwebp` / Pillow):
-   - `public/lovable-uploads/b900e373-588f-4459-b950-6d8f999f7d94-448.webp` — 448×448 (2x DPR), quality ~85
-   - `public/lovable-uploads/b900e373-588f-4459-b950-6d8f999f7d94-448.jpg` — 448×448 JPEG fallback, quality ~85
-   - Keep the original 800×800 JPEG file in place (still referenced by OG/Twitter/JSON-LD social tags where larger is fine).
+3. Add `alumniOf` array inside the `Person` object with one `EducationalOrganization` entry:
+   - Chaudhary Devi Lal University
 
-2. **Update `src/components/PortfolioHero.tsx`**:
-   - Replace the bare `<img>` with `<picture>` containing a WebP `<source>` and an `<img>` JPEG fallback.
-   - Keep existing classes, alt text, `width={224}`, `height={224}`, `fetchPriority="high"`, `decoding="async"`.
-   - No layout, sizing, or styling changes.
+4. Keep the existing `ProfilePage` wrapper and all other properties intact.
 
-3. **Update `index.html` preload**:
-   - Change `<link rel="preload" as="image" href="...b900e373...jpg">` to point at the new 448 WebP with `type="image/webp"` so the LCP image is preloaded in the format actually used.
-   - Leave OG/Twitter image tags untouched (still reference the original JPEG; social scrapers prefer JPEG).
-
-## Out of scope
-No design, layout, dimensions, JSON-LD, sitemap, or SEO copy changes.
-
-## Verification
-Confirm new file sizes (<50 KB expected for 448 WebP), `bun run build` succeeds, hero renders identically in preview.
+5. Validate JSON-LD syntax. No other files modified.
