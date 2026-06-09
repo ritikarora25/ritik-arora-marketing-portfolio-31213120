@@ -1,17 +1,22 @@
-## Plan: Add Google Analytics 4
+## Objective
+Optimize background SEO metadata in `index.html` and heading structure in `PortfolioHero.tsx` to target keywords "Ritik Arora", "Marketing", and "Marketing Portfolio", with absolutely zero visual UI changes.
 
-### What to do
-Insert the standard GA4 tracking snippet (`gtag.js`) into `index.html` inside the `<head>` section, just before the closing `</head>` tag.
+## Changes
 
-### Measurement ID
-`G-BT03QGN43K`
+### 1. index.html — Title & Meta Description
+- Update `<title>` to exactly: `Ritik Arora | Marketing Portfolio`
+- Update `<meta name="description">` to exactly: `Explore the professional Marketing Portfolio of Ritik Arora, specializing in growth, retention marketing, and lifecycle strategies.`
+- No other index.html changes (OG tags, JSON-LD, GA4, fonts, preloads remain untouched).
 
-### Where it goes
-`index.html`, inside `<head>`, after the existing JSON-LD schema script and before `</head>`.
+### 2. PortfolioHero.tsx — Semantic H1 Structure
+- The current `<h1>` reads: `Ritik Arora — Growth Marketer & CRM Specialist`
+- Restructure so that only the text `Ritik Arora` lives inside the `<h1>` tag.
+- Move ` — Growth Marketer & CRM Specialist` into a sibling `<span>` (or `<p>`) element that carries the **exact same Tailwind classes** (`text-4xl md:text-5xl font-bold tracking-wide mb-2 leading-tight text-[#2b2e83]`).
+- This keeps visual size, color, placement, and appearance pixel-identical to the current state, while giving crawlers a clean, keyword-focused `<h1>`.
 
-### What the snippet looks like
-Two tags: an async script load of `https://www.googletagmanager.com/gtag/js?id=G-BT03QGN43K`, followed by an inline script that calls `gtag('config', 'G-BT03QGN43K')`.
+### 3. Verification
+- After edits, preview the site to confirm the hero heading looks completely unchanged.
+- Once verified, publish the update to make it live.
 
-### No other changes
-- No UI, styling, content, or functionality changes.
-- No additional events or custom dimensions configured at this stage.
+## Zero UI Impact Guarantee
+All changes are strictly inside `<head>` tags or semantic HTML wrappers with identical CSS classes. No colors, spacing, fonts, layout, or animations will be modified.
