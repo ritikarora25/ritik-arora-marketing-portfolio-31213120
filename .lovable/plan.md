@@ -1,20 +1,17 @@
-Update the existing JSON-LD in `index.html` only.
+## Plan: Add Google Analytics 4
 
-1. Add `hasOccupation` array inside the `Person` object with four `Occupation` entries:
-   - Product Marketing Specialist
-   - Marketing Team Lead CRM
-   - Marketing Associate
-   - Marketing Analyst
+### What to do
+Insert the standard GA4 tracking snippet (`gtag.js`) into `index.html` inside the `<head>` section, just before the closing `</head>` tag.
 
-2. Add `worksFor` array inside the `Person` object with four `Organization` entries:
-   - ApnaKlub
-   - CARS24
-   - 1K Kirana Bazaar
-   - Stupa Sport Analytics
+### Measurement ID
+`G-BT03QGN43K`
 
-3. Add `alumniOf` array inside the `Person` object with one `EducationalOrganization` entry:
-   - Chaudhary Devi Lal University
+### Where it goes
+`index.html`, inside `<head>`, after the existing JSON-LD schema script and before `</head>`.
 
-4. Keep the existing `ProfilePage` wrapper and all other properties intact.
+### What the snippet looks like
+Two tags: an async script load of `https://www.googletagmanager.com/gtag/js?id=G-BT03QGN43K`, followed by an inline script that calls `gtag('config', 'G-BT03QGN43K')`.
 
-5. Validate JSON-LD syntax. No other files modified.
+### No other changes
+- No UI, styling, content, or functionality changes.
+- No additional events or custom dimensions configured at this stage.
