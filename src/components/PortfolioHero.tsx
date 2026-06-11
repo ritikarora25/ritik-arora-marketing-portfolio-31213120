@@ -26,6 +26,10 @@ const PortfolioHero = () => <section className="w-full min-h-[68vh] container mx
           <Linkedin size={18} />
           LinkedIn
         </a>
+        <a href="https://people.bayt.com/ritikarora25" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-gray-700 hover:text-primary hover:underline transition">
+          <ExternalLink size={18} />
+          Bayt
+        </a>
       </div>
       <div className="flex gap-4 justify-center md:justify-start mt-4">
         <ResumeButton />
