@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { toast } from "@/hooks/use-toast";
-import { Linkedin } from "lucide-react";
+import { Linkedin, ExternalLink } from "lucide-react";
 
 const PortfolioContact = () => {
   const [data, setData] = useState({ name: "", email: "", message: "" });
