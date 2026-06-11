@@ -1,4 +1,4 @@
-import { Linkedin } from "lucide-react";
+import { Linkedin, ExternalLink } from "lucide-react";
 import ResumeButton from "./ResumeButton";
 const PortfolioHero = () => <section className="w-full min-h-[68vh] container mx-auto flex flex-col md:flex-row md:items-center gap-12 py-16 relative animate-fade-in" id="hero">
     <div className="flex-shrink-0 w-40 h-40 md:w-56 md:h-56 rounded-full overflow-hidden bg-muted border-2 border-gray-200 shadow-lg mx-auto md:mx-0 relative z-10">
@@ -25,6 +25,10 @@ const PortfolioHero = () => <section className="w-full min-h-[68vh] container mx
         <a href="https://www.linkedin.com/in/ritikarora25" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-gray-700 hover:text-primary hover:underline transition">
           <Linkedin size={18} />
           LinkedIn
+        </a>
+        <a href="https://people.bayt.com/ritikarora25" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-gray-700 hover:text-primary hover:underline transition">
+          <ExternalLink size={18} />
+          Bayt
         </a>
       </div>
       <div className="flex gap-4 justify-center md:justify-start mt-4">

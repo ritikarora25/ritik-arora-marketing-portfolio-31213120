@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { toast } from "@/hooks/use-toast";
-import { Linkedin } from "lucide-react";
+import { Linkedin, ExternalLink } from "lucide-react";
 
 const PortfolioContact = () => {
   const [data, setData] = useState({ name: "", email: "", message: "" });
@@ -98,6 +98,11 @@ const PortfolioContact = () => {
             <span className="flex items-center gap-2 text-gray-500"><strong>LinkedIn:</strong>
               <a href="https://www.linkedin.com/in/ritikarora25" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-primary hover:text-accent transition">
                 <Linkedin size={18} />/ritikarora25
+              </a>
+            </span>
+            <span className="flex items-center gap-2 text-gray-500"><strong>Bayt:</strong>
+              <a href="https://people.bayt.com/ritikarora25" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-primary hover:text-accent transition">
+                <ExternalLink size={18} />/ritikarora25
               </a>
             </span>
           </div>
