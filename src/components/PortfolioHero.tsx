@@ -22,7 +22,7 @@ const PortfolioHero = () => <section className="w-full min-h-[68vh] container mx
         <a href="mailto:ritikchuchra1@gmail.com" className="text-gray-700 hover:text-primary hover:underline font-medium">
           ritikchuchra1@gmail.com
         </a>
-        <a href="https://www.linkedin.com/in/ritikarora25" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-gray-700 hover:text-primary hover:underline transition">
+        <a href="https://www.linkedin.com/in/ritikarora25/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-gray-700 hover:text-primary hover:underline transition">
           <Linkedin size={18} />
           LinkedIn
         </a>

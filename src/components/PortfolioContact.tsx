@@ -23,7 +23,7 @@ const PortfolioContact = () => {
             <span>+91-8685026736</span>
           </a>
           <a
-            href="https://www.linkedin.com/in/ritikarora25"
+            href="https://www.linkedin.com/in/ritikarora25/"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-3 text-gray-700 hover:text-accent transition"
