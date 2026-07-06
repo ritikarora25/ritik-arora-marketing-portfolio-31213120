@@ -1,30 +1,40 @@
-## Goal
-Eliminate the render-blocking Google Fonts request (~66 ms + extra round-trip to fonts.gstatic.com) by self-hosting Poppins WOFF2 files. No UI changes.
+## 1. Bayt — hide from UI, keep in SEO metadata only
 
-## Steps
+**`src/components/PortfolioHero.tsx`**
+- Remove the Bayt `<a>` link (lines ~29-32).
+- Remove `ExternalLink` from the `lucide-react` import (LinkedIn stays).
 
-1. **Download Poppins WOFF2 files** (weights 400, 600, 700, latin subset only) from the Google Fonts CDN into a temp dir.
+**`src/components/PortfolioContact.tsx`**
+- Remove the Bayt `<span>` block (lines ~103-107).
+- (After the form removal in step 2, this file will change more — see below.)
 
-2. **Upload via lovable-assets CLI** to get CDN-hosted URLs:
-   - `poppins-400.woff2`
-   - `poppins-600.woff2`
-   - `poppins-700.woff2`
-   Write the three `.asset.json` pointers under `src/assets/fonts/`.
+**`index.html`** — JSON-LD `sameAs` array
+- Add `"https://people.bayt.com/ritikarora25"` alongside the existing Peerlist / GitHub / Medium / TheOrg entries. This is the same invisible "profile link" pattern the user referenced. Search engines and LLM crawlers will pick it up; nothing renders on the page.
 
-3. **Add `@font-face` declarations** at the top of `src/index.css`, each referencing the CDN URL from the asset pointer, with `font-display: swap` and `unicode-range` for latin to match Google's behavior.
+## 2. Contact section — remove form, keep compact vertical contact list
 
-4. **Update `index.html`**:
-   - Remove the `<link rel="stylesheet" href="https://fonts.googleapis.com/css2?...Poppins...">` tag.
-   - Remove the two `<link rel="preconnect">` tags for `fonts.googleapis.com` and `fonts.gstatic.com` (no longer needed).
-   - Add `<link rel="preload" as="font" type="font/woff2" href="<cdn-url-for-poppins-400>" crossorigin>` for the most critical weight (400) to prioritize LCP text.
+Replace the current two-column layout (form + sidebar) in `src/components/PortfolioContact.tsx` with a single compact block:
 
-5. **Verify**:
-   - Visual: hero/body text still renders in Poppins, identical to current.
-   - Network: no requests to `fonts.googleapis.com` or `fonts.gstatic.com`.
-   - Build succeeds.
+- Drop the entire `<form>` (name / email / message / submit), all validation state, `useState`, `toast` import, and the `handleSubmit` / `validate` / `onChange` handlers.
+- Drop the "Or reach out directly:" wrapper heading and the flex-row layout.
+- Render a **vertical list** with three items only:
+  - Email → `ritikchuchra1@gmail.com` (mailto:)
+  - Phone → `+91-8685026736` (tel:)
+  - LinkedIn → `/ritikarora25` (with `Linkedin` icon, opens in new tab)
+- Each row: icon + label + value, stacked vertically (`flex flex-col gap-3`), left-aligned, tighter vertical padding on the section so it takes noticeably less space than today.
+- Keep the section id `#contact` and the `<h2>Contact</h2>` heading so the nav anchor still works.
+- Answers user Q2: today the form does nothing — it just shows a toast and discards input. Removing it is the cleanest fix and matches the "reduce space" request.
 
-## Technical notes
-- Tailwind config (`fontFamily.sans: ['Poppins', 'sans-serif']`) stays unchanged — `@font-face` registers the family name globally.
-- Only latin subset is shipped (site is English-only) → smaller payload than Google's multi-subset CSS.
-- `font-display: swap` preserves the current behavior where text appears immediately and swaps when the font loads, so no FOIT/layout shift regression.
-- Files affected: `index.html`, `src/index.css`, new `src/assets/fonts/*.asset.json` pointers.
+## 3. Verification
+
+After changes:
+- Confirm build passes (auto-run).
+- Visually verify Hero no longer shows Bayt; Contact shows only email/phone/LinkedIn in a vertical stack; nav "Contact" link still jumps to the section.
+- View page source to confirm Bayt URL is present in JSON-LD.
+
+## Files touched
+- `src/components/PortfolioHero.tsx` — remove Bayt link
+- `src/components/PortfolioContact.tsx` — remove form + Bayt row, rebuild as vertical contact list
+- `index.html` — add Bayt to JSON-LD `sameAs`
+
+No changes to routes, styling tokens, fonts, or backend.
