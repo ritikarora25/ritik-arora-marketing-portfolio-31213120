@@ -28,15 +28,15 @@ const ApnaKlubCard = () => {
         <div className="text-foreground font-semibold text-base mb-3 min-h-[1.5rem]">Product Marketing Specialist</div>
         <div className="flex flex-wrap gap-2 mb-3">
           <div className="text-xs font-medium text-foreground whitespace-nowrap">
-            <span className="font-mono text-sm font-semibold mr-1 text-primary">200K+</span>
+            <CountUp value="200K+" className="font-mono text-sm font-semibold mr-1 text-primary" />
             Users Impacted
           </div>
           <div className="text-xs font-medium text-foreground whitespace-nowrap">
-            <span className="font-mono text-sm font-semibold mr-1 text-primary">5%</span>
+            <CountUp value="5%" className="font-mono text-sm font-semibold mr-1 text-primary" />
             Revenue Lift
           </div>
           <div className="text-xs font-medium text-foreground whitespace-nowrap">
-            <span className="font-mono text-sm font-semibold mr-1 text-primary">5-7%</span>
+            <CountUp value="5-7%" className="font-mono text-sm font-semibold mr-1 text-primary" />
             Order Rate ↑
           </div>
         </div>
