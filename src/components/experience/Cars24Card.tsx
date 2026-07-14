@@ -28,15 +28,15 @@ const Cars24Card = () => {
         <div className="text-foreground font-semibold text-base mb-3 min-h-[1.5rem]">Marketing Team Lead / CRM Lead</div>
         <div className="flex flex-wrap gap-2 mb-3">
           <div className="text-xs font-medium text-foreground whitespace-nowrap">
-            <span className="font-mono text-sm font-semibold mr-1 text-primary">₹8L</span>
+            <CountUp value="₹8L" className="font-mono text-sm font-semibold mr-1 text-primary" />
             Monthly Savings
           </div>
           <div className="text-xs font-medium text-foreground whitespace-nowrap">
-            <span className="font-mono text-sm font-semibold mr-1 text-primary">20%</span>
+            <CountUp value="20%" className="font-mono text-sm font-semibold mr-1 text-primary" />
             Cost Reduction
           </div>
           <div className="text-xs font-medium text-foreground whitespace-nowrap">
-            <span className="font-mono text-sm font-semibold mr-1 text-primary">5+</span>
+            <CountUp value="5+" className="font-mono text-sm font-semibold mr-1 text-primary" />
             Channels Managed
           </div>
         </div>
