@@ -3,12 +3,13 @@ import React, { useState } from "react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../ui/collapsible";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { Button } from "../ui/button";
+import CountUp from "../CountUp";
 
 const Cars24Card = () => {
   const [open, setOpen] = useState(false);
   
   return (
-    <div className="rounded-lg bg-white shadow-sm border border-gray-200 hover:shadow-md transition-all flex flex-col p-0 h-full">
+    <div className="rounded-lg bg-white shadow-sm border border-gray-200 hover:shadow-md hover:-translate-y-1 transition-all duration-300 flex flex-col p-0 h-full">
       {/* Card Top: Logo & Company/Period */}
       <div className="flex items-center gap-4 px-6 pt-6 pb-3">
         <img 
@@ -27,15 +28,15 @@ const Cars24Card = () => {
         <div className="text-foreground font-semibold text-base mb-3 min-h-[1.5rem]">Marketing Team Lead / CRM Lead</div>
         <div className="flex flex-wrap gap-2 mb-3">
           <div className="text-xs font-medium text-foreground whitespace-nowrap">
-            <span className="font-mono text-sm font-semibold mr-1 text-primary">₹8L</span>
+            <CountUp value="₹8L" className="font-mono text-sm font-semibold mr-1 text-primary" />
             Monthly Savings
           </div>
           <div className="text-xs font-medium text-foreground whitespace-nowrap">
-            <span className="font-mono text-sm font-semibold mr-1 text-primary">20%</span>
+            <CountUp value="20%" className="font-mono text-sm font-semibold mr-1 text-primary" />
             Cost Reduction
           </div>
           <div className="text-xs font-medium text-foreground whitespace-nowrap">
-            <span className="font-mono text-sm font-semibold mr-1 text-primary">5+</span>
+            <CountUp value="5+" className="font-mono text-sm font-semibold mr-1 text-primary" />
             Channels Managed
           </div>
         </div>
