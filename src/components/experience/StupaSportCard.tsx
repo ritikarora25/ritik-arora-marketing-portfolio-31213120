@@ -28,15 +28,15 @@ const StupaSportCard = () => {
         <div className="text-foreground font-semibold text-base mb-3 min-h-[1.5rem]">Marketing Analyst</div>
         <div className="flex flex-wrap gap-2 mb-3">
           <div className="text-xs font-medium text-foreground whitespace-nowrap">
-            <span className="font-mono text-sm font-semibold mr-1 text-primary">13K+</span>
+            <CountUp value="13K+" className="font-mono text-sm font-semibold mr-1 text-primary" />
             Social Growth
           </div>
           <div className="text-xs font-medium text-foreground whitespace-nowrap">
-            <span className="font-mono text-sm font-semibold mr-1 text-primary">3</span>
+            <CountUp value="3" className="font-mono text-sm font-semibold mr-1 text-primary" />
             Markets Entered
           </div>
           <div className="text-xs font-medium text-foreground whitespace-nowrap">
-            <span className="font-mono text-sm font-semibold mr-1 text-primary">25+</span>
+            <CountUp value="25+" className="font-mono text-sm font-semibold mr-1 text-primary" />
             Campaigns Run
           </div>
         </div>
