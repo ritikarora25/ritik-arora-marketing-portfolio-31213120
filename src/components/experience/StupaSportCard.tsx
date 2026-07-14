@@ -9,7 +9,7 @@ const StupaSportCard = () => {
   const [open, setOpen] = useState(false);
   
   return (
-    <div className="rounded-lg bg-white shadow-sm border border-gray-200 hover:shadow-md transition-all flex flex-col p-0 h-full">
+    <div className="rounded-lg bg-white shadow-sm border border-gray-200 hover:shadow-md hover:-translate-y-1 transition-all duration-300 flex flex-col p-0 h-full">
       {/* Card Top: Logo & Company/Period */}
       <div className="flex items-center gap-4 px-6 pt-6 pb-3">
         <img 
