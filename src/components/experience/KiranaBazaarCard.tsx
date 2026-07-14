@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../ui/collapsible";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { Button } from "../ui/button";
+import CountUp from "../CountUp";
 
 const KiranaBazaarCard = () => {
   const [open, setOpen] = useState(false);
