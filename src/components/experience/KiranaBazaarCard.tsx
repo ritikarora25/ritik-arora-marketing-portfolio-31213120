@@ -28,15 +28,15 @@ const KiranaBazaarCard = () => {
         <div className="text-foreground font-semibold text-base mb-3 min-h-[1.5rem]">Marketing Associate</div>
         <div className="flex flex-wrap gap-2 mb-3">
           <div className="text-xs font-medium text-foreground whitespace-nowrap">
-            <span className="font-mono text-sm font-semibold mr-1 text-primary">₹50L+</span>
+            <CountUp value="₹50L+" className="font-mono text-sm font-semibold mr-1 text-primary" />
             Revenue Generated
           </div>
           <div className="text-xs font-medium text-foreground whitespace-nowrap">
-            <span className="font-mono text-sm font-semibold mr-1 text-primary">100%</span>
+            <CountUp value="100%" className="font-mono text-sm font-semibold mr-1 text-primary" />
             Click Rate ↑
           </div>
           <div className="text-xs font-medium text-foreground whitespace-nowrap">
-            <span className="font-mono text-sm font-semibold mr-1 text-primary">30%</span>
+            <CountUp value="30%" className="font-mono text-sm font-semibold mr-1 text-primary" />
             Engagement ↑
           </div>
         </div>
