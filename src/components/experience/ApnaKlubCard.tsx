@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../ui/collapsible";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { Button } from "../ui/button";
-import CountUp from "../CountUp";
 
 const ApnaKlubCard = () => {
   const [open, setOpen] = useState(false);
@@ -16,6 +15,7 @@ const ApnaKlubCard = () => {
           alt="ApnaKlub company logo" 
           className="w-12 h-12 object-contain rounded-full bg-white border-2 border-gray-200 shadow-sm" 
           src="/lovable-uploads/e13a6cc9-f71f-4aac-94aa-6feb74b2055c.png" 
+          loading="lazy"
         />
         <div className="flex flex-col flex-1">
           <div className="font-semibold text-foreground text-lg">ApnaKlub</div>
@@ -28,15 +28,15 @@ const ApnaKlubCard = () => {
         <div className="text-foreground font-semibold text-base mb-3 min-h-[1.5rem]">Product Marketing Specialist</div>
         <div className="flex flex-wrap gap-2 mb-3">
           <div className="text-xs font-medium text-foreground whitespace-nowrap">
-            <CountUp value="200K+" className="font-mono text-sm font-semibold mr-1 text-primary" />
+            <span className="font-mono text-sm font-semibold mr-1 text-primary">200K+</span>
             Users Impacted
           </div>
           <div className="text-xs font-medium text-foreground whitespace-nowrap">
-            <CountUp value="5%" className="font-mono text-sm font-semibold mr-1 text-primary" />
+            <span className="font-mono text-sm font-semibold mr-1 text-primary">5%</span>
             Revenue Lift
           </div>
           <div className="text-xs font-medium text-foreground whitespace-nowrap">
-            <CountUp value="5-7%" className="font-mono text-sm font-semibold mr-1 text-primary" />
+            <span className="font-mono text-sm font-semibold mr-1 text-primary">5-7%</span>
             Order Rate ↑
           </div>
         </div>

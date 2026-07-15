@@ -29,12 +29,12 @@ export default {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         primary: {
-          DEFAULT: '#2B2E83', // Deep Blue
-          foreground: '#FFFFFF'
+          DEFAULT: 'hsl(var(--primary))',
+          foreground: 'hsl(var(--primary-foreground))'
         },
         secondary: {
-          DEFAULT: '#0A66C2', // Hyperlink Blue
-          foreground: '#FFFFFF'
+          DEFAULT: 'hsl(var(--secondary))',
+          foreground: 'hsl(var(--secondary-foreground))'
         },
         accent: {
           DEFAULT: 'hsl(var(--accent))',

@@ -55,7 +55,7 @@
     --secondary-foreground: 0 0% 100%;
 
     --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
+    --muted-foreground: 0 0% 38%;
 
     --accent: 208 92% 40%; /* Changed from light gray to LinkedIn blue for better visibility */
     --accent-foreground: 0 0% 100%;
@@ -96,7 +96,7 @@
     --secondary-foreground: 0 0% 100%;
 
     --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
+    --muted-foreground: 0 0% 38%;
 
     --accent: 208 92% 40%; /* Changed from light gray to LinkedIn blue for better visibility */
     --accent-foreground: 0 0% 100%;

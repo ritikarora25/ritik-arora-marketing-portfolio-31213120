@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../ui/collapsible";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { Button } from "../ui/button";
-import CountUp from "../CountUp";
 
 const StupaSportCard = () => {
   const [open, setOpen] = useState(false);
@@ -16,6 +15,7 @@ const StupaSportCard = () => {
           alt="Stupa Sport Analytics company logo" 
           className="w-12 h-12 object-contain rounded-full bg-white border-2 border-gray-200 shadow-sm" 
           src="/lovable-uploads/c30a59bf-ac74-4f15-97cf-b5cff06438cb.png" 
+          loading="lazy"
         />
         <div className="flex flex-col flex-1">
           <div className="font-semibold text-foreground text-lg">Stupa Sport Analytics</div>
@@ -28,15 +28,15 @@ const StupaSportCard = () => {
         <div className="text-foreground font-semibold text-base mb-3 min-h-[1.5rem]">Marketing Analyst</div>
         <div className="flex flex-wrap gap-2 mb-3">
           <div className="text-xs font-medium text-foreground whitespace-nowrap">
-            <CountUp value="13K+" className="font-mono text-sm font-semibold mr-1 text-primary" />
+            <span className="font-mono text-sm font-semibold mr-1 text-primary">13K+</span>
             Social Growth
           </div>
           <div className="text-xs font-medium text-foreground whitespace-nowrap">
-            <CountUp value="3" className="font-mono text-sm font-semibold mr-1 text-primary" />
+            <span className="font-mono text-sm font-semibold mr-1 text-primary">3</span>
             Markets Entered
           </div>
           <div className="text-xs font-medium text-foreground whitespace-nowrap">
-            <CountUp value="25+" className="font-mono text-sm font-semibold mr-1 text-primary" />
+            <span className="font-mono text-sm font-semibold mr-1 text-primary">25+</span>
             Campaigns Run
           </div>
         </div>
