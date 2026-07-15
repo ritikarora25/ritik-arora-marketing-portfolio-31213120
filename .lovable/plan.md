@@ -1,16 +1,28 @@
-## Remaining SEO findings — resolution
+## Changes
 
-### 1. `lighthouse:lighthouse_performance` (ignored, low)
-Already fixed in source (WebP `<picture>`, explicit dims, `fetchpriority="high"`, preloads for hero image + Poppins 400/700). Will re-verify on next publish. **No code change.**
+1. **Remove CountUp animation**
+   - Delete `src/components/CountUp.tsx`
+   - Replace `<CountUp value="X" className="..." />` with plain `<span className="...">X</span>` in:
+     - `src/components/PortfolioAchievements.tsx` (5 stats)
+     - `src/components/experience/ApnaKlubCard.tsx` (3 stats)
+     - `src/components/experience/Cars24Card.tsx` (3 stats)
+     - `src/components/experience/KiranaBazaarCard.tsx` (stats)
+     - `src/components/experience/StupaSportCard.tsx` (3 stats)
+   - Remove the `CountUp` import from each file.
 
-### 2. `agent_content:semrush_content_suggestions` (low)
-User chose **C — skip**. Not pursuing the B2C Lifecycle Marketing guide at this time.
+2. **Contrast fix in `src/index.css`**
+   - Change `--muted-foreground: 0 0% 45%;` → `0 0% 38%;` in both `:root` and `.dark` blocks.
 
-## Actions
+3. **Lazy-load images**
+   - Add `loading="lazy"` to every `<img>` in the codebase **except** the hero image in `src/components/PortfolioHero.tsx`.
+   - Scan targets: all 4 experience cards (logos), plus any other `<img>` in `src/` (e.g. About, Education, Skills, CaseStudyCard, companyLogos usage).
 
-- Mark both findings fixed in the SEO tracker with explanations:
-  - Lighthouse row: already resolved in source; will clear on next publish + rescan.
-  - Semrush content suggestion: user declined to pursue the article.
-- No file edits.
+4. **Tailwind color tokens in `tailwind.config.ts`**
+   - Replace:
+     - `primary.DEFAULT: '#2B2E83'` → `'hsl(var(--primary))'`
+     - `primary.foreground: '#FFFFFF'` → `'hsl(var(--primary-foreground))'`
+     - `secondary.DEFAULT: '#0A66C2'` → `'hsl(var(--secondary))'`
+     - `secondary.foreground: '#FFFFFF'` → `'hsl(var(--secondary-foreground))'`
+   - Colors continue to render identically since `index.css` defines the same values.
 
-After this, zero failing SEO findings remain.
+No layout, typography, or content changes.
