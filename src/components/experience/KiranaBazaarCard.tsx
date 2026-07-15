@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../ui/collapsible";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { Button } from "../ui/button";
-import CountUp from "../CountUp";
 
 const KiranaBazaarCard = () => {
   const [open, setOpen] = useState(false);
@@ -16,6 +15,7 @@ const KiranaBazaarCard = () => {
           alt="1K Kirana Bazaar company logo" 
           className="w-12 h-12 object-contain rounded-full bg-white border-2 border-gray-200 shadow-sm" 
           src="/lovable-uploads/46a93d58-d6ec-416e-8a1f-2a897eab80a3.png" 
+          loading="lazy"
         />
         <div className="flex flex-col flex-1">
           <div className="font-semibold text-foreground text-lg">1K Kirana Bazaar</div>
@@ -28,15 +28,15 @@ const KiranaBazaarCard = () => {
         <div className="text-foreground font-semibold text-base mb-3 min-h-[1.5rem]">Marketing Associate</div>
         <div className="flex flex-wrap gap-2 mb-3">
           <div className="text-xs font-medium text-foreground whitespace-nowrap">
-            <CountUp value="₹50L+" className="font-mono text-sm font-semibold mr-1 text-primary" />
+            <span className="font-mono text-sm font-semibold mr-1 text-primary">₹50L+</span>
             Revenue Generated
           </div>
           <div className="text-xs font-medium text-foreground whitespace-nowrap">
-            <CountUp value="100%" className="font-mono text-sm font-semibold mr-1 text-primary" />
+            <span className="font-mono text-sm font-semibold mr-1 text-primary">100%</span>
             Click Rate ↑
           </div>
           <div className="text-xs font-medium text-foreground whitespace-nowrap">
-            <CountUp value="30%" className="font-mono text-sm font-semibold mr-1 text-primary" />
+            <span className="font-mono text-sm font-semibold mr-1 text-primary">30%</span>
             Engagement ↑
           </div>
         </div>

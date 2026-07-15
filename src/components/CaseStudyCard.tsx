@@ -41,7 +41,7 @@ const CaseStudyCard: React.FC<CaseStudyCardProps> = ({
     <div className="rounded-lg bg-white shadow-sm border border-gray-200 hover:shadow-md transition-all flex flex-col p-0">
       {/* Card Top: Logo & Company/Period */}
       <div className="flex items-center gap-4 px-6 pt-6 pb-3">
-        <img src={logo} alt={company} className="w-12 h-12 object-contain rounded-full bg-white border-2 border-gray-200 shadow-sm" />
+        <img src={logo} alt={company} loading="lazy" className="w-12 h-12 object-contain rounded-full bg-white border-2 border-gray-200 shadow-sm" />
         <div className="flex flex-col flex-1">
           <div className="font-semibold text-foreground text-lg">{company}</div>
           <div className="text-xs text-muted-foreground bg-accent px-2 py-1 rounded w-fit mt-1 border border-gray-200">{period}</div>
