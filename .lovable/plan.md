@@ -1,64 +1,45 @@
 ## Goal
-Reduce bundle by removing dependencies and files with zero runtime/build usage. No visual, styling, or behavior changes.
-
-## What the app actually uses
-
-**App source imports** (`src/`):
-- shadcn UI: `button`, `dialog`, `input`, `label`, `separator`, `sheet`, `skeleton`, `sonner`, `toast`, `toaster`, `toggle`, `tooltip`, `collapsible`
-- Hooks: `use-toast`, `use-mobile`
-- Libs: `react`, `react-dom`, `react-router-dom`, `react-helmet-async`, `@tanstack/react-query`, `lucide-react`, `sonner`, `next-themes` (via `ui/sonner`), `class-variance-authority`, `clsx`, `tailwind-merge`, `@supabase/supabase-js`
-- Radix (via kept shadcn files + `App.tsx`): `react-slot`, `react-dialog`, `react-label`, `react-separator`, `react-toast`, `react-toggle`, `react-tooltip`, `react-collapsible`
-- Tailwind plugins: `tailwindcss-animate` (in `tailwind.config.ts`)
-
-## Files to delete (unused)
-
-**Unused shadcn UI components** in `src/components/ui/`:
-`accordion, alert, alert-dialog, aspect-ratio, avatar, badge, breadcrumb, calendar, card, carousel, chart, checkbox, command, context-menu, drawer, dropdown-menu, form, hover-card, input-otp, menubar, navigation-menu, pagination, popover, progress, radio-group, resizable, scroll-area, select, sidebar, slider, switch, table, tabs, textarea, toggle-group`
-
-**Unused project components**:
-- `src/components/MetricCounter.tsx` (0 imports)
-- `src/components/CaseStudyCard.tsx` (0 imports)
-
-## Dependencies to remove
-
-**Radix (their shadcn wrappers are being deleted, zero remaining imports)**:
-`@radix-ui/react-accordion, react-alert-dialog, react-aspect-ratio, react-avatar, react-checkbox, react-context-menu, react-dropdown-menu, react-hover-card, react-menubar, react-navigation-menu, react-popover, react-progress, react-radio-group, react-scroll-area, react-select, react-slider, react-switch, react-tabs, react-toggle-group`
-
-**Other unused libs**:
-`@hookform/resolvers, cmdk, date-fns, embla-carousel-react, input-otp, react-day-picker, react-hook-form, react-resizable-panels, recharts, vaul, zod, @tailwindcss/typography`
-
-## Dependencies kept (and why)
-
-- `@radix-ui/react-slot` — used by `ui/button.tsx`
-- `@radix-ui/react-dialog` — used by `ui/dialog.tsx` and `ui/sheet.tsx`
-- `@radix-ui/react-label` — `ui/label.tsx`
-- `@radix-ui/react-separator` — `ui/separator.tsx`
-- `@radix-ui/react-toast` — `ui/toast.tsx`
-- `@radix-ui/react-toggle` — `ui/toggle.tsx`
-- `@radix-ui/react-tooltip` — `ui/tooltip.tsx` + `App.tsx`
-- `@radix-ui/react-collapsible` — experience cards
-- `sonner`, `next-themes` — `ui/sonner.tsx`
-- `class-variance-authority`, `clsx`, `tailwind-merge` — button/toast variants + `lib/utils`
-- `lucide-react` — icons across app
-- `react-helmet-async`, `react-router-dom`, `@tanstack/react-query` — app runtime
-- `@supabase/supabase-js` — `integrations/supabase/client`
-- `tailwindcss-animate` — Tailwind config plugin
-- All devDependencies (build toolchain)
+Verify the recent dependency cleanup did not regress the app. No code changes unless a regression is found.
 
 ## Steps
 
-1. Delete unused UI component files and the two unused project components.
-2. Run `bun remove` for all listed unused packages.
-3. Run `bun run build` to verify success.
-4. If build fails on any removal, restore that package/file and note it in the report.
+1. **Build**
+   - Run `bun run build`.
+   - Confirm exit code 0 and capture final bundle sizes for comparison against the previous 354.52 kB JS.
 
-## Report format at the end
+2. **Production preview**
+   - Start `bun run preview` (Vite preview server) in the background.
+   - Poll the port until it responds, then use it as the base URL for the checks below.
 
-- Removed dependencies (with reason each)
-- Removed files
-- Approximate installed-size / bundle-size reduction (from `bun remove` output + build stats before/after)
-- Kept dependencies with justification
+3. **Route walk via Playwright (headless Chromium)**
+   - Routes to visit:
+     - `/` (Index — hero, about, experience, skills, achievements, education, contact)
+     - `/some-unknown-path` (NotFound catch-all)
+   - For `/`, also exercise in-page anchors (`#about`, `#experience`, `#skills`, `#achievements`, `#education`, `#contact`) and the mobile menu toggle.
+   - Trigger the Resume button (Google Drive link) and the LinkedIn footer link — verify the resolved `href` values, do not follow off-site.
+   - Screenshot each route to `/tmp/browser/verify/` and view them to confirm layout matches expectations.
 
-## Risk / uncertainty
+4. **Console errors**
+   - Attach `page.on("console")` and `page.on("pageerror")` listeners during the walk.
+   - Fail the check on any `error`-level console message or uncaught exception. Warnings logged but not failing.
 
-Anything with even one indirect usage stays. If `bun run build` errors after any removal, revert that specific package immediately.
+5. **Network failures**
+   - Attach `page.on("response")` and `page.on("requestfailed")`.
+   - Flag any non-2xx/3xx response for same-origin assets (JS, CSS, fonts, images, `sitemap.xml`, `robots.txt`, `llms.txt`).
+   - Third-party endpoints (GA4 `googletagmanager.com`, Clarity `clarity.ms`) are informational only — network blocking in the sandbox can produce false negatives.
+
+6. **Lighthouse comparison**
+   - The sandbox does not have a stored pre-cleanup Lighthouse baseline, and Lighthouse-in-sandbox scores are noisy vs. real Chrome. Two options:
+     - **a. Sandbox run (rough):** `bunx lighthouse http://localhost:<port> --preset=desktop --output=json --output-path=/tmp/browser/verify/lh.json --chrome-flags="--headless=new --no-sandbox"` and report Performance / Accessibility / Best Practices / SEO. Compare against the published site scores if the user has them.
+     - **b. User-run (authoritative):** ask the user to run Lighthouse in their browser against the published URL after they click Update, and share the four scores so we can compare.
+   - Default to (a) and surface the numbers; recommend (b) as the source of truth.
+
+7. **Report**
+   - Build status + bundle size delta.
+   - Per-route: screenshot, console errors, failed requests.
+   - Lighthouse scores (with the caveat above).
+   - If any regression appears, list it with a proposed fix — do not fix in this pass unless you approve.
+
+## Notes
+- Read-only verification pass. No source files change unless step 7 surfaces a regression and you approve a follow-up.
+- All artifacts land under `/tmp/browser/verify/` so the project tree stays clean.
