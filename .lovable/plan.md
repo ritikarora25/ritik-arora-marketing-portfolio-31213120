@@ -1,45 +1,38 @@
+
 ## Goal
-Verify the recent dependency cleanup did not regress the app. No code changes unless a regression is found.
 
-## Steps
+Explain why the production bundle size didn't shrink after the dependency cleanup, and quantify the actual disk-space reduction in `node_modules`.
 
-1. **Build**
-   - Run `bun run build`.
-   - Confirm exit code 0 and capture final bundle sizes for comparison against the previous 354.52 kB JS.
+## Approach
 
-2. **Production preview**
-   - Start `bun run preview` (Vite preview server) in the background.
-   - Poll the port until it responds, then use it as the base URL for the checks below.
+1. **Reconstruct the "before" state**
+   - Check git for the pre-cleanup `package.json` and `bun.lockb` to identify the 31 removed packages.
+   - Temporarily install those packages into a scratch directory (outside the project) so the current lockfile isn't disturbed.
 
-3. **Route walk via Playwright (headless Chromium)**
-   - Routes to visit:
-     - `/` (Index — hero, about, experience, skills, achievements, education, contact)
-     - `/some-unknown-path` (NotFound catch-all)
-   - For `/`, also exercise in-page anchors (`#about`, `#experience`, `#skills`, `#achievements`, `#education`, `#contact`) and the mobile menu toggle.
-   - Trigger the Resume button (Google Drive link) and the LinkedIn footer link — verify the resolved `href` values, do not follow off-site.
-   - Screenshot each route to `/tmp/browser/verify/` and view them to confirm layout matches expectations.
+2. **Measure `node_modules` delta**
+   - Record current `du -sh node_modules` and package count (`ls node_modules | wc -l`).
+   - In the scratch install, record the same numbers with the removed packages restored.
+   - Report the difference in MB and package count (transitive deps included).
 
-4. **Console errors**
-   - Attach `page.on("console")` and `page.on("pageerror")` listeners during the walk.
-   - Fail the check on any `error`-level console message or uncaught exception. Warnings logged but not failing.
+3. **Compare production bundles**
+   - Current build is already known: `index.js` 354.52 kB / 111.22 kB gzip, `index.css` 32.15 kB.
+   - Rebuild once with the removed packages temporarily re-added *and actually imported nowhere* to confirm Vite/Rollup tree-shakes them out (expected: identical bundle).
+   - Inspect the current `dist/` chunk list vs. the previously reported chunk list to confirm no chunk names or sizes changed.
+   - Use `vite build --mode production` with `--sourcemap` + `rollup-plugin-visualizer` (dev-only, in a throwaway config) to list what actually ended up in the bundle and confirm none of the removed packages were ever there.
 
-5. **Network failures**
-   - Attach `page.on("response")` and `page.on("requestfailed")`.
-   - Flag any non-2xx/3xx response for same-origin assets (JS, CSS, fonts, images, `sitemap.xml`, `robots.txt`, `llms.txt`).
-   - Third-party endpoints (GA4 `googletagmanager.com`, Clarity `clarity.ms`) are informational only — network blocking in the sandbox can produce false negatives.
+4. **Explain the result**
+   - Vite uses Rollup with ESM tree-shaking; a package listed in `package.json` but never `import`ed contributes 0 bytes to the bundle. That is why removing 31 unused packages left `index.js` byte-identical.
+   - The wins from the cleanup are: smaller `node_modules` on disk, faster `bun install`, fewer transitive deps to audit/patch, and a cleaner dependency surface — not runtime bundle size.
 
-6. **Lighthouse comparison**
-   - The sandbox does not have a stored pre-cleanup Lighthouse baseline, and Lighthouse-in-sandbox scores are noisy vs. real Chrome. Two options:
-     - **a. Sandbox run (rough):** `bunx lighthouse http://localhost:<port> --preset=desktop --output=json --output-path=/tmp/browser/verify/lh.json --chrome-flags="--headless=new --no-sandbox"` and report Performance / Accessibility / Best Practices / SEO. Compare against the published site scores if the user has them.
-     - **b. User-run (authoritative):** ask the user to run Lighthouse in their browser against the published URL after they click Update, and share the four scores so we can compare.
-   - Default to (a) and surface the numbers; recommend (b) as the source of truth.
+## Deliverable
 
-7. **Report**
-   - Build status + bundle size delta.
-   - Per-route: screenshot, console errors, failed requests.
-   - Lighthouse scores (with the caveat above).
-   - If any regression appears, list it with a proposed fix — do not fix in this pass unless you approve.
+A short report with:
+- Before/after `node_modules` size (MB) and package count.
+- Before/after `dist/` chunk list confirming no bundle change.
+- One-paragraph explanation of tree-shaking as the reason.
+- List of the 31 removed packages grouped by "direct" vs "transitive freed".
 
 ## Notes
-- Read-only verification pass. No source files change unless step 7 surfaces a regression and you approve a follow-up.
-- All artifacts land under `/tmp/browser/verify/` so the project tree stays clean.
+
+- No source files will be modified. All experiments happen in `/tmp/dep-audit/` scratch dirs and are cleaned up after.
+- No changes to `package.json`, `bun.lockb`, or `vite.config.ts`.
