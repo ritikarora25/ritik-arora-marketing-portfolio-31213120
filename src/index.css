@@ -286,7 +286,7 @@ details.exp-details[open] summary::after { content: "–"; }
 .lang-row span:last-child { color: var(--slate); font-size: 0.75rem; }
 
 /* ─── CONTACT ─────────────────────────────────────────────── */
-.contact-card { background: var(--ink); color: #fff; border-radius: var(--radius); padding: 44px; display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
+.contact-card { background: var(--ink); color: #fff; border-radius: var(--radius); padding: 32px; display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
 .contact-card h2 { font-size: 1.6rem; margin-bottom: 8px; }
 .contact-card p { color: #c7c8d8; font-size: 0.95rem; }
 .contact-links { display: flex; gap: 12px; flex-wrap: wrap; }
