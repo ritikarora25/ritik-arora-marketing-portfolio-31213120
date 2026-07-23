@@ -206,9 +206,9 @@ hr.divider { border: none; border-top: 1px solid var(--line); }
 .about-text p.reveal-p { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
 .about-text p.reveal-p.in { opacity: 1; transform: translateY(0); }
 .about-text p.char-para { color: transparent; }
-.char-unit { display: inline; position: relative; }
+.char-unit { display: inline-block; position: relative; white-space: pre; }
 .char-ghost { color: rgba(44,47,69,0.2); }
-.char-live { position: absolute; left: 0; top: 0; color: #2c2f45; opacity: 0; transition: opacity .08s ease; }
+.char-live { position: absolute; left: 0; top: 0; color: #2c2f45; opacity: 0; transition: opacity .08s ease; white-space: pre; }
 
 /* ─── JOURNEY: CONNECTED FUNNEL ───────────────────────────── */
 .journey-intro { max-width: 640px; color: #3c3f52; font-size: 1rem; line-height: 1.65; margin-bottom: 8px; }
