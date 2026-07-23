@@ -1,38 +1,167 @@
-import { Linkedin } from "lucide-react";
-import ResumeButton from "./ResumeButton";
-const PortfolioHero = () => <section className="w-full min-h-[68vh] container mx-auto flex flex-col md:flex-row md:items-center gap-12 py-16 relative animate-fade-in" id="hero">
-    <div className="flex-shrink-0 w-40 h-40 md:w-56 md:h-56 rounded-full overflow-hidden bg-muted border-2 border-gray-200 shadow-lg mx-auto md:mx-0 relative z-10">
-      <picture>
-        <source type="image/webp" srcSet="/lovable-uploads/b900e373-588f-4459-b950-6d8f999f7d94-448.webp" />
-        <img alt="Ritik Arora Headshot" className="w-full h-full object-cover" src="/lovable-uploads/b900e373-588f-4459-b950-6d8f999f7d94-448.jpg" width="224" height="224" {...{ fetchpriority: "high" } as any} decoding="async" />
-      </picture>
-    </div>
-    <div className="flex-1 flex flex-col items-center md:items-start text-center md:text-left gap-4">
-      <h1 className="text-4xl md:text-5xl font-bold tracking-wide mb-2 leading-tight text-[#2b2e83]">
-        <span>Ritik Arora</span><span> — Growth Marketer & CRM Specialist</span>
-      </h1>
-      <h2 className="text-xl md:text-2xl font-medium text-gray-800 leading-snug mb-4">
-        Growth Marketer<span className="font-normal text-gray-600"> | CRM, Product Marketing &amp; CLM Specialist</span>
-      </h2>
-      <div className="rounded-lg py-3 bg-white/95 backdrop-blur-sm text-gray-800 font-medium text-sm md:text-base mb-6 border border-gray-200 shadow-lg px-[22px]">Retention, CRM, and Lifecycle Strategy — helping brands say the right thing, at the right time, to the right users, and turn it into growth.</div>
-      <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 mb-6 text-sm">
-        <div className="flex items-center gap-2 text-gray-700">
-          <span>Gurugram, Haryana, India</span>
+import { useEffect, useRef, useState } from "react";
+import type { Persona } from "@/data/journey";
+import { personaBanner } from "@/data/journey";
+
+const STAGES = [
+  { id: "acquire", num: "01", label: "Acquire" },
+  { id: "activate", num: "02", label: "Activate" },
+  { id: "engage", num: "03", label: "Engage" },
+  { id: "retain", num: "04", label: "Retain" },
+  { id: "monetize", num: "05", label: "Monetize" },
+];
+
+const PROOF_TEXT = "₹8L/mo saved · 20% CRM cost cut · 5–7% order-rate lift · ₹50L+ revenue unlocked";
+
+interface Props {
+  persona: Persona;
+  setPersona: (p: Persona) => void;
+}
+
+const PortfolioHero = ({ persona, setPersona }: Props) => {
+  const [activeStage, setActiveStage] = useState<string>("");
+  const [proof, setProof] = useState("");
+  const [proofDone, setProofDone] = useState(false);
+  const h1Ref = useRef<HTMLHeadingElement>(null);
+
+  // H1 word-by-word reveal
+  useEffect(() => {
+    const rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const h1 = h1Ref.current;
+    if (!h1 || rm) return;
+    const spans = h1.querySelectorAll<HTMLSpanElement>("span.word");
+    spans.forEach((s, i) => {
+      s.style.animationDelay = `${i * 75}ms`;
+    });
+  }, []);
+
+  // Typewriter proof line
+  useEffect(() => {
+    const rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (rm) { setProof(PROOF_TEXT); setProofDone(true); return; }
+    let i = 0;
+    const start = Date.now();
+    let raf = 0;
+    const tick = () => {
+      const elapsed = Date.now() - start;
+      if (elapsed < 1000) { raf = requestAnimationFrame(tick); return; }
+      setProof(PROOF_TEXT.slice(0, i));
+      i++;
+      if (i <= PROOF_TEXT.length) raf = requestAnimationFrame(tick);
+      else setProofDone(true);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, []);
+
+  // Scroll-spy for funnel nav
+  useEffect(() => {
+    const els = STAGES
+      .map((s) => document.getElementById(s.id))
+      .filter((el): el is HTMLElement => !!el);
+    if (!els.length) return;
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) setActiveStage(e.target.id);
+        });
+      },
+      { rootMargin: "-38% 0px -50% 0px" }
+    );
+    els.forEach((el) => obs.observe(el));
+    return () => obs.disconnect();
+  }, []);
+
+  const banner = persona !== "default" ? personaBanner[persona] : "";
+
+  return (
+    <section className="hero wrap" id="hero">
+      <nav className="funnel" id="funnelNav" aria-label="Lifecycle funnel navigation">
+        <div className="funnel-sweep" aria-hidden="true" />
+        {STAGES.map((s) => (
+          <a
+            key={s.id}
+            href={`#${s.id}`}
+            data-stage={s.id}
+            className={activeStage === s.id ? "active" : ""}
+          >
+            <span className="fnum">{s.num}</span>
+            {s.label}
+          </a>
+        ))}
+      </nav>
+
+      <div className="hero-grid">
+        <div className="hero-copy">
+          <h1 id="heroH1" ref={h1Ref}>
+            <span className="word">I </span>
+            <span className="word">make </span>
+            <span className="word">users </span>
+            <span className="word">come </span>
+            <span className="word">back </span>
+            <span className="word">— </span>
+            <span className="word"><em>and </em></span>
+            <span className="word"><em>turn </em></span>
+            <span className="word"><em>that </em></span>
+            <span className="word"><em>into </em></span>
+            <span className="word"><em>growth.</em></span>
+          </h1>
+          <p className="hero-sub">
+            Growth marketer, 5+ years across brand, CRM, retention and product — from Stupa to Freo, building the journeys that move people from first click to habit.
+          </p>
+
+          <div className="persona-row" role="group" aria-label="Personalize this page">
+            <span className="persona-label">Reading as a —</span>
+            {(["recruiter", "founder", "marketer"] as const).map((p) => (
+              <button
+                key={p}
+                className="persona-chip"
+                data-persona={p}
+                aria-pressed={persona === p}
+                onClick={() => setPersona(persona === p ? "default" : p)}
+              >
+                {p === "marketer" ? "Fellow marketer" : p.charAt(0).toUpperCase() + p.slice(1)}
+              </button>
+            ))}
+          </div>
+
+          <div
+            className={`persona-banner ${persona !== "default" ? "visible" : ""}`}
+            hidden={persona === "default"}
+          >
+            <span>{banner}</span>
+            <button className="persona-reset" onClick={() => setPersona("default")}>Reset</button>
+          </div>
+
+          <div className="proof-box" aria-live="polite">
+            <span>{proof}</span>
+            <span className={`cursor ${proofDone ? "blink" : ""}`} />
+          </div>
+
+          <div className="hero-meta">
+            <span>Bengaluru, Karnataka, India</span>
+            <a href="mailto:ritikchuchra1@gmail.com">ritikchuchra1@gmail.com</a>
+            <a href="https://www.linkedin.com/in/ritikarora25/" target="_blank" rel="noopener noreferrer">
+              LinkedIn ↗
+            </a>
+          </div>
         </div>
-        <a href="mailto:ritikchuchra1@gmail.com" className="text-gray-700 hover:text-primary hover:underline font-medium">
-          ritikchuchra1@gmail.com
-        </a>
-        <a href="https://www.linkedin.com/in/ritikarora25/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-gray-700 hover:text-primary hover:underline transition">
-          <Linkedin size={18} />
-          LinkedIn
-        </a>
+
+        <div className="hero-photo">
+          <picture>
+            <source type="image/webp" srcSet="/lovable-uploads/b900e373-588f-4459-b950-6d8f999f7d94-448.webp" />
+            <img
+              alt="Ritik Arora"
+              src="/lovable-uploads/b900e373-588f-4459-b950-6d8f999f7d94-448.jpg"
+              width={220}
+              height={220}
+              decoding="async"
+              {...({ fetchpriority: "high" } as any)}
+            />
+          </picture>
+        </div>
       </div>
-      <div className="flex gap-4 justify-center md:justify-start mt-4">
-        <ResumeButton />
-        <a href="#contact" className="px-6 py-3 bg-white/90 text-gray-800 font-medium rounded-lg shadow-lg hover:bg-white transition backdrop-blur-sm border border-gray-200">
-          Contact Me
-        </a>
-      </div>
-    </div>
-  </section>;
+    </section>
+  );
+};
+
 export default PortfolioHero;
