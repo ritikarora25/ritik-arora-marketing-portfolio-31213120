@@ -1,75 +1,39 @@
-
-import React, { useState } from "react";
-import { Menu, X } from "lucide-react";
+import React from "react";
 import BackToTopButton from "./BackToTopButton";
 
-const NAV = [
-  { name: "About", id: "about" },
-  { name: "Experience", id: "experience" },
-  { name: "Skills", id: "skills" },
-  { name: "Achievements", id: "achievements" },
-  { name: "Education", id: "education" },
-  { name: "Contact", id: "contact" },
-];
-
 const PortfolioLayout = ({ children }: { children: React.ReactNode }) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   return (
-    <div className="min-h-screen font-montserrat relative bg-white">
-      {/* Corner Gradient Overlays */}
-      <div className="fixed inset-0 pointer-events-none">
-        <div className="gradient-purple-topleft"></div>
-        <div className="gradient-pink-bottomright"></div>
-      </div>
+    <div className="min-h-screen">
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-0 focus:left-0 focus:z-[300] focus:bg-ink focus:text-white focus:px-4 focus:py-2 focus:rounded-br"
+      >
+        Skip to content
+      </a>
 
-      {/* Sticky Navbar */}
-      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200 shadow-sm">
-        <nav className="container mx-auto flex items-center justify-between py-4">
-          <span className="font-bold text-xl text-gray-900">Ritik Arora</span>
-          
-          {/* Desktop Nav */}
-          <ul className="hidden md:flex gap-8 text-sm font-medium">
-            {NAV.map((item) => (
-              <li key={item.id}>
-                <a
-                  href={`#${item.id}`}
-                  className="transition-colors hover:text-primary text-gray-700"
-                >
-                  {item.name}
-                </a>
-              </li>
-            ))}
-          </ul>
-
-          {/* Mobile Nav Toggle */}
-          <div className="md:hidden">
-            <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-gray-900" aria-label="Toggle navigation menu">
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
+      <header className="topbar">
+        <div className="wrap topbar-inner">
+          <span className="brand">Ritik Arora<span>.</span></span>
+          <div className="top-btns">
+            <a className="btn btn-ghost" href="#contact">Contact</a>
+            <a
+              className="btn btn-solid"
+              href="https://drive.google.com/uc?export=download&id=1Boeh4dRe0Rnuj6bff9joBrHITLEohmst"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Resume
+            </a>
           </div>
-        </nav>
-
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="md:hidden bg-white/90 backdrop-blur-md border-t border-gray-200">
-            <ul className="flex flex-col items-center gap-4 text-sm font-medium py-6">
-              {NAV.map((item) => (
-                <li key={item.id}>
-                  <a
-                    href={`#${item.id}`}
-                    className="transition-colors hover:text-primary text-gray-700 p-2"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {item.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+        </div>
       </header>
-      <main className="relative z-10">{children}</main>
+
+      <main id="main">{children}</main>
+
+      <footer className="pfooter wrap">
+        © 2026 Ritik Arora — built stage by stage, narrowing on purpose.
+      </footer>
+
       <BackToTopButton />
     </div>
   );
