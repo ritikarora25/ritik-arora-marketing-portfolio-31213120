@@ -256,7 +256,7 @@ details.exp-details[open] summary::after { content: "–"; }
 .cai b { color: var(--indigo); display: block; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 3px; font-weight: 700; }
 
 /* ─── STRIP ───────────────────────────────────────────────── */
-.strip { background: var(--ink); color: #fff; border-radius: var(--radius); padding: 34px 30px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; }
+.strip { background: var(--ink); color: #fff; border-radius: var(--radius); padding: 24px 26px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px; }
 @media (max-width: 900px) { .strip { grid-template-columns: repeat(2, 1fr); } }
 .strip .slbl { font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--coral); display: block; margin-bottom: 6px; font-weight: 600; font-variant-numeric: tabular-nums; }
 .strip .snum { font-weight: 600; font-size: 1.5rem; display: block; font-variant-numeric: tabular-nums; letter-spacing: 0.01em; }
