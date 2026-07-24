@@ -1,3 +1,5 @@
+import { motion } from "motion/react";
+
 const groups = [
   {
     title: "CRM & Analytics",
@@ -24,11 +26,31 @@ const PortfolioSkills = () => (
       {groups.map((g) => (
         <div className="toolkit-group" key={g.title}>
           <h3>{g.title}</h3>
-          <div className="chip-row">
+          <motion.div
+            className="chip-row"
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={{
+              hidden: {},
+              show: { transition: { staggerChildren: 0.04 } },
+            }}
+          >
             {g.chips.map((c) => (
-              <span className="chip" key={c}>{c}</span>
+              <motion.span
+                className="chip"
+                key={c}
+                variants={{
+                  hidden: { opacity: 0, y: 10 },
+                  show: { opacity: 1, y: 0 },
+                }}
+                whileHover={{ y: -3, boxShadow: "0 6px 18px rgba(61,63,224,0.15)" }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
+                {c}
+              </motion.span>
             ))}
-          </div>
+          </motion.div>
         </div>
       ))}
     </section>
