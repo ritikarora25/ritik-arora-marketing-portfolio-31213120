@@ -413,59 +413,7 @@ body[data-persona="recruiter"] #acquire { order: 5; }
 .strip > div:hover .snum::after { transform: scaleX(1); }
 
 /* ─── DARK-THEME SURFACE OVERRIDES ───────────────────────── */
-/* Circle background — recolor via --bg-hue / --bg-sat / --bg-bright on :root */
-:root {
-  --bg-hue: 0deg;
-  --bg-sat: 1;
-  --bg-bright: 1;
-}
-.circle-bg {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
-  background: var(--paper);
-  isolation: isolate;
-}
-.circle-bg-stage {
-  position: absolute;
-  inset: 0;
-  will-change: transform, filter;
-  transform-origin: 50% 50%;
-  filter: hue-rotate(var(--bg-hue)) saturate(var(--bg-sat)) brightness(var(--bg-bright));
-  transition: filter 300ms ease-out;
-}
-.circle-bg-motion {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: min(128vw, 1280px);
-  height: min(128vw, 1280px);
-  min-width: 760px;
-  min-height: 760px;
-  transform: translate3d(-50%, -50%, 0);
-  transform-origin: 50% 50%;
-  will-change: transform;
-}
-.circle-bg-media {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transform-origin: 50% 50%;
-  will-change: transform;
-}
-.circle-bg-media { display: block; }
-.circle-bg-canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 2;
-  pointer-events: none;
-}
+
 
 
 .topbar {
