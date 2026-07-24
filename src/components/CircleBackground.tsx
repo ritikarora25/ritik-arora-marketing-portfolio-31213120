@@ -14,6 +14,7 @@ import circleWebm from "@/assets/circle.webm.asset.json";
 const CircleBackground = () => {
   const rootRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
+  const motionRef = useRef<HTMLDivElement>(null);
   const lottieHostRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [useVideoFallback, setUseVideoFallback] = useState(false);
@@ -57,8 +58,9 @@ const CircleBackground = () => {
   // Interactions: cursor tilt, scroll pump, click shockwaves
   useEffect(() => {
     const stage = stageRef.current;
+    const motion = motionRef.current;
     const canvas = canvasRef.current;
-    if (!stage || !canvas) return;
+    if (!stage || !motion || !canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
@@ -97,8 +99,8 @@ const CircleBackground = () => {
     window.addEventListener("pointerdown", onDown, { passive: true });
 
     const rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const BASE_SPEED = rm ? 0 : 24; // deg/sec — full revolution ~15s so orbit is visible
-    const SCROLL_EXTRA = rm ? 0 : 120; // deg/sec added at peak boost
+    const BASE_SPEED = rm ? 0 : 36; // deg/sec — full revolution ~10s so motion is visible
+    const SCROLL_EXTRA = rm ? 0 : 140; // deg/sec added at peak boost
     let spin = 0;
     let lastT = performance.now();
     let raf = 0;
@@ -118,18 +120,20 @@ const CircleBackground = () => {
       // 3D tilt on the stage
       const rx = (0.5 - eased.y) * (rm ? 0 : 7);   // deg
       const ry = (eased.x - 0.5) * (rm ? 0 : 9);   // deg
-      const tx = (eased.x - 0.5) * 40;
-      const ty = (eased.y - 0.5) * 28;
-      // Orbital drift so the ring visibly circles rather than sits.
-      // The Lottie ring is radially symmetric, so rotateZ alone is invisible —
-      // amplitude on the translate is what sells the circular motion.
+      const tx = (eased.x - 0.5) * 34;
+      const ty = (eased.y - 0.5) * 24;
+      stage.style.transform = `perspective(1400px) translate3d(${tx}px, ${ty}px, 0) rotateX(${rx}deg) rotateY(${ry}deg)`;
+      stage.style.filter = `hue-rotate(var(--bg-hue, 0deg)) saturate(calc(var(--bg-sat, 1) * ${1 + eased.boost * 0.15})) brightness(calc(var(--bg-bright, 1) * ${1 + eased.boost * 0.12}))`;
+
+      // Move the actual ring wrapper, not the full-screen background.
+      // The Lottie art is close to radially symmetric, so a visible orbit is needed
+      // for the circular motion to read clearly.
       const orbRad = (spin * Math.PI) / 180;
-      const ox = rm ? 0 : Math.cos(orbRad) * 90;
-      const oy = rm ? 0 : Math.sin(orbRad) * 70;
+      const ox = rm ? 0 : Math.cos(orbRad) * 130;
+      const oy = rm ? 0 : Math.sin(orbRad) * 96;
       const breathe = rm ? 0 : Math.sin(orbRad * 2) * 0.04;
       const scale = 1 + eased.boost * 0.03 + breathe;
-      stage.style.transform = `perspective(1400px) rotateX(${rx}deg) rotateY(${ry}deg) rotateZ(${spin}deg) translate3d(${tx + ox}px, ${ty + oy}px, 0) scale(${scale})`;
-      stage.style.filter = `hue-rotate(var(--bg-hue, 0deg)) saturate(calc(var(--bg-sat, 1) * ${1 + eased.boost * 0.15})) brightness(calc(var(--bg-bright, 1) * ${1 + eased.boost * 0.12}))`;
+      motion.style.transform = `translate3d(calc(-50% + ${ox}px), calc(-50% + ${oy}px), 0) rotate(${spin}deg) scale(${scale})`;
 
       // Shockwaves
       ctx.clearRect(0, 0, w, h);
@@ -171,49 +175,23 @@ const CircleBackground = () => {
     };
   }, []);
 
-  // Section-aware hue shift via IntersectionObserver
-  useEffect(() => {
-    const hueByStage: Record<string, string> = {
-      acquire: "0deg",
-      activate: "40deg",
-      engage: "90deg",
-      retain: "180deg",
-      monetize: "260deg",
-    };
-    const targets = Object.keys(hueByStage)
-      .map((id) => document.getElementById(id))
-      .filter((el): el is HTMLElement => !!el);
-    if (!targets.length) return;
-    const obs = new IntersectionObserver(
-      (entries) => {
-        const top = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (!top) return;
-        const hue = hueByStage[top.target.id];
-        if (hue) document.documentElement.style.setProperty("--bg-hue", hue);
-      },
-      { threshold: [0.35, 0.6] }
-    );
-    targets.forEach((t) => obs.observe(t));
-    return () => obs.disconnect();
-  }, []);
-
   return (
     <div ref={rootRef} aria-hidden="true" className="circle-bg">
       <div ref={stageRef} className="circle-bg-stage">
-        {useVideoFallback ? (
-          <video
-            className="circle-bg-media"
-            src={circleWebm.url}
-            autoPlay
-            muted
-            loop
-            playsInline
-          />
-        ) : (
-          <div ref={lottieHostRef} className="circle-bg-media" />
-        )}
+        <div ref={motionRef} className="circle-bg-motion">
+          {useVideoFallback ? (
+            <video
+              className="circle-bg-media"
+              src={circleWebm.url}
+              autoPlay
+              muted
+              loop
+              playsInline
+            />
+          ) : (
+            <div ref={lottieHostRef} className="circle-bg-media" />
+          )}
+        </div>
       </div>
       <canvas ref={canvasRef} className="circle-bg-canvas" />
     </div>
