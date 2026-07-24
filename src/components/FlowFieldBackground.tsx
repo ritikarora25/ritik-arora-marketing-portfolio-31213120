@@ -15,7 +15,6 @@ const FlowFieldBackground = () => {
 
     const rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const small = window.matchMedia("(max-width: 640px)").matches;
-    if (rm || small) return;
 
     const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
@@ -36,9 +35,88 @@ const FlowFieldBackground = () => {
     resize();
     window.addEventListener("resize", resize);
 
+    const clearFrame = (alpha = 1) => {
+      ctx.globalCompositeOperation = "source-over";
+      ctx.fillStyle = `rgba(245, 244, 240, ${alpha})`;
+      ctx.fillRect(0, 0, w, h);
+    };
+
+    const drawFunnelSpine = (time = 0) => {
+      const cx = w * 0.5;
+      const top = h * 0.06;
+      const bottom = h * 1.02;
+      const waistY = h * 0.62;
+      const pulse = Math.sin(time * 0.0012) * 0.08 + 0.92;
+
+      ctx.save();
+      ctx.globalCompositeOperation = "multiply";
+
+      const glow = ctx.createRadialGradient(cx, waistY, 20, cx, waistY, Math.max(w, h) * 0.55);
+      glow.addColorStop(0, "rgba(61, 63, 224, 0.1)");
+      glow.addColorStop(0.38, "rgba(255, 107, 74, 0.04)");
+      glow.addColorStop(1, "rgba(245, 244, 240, 0)");
+      ctx.fillStyle = glow;
+      ctx.fillRect(0, 0, w, h);
+
+      ctx.lineCap = "round";
+      const lines: number = small ? 18 : 34;
+      for (let i = 0; i < lines; i++) {
+        const t = lines === 1 ? 0.5 : i / (lines - 1);
+        const side = i % 2 === 0 ? -1 : 1;
+        const edgeX = cx + side * (w * (0.18 + 0.34 * t));
+        const midX = cx + Math.sin(t * Math.PI * 2 + time * 0.0005) * 42 * pulse;
+        const y1 = top + t * h * 0.32;
+
+        ctx.beginPath();
+        ctx.moveTo(edgeX, y1);
+        ctx.bezierCurveTo(
+          cx + side * w * 0.22,
+          h * 0.32 + t * 30,
+          midX + side * w * 0.04,
+          waistY - 80 + t * 70,
+          cx + side * (18 + t * 42),
+          waistY + t * 130,
+        );
+        ctx.bezierCurveTo(
+          cx + side * w * 0.08,
+          h * 0.82,
+          cx + side * w * 0.22,
+          h * 0.92,
+          cx + side * w * 0.34,
+          bottom,
+        );
+        ctx.strokeStyle = i % 3 === 0 ? "rgba(255, 107, 74, 0.12)" : "rgba(61, 63, 224, 0.15)";
+        ctx.lineWidth = i % 5 === 0 ? 1.25 : 0.75;
+        ctx.stroke();
+      }
+
+      for (let i = 0; i < 5; i++) {
+        const y = h * (0.2 + i * 0.15);
+        const radius = 4 + i * 1.2;
+        ctx.beginPath();
+        ctx.arc(cx + Math.sin(time * 0.001 + i) * 20, y, radius, 0, Math.PI * 2);
+        ctx.fillStyle = i % 2 === 0 ? "rgba(255, 107, 74, 0.38)" : "rgba(61, 63, 224, 0.34)";
+        ctx.fill();
+      }
+
+      ctx.restore();
+    };
+
+    if (rm) {
+      clearFrame();
+      drawFunnelSpine();
+      const drawStatic = () => {
+        resize();
+        clearFrame();
+        drawFunnelSpine();
+      };
+      window.addEventListener("resize", drawStatic);
+      return () => window.removeEventListener("resize", drawStatic);
+    }
+
     // Particles
     type P = { x: number; y: number; vx: number; vy: number; life: number; max: number };
-    const COUNT = 180;
+    const COUNT = small ? 95 : 240;
     const particles: P[] = [];
 
     const spawn = (p?: P): P => {
@@ -114,9 +192,8 @@ const FlowFieldBackground = () => {
       if (!running) return;
 
       // fade previous frame (long trails) — very light so particles stay visible
-      ctx.globalCompositeOperation = "source-over";
-      ctx.fillStyle = "rgba(245, 244, 240, 0.045)";
-      ctx.fillRect(0, 0, w, h);
+      clearFrame(0.06);
+      drawFunnelSpine(performance.now());
 
       // decay scroll velocity
       scrollVel *= 0.92;
@@ -127,9 +204,9 @@ const FlowFieldBackground = () => {
       const r = Math.round(61 + (255 - 61) * scrollProg);
       const g = Math.round(63 + (107 - 63) * scrollProg);
       const b = Math.round(224 + (74 - 224) * scrollProg);
-      const stroke = `rgba(${r},${g},${b},0.85)`;
+      const stroke = `rgba(${r},${g},${b},0.68)`;
 
-      ctx.lineWidth = 1.2;
+      ctx.lineWidth = small ? 0.9 : 1.15;
       ctx.strokeStyle = stroke;
 
       const now = performance.now();
@@ -222,6 +299,7 @@ const FlowFieldBackground = () => {
         height: "100vh",
         pointerEvents: "none",
         zIndex: 0,
+        opacity: 0.9,
       }}
     />
   );
