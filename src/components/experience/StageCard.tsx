@@ -136,7 +136,7 @@ const StageCard = ({ stage, persona }: Props) => {
               d={info.sparkline.area}
               style={{ fill: `url(#sg-${stage})` }}
             />
-            <path className="sline" d={info.sparkline.line} />
+            <path className="sline" d={info.sparkline.line} pathLength={1} />
           </svg>
         )}
 

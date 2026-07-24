@@ -126,6 +126,9 @@
 @keyframes nodePop { 0% { transform: scale(1); } 40% { transform: scale(1.5); } 100% { transform: scale(1); } }
 @keyframes funnelSweep { to { left: 105%; } }
 @keyframes revealUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes sparkDraw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes shimmerSweep { 0% { transform: translateX(-120%); } 60%, 100% { transform: translateX(220%); } }
+@keyframes underlineWipe { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
 @media (prefers-reduced-motion: reduce) {
   * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
