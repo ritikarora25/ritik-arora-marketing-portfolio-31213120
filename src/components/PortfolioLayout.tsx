@@ -8,7 +8,8 @@ import MagneticButton from "./MagneticButton";
 const PortfolioLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="min-h-screen relative">
-      <FlowFieldBackground />
+      <HaloBackground />
+      <CustomCursor />
       <ScrollProgress />
       <a
         href="#main"
