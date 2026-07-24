@@ -413,14 +413,13 @@ body[data-persona="recruiter"] #acquire { order: 5; }
 .strip > div:hover .snum::after { transform: scaleX(1); }
 
 /* ─── DARK-THEME SURFACE OVERRIDES ───────────────────────── */
-/* Make sections transparent so the halo shows through */
-.energy-background {
-  --ring-x: 0px;
-  --ring-y: 0px;
-  --ring-rotate: 0deg;
-  --ring-scale: 1;
-  --ring-glow: 0.74;
-  --ring-brightness: 1.05;
+/* Circle background — recolor via --bg-hue / --bg-sat / --bg-bright on :root */
+:root {
+  --bg-hue: 0deg;
+  --bg-sat: 1;
+  --bg-bright: 1;
+}
+.circle-bg {
   position: fixed;
   inset: 0;
   z-index: 0;
@@ -429,17 +428,33 @@ body[data-persona="recruiter"] #acquire { order: 5; }
   background: var(--paper);
   isolation: isolate;
 }
-
-.energy-background::before,
-.energy-background::after { content: none; }
-
-.energy-background-canvas {
+.circle-bg-stage {
+  position: absolute;
+  inset: -6%;
+  will-change: transform, filter;
+  transform-origin: 50% 50%;
+  filter: hue-rotate(var(--bg-hue)) saturate(var(--bg-sat)) brightness(var(--bg-bright));
+  transition: filter 300ms ease-out;
+}
+.circle-bg-media,
+.circle-bg-media svg,
+.circle-bg-media video {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  z-index: 1;
+  object-fit: cover;
 }
+.circle-bg-media { display: block; }
+.circle-bg-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
 
 .topbar {
   background: rgba(10,10,10,0.55) !important;
