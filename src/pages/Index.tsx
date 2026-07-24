@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import PortfolioLayout from "@/components/PortfolioLayout";
+import IntroAnimation from "@/components/IntroAnimation";
 import PortfolioHero from "@/components/PortfolioHero";
 import PortfolioAbout from "@/components/PortfolioAbout";
 import PortfolioExperience from "@/components/PortfolioExperience";
@@ -20,6 +21,7 @@ const Index = () => {
 
   return (
     <>
+      <IntroAnimation />
       <Helmet>
         <title>Ritik Arora — Growth & Marketing</title>
         <meta name="description" content="Growth marketer, 5+ years across brand, CRM, retention and product — currently at Freo, Bengaluru." />
