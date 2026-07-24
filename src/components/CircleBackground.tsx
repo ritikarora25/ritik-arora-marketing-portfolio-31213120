@@ -97,19 +97,35 @@ const CircleBackground = () => {
     window.addEventListener("pointerdown", onDown, { passive: true });
 
     const rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const BASE_SPEED = rm ? 0 : 6; // deg/sec — full revolution ~60s
+    const SCROLL_EXTRA = rm ? 0 : 90; // deg/sec added at peak boost
+    let spin = 0;
+    let lastT = performance.now();
     let raf = 0;
     const tick = (t: number) => {
+      const dt = Math.min((t - lastT) / 1000, 0.05);
+      lastT = t;
+
       eased.x += (pointer.x - eased.x) * 0.08;
       eased.y += (pointer.y - eased.y) * 0.08;
       eased.boost *= 0.94;
+
+      // Continuous circular motion + scroll spin momentum
+      const cursorSpin = rm ? 0 : (eased.x - 0.5) * 12; // deg/sec bias from cursor
+      const spinSpeed = BASE_SPEED + cursorSpin + eased.boost * SCROLL_EXTRA;
+      spin = (spin + spinSpeed * dt) % 360;
 
       // 3D tilt on the stage
       const rx = (0.5 - eased.y) * (rm ? 0 : 7);   // deg
       const ry = (eased.x - 0.5) * (rm ? 0 : 9);   // deg
       const tx = (eased.x - 0.5) * 40;
       const ty = (eased.y - 0.5) * 28;
+      // Orbital drift so the ring circles rather than sits
+      const orbRad = (spin * Math.PI) / 180;
+      const ox = rm ? 0 : Math.cos(orbRad) * 18;
+      const oy = rm ? 0 : Math.sin(orbRad) * 12;
       const scale = 1 + eased.boost * 0.03;
-      stage.style.transform = `perspective(1400px) rotateX(${rx}deg) rotateY(${ry}deg) translate3d(${tx}px, ${ty}px, 0) scale(${scale})`;
+      stage.style.transform = `perspective(1400px) rotateX(${rx}deg) rotateY(${ry}deg) rotateZ(${spin}deg) translate3d(${tx + ox}px, ${ty + oy}px, 0) scale(${scale})`;
       stage.style.filter = `hue-rotate(var(--bg-hue, 0deg)) saturate(calc(var(--bg-sat, 1) * ${1 + eased.boost * 0.15})) brightness(calc(var(--bg-bright, 1) * ${1 + eased.boost * 0.12}))`;
 
       // Shockwaves
