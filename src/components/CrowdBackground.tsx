@@ -241,7 +241,7 @@ const CrowdBackground = () => {
       // Torso
       const bodyBottom = -legLen;
       const bodyTop = bodyBottom - bodyH;
-      const bodyAlpha = 0.6;
+      const bodyAlpha = 0.85;
       const bodyColor = w.accent
         ? `rgba(${w.accent},${bodyAlpha})`
         : `rgba(${INK},${bodyAlpha * 0.85})`;
