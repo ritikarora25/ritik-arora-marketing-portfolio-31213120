@@ -113,9 +113,9 @@ const FlowFieldBackground = () => {
     const tick = () => {
       if (!running) return;
 
-      // fade previous frame (long trails)
+      // fade previous frame (long trails) — very light so particles stay visible
       ctx.globalCompositeOperation = "source-over";
-      ctx.fillStyle = "rgba(245, 244, 240, 0.14)";
+      ctx.fillStyle = "rgba(245, 244, 240, 0.045)";
       ctx.fillRect(0, 0, w, h);
 
       // decay scroll velocity
@@ -127,9 +127,9 @@ const FlowFieldBackground = () => {
       const r = Math.round(61 + (255 - 61) * scrollProg);
       const g = Math.round(63 + (107 - 63) * scrollProg);
       const b = Math.round(224 + (74 - 224) * scrollProg);
-      const stroke = `rgba(${r},${g},${b},0.42)`;
+      const stroke = `rgba(${r},${g},${b},0.85)`;
 
-      ctx.lineWidth = 1;
+      ctx.lineWidth = 1.2;
       ctx.strokeStyle = stroke;
 
       const now = performance.now();
