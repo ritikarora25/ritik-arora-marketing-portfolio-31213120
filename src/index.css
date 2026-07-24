@@ -232,7 +232,7 @@ hr.divider { border: none; border-top: 1px solid var(--line); }
 .relevant-tag { display: none; align-items: center; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--coral); border: 1px solid var(--coral); border-radius: 100px; padding: 3px 9px; font-weight: 600; }
 .relevant-tag.show { display: inline-flex; }
 
-.exp-card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; display: flex; flex-direction: column; opacity: 0; transform: translateY(24px); transition: border-color .2s, opacity .55s ease, transform .55s ease; }
+.exp-card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: 20px 22px; display: flex; flex-direction: column; opacity: 0; transform: translateY(24px); transition: border-color .2s, opacity .55s ease, transform .55s ease; }
 .exp-card.in { opacity: 1; transform: translateY(0); }
 .exp-card:hover { border-color: var(--indigo); }
 .exp-top { display: flex; gap: 14px; align-items: center; margin-bottom: 16px; flex-wrap: wrap; }
