@@ -266,7 +266,7 @@ const CrowdBackground = () => {
       ctx.fill();
 
       // Arms
-      ctx.strokeStyle = `rgba(${INK},0.42)`;
+      ctx.strokeStyle = `rgba(${INK},0.7)`;
       ctx.lineWidth = Math.max(1, 1.4 * s);
       const armSwing = Math.sin(w.legPhase + Math.PI) * (w.state === "walk" ? 2.6 * s : 0.4 * s);
       const shoulderY = bodyTop + 3 * s;
