@@ -120,11 +120,14 @@ const CircleBackground = () => {
       const ry = (eased.x - 0.5) * (rm ? 0 : 9);   // deg
       const tx = (eased.x - 0.5) * 40;
       const ty = (eased.y - 0.5) * 28;
-      // Orbital drift so the ring circles rather than sits
+      // Orbital drift so the ring visibly circles rather than sits.
+      // The Lottie ring is radially symmetric, so rotateZ alone is invisible —
+      // amplitude on the translate is what sells the circular motion.
       const orbRad = (spin * Math.PI) / 180;
-      const ox = rm ? 0 : Math.cos(orbRad) * 18;
-      const oy = rm ? 0 : Math.sin(orbRad) * 12;
-      const scale = 1 + eased.boost * 0.03;
+      const ox = rm ? 0 : Math.cos(orbRad) * 90;
+      const oy = rm ? 0 : Math.sin(orbRad) * 70;
+      const breathe = rm ? 0 : Math.sin(orbRad * 2) * 0.04;
+      const scale = 1 + eased.boost * 0.03 + breathe;
       stage.style.transform = `perspective(1400px) rotateX(${rx}deg) rotateY(${ry}deg) rotateZ(${spin}deg) translate3d(${tx + ox}px, ${ty + oy}px, 0) scale(${scale})`;
       stage.style.filter = `hue-rotate(var(--bg-hue, 0deg)) saturate(calc(var(--bg-sat, 1) * ${1 + eased.boost * 0.15})) brightness(calc(var(--bg-bright, 1) * ${1 + eased.boost * 0.12}))`;
 
