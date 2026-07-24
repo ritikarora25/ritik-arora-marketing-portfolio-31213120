@@ -1,23 +1,45 @@
 import { useEffect, useRef } from "react";
 
-/**
- * "Ethereal Halo" background.
- * A soft, self-illuminated ring of cyan/gold light over deep charcoal,
- * surrounded by drifting stardust. Reacts calmly to cursor & scroll.
- * Pure canvas, no libraries.
- */
+type Particle = {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  size: number;
+  alpha: number;
+  hue: number;
+  phase: number;
+};
+
+type Pulse = {
+  x: number;
+  y: number;
+  born: number;
+};
+
+/** Luminous ring background based on the uploaded reference video. */
 const HaloBackground = () => {
+  const rootRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
+    const root = rootRef.current;
     const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d", { alpha: false });
+    if (!root || !canvas) return;
+
+    const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
 
     const rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const DPR = Math.min(window.devicePixelRatio || 1, 1.5);
+    const DPR = Math.min(window.devicePixelRatio || 1, 1.75);
     let w = 0, h = 0;
+    let lastScrollY = window.scrollY;
+    let raf = 0;
+    let running = true;
+
+    const pointer = { x: 0.5, y: 0.5, active: false };
+    const eased = { x: 0.5, y: 0.5, scroll: 0, velocity: 0 };
+    const pulses: Pulse[] = [];
 
     const resize = () => {
       w = window.innerWidth;
@@ -31,236 +53,244 @@ const HaloBackground = () => {
     resize();
     window.addEventListener("resize", resize);
 
-    // Smoothed pointer & scroll state
-    const target = { mx: 0.5, my: 0.5, sv: 0, sp: 0 };
-    const eased = { mx: 0.5, my: 0.5, sv: 0, sp: 0 };
+    const particleCount = w < 700 ? 72 : 126;
+    const particles: Particle[] = Array.from({ length: particleCount }, () => ({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      vx: (Math.random() - 0.5) * 0.22,
+      vy: (Math.random() - 0.5) * 0.22,
+      size: 0.8 + Math.random() * 2.1,
+      alpha: 0.25 + Math.random() * 0.55,
+      hue: Math.random() < 0.58 ? 188 : 42,
+      phase: Math.random() * Math.PI * 2,
+    }));
 
-    const onMove = (e: MouseEvent) => {
-      target.mx = e.clientX / window.innerWidth;
-      target.my = e.clientY / window.innerHeight;
+    const syncCssVars = () => {
+      const swayX = (eased.x - 0.5) * 42;
+      const swayY = (eased.y - 0.5) * 28 + eased.scroll * -26;
+      const energy = Math.min(Math.abs(eased.velocity) / 36, 1);
+
+      root.style.setProperty("--ring-x", `${swayX}px`);
+      root.style.setProperty("--ring-y", `${swayY}px`);
+      root.style.setProperty("--ring-rotate", `${(eased.x - 0.5) * 5 + eased.scroll * 2.5}deg`);
+      root.style.setProperty("--ring-scale", `${1 + energy * 0.045}`);
+      root.style.setProperty("--ring-glow", `${0.74 + energy * 0.2}`);
+      root.style.setProperty("--ring-brightness", `${1.05 + energy * 0.16}`);
     };
-    window.addEventListener("mousemove", onMove, { passive: true });
 
-    let lastY = window.scrollY;
+    const onMove = (e: PointerEvent) => {
+      pointer.x = e.clientX / window.innerWidth;
+      pointer.y = e.clientY / window.innerHeight;
+      pointer.active = true;
+    };
+
+    const onLeave = () => {
+      pointer.active = false;
+      pointer.x = 0.5;
+      pointer.y = 0.5;
+    };
+
     const onScroll = () => {
-      const y = window.scrollY;
-      target.sv = (y - lastY);
-      lastY = y;
       const doc = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
-      target.sp = Math.min(Math.max(y / doc, 0), 1);
+      const y = window.scrollY;
+      eased.velocity += (y - lastScrollY) * 0.16;
+      eased.scroll = Math.min(Math.max(y / doc, 0), 1);
+      lastScrollY = y;
     };
+
+    const onClick = (e: PointerEvent) => {
+      pulses.push({ x: e.clientX, y: e.clientY, born: performance.now() });
+    };
+
+    window.addEventListener("pointermove", onMove, { passive: true });
+    window.addEventListener("pointerleave", onLeave, { passive: true });
     window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("pointerdown", onClick, { passive: true });
+    onScroll();
 
-    // Stardust particles
-    type P = { x: number; y: number; r: number; a: number; twk: number; hue: number; vx: number; vy: number };
-    const COUNT = w < 700 ? 180 : 320;
-    const particles: P[] = [];
-    const spawn = (p?: P): P => {
-      const n = p ?? ({} as P);
-      const cx = w * 0.5, cy = h * 0.5;
-      // Bias initial positions in a broad annulus around center
-      const ang = Math.random() * Math.PI * 2;
-      const rad = (Math.min(w, h) * 0.15) + Math.random() * Math.min(w, h) * 0.45;
-      n.x = cx + Math.cos(ang) * rad;
-      n.y = cy + Math.sin(ang) * rad;
-      n.r = 0.4 + Math.random() * 1.4;
-      n.a = 0.15 + Math.random() * 0.55;
-      n.twk = Math.random() * Math.PI * 2;
-      n.hue = Math.random() < 0.55 ? 0 : 1; // 0 = cyan, 1 = gold
-      n.vx = (Math.random() - 0.5) * 0.15;
-      n.vy = (Math.random() - 0.5) * 0.15;
-      return n;
-    };
-    for (let i = 0; i < COUNT; i++) particles.push(spawn());
-
-    const drawBackdrop = () => {
-      ctx.fillStyle = "#0a0a0a";
-      ctx.fillRect(0, 0, w, h);
-    };
-
-    const drawHalo = (t: number) => {
-      // Ease pointer & scroll
-      eased.mx += (target.mx - eased.mx) * 0.04;
-      eased.my += (target.my - eased.my) * 0.04;
-      eased.sv += (target.sv - eased.sv) * 0.08;
-      eased.sp += (target.sp - eased.sp) * 0.05;
-      target.sv *= 0.9;
-
-      // Breathing
-      const breathe = 0.85 + Math.sin(t * 0.00035) * 0.15;
-      const wobble = Math.sin(t * 0.00022) * 0.08;
-
-      const baseCx = w * 0.5;
-      const baseCy = h * 0.5;
-      // Magnetic sway toward pointer (gentle)
-      const cx = baseCx + (eased.mx - 0.5) * w * 0.14;
-      const cy = baseCy + (eased.my - 0.5) * h * 0.12 - eased.sp * 40;
-
-      const R = Math.min(w, h) * (0.32 + wobble) * breathe;
-
-      ctx.save();
-      ctx.globalCompositeOperation = "lighter";
-
-      // Ambient bloom washes
-      const bloomLayers = [
-        { r: R * 2.6, a: 0.12, c: [8, 90, 110] },   // cyan wash
-        { r: R * 2.2, a: 0.09, c: [140, 100, 20] }, // gold wash
-      ];
-      for (const b of bloomLayers) {
-        const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, b.r);
-        g.addColorStop(0, `rgba(${b.c[0]},${b.c[1]},${b.c[2]},${b.a})`);
-        g.addColorStop(1, "rgba(0,0,0,0)");
-        ctx.fillStyle = g;
-        ctx.fillRect(0, 0, w, h);
-      }
-
-      // Ring: two overlapping annular gradients (cyan outer, gold inner accent)
-      const rot = t * 0.00006 + eased.sp * 0.4;
-      // Slight elliptical tilt with scroll
-      ctx.translate(cx, cy);
-      ctx.rotate(rot);
-      ctx.scale(1, 0.92 + eased.sp * 0.06);
-
-      const drawRing = (color: string, inner: number, outer: number, strength: number) => {
-        const g = ctx.createRadialGradient(0, 0, inner, 0, 0, outer);
-        g.addColorStop(0, "rgba(0,0,0,0)");
-        g.addColorStop(0.5, color.replace("A", `${strength}`));
-        g.addColorStop(1, "rgba(0,0,0,0)");
-        ctx.fillStyle = g;
-        ctx.beginPath();
-        ctx.arc(0, 0, outer, 0, Math.PI * 2);
-        ctx.fill();
-      };
-
-      // cyan #06B6D4 → rgba(6,182,212,A)
-      drawRing("rgba(6,182,212,A)", R * 0.72, R * 1.05, 0.55);
-      // gold #EAB308 → rgba(234,179,8,A)
-      drawRing("rgba(234,179,8,A)", R * 0.78, R * 1.0, 0.38);
-      // Inner soft cyan core edge
-      drawRing("rgba(120,220,240,A)", R * 0.86, R * 0.98, 0.42);
-
-      // Highlight arc (rotating light concentration)
-      const arcAng = t * 0.0004;
-      ctx.rotate(arcAng);
-      const hg = ctx.createRadialGradient(R * 0.9, 0, 0, R * 0.9, 0, R * 0.6);
-      hg.addColorStop(0, "rgba(255,220,140,0.35)");
-      hg.addColorStop(1, "rgba(0,0,0,0)");
-      ctx.fillStyle = hg;
-      ctx.beginPath();
-      ctx.arc(R * 0.9, 0, R * 0.6, 0, Math.PI * 2);
-      ctx.fill();
-
-      ctx.restore();
-      return { cx, cy, R, breathe };
-    };
-
-    const drawParticles = (t: number, halo: { cx: number; cy: number; R: number }) => {
-      ctx.save();
-      ctx.globalCompositeOperation = "lighter";
-      for (let i = 0; i < particles.length; i++) {
-        const p = particles[i];
-        // Orbit gently around halo center, biased by scroll
-        const dx = p.x - halo.cx;
-        const dy = p.y - halo.cy;
-        const d = Math.hypot(dx, dy) || 1;
-        // tangential drift
-        const tx = -dy / d;
-        const ty = dx / d;
-        const orbit = 0.35 + eased.sv * 0.01;
-        p.vx = p.vx * 0.96 + tx * 0.05 * orbit + (Math.random() - 0.5) * 0.02;
-        p.vy = p.vy * 0.96 + ty * 0.05 * orbit + (Math.random() - 0.5) * 0.02 + eased.sv * 0.002;
-        // Slight radial breathing toward the ring radius
-        const targetR = halo.R * (0.85 + Math.sin(p.twk + t * 0.0005) * 0.3);
-        const rd = (targetR - d) * 0.0025;
-        p.vx += (dx / d) * rd;
-        p.vy += (dy / d) * rd;
-
-        p.x += p.vx;
-        p.y += p.vy;
-        p.twk += 0.01;
-
-        // Wrap if far off-screen
-        if (p.x < -40 || p.x > w + 40 || p.y < -40 || p.y > h + 40) spawn(p);
-
-        const twinkle = 0.7 + Math.sin(p.twk) * 0.3;
-        const alpha = p.a * twinkle;
-        const color = p.hue === 0
-          ? `rgba(6,182,212,${alpha})`
-          : `rgba(234,179,8,${alpha})`;
-        ctx.fillStyle = color;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fill();
-        // soft glow
-        const gg = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 6);
-        gg.addColorStop(0, color);
-        gg.addColorStop(1, "rgba(0,0,0,0)");
-        ctx.fillStyle = gg;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r * 6, 0, Math.PI * 2);
-        ctx.fill();
-      }
-      ctx.restore();
-    };
-
-    if (rm) {
-      drawBackdrop();
-      const halo = drawHalo(0);
-      drawParticles(0, halo);
-      const redraw = () => {
-        resize();
-        drawBackdrop();
-        const h2 = drawHalo(0);
-        drawParticles(0, h2);
-      };
-      window.addEventListener("resize", redraw);
-      return () => {
-        window.removeEventListener("resize", redraw);
-        window.removeEventListener("resize", resize);
-        window.removeEventListener("mousemove", onMove);
-        window.removeEventListener("scroll", onScroll);
-      };
-    }
-
-    let running = true;
-    let raf = 0;
     const onVis = () => {
       running = !document.hidden;
-      if (running) raf = requestAnimationFrame(tick);
+      if (running && !rm) raf = requestAnimationFrame(tick);
     };
     document.addEventListener("visibilitychange", onVis);
 
+    const draw = (t: number) => {
+      ctx.clearRect(0, 0, w, h);
+
+      eased.x += (pointer.x - eased.x) * 0.07;
+      eased.y += (pointer.y - eased.y) * 0.07;
+      eased.velocity *= 0.9;
+      syncCssVars();
+
+      const centerX = w * 0.5 + (eased.x - 0.5) * 82;
+      const centerY = h * 0.31 + (eased.y - 0.5) * 46 - eased.scroll * 24;
+      const energy = Math.min(Math.abs(eased.velocity) / 34, 1);
+
+      const drawEnergyRing = () => {
+        const radiusX = Math.min(w, h) * (w < 700 ? 0.31 : 0.29) * (1 + energy * 0.05);
+        const radiusY = radiusX * 0.32;
+        const rotation = -0.16 + (eased.x - 0.5) * 0.15 + eased.scroll * 0.08;
+        const spin = t * 0.00075;
+
+        ctx.save();
+        ctx.translate(centerX, centerY);
+        ctx.rotate(rotation);
+        ctx.globalCompositeOperation = "lighter";
+
+        const ambient = ctx.createRadialGradient(0, 0, radiusX * 0.1, 0, 0, radiusX * 1.7);
+        ambient.addColorStop(0, `rgba(6,182,212,${0.08 + energy * 0.04})`);
+        ambient.addColorStop(0.45, `rgba(234,179,8,${0.05 + energy * 0.03})`);
+        ambient.addColorStop(1, "rgba(0,0,0,0)");
+        ctx.fillStyle = ambient;
+        ctx.beginPath();
+        ctx.ellipse(0, 0, radiusX * 1.7, radiusY * 3.2, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        const strokes = [
+          { hue: 188, offset: 0, width: 2.2, alpha: 0.54, blur: 17 },
+          { hue: 42, offset: 1.18, width: 1.9, alpha: 0.46, blur: 15 },
+          { hue: 188, offset: 2.42, width: 1.15, alpha: 0.58, blur: 10 },
+          { hue: 46, offset: 3.28, width: 0.95, alpha: 0.5, blur: 8 },
+          { hue: 190, offset: 4.14, width: 0.8, alpha: 0.44, blur: 7 },
+        ];
+
+        for (let pass = 0; pass < 2; pass++) {
+          for (const stroke of strokes) {
+            const lines = pass === 0 ? 1 : 3;
+            for (let i = 0; i < lines; i++) {
+              const jitter = pass === 0 ? 0 : (i - 1) * 0.038;
+              const start = stroke.offset + spin * (stroke.hue === 188 ? 1 : -0.78) + jitter;
+              const end = start + Math.PI * (pass === 0 ? 1.72 : 1.18 + i * 0.16);
+
+              ctx.save();
+              ctx.rotate(jitter * 2.5);
+              ctx.scale(1, 0.82 + i * 0.028);
+              ctx.lineCap = "round";
+              ctx.lineJoin = "round";
+              ctx.shadowColor = `hsla(${stroke.hue}, 100%, 68%, ${stroke.alpha})`;
+              ctx.shadowBlur = stroke.blur + energy * 14;
+              ctx.strokeStyle = `hsla(${stroke.hue}, 100%, ${pass === 0 ? 72 : 66}%, ${stroke.alpha * (pass === 0 ? 1 : 0.62)})`;
+              ctx.lineWidth = (stroke.width + energy * 1.2) * (pass === 0 ? 1.65 : 1);
+              ctx.beginPath();
+              ctx.ellipse(0, 0, radiusX * (1 + i * 0.025), radiusY * (1 + i * 0.09), 0, start, end);
+              ctx.stroke();
+              ctx.restore();
+            }
+          }
+        }
+
+        for (let i = 0; i < 34; i++) {
+          const a = i * 0.38 + spin * 2;
+          const rx = radiusX * (0.86 + Math.sin(i * 12.989) * 0.13);
+          const ry = radiusY * (0.94 + Math.cos(i * 7.23) * 0.26);
+          const x = Math.cos(a) * rx;
+          const y = Math.sin(a) * ry;
+          const hue = i % 3 === 0 ? 42 : 188;
+          const alpha = 0.25 + Math.sin(t * 0.002 + i) * 0.18 + energy * 0.25;
+          const r = 1 + (i % 5) * 0.36;
+
+          const spark = ctx.createRadialGradient(x, y, 0, x, y, r * 8);
+          spark.addColorStop(0, `hsla(${hue}, 100%, 72%, ${alpha})`);
+          spark.addColorStop(1, "hsla(0, 0%, 0%, 0)");
+          ctx.fillStyle = spark;
+          ctx.beginPath();
+          ctx.arc(x, y, r * 8, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        ctx.restore();
+      };
+
+      ctx.save();
+      ctx.globalCompositeOperation = "lighter";
+
+      drawEnergyRing();
+
+      for (const p of particles) {
+        const dx = centerX - p.x;
+        const dy = centerY - p.y;
+        const dist = Math.hypot(dx, dy) || 1;
+        const cursorX = eased.x * w;
+        const cursorY = eased.y * h;
+        const cdx = cursorX - p.x;
+        const cdy = cursorY - p.y;
+        const cd = Math.hypot(cdx, cdy) || 1;
+        const pull = pointer.active ? Math.max(0, 1 - cd / 260) : 0;
+        const orbit = 0.018 + energy * 0.028;
+
+        p.phase += 0.012 + energy * 0.018;
+        p.vx = p.vx * 0.965 + (-dy / dist) * orbit + (cdx / cd) * pull * 0.11;
+        p.vy = p.vy * 0.965 + (dx / dist) * orbit + (cdy / cd) * pull * 0.11 + eased.velocity * 0.002;
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < -60) p.x = w + 60;
+        if (p.x > w + 60) p.x = -60;
+        if (p.y < -60) p.y = h + 60;
+        if (p.y > h + 60) p.y = -60;
+
+        const twinkle = 0.68 + Math.sin(p.phase + t * 0.001) * 0.32;
+        const alpha = Math.min(p.alpha * twinkle * (0.82 + energy * 0.46), 0.92);
+        const color = `hsla(${p.hue}, 96%, 68%, ${alpha})`;
+
+        const glow = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 8);
+        glow.addColorStop(0, color);
+        glow.addColorStop(1, "hsla(0, 0%, 0%, 0)");
+        ctx.fillStyle = glow;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size * 8, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      for (let i = pulses.length - 1; i >= 0; i--) {
+        const pulse = pulses[i];
+        const age = t - pulse.born;
+        const life = 820;
+
+        if (age > life) {
+          pulses.splice(i, 1);
+          continue;
+        }
+
+        const progress = age / life;
+        ctx.strokeStyle = `hsla(${progress < 0.5 ? 188 : 42}, 96%, 68%, ${0.55 * (1 - progress)})`;
+        ctx.lineWidth = 1.8;
+        ctx.beginPath();
+        ctx.arc(pulse.x, pulse.y, 28 + progress * 180, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+
+      ctx.restore();
+    };
+
     const tick = (t: number) => {
       if (!running) return;
-      drawBackdrop();
-      const halo = drawHalo(t);
-      drawParticles(t, halo);
+      draw(t);
       raf = requestAnimationFrame(tick);
     };
-    raf = requestAnimationFrame(tick);
+
+    draw(performance.now());
+    if (!rm) raf = requestAnimationFrame(tick);
 
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", resize);
-      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerleave", onLeave);
       window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("pointerdown", onClick);
       document.removeEventListener("visibilitychange", onVis);
     };
   }, []);
 
   return (
-    <canvas
-      ref={canvasRef}
+    <div
+      ref={rootRef}
       aria-hidden="true"
-      style={{
-        position: "fixed",
-        inset: 0,
-        width: "100vw",
-        height: "100vh",
-        pointerEvents: "none",
-        zIndex: 0,
-      }}
-    />
+      className="energy-background"
+    >
+      <canvas ref={canvasRef} className="energy-background-canvas" />
+    </div>
   );
 };
 
