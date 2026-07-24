@@ -227,7 +227,7 @@ const CrowdBackground = () => {
 
       // Legs (swinging)
       const swing = Math.sin(w.legPhase) * (w.state === "walk" ? 3.2 * s : 0.6 * s);
-      const legAlpha = 0.42;
+      const legAlpha = 0.7;
       ctx.strokeStyle = `rgba(${INK},${legAlpha})`;
       ctx.lineWidth = Math.max(1, 1.4 * s);
       ctx.lineCap = "round";
