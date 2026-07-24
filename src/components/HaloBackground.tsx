@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-import circleVideo from "@/assets/circle.mp4.asset.json";
 
 type Particle = {
   x: number;
@@ -290,15 +289,6 @@ const HaloBackground = () => {
       aria-hidden="true"
       className="energy-background"
     >
-      <video
-        className="energy-background-video"
-        src={circleVideo.url}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-      />
       <canvas ref={canvasRef} className="energy-background-canvas" />
     </div>
   );

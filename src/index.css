@@ -453,22 +453,6 @@ body[data-persona="recruiter"] #acquire { order: 5; }
   z-index: 3;
 }
 
-.energy-background-video {
-  position: absolute;
-  left: 50%;
-  top: 42%;
-  width: min(118vw, 1520px);
-  min-width: 860px;
-  height: auto;
-  opacity: var(--ring-glow);
-  filter: brightness(var(--ring-brightness)) saturate(1.24) contrast(1.08);
-  mix-blend-mode: screen;
-  transform: translate3d(calc(-50% + var(--ring-x)), calc(-50% + var(--ring-y)), 0) rotate(var(--ring-rotate)) scale(var(--ring-scale));
-  transform-origin: center;
-  z-index: 1;
-  will-change: transform, filter, opacity;
-}
-
 .energy-background-canvas {
   position: absolute;
   inset: 0;
@@ -476,20 +460,6 @@ body[data-persona="recruiter"] #acquire { order: 5; }
   height: 100%;
   z-index: 2;
   mix-blend-mode: screen;
-}
-
-@media (max-width: 700px) {
-  .energy-background-video {
-    top: 34%;
-    width: 176vw;
-    min-width: 820px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .energy-background-video {
-    animation: none;
-  }
 }
 
 .topbar {
