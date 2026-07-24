@@ -448,14 +448,14 @@ body[data-persona="recruiter"] #acquire { order: 5; }
   transform-origin: 50% 50%;
   will-change: transform;
 }
-.circle-bg-media,
-.circle-bg-media svg,
-.circle-bg-media video {
+.circle-bg-media {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transform-origin: 50% 50%;
+  will-change: transform;
 }
 .circle-bg-media { display: block; }
 .circle-bg-canvas {
