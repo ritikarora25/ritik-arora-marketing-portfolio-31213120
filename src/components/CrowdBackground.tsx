@@ -74,13 +74,13 @@ const CrowdBackground = () => {
       seedWalkers();
     };
 
-    // ---- lanes: 4 rows spread across viewport ----
+    // ---- lanes: rows spread across viewport (denser, wider band) ----
     let lanes: number[] = [];
     const buildLanes = () => {
-      const n = 4;
+      const n = 7;
       lanes = [];
       for (let i = 0; i < n; i++) {
-        lanes.push(H * (0.22 + (i / (n - 1)) * 0.62));
+        lanes.push(H * (0.14 + (i / (n - 1)) * 0.78));
       }
     };
 
@@ -88,7 +88,7 @@ const CrowdBackground = () => {
     const walkers: Walker[] = [];
     const seedWalkers = () => {
       walkers.length = 0;
-      const count = W < 640 ? 22 : W < 1100 ? 42 : 62;
+      const count = W < 640 ? 30 : W < 1100 ? 60 : 90;
       for (let i = 0; i < count; i++) {
         walkers.push(makeWalker(true));
       }
@@ -96,26 +96,27 @@ const CrowdBackground = () => {
     const makeWalker = (initial: boolean): Walker => {
       const laneY = lanes[Math.floor(Math.random() * lanes.length)];
       const dir: 1 | -1 = Math.random() < 0.5 ? 1 : -1;
-      const scale = 0.72 + Math.random() * 0.55; // size variance
+      const scale = 1.1 + Math.random() * 0.7; // bigger figures
       const accentRoll = Math.random();
       const accent =
-        accentRoll < 0.12 ? INDIGO : accentRoll < 0.2 ? CORAL : "";
+        accentRoll < 0.18 ? INDIGO : accentRoll < 0.3 ? CORAL : "";
       return {
         x: initial ? Math.random() * W : dir === 1 ? -40 : W + 40,
-        y: laneY + (Math.random() - 0.5) * 22,
+        y: laneY + (Math.random() - 0.5) * 24,
         laneY,
-        baseSpeed: 0.25 + Math.random() * 0.5,
+        baseSpeed: 0.9 + Math.random() * 1.4, // ~3-4x faster
         dir,
         variant: (Math.floor(Math.random() * 3) as 0 | 1 | 2),
         scale,
         legPhase: Math.random() * Math.PI * 2,
-        legSpeed: 0.14 + Math.random() * 0.08,
+        legSpeed: 0.28 + Math.random() * 0.12, // more visible leg swing
         headTilt: 0,
         state: "walk",
         stateT: 0,
         accent,
       };
     };
+
 
     // ---- heading tracking (both look-up targets and hover magnets) ----
     interface Target {
