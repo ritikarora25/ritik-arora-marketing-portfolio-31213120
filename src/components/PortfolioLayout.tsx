@@ -3,12 +3,10 @@ import BackToTopButton from "./BackToTopButton";
 import CustomCursor from "./CustomCursor";
 import ScrollProgress from "./ScrollProgress";
 import MagneticButton from "./MagneticButton";
-import CrowdBackground from "./CrowdBackground";
 
 const PortfolioLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="min-h-screen relative">
-      <CrowdBackground />
       <CustomCursor />
       <ScrollProgress />
       <a
