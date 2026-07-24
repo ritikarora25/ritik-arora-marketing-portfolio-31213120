@@ -97,8 +97,8 @@ const CircleBackground = () => {
     window.addEventListener("pointerdown", onDown, { passive: true });
 
     const rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const BASE_SPEED = rm ? 0 : 6; // deg/sec — full revolution ~60s
-    const SCROLL_EXTRA = rm ? 0 : 90; // deg/sec added at peak boost
+    const BASE_SPEED = rm ? 0 : 24; // deg/sec — full revolution ~15s so orbit is visible
+    const SCROLL_EXTRA = rm ? 0 : 120; // deg/sec added at peak boost
     let spin = 0;
     let lastT = performance.now();
     let raf = 0;
