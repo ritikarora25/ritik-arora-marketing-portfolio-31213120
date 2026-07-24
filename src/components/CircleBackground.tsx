@@ -1,66 +1,25 @@
-import { useEffect, useRef, useState } from "react";
-import lottie, { type AnimationItem } from "lottie-web";
-import circleJson from "@/assets/circle.json.asset.json";
-import circleWebm from "@/assets/circle.webm.asset.json";
+import { useEffect, useRef } from "react";
 
 /**
- * Cinematic circle background using the uploaded Lottie animation.
+ * Cinematic circle background using the uploaded WebM animation.
  * - Recolor via CSS variables --bg-hue, --bg-sat, --bg-bright on :root
- * - Cursor: real 3D tilt + parallax on the tint layer
- * - Scroll velocity: brightness pump + slight scale
+ * - Cursor: real 3D tilt + parallax
+ * - Scroll velocity: brightness pump + temporary spin acceleration
  * - Click: expanding shockwave rings on canvas overlay
- * - WebM fallback if Lottie fails
  */
 const CircleBackground = () => {
-  const rootRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const motionRef = useRef<HTMLDivElement>(null);
-  const lottieHostRef = useRef<HTMLDivElement>(null);
+  const mediaRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [useVideoFallback, setUseVideoFallback] = useState(false);
-
-  // Init Lottie
-  useEffect(() => {
-    if (useVideoFallback) return;
-    const host = lottieHostRef.current;
-    if (!host) return;
-    let anim: AnimationItem | null = null;
-    let cancelled = false;
-    (async () => {
-      try {
-        const res = await fetch(circleJson.url);
-        if (!res.ok) throw new Error("lottie fetch failed");
-        const data = await res.json();
-        if (cancelled) return;
-        anim = lottie.loadAnimation({
-          container: host,
-          renderer: "svg",
-          loop: true,
-          autoplay: true,
-          animationData: data,
-          rendererSettings: {
-            preserveAspectRatio: "xMidYMid slice",
-            progressiveLoad: true,
-          },
-        });
-        const rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        if (rm) anim.pause();
-      } catch {
-        if (!cancelled) setUseVideoFallback(true);
-      }
-    })();
-    return () => {
-      cancelled = true;
-      anim?.destroy();
-    };
-  }, [useVideoFallback]);
 
   // Interactions: cursor tilt, scroll pump, click shockwaves
   useEffect(() => {
     const stage = stageRef.current;
     const motion = motionRef.current;
+    const media = mediaRef.current;
     const canvas = canvasRef.current;
-    if (!stage || !motion || !canvas) return;
+    if (!stage || !motion || !media || !canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
@@ -99,8 +58,10 @@ const CircleBackground = () => {
     window.addEventListener("pointerdown", onDown, { passive: true });
 
     const rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const BASE_SPEED = rm ? 0 : 36; // deg/sec — full revolution ~10s so motion is visible
-    const SCROLL_EXTRA = rm ? 0 : 140; // deg/sec added at peak boost
+    const ORBIT_SPEED = rm ? 0 : 24; // deg/sec — visible circular travel
+    const SPIN_SPEED = rm ? 0 : 42; // deg/sec — actual media rotation
+    const SCROLL_EXTRA = rm ? 0 : 170; // deg/sec added at peak boost
+    let orbit = 0;
     let spin = 0;
     let lastT = performance.now();
     let raf = 0;
@@ -112,10 +73,10 @@ const CircleBackground = () => {
       eased.y += (pointer.y - eased.y) * 0.08;
       eased.boost *= 0.94;
 
-      // Continuous circular motion + scroll spin momentum
-      const cursorSpin = rm ? 0 : (eased.x - 0.5) * 12; // deg/sec bias from cursor
-      const spinSpeed = BASE_SPEED + cursorSpin + eased.boost * SCROLL_EXTRA;
-      spin = (spin + spinSpeed * dt) % 360;
+      // Continuous circular travel + actual media spin.
+      const cursorBias = rm ? 0 : (eased.x - 0.5) * 12;
+      orbit = (orbit + (ORBIT_SPEED + eased.boost * SCROLL_EXTRA * 0.45) * dt) % 360;
+      spin = (spin + (SPIN_SPEED + cursorBias + eased.boost * SCROLL_EXTRA) * dt) % 360;
 
       // 3D tilt on the stage
       const rx = (0.5 - eased.y) * (rm ? 0 : 7);   // deg
@@ -128,12 +89,13 @@ const CircleBackground = () => {
       // Move the actual ring wrapper, not the full-screen background.
       // The Lottie art is close to radially symmetric, so a visible orbit is needed
       // for the circular motion to read clearly.
-      const orbRad = (spin * Math.PI) / 180;
-      const ox = rm ? 0 : Math.cos(orbRad) * 130;
-      const oy = rm ? 0 : Math.sin(orbRad) * 96;
+      const orbRad = (orbit * Math.PI) / 180;
+      const ox = rm ? 0 : Math.cos(orbRad) * 150;
+      const oy = rm ? 0 : Math.sin(orbRad) * 110;
       const breathe = rm ? 0 : Math.sin(orbRad * 2) * 0.04;
       const scale = 1 + eased.boost * 0.03 + breathe;
-      motion.style.transform = `translate3d(calc(-50% + ${ox}px), calc(-50% + ${oy}px), 0) rotate(${spin}deg) scale(${scale})`;
+      motion.style.transform = `translate3d(calc(-50% + ${ox}px), calc(-50% + ${oy}px), 0) scale(${scale})`;
+      media.style.transform = `rotate(${spin}deg)`;
 
       // Shockwaves
       ctx.clearRect(0, 0, w, h);
@@ -176,21 +138,19 @@ const CircleBackground = () => {
   }, []);
 
   return (
-    <div ref={rootRef} aria-hidden="true" className="circle-bg">
+    <div aria-hidden="true" className="circle-bg">
       <div ref={stageRef} className="circle-bg-stage">
         <div ref={motionRef} className="circle-bg-motion">
-          {useVideoFallback ? (
-            <video
-              className="circle-bg-media"
-              src={circleWebm.url}
-              autoPlay
-              muted
-              loop
-              playsInline
-            />
-          ) : (
-            <div ref={lottieHostRef} className="circle-bg-media" />
-          )}
+          <video
+            ref={mediaRef}
+            className="circle-bg-media"
+            src="/media/circle.webm"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+          />
         </div>
       </div>
       <canvas ref={canvasRef} className="circle-bg-canvas" />
