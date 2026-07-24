@@ -144,8 +144,8 @@
 .btn-ghost:hover { border-color: var(--ink); transform: translateY(-1px); }
 
 /* ─── HERO ────────────────────────────────────────────────── */
-.hero { padding: 28px 0 32px; }
-.funnel { display: flex; position: relative; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: #fff; margin-bottom: 40px; }
+.hero { padding: 18px 0 20px; }
+.funnel { display: flex; position: relative; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; background: #fff; margin-bottom: 24px; }
 .funnel a { flex: 1; text-align: center; padding: 13px 6px; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--slate); border-right: 1px solid var(--line); position: relative; transition: color .2s, background .2s; }
 .funnel a:last-child { border-right: none; }
 .funnel a:hover { color: var(--ink); background: var(--paper); }
