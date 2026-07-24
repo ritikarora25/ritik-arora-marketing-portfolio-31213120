@@ -1,6 +1,6 @@
 import React from "react";
 import BackToTopButton from "./BackToTopButton";
-import HaloBackground from "./HaloBackground";
+import CircleBackground from "./CircleBackground";
 import CustomCursor from "./CustomCursor";
 import ScrollProgress from "./ScrollProgress";
 import MagneticButton from "./MagneticButton";
@@ -8,7 +8,7 @@ import MagneticButton from "./MagneticButton";
 const PortfolioLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="min-h-screen relative">
-      <HaloBackground />
+      <CircleBackground />
       <CustomCursor />
       <ScrollProgress />
       <a
