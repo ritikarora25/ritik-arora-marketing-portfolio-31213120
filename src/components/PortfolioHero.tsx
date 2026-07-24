@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { motion } from "motion/react";
 import type { Persona } from "@/data/journey";
 import { personaBanner } from "@/data/journey";
 
@@ -112,15 +113,18 @@ const PortfolioHero = ({ persona, setPersona }: Props) => {
           <div className="persona-row" role="group" aria-label="Personalize this page">
             <span className="persona-label">Reading as a —</span>
             {(["recruiter", "founder", "marketer"] as const).map((p) => (
-              <button
+              <motion.button
                 key={p}
                 className="persona-chip"
                 data-persona={p}
                 aria-pressed={persona === p}
                 onClick={() => setPersona(persona === p ? "default" : p)}
+                whileHover={{ y: -2 }}
+                whileTap={{ scale: 0.94 }}
+                transition={{ type: "spring", stiffness: 400, damping: 22 }}
               >
                 {p === "marketer" ? "Fellow marketer" : p.charAt(0).toUpperCase() + p.slice(1)}
-              </button>
+              </motion.button>
             ))}
           </div>
 
@@ -146,7 +150,17 @@ const PortfolioHero = ({ persona, setPersona }: Props) => {
           </div>
         </div>
 
-        <div className="hero-photo">
+        <motion.div
+          className="hero-photo"
+          whileHover={{ scale: 1.03, rotate: -0.6 }}
+          transition={{ type: "spring", stiffness: 260, damping: 18 }}
+          onMouseMove={(e) => {
+            const t = e.currentTarget as HTMLDivElement;
+            const r = t.getBoundingClientRect();
+            t.style.setProperty("--gx", `${e.clientX - r.left}px`);
+            t.style.setProperty("--gy", `${e.clientY - r.top}px`);
+          }}
+        >
           <picture>
             <source type="image/webp" srcSet="/lovable-uploads/b900e373-588f-4459-b950-6d8f999f7d94-448.webp" />
             <img
@@ -158,7 +172,8 @@ const PortfolioHero = ({ persona, setPersona }: Props) => {
               {...({ fetchpriority: "high" } as any)}
             />
           </picture>
-        </div>
+          <span className="hero-photo-glow" aria-hidden="true" />
+        </motion.div>
       </div>
     </section>
   );

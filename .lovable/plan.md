@@ -1,94 +1,94 @@
 
-## Goal
+# Motion & Interactive Background
 
-UI migration only. Recreate the HTML prototype's look and behavior by **updating the existing components in place**. Use tokens from `new.txt`. Keep Poppins for all text. No new architecture, providers, contexts, or abstractions unless the prototype cannot be built without them.
+Goal: make the site feel alive without breaking the calm paper aesthetic. The background concept is tied to the portfolio's core metaphor (funnel/journey) so it feels earned, not decorative.
 
-## Component reuse map (existing → prototype section)
+## 1. Background: "Funnel Flow-Field"
 
-| Existing file | Becomes | Change |
-| --- | --- | --- |
-| `PortfolioLayout.tsx` | Page shell + top bar | Replace old header with sticky top-bar; keep as the wrapper |
-| `PortfolioHero.tsx` | Hero (funnel nav + H1 + proof line + persona chips + meta + photo) | Rewrite JSX/styles; keep file |
-| `PortfolioAbout.tsx` | About (3 paragraphs, char-scroll on para 2) | Rewrite content + animations |
-| `PortfolioExperience.tsx` | Journey wrapper (intro, note, vertical line + fill) | Replace grid with vertical connected flow; render 5 stage cards |
-| `experience/ApnaKlubCard.tsx` | Retain stage card | Update copy/metrics/sparkline; add node + eyebrow + bar |
-| `experience/Cars24Card.tsx` | Engage stage card | Same |
-| `experience/KiranaBazaarCard.tsx` | Monetize stage card | Same |
-| `experience/StupaSportCard.tsx` | Acquire stage card | Same |
-| `PortfolioAchievements.tsx` | Metrics strip (5-col ink card) | Rewrite content |
-| `PortfolioSkills.tsx` | Toolkit (chip groups) | Rewrite content |
-| `PortfolioEducation.tsx` | Education / Certifications / Recognition (3-col grid) | Rewrite content |
-| `PortfolioContact.tsx` | Contact ink card | Rewrite content, keep LinkedIn fix |
-| `BackToTopButton.tsx` | Back-to-top | Restyle to prototype (ink pill, 500px threshold) |
-| `ResumeButton.tsx` | Resume pill in top bar | Keep Drive link, restyle |
-| `src/pages/Index.tsx` | Section order + persona state | Reorder sections, add `useState` for persona, pass down as props |
-| `src/data/companyLogos.ts` | Existing logo map | Reuse for Stupa/CARS24/ApnaKlub/Kirana |
+A single fixed `<canvas>` behind all content (z-index: -1), rendered on `#root`'s backdrop. Instead of generic dots/blobs, it draws a **living flow-field**: hundreds of tiny particles drift top→bottom along invisible vector-field streamlines that gently funnel inward — the same narrowing shape as the hero funnel bar.
 
-## New files (only where nothing exists)
+- Palette: indigo particles fading to coral as they travel down (matches `--indigo` → `--coral` gradient already used in the journey line).
+- Density: sparse (~180 particles), 1px, low opacity (~0.35) — paper stays dominant.
+- **Cursor interaction**: cursor acts as a repulsor within ~140px radius; nearby particles bend around it (like iron filings dodging a magnet). On click, a soft ripple pushes particles outward.
+- **Scroll interaction**: scroll velocity feeds particle speed and slightly rotates the field — scrolling fast makes the stream visibly rush; idle = calm drift. Scroll progress also shifts the hue mix indigo→coral top-to-bottom, mirroring the journey progress line.
+- **Section awareness**: when a Journey stage enters view, particles near that stage's node briefly cluster then release (echoes the `nodePop` keyframe).
+- Perf: `requestAnimationFrame`, DPR-capped at 1.5, paused when tab hidden, disabled entirely when `prefers-reduced-motion` is set or on screens <640px (static faint grid fallback).
 
-- `experience/FreoCard.tsx` — Activate stage. No corresponding company existed in the old codebase. Uses the same shape as the other four cards and renders an "F" monogram tile since the prototype has no Freo logo.
-- `src/data/journey.ts` — plain module (not a hook, not a context) with the persona-swappable copy per stage (role/problem/ran/moved for default/recruiter/founder/marketer), banner text, "most relevant" stage map, sparkline paths, and bar `data-w` values. Every card imports what it needs.
+New file: `src/components/FlowFieldBackground.tsx` (vanilla canvas, no libs). Mounted once in `PortfolioLayout.tsx`.
 
-That is the entire new surface. No context, no provider, no custom hooks.
+## 2. Site-wide motion (Motion for React)
 
-## Persona state
+Install `motion` (framer-motion successor) and layer motion onto existing markup — no structural changes.
 
-Owned by `src/pages/Index.tsx` with a single `useState<'default'|'recruiter'|'founder'|'marketer'>`. Passed as props to `PortfolioHero` (chips + banner) and `PortfolioExperience` (which forwards to each stage card). An effect in `Index.tsx` writes `document.body.dataset.persona` so the recruiter CSS reorder works.
+**Hero**
+- Existing word-reveal stays; add a soft indigo glow that tracks the cursor over the hero photo (radial-gradient mask following mouse).
+- Funnel bar: staggered fade+scale-in on load; hovering a segment scales it 1.03 and pulses the coral underline.
+- Proof-box cursor already blinks; add a subtle horizontal shimmer sweep every 6s.
+- Persona chips: press animation (scale 0.96) + coral ripple on activation.
 
-## Design tokens (from new.txt)
+**Journey / Experience cards**
+- Cards fade+rise as they enter viewport (already do; upgrade to Motion's `whileInView` with spring).
+- Sparklines: `path` stroke-dashoffset draw-in on enter view.
+- Metric numbers: count-up (0 → target) once, on first view. Cleanly implemented in a small `<CountUp>` component that respects reduced-motion.
+- Stage progress bar: fills with spring easing when its stage enters view; node scales+pops.
+- Card hover: lift −4px + subtle indigo border glow (extend current hover).
+- Expandable `<details>`: animate height with Motion's `AnimatePresence` for smooth open/close.
 
-Edit `src/index.css` to:
+**About**
+- Keep character-scroll reveal; add a slow horizontal parallax on the paragraph block (~6px range) tied to scroll.
 
-- Add CSS variables: `--ink #151833`, `--paper #F5F4F0`, `--indigo #3D3FE0`, `--coral #FF6B4A`, `--slate #8A8D9F`, `--line #E4E2DB`, `--radius 10px`.
-- Point shadcn tokens at these (background→paper, foreground→ink, primary→indigo, accent→coral, muted-foreground→slate, border→line) using the existing HSL bridge so shadcn primitives still work.
-- Add `.wrap` (max-width 1120px, padding 0 28px), coral `::selection`, coral focus-visible outline.
-- Remove the current white background + purple/pink corner gradient rules.
+**Achievements strip**
+- On enter view: numbers count-up, labels stagger-fade, coral underline draws under each stat.
 
-Edit `tailwind.config.ts` to expose `ink`, `paper`, `indigo`, `coral`, `slate`, `line` as color utilities alongside the existing shadcn HSL variables. Keep `primary`/`secondary` on `hsl(var(--primary))`.
+**Toolkit chips**
+- Stagger-fade in on view; on hover, chip lifts 2px with soft shadow.
 
-Update memory: "Background styling" — now warm paper `#F5F4F0` with ink text and coral/indigo accents (no gradients).
+**Education / Certifications / Awards**
+- Cards stagger-fade in; hover lift.
 
-## Typography — Poppins everywhere
+**Contact card**
+- On enter view: background dark card slides up 12px with spring; contact link buttons magnetic-hover (button gently follows cursor within ~8px).
 
-- Keep existing Poppins loading in `index.html` and the asset JSONs.
-- Do **not** add Space Grotesk / Inter / JetBrains Mono.
-- Prototype rules that name those families fall back to Poppins.
-- For mono-styled bits (metric numbers, eyebrows, funnel numbers, proof line), use letter-spacing + `font-variant-numeric: tabular-nums` to keep them visually distinct without a mono face.
+**Global**
+- Smooth scroll already on. Add a thin coral scroll-progress bar fixed at top of viewport (2px), driven by `useScroll`.
+- Section headings: gradient underline wipes in left→right on enter view.
+- Back-to-top button: scale+rotate on hover, ripple on click.
 
-## Section order in Index.tsx
+## 3. Accessibility & performance guardrails
 
-TopBar (inside `PortfolioLayout`) → Hero → About → Journey (Experience) → Metrics strip (Achievements) → Toolkit (Skills) → Education → Contact → Footer → BackToTop.
+- All animations respect `prefers-reduced-motion` (existing global CSS rule already zeroes durations; new JS animations check `matchMedia` and short-circuit).
+- Canvas pauses on `visibilitychange` and when scrolled fully out of hero+journey range.
+- No layout thrash: transforms/opacity only.
+- Bundle: `motion` ~35KB gzip; canvas is dependency-free.
 
-## Interactions to preserve (all with plain React + IntersectionObserver + rAF, no libraries)
+## Technical section
 
-1. Funnel-nav sweep gradient on load; scroll-spy highlights active stage (`rootMargin: -38% 0 -50% 0`). Implemented in `PortfolioHero` (nav lives at the top of the hero).
-2. H1 word-by-word fade-up, 75ms stagger, indigo italic `<em>` clause. Implemented in `PortfolioHero` with a small local effect.
-3. Typewriter proof line starts ~1s after load; blinking coral cursor. Local effect in `PortfolioHero`.
-4. Persona chips (aria-pressed toggle, banner reveal, reset). Recruiter reorders Journey via body `data-persona` CSS. Role/problem/ran/moved swap per persona from `src/data/journey.ts`. "Most relevant" tag lights on that persona's stage.
-5. Vertical journey line fills as the flow scrolls (indigo→coral gradient). Implemented in `PortfolioExperience` with a scroll handler.
-6. Each stage: card fade-in, node pop, bar fill, counter animation on ~22% intersection. Implemented inside each stage card with a local `useEffect` + `IntersectionObserver`.
-7. About para 2 char-by-char scroll opacity. Implemented in `PortfolioAbout` with a local effect.
-8. Back-to-top visible after 500px scroll. Update `BackToTopButton`.
-9. `prefers-reduced-motion` fallback everywhere: final states visible, animations skipped. Checked inline with `window.matchMedia`.
+**Files created**
+- `src/components/FlowFieldBackground.tsx` — canvas + rAF loop, exposes cursor/scroll listeners.
+- `src/components/ScrollProgress.tsx` — top coral bar via Motion `useScroll`.
+- `src/components/CountUp.tsx` — reused for metrics + achievements (IntersectionObserver + rAF, reduced-motion aware).
+- `src/components/MagneticButton.tsx` — wrapper used for contact CTAs and top-bar Resume/Contact buttons.
 
-## Head / SEO / analytics
+**Files edited**
+- `src/components/PortfolioLayout.tsx` — mount `FlowFieldBackground` and `ScrollProgress`.
+- `src/components/PortfolioHero.tsx` — motion variants for funnel/proof/persona; cursor-glow overlay on hero photo.
+- `src/components/experience/StageCard.tsx` (and the four company cards) — Motion `whileInView`, sparkline draw-in, `AnimatePresence` for details, hover lift.
+- `src/components/PortfolioAchievements.tsx` — CountUp + stagger.
+- `src/components/PortfolioSkills.tsx`, `PortfolioEducation.tsx`, `PortfolioAchievements.tsx`, `PortfolioContact.tsx` — `whileInView` stagger.
+- `src/index.css` — a few new keyframes (`shimmer`, `underlineWipe`) and hover-glow tokens; keep tokens semantic.
+- `package.json` — add `motion` (^11).
 
-`index.html` — update `<title>` to "Ritik Arora — Growth & Marketing" and matching meta description within SEO length limits. Keep GA4, Microsoft Clarity, JSON-LD Person schema, canonical URL, GSC verification, and Poppins preloads untouched. `Index.tsx` Helmet block stays.
+**Non-goals**
+- No Three.js/WebGL; canvas 2D is enough and keeps bundle small.
+- No structural layout changes, no copy changes, no color palette changes.
+- No changes to routing, data, SEO, or analytics.
 
-## Assets
-
-- Existing `/lovable-uploads/*` logos for Stupa, CARS24, ApnaKlub, 1K Kirana are reused.
-- Existing hero headshot is reused (already `<picture>` optimized).
-- Freo renders an "F" monogram tile (inline, no image).
-
-## Out of scope
-
-- No new npm dependencies.
-- No new routes, backend, auth, or Cloud changes.
-- No context/provider/custom-hook/helper additions.
-- No copy changes beyond what the prototype specifies.
-
-## Validation
-
-- `bun run build` passes.
-- Playwright smoke on `/`: H1 words render, funnel nav shows 5 items, all 5 stage cards render in prototype order, clicking each persona chip flips `aria-pressed` and updates the banner, recruiter persona visually reorders stages, `<details>` opens, back-to-top toggles after scroll, console clean.
+```text
+┌─────────────────────────── viewport ───────────────────────────┐
+│  ░░░  ░ ░    ░ ░  ░   flow-field particles (behind content)    │
+│    ░  ░  ░ ░  ░  ░ ░   drift ↓, bend around cursor, hue shifts │
+│  ░ ░    ░  ░   ░   ░   with scroll (indigo → coral)            │
+│                                                                │
+│  [hero content, journey, etc. render normally on top]          │
+└────────────────────────────────────────────────────────────────┘
+```

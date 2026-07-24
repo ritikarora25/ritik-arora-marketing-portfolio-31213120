@@ -1,9 +1,14 @@
 import React from "react";
 import BackToTopButton from "./BackToTopButton";
+import FlowFieldBackground from "./FlowFieldBackground";
+import ScrollProgress from "./ScrollProgress";
+import MagneticButton from "./MagneticButton";
 
 const PortfolioLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen relative">
+      <FlowFieldBackground />
+      <ScrollProgress />
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:fixed focus:top-0 focus:left-0 focus:z-[300] focus:bg-ink focus:text-white focus:px-4 focus:py-2 focus:rounded-br"
@@ -15,22 +20,22 @@ const PortfolioLayout = ({ children }: { children: React.ReactNode }) => {
         <div className="wrap topbar-inner">
           <span className="brand">Ritik Arora<span>.</span></span>
           <div className="top-btns">
-            <a className="btn btn-ghost" href="#contact">Contact</a>
-            <a
+            <MagneticButton className="btn btn-ghost" href="#contact">Contact</MagneticButton>
+            <MagneticButton
               className="btn btn-solid"
               href="https://drive.google.com/uc?export=download&id=1Boeh4dRe0Rnuj6bff9joBrHITLEohmst"
               target="_blank"
               rel="noopener noreferrer"
             >
               Resume
-            </a>
+            </MagneticButton>
           </div>
         </div>
       </header>
 
-      <main id="main">{children}</main>
+      <main id="main" style={{ position: "relative", zIndex: 1 }}>{children}</main>
 
-      <footer className="pfooter wrap">
+      <footer className="pfooter wrap" style={{ position: "relative", zIndex: 1 }}>
         © 2026 Ritik Arora — built stage by stage, narrowing on purpose.
       </footer>
 
