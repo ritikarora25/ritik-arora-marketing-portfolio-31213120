@@ -24,25 +24,32 @@ const CircleBackground = () => {
     const host = lottieHostRef.current;
     if (!host) return;
     let anim: AnimationItem | null = null;
-    try {
-      anim = lottie.loadAnimation({
-        container: host,
-        renderer: "svg",
-        loop: true,
-        autoplay: true,
-        path: circleJson.url,
-        rendererSettings: {
-          preserveAspectRatio: "xMidYMid slice",
-          progressiveLoad: true,
-        },
-      });
-      const rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (rm) anim.pause();
-      anim.addEventListener("data_failed", () => setUseVideoFallback(true));
-    } catch {
-      setUseVideoFallback(true);
-    }
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch(circleJson.url);
+        if (!res.ok) throw new Error("lottie fetch failed");
+        const data = await res.json();
+        if (cancelled) return;
+        anim = lottie.loadAnimation({
+          container: host,
+          renderer: "svg",
+          loop: true,
+          autoplay: true,
+          animationData: data,
+          rendererSettings: {
+            preserveAspectRatio: "xMidYMid slice",
+            progressiveLoad: true,
+          },
+        });
+        const rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (rm) anim.pause();
+      } catch {
+        if (!cancelled) setUseVideoFallback(true);
+      }
+    })();
     return () => {
+      cancelled = true;
       anim?.destroy();
     };
   }, [useVideoFallback]);
