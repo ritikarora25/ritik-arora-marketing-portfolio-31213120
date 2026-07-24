@@ -123,12 +123,12 @@ const HaloBackground = () => {
       syncCssVars();
 
       const centerX = w * 0.5 + (eased.x - 0.5) * 82;
-      const centerY = h * 0.38 + (eased.y - 0.5) * 54 - eased.scroll * 30;
+      const centerY = h * 0.31 + (eased.y - 0.5) * 46 - eased.scroll * 24;
       const energy = Math.min(Math.abs(eased.velocity) / 34, 1);
 
       const drawEnergyRing = () => {
-        const radiusX = Math.min(w, h) * (w < 700 ? 0.38 : 0.34) * (1 + energy * 0.05);
-        const radiusY = radiusX * 0.34;
+        const radiusX = Math.min(w, h) * (w < 700 ? 0.31 : 0.29) * (1 + energy * 0.05);
+        const radiusY = radiusX * 0.32;
         const rotation = -0.16 + (eased.x - 0.5) * 0.15 + eased.scroll * 0.08;
         const spin = t * 0.00075;
 
@@ -138,8 +138,8 @@ const HaloBackground = () => {
         ctx.globalCompositeOperation = "lighter";
 
         const ambient = ctx.createRadialGradient(0, 0, radiusX * 0.1, 0, 0, radiusX * 1.7);
-        ambient.addColorStop(0, `rgba(6,182,212,${0.12 + energy * 0.05})`);
-        ambient.addColorStop(0.45, `rgba(234,179,8,${0.07 + energy * 0.04})`);
+        ambient.addColorStop(0, `rgba(6,182,212,${0.08 + energy * 0.04})`);
+        ambient.addColorStop(0.45, `rgba(234,179,8,${0.05 + energy * 0.03})`);
         ambient.addColorStop(1, "rgba(0,0,0,0)");
         ctx.fillStyle = ambient;
         ctx.beginPath();
@@ -147,11 +147,11 @@ const HaloBackground = () => {
         ctx.fill();
 
         const strokes = [
-          { hue: 188, offset: 0, width: 3.2, alpha: 0.78, blur: 20 },
-          { hue: 42, offset: 1.18, width: 2.8, alpha: 0.66, blur: 18 },
-          { hue: 188, offset: 2.42, width: 1.7, alpha: 0.86, blur: 12 },
-          { hue: 46, offset: 3.28, width: 1.4, alpha: 0.78, blur: 10 },
-          { hue: 190, offset: 4.14, width: 1.1, alpha: 0.64, blur: 8 },
+          { hue: 188, offset: 0, width: 2.2, alpha: 0.54, blur: 17 },
+          { hue: 42, offset: 1.18, width: 1.9, alpha: 0.46, blur: 15 },
+          { hue: 188, offset: 2.42, width: 1.15, alpha: 0.58, blur: 10 },
+          { hue: 46, offset: 3.28, width: 0.95, alpha: 0.5, blur: 8 },
+          { hue: 190, offset: 4.14, width: 0.8, alpha: 0.44, blur: 7 },
         ];
 
         for (let pass = 0; pass < 2; pass++) {
@@ -179,7 +179,7 @@ const HaloBackground = () => {
           }
         }
 
-        for (let i = 0; i < 44; i++) {
+        for (let i = 0; i < 34; i++) {
           const a = i * 0.38 + spin * 2;
           const rx = radiusX * (0.86 + Math.sin(i * 12.989) * 0.13);
           const ry = radiusY * (0.94 + Math.cos(i * 7.23) * 0.26);
