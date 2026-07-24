@@ -59,7 +59,7 @@ const FlowFieldBackground = () => {
       ctx.fillRect(0, 0, w, h);
 
       ctx.lineCap = "round";
-      const lines = small ? 18 : 34;
+      const lines: number = small ? 18 : 34;
       for (let i = 0; i < lines; i++) {
         const t = lines === 1 ? 0.5 : i / (lines - 1);
         const side = i % 2 === 0 ? -1 : 1;
@@ -105,12 +105,13 @@ const FlowFieldBackground = () => {
     if (rm) {
       clearFrame();
       drawFunnelSpine();
-      window.addEventListener("resize", () => {
+      const drawStatic = () => {
         resize();
         clearFrame();
         drawFunnelSpine();
-      });
-      return;
+      };
+      window.addEventListener("resize", drawStatic);
+      return () => window.removeEventListener("resize", drawStatic);
     }
 
     // Particles
