@@ -7,7 +7,7 @@ const items = [
 ];
 
 const PortfolioAchievements = () => (
-  <section id="achievements" className="wrap" style={{ paddingTop: 0, paddingBottom: 64 }}>
+  <section id="achievements" className="wrap" style={{ paddingTop: 0, paddingBottom: 28 }}>
     <div className="strip">
       {items.map((i) => (
         <div key={i.lbl}>
