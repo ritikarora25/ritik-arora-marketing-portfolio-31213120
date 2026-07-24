@@ -124,11 +124,88 @@ const HaloBackground = () => {
       syncCssVars();
 
       const centerX = w * 0.5 + (eased.x - 0.5) * 82;
-      const centerY = h * 0.48 + (eased.y - 0.5) * 54 - eased.scroll * 30;
+      const centerY = h * 0.38 + (eased.y - 0.5) * 54 - eased.scroll * 30;
       const energy = Math.min(Math.abs(eased.velocity) / 34, 1);
+
+      const drawEnergyRing = () => {
+        const radiusX = Math.min(w, h) * (w < 700 ? 0.38 : 0.34) * (1 + energy * 0.05);
+        const radiusY = radiusX * 0.34;
+        const rotation = -0.16 + (eased.x - 0.5) * 0.15 + eased.scroll * 0.08;
+        const spin = t * 0.00075;
+
+        ctx.save();
+        ctx.translate(centerX, centerY);
+        ctx.rotate(rotation);
+        ctx.globalCompositeOperation = "lighter";
+
+        const ambient = ctx.createRadialGradient(0, 0, radiusX * 0.1, 0, 0, radiusX * 1.7);
+        ambient.addColorStop(0, `rgba(6,182,212,${0.12 + energy * 0.05})`);
+        ambient.addColorStop(0.45, `rgba(234,179,8,${0.07 + energy * 0.04})`);
+        ambient.addColorStop(1, "rgba(0,0,0,0)");
+        ctx.fillStyle = ambient;
+        ctx.beginPath();
+        ctx.ellipse(0, 0, radiusX * 1.7, radiusY * 3.2, 0, 0, Math.PI * 2);
+        ctx.fill();
+
+        const strokes = [
+          { hue: 188, offset: 0, width: 3.2, alpha: 0.78, blur: 20 },
+          { hue: 42, offset: 1.18, width: 2.8, alpha: 0.66, blur: 18 },
+          { hue: 188, offset: 2.42, width: 1.7, alpha: 0.86, blur: 12 },
+          { hue: 46, offset: 3.28, width: 1.4, alpha: 0.78, blur: 10 },
+          { hue: 190, offset: 4.14, width: 1.1, alpha: 0.64, blur: 8 },
+        ];
+
+        for (let pass = 0; pass < 2; pass++) {
+          for (const stroke of strokes) {
+            const lines = pass === 0 ? 1 : 3;
+            for (let i = 0; i < lines; i++) {
+              const jitter = pass === 0 ? 0 : (i - 1) * 0.038;
+              const start = stroke.offset + spin * (stroke.hue === 188 ? 1 : -0.78) + jitter;
+              const end = start + Math.PI * (pass === 0 ? 1.72 : 1.18 + i * 0.16);
+
+              ctx.save();
+              ctx.rotate(jitter * 2.5);
+              ctx.scale(1, 0.82 + i * 0.028);
+              ctx.lineCap = "round";
+              ctx.lineJoin = "round";
+              ctx.shadowColor = `hsla(${stroke.hue}, 100%, 68%, ${stroke.alpha})`;
+              ctx.shadowBlur = stroke.blur + energy * 14;
+              ctx.strokeStyle = `hsla(${stroke.hue}, 100%, ${pass === 0 ? 72 : 66}%, ${stroke.alpha * (pass === 0 ? 1 : 0.62)})`;
+              ctx.lineWidth = (stroke.width + energy * 1.2) * (pass === 0 ? 1.65 : 1);
+              ctx.beginPath();
+              ctx.ellipse(0, 0, radiusX * (1 + i * 0.025), radiusY * (1 + i * 0.09), 0, start, end);
+              ctx.stroke();
+              ctx.restore();
+            }
+          }
+        }
+
+        for (let i = 0; i < 44; i++) {
+          const a = i * 0.38 + spin * 2;
+          const rx = radiusX * (0.86 + Math.sin(i * 12.989) * 0.13);
+          const ry = radiusY * (0.94 + Math.cos(i * 7.23) * 0.26);
+          const x = Math.cos(a) * rx;
+          const y = Math.sin(a) * ry;
+          const hue = i % 3 === 0 ? 42 : 188;
+          const alpha = 0.25 + Math.sin(t * 0.002 + i) * 0.18 + energy * 0.25;
+          const r = 1 + (i % 5) * 0.36;
+
+          const spark = ctx.createRadialGradient(x, y, 0, x, y, r * 8);
+          spark.addColorStop(0, `hsla(${hue}, 100%, 72%, ${alpha})`);
+          spark.addColorStop(1, "hsla(0, 0%, 0%, 0)");
+          ctx.fillStyle = spark;
+          ctx.beginPath();
+          ctx.arc(x, y, r * 8, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        ctx.restore();
+      };
 
       ctx.save();
       ctx.globalCompositeOperation = "lighter";
+
+      drawEnergyRing();
 
       for (const p of particles) {
         const dx = centerX - p.x;
