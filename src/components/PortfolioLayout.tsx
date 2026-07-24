@@ -1,6 +1,7 @@
 import React from "react";
 import BackToTopButton from "./BackToTopButton";
-import FlowFieldBackground from "./FlowFieldBackground";
+import HaloBackground from "./HaloBackground";
+import CustomCursor from "./CustomCursor";
 import ScrollProgress from "./ScrollProgress";
 import MagneticButton from "./MagneticButton";
 
