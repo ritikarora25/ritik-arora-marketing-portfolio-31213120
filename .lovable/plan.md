@@ -1,30 +1,64 @@
-I found the blocker: the animation logic is running, but the circle media is not actually rendering. The current code imports `circle.json.asset.json` / `circle.webm.asset.json`, then fetches their `url` values. In the live preview those asset URLs return the app HTML instead of the JSON/WebM bytes, so Lottie fails, the video fallback also cannot load, and the transform is being applied to an empty wrapper.
+## Goal
 
-Plan:
+Replace the current full-page dot/plus grid with a bolder, page-wide interactive background: a continuous crowd of small geometric humanoid figures (circle head + rectangle body, minimal limbs, subtle indigo/coral accents) that walks across the page and interacts with the foreground text.
 
-1. **Use the real uploaded media files directly**
-   - Replace the broken asset-manifest fetch path with a locally served project asset.
-   - Prefer `circle.webm` for the visible background because it is already a valid 1280×720 VP9 loop, about 2 MB, 10 seconds, 24 fps.
-   - Keep `circle.json` only if it can render reliably; otherwise remove the Lottie dependency/path to avoid another blank fallback.
+## Visual style
 
-2. **Remove unnecessary/background complexity**
-   - Remove the failed Lottie fetch/fallback state if WebM is the chosen reliable source.
-   - Remove unused refs and imports from `CircleBackground.tsx`.
-   - Keep only: video rendering, explicit circular orbit/spin transform, cursor tilt, scroll acceleration, and click ripple canvas.
+- Geometric humanoids: circle head, rounded-rectangle torso, thin line arms and legs. 2 tiny variants (with briefcase / with phone / plain) for visual rhythm.
+- Rendered on a single full-viewport `<canvas>` that sits behind all content (same slot the grid uses now).
+- Palette pulled from existing CSS vars so it matches the charcoal theme: bodies in `--ink` at low alpha, accents in `--indigo` and `--coral`.
+- Density: ~40–70 figures on screen at once, staggered across 3–4 vertical "lanes" so they don't feel like a single marching row.
 
-3. **Make motion visibly obvious**
-   - Apply motion to the actual media element/wrapper, not only the full-screen stage.
-   - Add two motion layers so it reads clearly even if the circle artwork is visually symmetrical:
-     - continuous circular orbit around center
-     - continuous rotation/spin on the media itself
-   - Keep color stable so experience section colors are not changed.
+## Interactions
 
-4. **Validate before reporting done**
-   - Run the preview in Playwright.
-   - Confirm the media element exists, has non-zero video dimensions, is playing, and its `currentTime` advances.
-   - Confirm computed transforms change over time.
-   - Capture screenshots at two timestamps to verify the circle is visible and in a different position.
-   - Check console and network for failed circle asset requests.
+Three behaviors combine into one loop:
 
-5. **Only then summarize**
-   - Report exactly what was removed, what asset is used, and what validation passed.
+1. **Walk + look-up at headings**
+   - Figures walk horizontally across the page (each with its own speed + lane).
+   - The component locates all `h1, h2, h3` in the DOM. When a walker passes under one, it briefly slows, tilts its head up toward the heading, then resumes.
+   - Recomputed on resize / route-independent (single page app).
+
+2. **Scroll drives motion**
+   - Scroll velocity is sampled each frame. Fast scroll → walkers speed up in the scroll-consistent direction (down-scroll = walk right faster, up-scroll = walk left). Idle scroll → gentle wander speed.
+   - Scroll delta also adds a small vertical bob so the crowd feels reactive, not glued to lanes.
+
+3. **Hover gathers a crowd**
+   - Any element tagged with `data-crowd-magnet` (headings + key CTAs) becomes an attractor while hovered.
+   - Nearest ~8–12 walkers steer toward it, decelerate, and face it (head tilt toward the element's center). On `mouseleave`, they resume their lane and direction.
+   - Uses `pointerover`/`pointerout` on `document` with delegation so it works for every tagged node without per-node listeners.
+
+## Technical approach
+
+- New component `src/components/CrowdBackground.tsx`:
+  - Full-viewport fixed canvas, `pointer-events: none`, `z-index: 0`, `background: var(--paper)`.
+  - Handles DPR, resize, `prefers-reduced-motion` (falls back to a static, sparse crowd with no motion).
+  - Internal `Walker` objects: `{ x, y, laneY, speed, dir, variant, headTilt, targetX?, targetY?, state: 'walk' | 'gather' | 'lookup' }`.
+  - Single RAF loop draws every walker each frame using `ctx` primitives (arc for head, roundRect for body, lines for limbs, small accents for props).
+  - Heading positions cached; refreshed on scroll/resize via a throttled `getBoundingClientRect()` pass (viewport-space, cheap).
+  - Attractor set updated from delegated pointer events.
+
+- Wire-up in `src/components/PortfolioLayout.tsx`: swap `<InteractiveGrid />` for `<CrowdBackground />`. Remove `InteractiveGrid.tsx`.
+
+- Tag magnets: add `data-crowd-magnet` to the hero H1 (`PortfolioHero.tsx`), section headings in `PortfolioAchievements.tsx`, `PortfolioExperience.tsx`, `PortfolioContact.tsx`, and the two topbar CTAs (`Resume`, `Contact`). No copy or layout changes.
+
+- No new dependencies. Pure canvas 2D. Keeps existing `CustomCursor`, `ScrollProgress`, `MagneticButton` untouched.
+
+## Performance & accessibility
+
+- Cap walker count based on viewport width (mobile: ~25, desktop: ~65). Throttle heading-rect recompute to every ~200ms or on scroll end.
+- `aria-hidden="true"` on the canvas container (already the pattern).
+- `prefers-reduced-motion`: static crowd, no walking, no scroll response, hover-gather disabled — pure decorative.
+- Draw is single-canvas, single-pass; no per-figure DOM nodes.
+
+## Out of scope
+
+- No funnel-themed visuals or funnel-linked color shifts (per your instruction).
+- No changes to page copy, layout, colors, typography, or component structure beyond adding `data-crowd-magnet` attributes.
+- No changes to `CustomCursor`, `ScrollProgress`, `MagneticButton`, or the resume/contact links.
+
+## Deliverables
+
+1. `src/components/CrowdBackground.tsx` (new).
+2. `src/components/PortfolioLayout.tsx` swap.
+3. `src/components/InteractiveGrid.tsx` deleted.
+4. `data-crowd-magnet` attributes added to hero H1, section headings, and topbar CTAs.
