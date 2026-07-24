@@ -211,14 +211,14 @@ hr.divider { border: none; border-top: 1px solid var(--line); }
 .char-live { position: absolute; left: 0; top: 0; color: #2c2f45; opacity: 0; transition: opacity .08s ease; white-space: pre; }
 
 /* ─── JOURNEY: CONNECTED FUNNEL ───────────────────────────── */
-.journey-intro { max-width: 640px; color: #3c3f52; font-size: 1rem; line-height: 1.65; margin-bottom: 8px; }
-.journey-note { font-size: 0.78rem; color: var(--slate); margin-bottom: 28px; letter-spacing: 0.01em; }
+.journey-intro { max-width: 640px; color: #3c3f52; font-size: 1rem; line-height: 1.6; margin-bottom: 6px; }
+.journey-note { font-size: 0.78rem; color: var(--slate); margin-bottom: 18px; letter-spacing: 0.01em; }
 
 .journey-flow { position: relative; padding-left: 42px; }
 .journey-line-track { position: absolute; left: 10px; top: 10px; bottom: 10px; width: 2px; background: var(--line); overflow: hidden; }
 .journey-line-fill { position: absolute; top: 0; left: 0; width: 100%; background: linear-gradient(180deg, var(--indigo), var(--coral)); height: 0%; transition: height .06s linear; }
 
-.stage-block { position: relative; margin-bottom: 44px; scroll-margin-top: 90px; }
+.stage-block { position: relative; margin-bottom: 26px; scroll-margin-top: 90px; }
 .stage-block:last-child { margin-bottom: 0; }
 
 .stage-node { position: absolute; left: -42px; top: 2px; width: 22px; height: 22px; border-radius: 50%; background: #fff; border: 2px solid var(--line); display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: 600; color: var(--slate); transition: background .3s, border-color .3s, color .3s; z-index: 2; font-variant-numeric: tabular-nums; }
