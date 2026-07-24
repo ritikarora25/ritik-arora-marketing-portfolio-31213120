@@ -310,3 +310,100 @@ body[data-persona="recruiter"] #retain { order: 2; }
 body[data-persona="recruiter"] #engage { order: 3; }
 body[data-persona="recruiter"] #monetize { order: 4; }
 body[data-persona="recruiter"] #acquire { order: 5; }
+
+/* ─── MOTION ENHANCEMENTS ─────────────────────────────────── */
+
+/* Ensure content sits above the fixed flow-field canvas */
+.topbar, .hero, .psection, .contact-card, .strip, .pfooter, #toTop, .persona-banner { position: relative; z-index: 1; }
+.wrap { position: relative; z-index: 1; }
+
+/* Sparkline draw-in when exp-card enters view */
+.spark path.sline { stroke-dasharray: 1; stroke-dashoffset: 1; }
+.exp-card.in .spark path.sline { animation: sparkDraw 1.4s cubic-bezier(.6,.05,.3,1) .2s forwards; }
+.exp-card.in .spark path.sarea { animation: revealUp .8s ease .1s forwards; opacity: 0; animation-fill-mode: forwards; }
+
+/* Card hover lift */
+.exp-card { will-change: transform; }
+.exp-card:hover { border-color: var(--indigo); transform: translateY(-4px); box-shadow: 0 18px 40px -20px rgba(61,63,224,0.35); }
+
+/* Funnel segment hover scale */
+.funnel a { transition: color .2s, background .2s, transform .2s; }
+.funnel a:hover { transform: scale(1.02); }
+
+/* Section head underline wipe on hover of h2 */
+.section-head h2 { position: relative; display: inline-block; }
+.section-head h2::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -6px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--indigo), var(--coral));
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform .5s cubic-bezier(.2,.8,.2,1);
+}
+.section-head:hover h2::after,
+.section-head h2:hover::after { transform: scaleX(1); }
+
+/* Hero photo cursor glow */
+.hero-photo { position: relative; overflow: hidden; }
+.hero-photo-glow {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background: radial-gradient(160px circle at var(--gx, 50%) var(--gy, 50%),
+    rgba(61,63,224,0.35), rgba(255,107,74,0.15) 40%, transparent 70%);
+  opacity: 0;
+  transition: opacity .3s ease;
+  mix-blend-mode: screen;
+}
+.hero-photo:hover .hero-photo-glow { opacity: 1; }
+
+/* Proof-box shimmer sweep */
+.proof-box { position: relative; overflow: hidden; }
+.proof-box::before {
+  content: "";
+  position: absolute; top: 0; bottom: 0; left: 0; width: 60%;
+  background: linear-gradient(90deg, transparent, rgba(255,107,74,0.14), transparent);
+  transform: translateX(-120%);
+  pointer-events: none;
+  animation: shimmerSweep 6s ease-in-out 3s infinite;
+}
+
+/* Chip hover already handled inline in components; add fallback */
+.chip { transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+.chip:hover { border-color: var(--indigo); }
+
+/* Back-to-top polish */
+#toTop { transition: opacity .2s, background .2s, transform .3s cubic-bezier(.2,.8,.2,1); }
+#toTop:hover { transform: translateY(-3px) rotate(-8deg); }
+#toTop:active { transform: translateY(0) scale(.94); }
+
+/* Contact link hover on magnetic buttons keeps original coral flip */
+.contact-links a { transition: background .2s, border-color .2s, color .2s; }
+
+/* Persona chip ripple hint on activation */
+.persona-chip[aria-pressed="true"]::after {
+  content: "";
+  position: absolute; inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 0 0 0 rgba(61,63,224,0.35);
+  animation: chipRipple .8s ease-out;
+}
+@keyframes chipRipple {
+  from { box-shadow: 0 0 0 0 rgba(61,63,224,0.45); }
+  to { box-shadow: 0 0 0 14px rgba(61,63,224,0); }
+}
+
+/* Award/edu items gentle bg on hover */
+.edu-item, .cert-list li, .award { transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease; }
+.edu-item:hover, .cert-list li:hover, .award:hover { border-color: var(--indigo); box-shadow: 0 8px 24px -12px rgba(61,63,224,0.25); }
+
+/* Strip stat hover: subtle coral underline */
+.strip > div { position: relative; }
+.strip > div .snum { position: relative; display: inline-block; }
+.strip > div .snum::after {
+  content: ""; position: absolute; left: 0; bottom: -4px; height: 2px; width: 100%;
+  background: var(--coral); transform: scaleX(0); transform-origin: left center;
+  transition: transform .5s cubic-bezier(.2,.8,.2,1);
+}
+.strip > div:hover .snum::after { transform: scaleX(1); }
