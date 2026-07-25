@@ -92,8 +92,11 @@ const IntroAnimation = ({ onComplete }: Props) => {
   });
 
 
-  // Build figures once when we decide to render
-  if (render && figuresRef.current.length === 0) {
+  // Build figures once on mount so every figure has a real DOM ref before
+  // the rAF loop starts.
+  useEffect(() => {
+    if (figuresRef.current.length > 0) return;
+
     // Resolve theme-aware colors from CSS custom properties
     const rootStyle = getComputedStyle(document.documentElement);
     const readVar = (name: string, fallback: string) => {
@@ -169,7 +172,9 @@ const IntroAnimation = ({ onComplete }: Props) => {
       f.y = f.by = rand(vh * 0.3, vh * 0.7);
     });
     figuresRef.current = figs;
-  }
+    setReady(true);
+  }, []);
+
 
   // Main timeline
   useEffect(() => {
