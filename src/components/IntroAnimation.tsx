@@ -440,8 +440,11 @@ const IntroAnimation = ({ onComplete }: Props) => {
         break;
       }
     }
-    // Sync pose state so <Pose> re-renders with the new SVG
-    setPoses(figuresRef.current.map((f) => f.pose));
+    // Directly swap SVG on each figure's DOM node — bypasses React re-renders
+    // so the rAF loop keeps valid references and motion never freezes.
+    for (const f of figuresRef.current) {
+      if (f.el) f.el.innerHTML = poseHtml(f.pose, f.color);
+    }
   };
 
   const finish = (fromSkip: boolean) => {
