@@ -493,6 +493,8 @@ const IntroAnimation = ({ onComplete }: Props) => {
         break;
       }
     }
+    // Sync pose state so <Pose> re-renders with the new SVG
+    setPoses(figuresRef.current.map((f) => f.pose));
   };
 
   const finish = (fromSkip: boolean) => {
@@ -549,7 +551,7 @@ const IntroAnimation = ({ onComplete }: Props) => {
             willChange: "transform, opacity",
           }}
         >
-          <Pose name={f.pose} color={f.color} />
+          <Pose name={poses[i] ?? f.pose} color={f.color} />
         </div>
       ))}
 
