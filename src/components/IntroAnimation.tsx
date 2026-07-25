@@ -317,7 +317,7 @@ const IntroAnimation = ({ onComplete }: Props) => {
         ritik.ty = ritik.by - 200;
         ritik.targetOpacity = 0;
       }
-    }, 9700);
+    }, 10950);
 
     // Fade overlay labels to 0 right before overlay dies (real funnel nav underneath takes over visually)
     setT(() => {
