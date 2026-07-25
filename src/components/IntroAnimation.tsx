@@ -76,7 +76,7 @@ interface Props {
 }
 
 const IntroAnimation = ({ onComplete }: Props) => {
-  const [render, setRender] = useState(false);
+  const [ready, setReady] = useState(false);
   const overlayRef = useRef<HTMLDivElement>(null);
   const figuresRef = useRef<Figure[]>([]);
   const labelRefs = useRef<(HTMLDivElement | null)[]>([]);
