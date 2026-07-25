@@ -152,12 +152,30 @@ const IntroAnimation = ({ onComplete }: Props) => {
 
   // Build figures once when we decide to render
   if (render && figuresRef.current.length === 0) {
+    // Resolve theme-aware colors from CSS custom properties
+    const rootStyle = getComputedStyle(document.documentElement);
+    const readVar = (name: string, fallback: string) => {
+      const v = rootStyle.getPropertyValue(name).trim();
+      return v || fallback;
+    };
+    const paperVal = readVar("--paper", "#F5F4F0");
+    const inkVal = readVar("--ink", "#151833");
+    const slateVal = readVar("--slate", "#8A8D9F");
+    const indigoVal = readVar("--indigo", "#3D3FE0");
+    const coralVal = readVar("--coral", "#FF6B4A");
+    const bgLum = luminanceOf(paperVal);
+    const crowdColors =
+      bgLum > 0.5
+        ? [inkVal, inkVal, inkVal, slateVal, slateVal, indigoVal]
+        : ["rgba(245,244,240,0.9)", "rgba(245,244,240,0.75)", slateVal, slateVal, indigoVal, indigoVal];
+    colorsRef.current = { crowd: crowdColors, ritik: coralVal };
+
     const vw = window.innerWidth;
     const vh = window.innerHeight;
     const cx = vw / 2;
     const cy = Math.max(180, vh / 2 - 36);
     const figs: Figure[] = [];
-    const poses: PoseName[] = ["idle", "idle", "walk", "curious", "lean", "crouch"];
+    const poseChoices: PoseName[] = ["idle", "idle", "walk", "curious", "lean", "crouch"];
     for (let i = 0; i < 25; i++) {
       // loose cluster within ~240x140 ellipse
       const t = Math.random() * Math.PI * 2;
@@ -170,9 +188,9 @@ const IntroAnimation = ({ onComplete }: Props) => {
       figs.push({
         id: i,
         isRitik: false,
-        color: COLORS[Math.floor(Math.random() * COLORS.length)],
+        color: crowdColors[Math.floor(Math.random() * crowdColors.length)],
         size: rand(54, 70),
-        pose: poses[Math.floor(Math.random() * poses.length)],
+        pose: poseChoices[Math.floor(Math.random() * poseChoices.length)],
         x: startX, y: startY, bx: startX, by: startY, tx: targetX, ty: targetY,
         swaySeed: Math.random() * Math.PI * 2,
         swaySpeed: rand(1.2, 2.4),
@@ -190,7 +208,7 @@ const IntroAnimation = ({ onComplete }: Props) => {
     figs.push({
       id: 25,
       isRitik: true,
-      color: "#FF6B4A",
+      color: coralVal,
       size: 82,
       pose: "idle",
       x: cx, y: cy, bx: cx, by: cy, tx: cx, ty: cy,
@@ -209,6 +227,11 @@ const IntroAnimation = ({ onComplete }: Props) => {
       f.y = f.by = rand(vh * 0.3, vh * 0.7);
     });
     figuresRef.current = figs;
+    // Seed pose state so <Pose> re-renders when applyStageChoreography mutates a pose
+    if (poses.length === 0) {
+      // Defer to avoid setState-in-render warning
+      queueMicrotask(() => setPoses(figs.map((f) => f.pose)));
+    }
   }
 
   // Main timeline
