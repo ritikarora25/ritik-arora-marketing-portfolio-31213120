@@ -296,7 +296,7 @@ const IntroAnimation = ({ onComplete }: Props) => {
         revealRef.current.style.opacity = "1";
         revealRef.current.style.transform = "translate(-50%, -50%) translateY(0)";
       }
-    }, 8400);
+    }, 9650);
 
     // 9.7–10.5s: assembly — reveal text -> .brand, Ritik walks up + fades
     setT(() => {
