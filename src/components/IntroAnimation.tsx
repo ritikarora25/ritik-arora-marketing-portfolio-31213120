@@ -230,9 +230,10 @@ const IntroAnimation = ({ onComplete }: Props) => {
     rafRef.current = requestAnimationFrame(loop);
 
     // -- Sequence --
-    // Motion begins immediately: figures enter from the viewport edges.
+    // Scene 1 (0–2s): figures walk in from viewport edges and idle in a loose cluster.
+    // Nothing else happens — the rAF loop eases each figure toward its gather target.
 
-    // 2.0–2.8s: fade in stage labels (staggered)
+    // 2.0s: stage labels fade in, staggered by 160ms
     STAGES.forEach((_, i) => {
       setT(() => {
         const el = labelRefs.current[i];
@@ -240,102 +241,62 @@ const IntroAnimation = ({ onComplete }: Props) => {
           el.style.opacity = "1";
           el.style.transform = "translate(-50%, 0)";
         }
-      }, 2000 + i * 200);
+      }, 2000 + i * 160);
     });
 
-    // 3.5–7.5s: cycle active stage every 1s (starts after all labels are fully visible)
+    // 3.0s: stage cycle begins — one stage per second (3s, 4s, 5s, 6s, 7s)
     STAGES.forEach((_, i) => {
       setT(() => {
         stageIndexRef.current = i;
-        // highlight active
         labelRefs.current.forEach((el, j) => {
           if (!el) return;
           el.style.color = j === i ? "var(--coral, #FF6B4A)" : "var(--ink, #151833)";
           el.style.transform = `translate(-50%, 0) scale(${j === i ? 1.08 : 1})`;
         });
         applyStageChoreography(i);
-      }, 3500 + i * 1000);
+      }, 3000 + i * 1000);
     });
 
-    // 6.75–8.5s: non-Ritik figures fade up; stage labels fly to funnel nav positions
+    // 8.0s: all figures walk upward (ty = by - 120) and fade out; overlay labels
+    // fly to the real #funnelNav link centers with a 1.4s cubic-bezier transition.
     setT(() => {
       const m = measure();
       for (const f of figuresRef.current) {
-        if (f.isRitik) continue;
-        f.ty = f.by - 80;
+        f.ty = f.by - 120;
         f.targetOpacity = 0;
       }
-      // move labels to nav positions
       labelRefs.current.forEach((el, i) => {
         if (!el) return;
         const target = m.links[i];
         if (!target) return;
-        el.style.transition = "all 1.6s cubic-bezier(.65,0,.35,1)";
+        el.style.transition = "all 1.4s cubic-bezier(.65,0,.35,1)";
         el.style.top = `${target.top + target.height / 2}px`;
         el.style.left = `${target.left + target.width / 2}px`;
-        el.style.fontSize = `12px`;
+        el.style.fontSize = "12px";
         el.style.color = "var(--ink, #151833)";
         el.style.transform = "translate(-50%, -50%) scale(1)";
       });
     }, 8000);
 
-    // 8.4–9.6s: reveal Ritik + text
-    setT(() => {
-      // center Ritik precisely
-      const ritik = figuresRef.current.find((f) => f.isRitik);
-      if (ritik) {
-        ritik.tx = window.innerWidth / 2;
-        ritik.ty = window.innerHeight / 2 + 20;
-      }
-      if (revealRef.current) {
-        revealRef.current.style.opacity = "1";
-        revealRef.current.style.transform = "translate(-50%, -50%) translateY(0)";
-      }
-    }, 9650);
-
-    // 9.7–10.5s: assembly — reveal text -> .brand, Ritik walks up + fades
-    setT(() => {
-      const m = measure();
-      if (m.brand && revealRef.current) {
-        const el = revealRef.current;
-        const targetX = m.brand.left + m.brand.width / 2;
-        const targetY = m.brand.top + m.brand.height / 2;
-        el.style.transition = "all 1s cubic-bezier(.65,0,.35,1)";
-        el.style.top = `${targetY}px`;
-        el.style.left = `${targetX}px`;
-        el.style.fontSize = "16px";
-        el.style.fontWeight = "600";
-        el.style.transform = "translate(-50%, -50%)";
-      }
-      const ritik = figuresRef.current.find((f) => f.isRitik);
-      if (ritik) {
-        ritik.ty = ritik.by - 200;
-        ritik.targetOpacity = 0;
-      }
-    }, 10950);
-
-    // Fade overlay labels to 0 right before overlay dies (real funnel nav underneath takes over visually)
+    // 9.5s: fade overlay labels out (real #funnelNav cross-fades in via CSS)
     setT(() => {
       labelRefs.current.forEach((el) => {
         if (!el) return;
-        el.style.transition = "opacity 200ms ease-out";
+        el.style.transition = "opacity 400ms ease-out";
         el.style.opacity = "0";
       });
-      if (revealRef.current) {
-        revealRef.current.style.transition = "opacity 200ms ease-out";
-        revealRef.current.style.opacity = "0";
-      }
-    }, 11750);
+    }, 9500);
 
-    // Overlay fade out then finish
+    // 9.8s: fade the overlay itself over 0.6s
     setT(() => {
       if (overlayRef.current) {
         overlayRef.current.style.transition = "opacity 600ms ease-out";
         overlayRef.current.style.opacity = "0";
       }
-    }, 11950);
+    }, 9800);
 
-    setT(() => finish(false), 12550);
+    // 10.4s: hide overlay and hand off
+    setT(() => finish(false), 10400);
 
     return () => {
       timeoutsRef.current.forEach((id) => clearTimeout(id));
