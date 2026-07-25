@@ -31,7 +31,7 @@ const Index = () => {
 
   return (
     <>
-      <IntroAnimation />
+      <IntroAnimation onComplete={() => setIntroPlaying(false)} />
       <Helmet>
         <title>Ritik Arora — Growth & Marketing</title>
         <meta name="description" content="Growth marketer, 5+ years across brand, CRM, retention and product — currently at Freo, Bengaluru." />
