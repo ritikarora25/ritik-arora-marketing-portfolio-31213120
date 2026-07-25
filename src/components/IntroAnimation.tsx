@@ -9,67 +9,20 @@ type PoseName = "idle" | "walk" | "lean" | "curious" | "crouch" | "leave";
 
 const STAGES = ["Acquire", "Activate", "Engage", "Retain", "Monetize"] as const;
 
-// ---- Poses (simple geometric silhouettes, ~40 viewBox units tall) -----------
-const Pose = ({ name, color }: { name: PoseName; color: string }) => {
-  // shared head
-  const head = <circle cx="20" cy="8" r="5" fill={color} />;
-  switch (name) {
-    case "idle":
-      return (
-        <svg viewBox="0 0 40 56" width="100%" height="100%">
-          {head}
-          <path d="M14 14 Q20 12 26 14 L25 32 Q20 34 15 32 Z" fill={color} />
-          <path d="M15 32 L13 50 M25 32 L27 50" stroke={color} strokeWidth="3.5" strokeLinecap="round" />
-          <path d="M14 16 L11 28 M26 16 L29 28" stroke={color} strokeWidth="3" strokeLinecap="round" />
-        </svg>
-      );
-    case "walk":
-      return (
-        <svg viewBox="0 0 40 56" width="100%" height="100%">
-          {head}
-          <path d="M14 14 Q20 12 26 14 L25 32 Q20 34 15 32 Z" fill={color} />
-          <path d="M15 32 L10 50 M25 32 L30 50" stroke={color} strokeWidth="3.5" strokeLinecap="round" />
-          <path d="M14 16 L18 28 M26 16 L23 30" stroke={color} strokeWidth="3" strokeLinecap="round" />
-        </svg>
-      );
-    case "lean":
-      return (
-        <svg viewBox="0 0 40 56" width="100%" height="100%">
-          <circle cx="23" cy="8" r="5" fill={color} />
-          <path d="M16 14 Q22 12 28 14 L26 32 Q20 34 15 32 Z" fill={color} />
-          <path d="M15 32 L13 50 M26 32 L28 50" stroke={color} strokeWidth="3.5" strokeLinecap="round" />
-          <path d="M16 16 L10 24 M28 16 L34 22" stroke={color} strokeWidth="3" strokeLinecap="round" />
-        </svg>
-      );
-    case "curious":
-      return (
-        <svg viewBox="0 0 40 56" width="100%" height="100%">
-          {head}
-          <path d="M14 14 Q20 12 26 14 L25 32 Q20 34 15 32 Z" fill={color} />
-          <path d="M15 32 L13 50 M25 32 L27 50" stroke={color} strokeWidth="3.5" strokeLinecap="round" />
-          <path d="M14 16 L6 20 M26 16 L34 20" stroke={color} strokeWidth="3" strokeLinecap="round" />
-        </svg>
-      );
-    case "crouch":
-      return (
-        <svg viewBox="0 0 40 56" width="100%" height="100%">
-          <circle cx="20" cy="18" r="5" fill={color} />
-          <path d="M14 24 Q20 22 26 24 L25 38 Q20 40 15 38 Z" fill={color} />
-          <path d="M15 38 L11 50 L18 50 M25 38 L29 50 L22 50" stroke={color} strokeWidth="3.5" strokeLinecap="round" fill="none" />
-          <path d="M14 26 L10 36 M26 26 L30 36" stroke={color} strokeWidth="3" strokeLinecap="round" />
-        </svg>
-      );
-    case "leave":
-      return (
-        <svg viewBox="0 0 40 56" width="100%" height="100%">
-          <circle cx="17" cy="8" r="5" fill={color} />
-          <path d="M12 14 Q18 12 24 14 L22 32 Q18 34 14 32 Z" fill={color} />
-          <path d="M14 32 L9 50 M22 32 L26 50" stroke={color} strokeWidth="3.5" strokeLinecap="round" />
-          <path d="M12 16 L6 24 M24 16 L28 26" stroke={color} strokeWidth="3" strokeLinecap="round" />
-        </svg>
-      );
-  }
+// ---- Poses as plain SVG strings (color injected via {COLOR} token) ---------
+// Mutated directly via innerHTML — bypasses React re-renders so the rAF loop
+// keeps valid references to figure DOM nodes.
+const POSE_SVG: Record<PoseName, string> = {
+  idle: `<svg viewBox="0 0 40 56" width="100%" height="100%"><circle cx="20" cy="8" r="5" fill="{COLOR}"/><path d="M14 14 Q20 12 26 14 L25 32 Q20 34 15 32 Z" fill="{COLOR}"/><path d="M15 32 L13 50 M25 32 L27 50" stroke="{COLOR}" stroke-width="3.5" stroke-linecap="round"/><path d="M14 16 L11 28 M26 16 L29 28" stroke="{COLOR}" stroke-width="3" stroke-linecap="round"/></svg>`,
+  walk: `<svg viewBox="0 0 40 56" width="100%" height="100%"><circle cx="20" cy="8" r="5" fill="{COLOR}"/><path d="M14 14 Q20 12 26 14 L25 32 Q20 34 15 32 Z" fill="{COLOR}"/><path d="M15 32 L10 50 M25 32 L30 50" stroke="{COLOR}" stroke-width="3.5" stroke-linecap="round"/><path d="M14 16 L18 28 M26 16 L23 30" stroke="{COLOR}" stroke-width="3" stroke-linecap="round"/></svg>`,
+  lean: `<svg viewBox="0 0 40 56" width="100%" height="100%"><circle cx="23" cy="8" r="5" fill="{COLOR}"/><path d="M16 14 Q22 12 28 14 L26 32 Q20 34 15 32 Z" fill="{COLOR}"/><path d="M15 32 L13 50 M26 32 L28 50" stroke="{COLOR}" stroke-width="3.5" stroke-linecap="round"/><path d="M16 16 L10 24 M28 16 L34 22" stroke="{COLOR}" stroke-width="3" stroke-linecap="round"/></svg>`,
+  curious: `<svg viewBox="0 0 40 56" width="100%" height="100%"><circle cx="20" cy="8" r="5" fill="{COLOR}"/><path d="M14 14 Q20 12 26 14 L25 32 Q20 34 15 32 Z" fill="{COLOR}"/><path d="M15 32 L13 50 M25 32 L27 50" stroke="{COLOR}" stroke-width="3.5" stroke-linecap="round"/><path d="M14 16 L6 20 M26 16 L34 20" stroke="{COLOR}" stroke-width="3" stroke-linecap="round"/></svg>`,
+  crouch: `<svg viewBox="0 0 40 56" width="100%" height="100%"><circle cx="20" cy="18" r="5" fill="{COLOR}"/><path d="M14 24 Q20 22 26 24 L25 38 Q20 40 15 38 Z" fill="{COLOR}"/><path d="M15 38 L11 50 L18 50 M25 38 L29 50 L22 50" stroke="{COLOR}" stroke-width="3.5" stroke-linecap="round" fill="none"/><path d="M14 26 L10 36 M26 26 L30 36" stroke="{COLOR}" stroke-width="3" stroke-linecap="round"/></svg>`,
+  leave: `<svg viewBox="0 0 40 56" width="100%" height="100%"><circle cx="17" cy="8" r="5" fill="{COLOR}"/><path d="M12 14 Q18 12 24 14 L22 32 Q18 34 14 32 Z" fill="{COLOR}"/><path d="M14 32 L9 50 M22 32 L26 50" stroke="{COLOR}" stroke-width="3.5" stroke-linecap="round"/><path d="M12 16 L6 24 M24 16 L28 26" stroke="{COLOR}" stroke-width="3" stroke-linecap="round"/></svg>`,
 };
+
+const poseHtml = (pose: PoseName, color: string) =>
+  POSE_SVG[pose].replace(/\{COLOR\}/g, color);
 
 // ---- Figure state -----------------------------------------------------------
 type Figure = {
@@ -124,7 +77,6 @@ interface Props {
 
 const IntroAnimation = ({ onComplete }: Props) => {
   const [render, setRender] = useState(false);
-  const [poses, setPoses] = useState<PoseName[]>([]);
   const overlayRef = useRef<HTMLDivElement>(null);
   const figuresRef = useRef<Figure[]>([]);
   const labelRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -227,11 +179,6 @@ const IntroAnimation = ({ onComplete }: Props) => {
       f.y = f.by = rand(vh * 0.3, vh * 0.7);
     });
     figuresRef.current = figs;
-    // Seed pose state so <Pose> re-renders when applyStageChoreography mutates a pose
-    if (poses.length === 0) {
-      // Defer to avoid setState-in-render warning
-      queueMicrotask(() => setPoses(figs.map((f) => f.pose)));
-    }
   }
 
   // Main timeline
@@ -301,7 +248,7 @@ const IntroAnimation = ({ onComplete }: Props) => {
       }, 2000 + i * 200);
     });
 
-    // 2.5–7.5s: cycle active stage every 1s (starts after figures have gathered)
+    // 3.5–7.5s: cycle active stage every 1s (starts after all labels are fully visible)
     STAGES.forEach((_, i) => {
       setT(() => {
         stageIndexRef.current = i;
@@ -312,7 +259,7 @@ const IntroAnimation = ({ onComplete }: Props) => {
           el.style.transform = `translate(-50%, 0) scale(${j === i ? 1.08 : 1})`;
         });
         applyStageChoreography(i);
-      }, 2500 + i * 1000);
+      }, 3500 + i * 1000);
     });
 
     // 6.75–8.5s: non-Ritik figures fade up; stage labels fly to funnel nav positions
@@ -335,7 +282,7 @@ const IntroAnimation = ({ onComplete }: Props) => {
         el.style.color = "var(--ink, #151833)";
         el.style.transform = "translate(-50%, -50%) scale(1)";
       });
-    }, 6750);
+    }, 8000);
 
     // 8.4–9.6s: reveal Ritik + text
     setT(() => {
@@ -349,7 +296,7 @@ const IntroAnimation = ({ onComplete }: Props) => {
         revealRef.current.style.opacity = "1";
         revealRef.current.style.transform = "translate(-50%, -50%) translateY(0)";
       }
-    }, 8400);
+    }, 9650);
 
     // 9.7–10.5s: assembly — reveal text -> .brand, Ritik walks up + fades
     setT(() => {
@@ -370,7 +317,7 @@ const IntroAnimation = ({ onComplete }: Props) => {
         ritik.ty = ritik.by - 200;
         ritik.targetOpacity = 0;
       }
-    }, 9700);
+    }, 10950);
 
     // Fade overlay labels to 0 right before overlay dies (real funnel nav underneath takes over visually)
     setT(() => {
@@ -380,10 +327,10 @@ const IntroAnimation = ({ onComplete }: Props) => {
         el.style.opacity = "0";
       });
       if (revealRef.current) {
-        revealRef.current.style.transition = (revealRef.current.style.transition || "") + ", opacity 200ms ease-out";
+        revealRef.current.style.transition = "opacity 200ms ease-out";
         revealRef.current.style.opacity = "0";
       }
-    }, 10400);
+    }, 11750);
 
     // Overlay fade out then finish
     setT(() => {
@@ -391,9 +338,9 @@ const IntroAnimation = ({ onComplete }: Props) => {
         overlayRef.current.style.transition = "opacity 600ms ease-out";
         overlayRef.current.style.opacity = "0";
       }
-    }, 10600);
+    }, 11950);
 
-    setT(() => finish(false), 11200);
+    setT(() => finish(false), 12550);
 
     return () => {
       timeoutsRef.current.forEach((id) => clearTimeout(id));
@@ -493,8 +440,11 @@ const IntroAnimation = ({ onComplete }: Props) => {
         break;
       }
     }
-    // Sync pose state so <Pose> re-renders with the new SVG
-    setPoses(figuresRef.current.map((f) => f.pose));
+    // Directly swap SVG on each figure's DOM node — bypasses React re-renders
+    // so the rAF loop keeps valid references and motion never freezes.
+    for (const f of figuresRef.current) {
+      if (f.el) f.el.innerHTML = poseHtml(f.pose, f.color);
+    }
   };
 
   const finish = (fromSkip: boolean) => {
@@ -540,6 +490,7 @@ const IntroAnimation = ({ onComplete }: Props) => {
           data-intro-figure="true"
           key={f.id}
           ref={(el) => { figuresRef.current[i].el = el; }}
+          dangerouslySetInnerHTML={{ __html: poseHtml(f.pose, f.color) }}
           style={{
             position: "absolute",
             width: `${f.size * 0.72}px`,
@@ -550,9 +501,7 @@ const IntroAnimation = ({ onComplete }: Props) => {
             opacity: f.opacity,
             willChange: "transform, opacity",
           }}
-        >
-          <Pose name={poses[i] ?? f.pose} color={f.color} />
-        </div>
+        />
       ))}
 
       {/* Stage labels */}
