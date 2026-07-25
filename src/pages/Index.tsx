@@ -13,15 +13,25 @@ import type { Persona } from "@/data/journey";
 
 const Index = () => {
   const [persona, setPersona] = useState<Persona>("default");
+  const [introPlaying, setIntroPlaying] = useState(true);
 
   useEffect(() => {
     document.body.dataset.persona = persona;
     return () => { delete document.body.dataset.persona; };
   }, [persona]);
 
+  useEffect(() => {
+    if (introPlaying) {
+      document.body.dataset.introPlaying = "true";
+    } else {
+      delete document.body.dataset.introPlaying;
+    }
+    return () => { delete document.body.dataset.introPlaying; };
+  }, [introPlaying]);
+
   return (
     <>
-      <IntroAnimation />
+      <IntroAnimation onComplete={() => setIntroPlaying(false)} />
       <Helmet>
         <title>Ritik Arora — Growth & Marketing</title>
         <meta name="description" content="Growth marketer, 5+ years across brand, CRM, retention and product — currently at Freo, Bengaluru." />
