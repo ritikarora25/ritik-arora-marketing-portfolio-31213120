@@ -282,7 +282,7 @@ const IntroAnimation = ({ onComplete }: Props) => {
         el.style.color = "var(--ink, #151833)";
         el.style.transform = "translate(-50%, -50%) scale(1)";
       });
-    }, 6750);
+    }, 8000);
 
     // 8.4–9.6s: reveal Ritik + text
     setT(() => {
