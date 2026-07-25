@@ -13,11 +13,21 @@ import type { Persona } from "@/data/journey";
 
 const Index = () => {
   const [persona, setPersona] = useState<Persona>("default");
+  const [introPlaying, setIntroPlaying] = useState(true);
 
   useEffect(() => {
     document.body.dataset.persona = persona;
     return () => { delete document.body.dataset.persona; };
   }, [persona]);
+
+  useEffect(() => {
+    if (introPlaying) {
+      document.body.dataset.introPlaying = "true";
+    } else {
+      delete document.body.dataset.introPlaying;
+    }
+    return () => { delete document.body.dataset.introPlaying; };
+  }, [introPlaying]);
 
   return (
     <>
