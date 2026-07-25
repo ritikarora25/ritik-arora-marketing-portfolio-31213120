@@ -490,6 +490,7 @@ const IntroAnimation = ({ onComplete }: Props) => {
           data-intro-figure="true"
           key={f.id}
           ref={(el) => { figuresRef.current[i].el = el; }}
+          dangerouslySetInnerHTML={{ __html: poseHtml(f.pose, f.color) }}
           style={{
             position: "absolute",
             width: `${f.size * 0.72}px`,
@@ -500,9 +501,7 @@ const IntroAnimation = ({ onComplete }: Props) => {
             opacity: f.opacity,
             willChange: "transform, opacity",
           }}
-        >
-          <Pose name={poses[i] ?? f.pose} color={f.color} />
-        </div>
+        />
       ))}
 
       {/* Stage labels */}
