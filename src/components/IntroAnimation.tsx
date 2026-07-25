@@ -327,10 +327,10 @@ const IntroAnimation = ({ onComplete }: Props) => {
         el.style.opacity = "0";
       });
       if (revealRef.current) {
-        revealRef.current.style.transition = (revealRef.current.style.transition || "") + ", opacity 200ms ease-out";
+        revealRef.current.style.transition = "opacity 200ms ease-out";
         revealRef.current.style.opacity = "0";
       }
-    }, 10400);
+    }, 11750);
 
     // Overlay fade out then finish
     setT(() => {
@@ -338,9 +338,9 @@ const IntroAnimation = ({ onComplete }: Props) => {
         overlayRef.current.style.transition = "opacity 600ms ease-out";
         overlayRef.current.style.opacity = "0";
       }
-    }, 10600);
+    }, 11950);
 
-    setT(() => finish(false), 11200);
+    setT(() => finish(false), 12550);
 
     return () => {
       timeoutsRef.current.forEach((id) => clearTimeout(id));
