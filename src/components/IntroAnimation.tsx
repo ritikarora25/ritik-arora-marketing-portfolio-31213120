@@ -290,7 +290,7 @@ const IntroAnimation = ({ onComplete }: Props) => {
     // -- Sequence --
     // Motion begins immediately: figures enter from the viewport edges.
 
-    // 0.45–1s: fade in stage labels quickly
+    // 2.0–2.8s: fade in stage labels (staggered)
     STAGES.forEach((_, i) => {
       setT(() => {
         const el = labelRefs.current[i];
@@ -298,10 +298,10 @@ const IntroAnimation = ({ onComplete }: Props) => {
           el.style.opacity = "1";
           el.style.transform = "translate(-50%, 0)";
         }
-      }, 450 + i * 120);
+      }, 2000 + i * 200);
     });
 
-    // 1.25–6.25s: cycle active stage every 1s
+    // 2.5–7.5s: cycle active stage every 1s (starts after figures have gathered)
     STAGES.forEach((_, i) => {
       setT(() => {
         stageIndexRef.current = i;
@@ -312,7 +312,7 @@ const IntroAnimation = ({ onComplete }: Props) => {
           el.style.transform = `translate(-50%, 0) scale(${j === i ? 1.08 : 1})`;
         });
         applyStageChoreography(i);
-      }, 1250 + i * 1000);
+      }, 2500 + i * 1000);
     });
 
     // 6.75–8.5s: non-Ritik figures fade up; stage labels fly to funnel nav positions
