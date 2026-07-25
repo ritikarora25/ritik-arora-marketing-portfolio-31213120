@@ -76,7 +76,7 @@ interface Props {
 }
 
 const IntroAnimation = ({ onComplete }: Props) => {
-  const [render, setRender] = useState(false);
+  const [ready, setReady] = useState(false);
   const overlayRef = useRef<HTMLDivElement>(null);
   const figuresRef = useRef<Figure[]>([]);
   const labelRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -91,19 +91,12 @@ const IntroAnimation = ({ onComplete }: Props) => {
     ritik: "#FF6B4A",
   });
 
-  // Decide whether to play
-  useEffect(() => {
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const mobile = window.matchMedia("(max-width: 640px)").matches;
-    if (reduced || mobile) {
-      onComplete?.();
-      return;
-    }
-    setRender(true);
-  }, [onComplete]);
 
-  // Build figures once when we decide to render
-  if (render && figuresRef.current.length === 0) {
+  // Build figures once on mount so every figure has a real DOM ref before
+  // the rAF loop starts.
+  useEffect(() => {
+    if (figuresRef.current.length > 0) return;
+
     // Resolve theme-aware colors from CSS custom properties
     const rootStyle = getComputedStyle(document.documentElement);
     const readVar = (name: string, fallback: string) => {
@@ -179,11 +172,13 @@ const IntroAnimation = ({ onComplete }: Props) => {
       f.y = f.by = rand(vh * 0.3, vh * 0.7);
     });
     figuresRef.current = figs;
-  }
+    setReady(true);
+  }, []);
+
 
   // Main timeline
   useEffect(() => {
-    if (!render || startedRef.current) return;
+    if (!ready || startedRef.current) return;
     startedRef.current = true;
 
     const setT = (fn: () => void, ms: number) => {
@@ -349,7 +344,7 @@ const IntroAnimation = ({ onComplete }: Props) => {
       startedRef.current = false;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [render]);
+  }, [ready]);
 
   const applyStageChoreography = (stage: number) => {
     const vw = window.innerWidth;
@@ -468,7 +463,7 @@ const IntroAnimation = ({ onComplete }: Props) => {
     }
   };
 
-  if (!render) return null;
+  
 
   return (
     <div
