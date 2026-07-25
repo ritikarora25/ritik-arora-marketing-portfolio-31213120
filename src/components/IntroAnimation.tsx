@@ -91,16 +91,6 @@ const IntroAnimation = ({ onComplete }: Props) => {
     ritik: "#FF6B4A",
   });
 
-  // Decide whether to play
-  useEffect(() => {
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const mobile = window.matchMedia("(max-width: 640px)").matches;
-    if (reduced || mobile) {
-      onComplete?.();
-      return;
-    }
-    setRender(true);
-  }, [onComplete]);
 
   // Build figures once when we decide to render
   if (render && figuresRef.current.length === 0) {
