@@ -551,7 +551,7 @@ const IntroAnimation = ({ onComplete }: Props) => {
             willChange: "transform, opacity",
           }}
         >
-          <Pose name={f.pose} color={f.color} />
+          <Pose name={poses[i] ?? f.pose} color={f.color} />
         </div>
       ))}
 
