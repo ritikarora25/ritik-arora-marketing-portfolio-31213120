@@ -493,6 +493,8 @@ const IntroAnimation = ({ onComplete }: Props) => {
         break;
       }
     }
+    // Sync pose state so <Pose> re-renders with the new SVG
+    setPoses(figuresRef.current.map((f) => f.pose));
   };
 
   const finish = (fromSkip: boolean) => {
