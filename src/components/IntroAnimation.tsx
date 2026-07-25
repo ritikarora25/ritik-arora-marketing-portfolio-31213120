@@ -178,7 +178,7 @@ const IntroAnimation = ({ onComplete }: Props) => {
 
   // Main timeline
   useEffect(() => {
-    if (!render || startedRef.current) return;
+    if (!ready || startedRef.current) return;
     startedRef.current = true;
 
     const setT = (fn: () => void, ms: number) => {
