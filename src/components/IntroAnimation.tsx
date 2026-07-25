@@ -248,7 +248,7 @@ const IntroAnimation = ({ onComplete }: Props) => {
       }, 2000 + i * 200);
     });
 
-    // 2.5–7.5s: cycle active stage every 1s (starts after figures have gathered)
+    // 3.5–7.5s: cycle active stage every 1s (starts after all labels are fully visible)
     STAGES.forEach((_, i) => {
       setT(() => {
         stageIndexRef.current = i;
@@ -259,7 +259,7 @@ const IntroAnimation = ({ onComplete }: Props) => {
           el.style.transform = `translate(-50%, 0) scale(${j === i ? 1.08 : 1})`;
         });
         applyStageChoreography(i);
-      }, 2500 + i * 1000);
+      }, 3500 + i * 1000);
     });
 
     // 6.75–8.5s: non-Ritik figures fade up; stage labels fly to funnel nav positions
