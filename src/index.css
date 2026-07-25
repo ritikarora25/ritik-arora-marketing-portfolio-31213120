@@ -483,3 +483,28 @@ body[data-persona="recruiter"] #acquire { order: 5; }
   .reveal-section { opacity: 1 !important; transform: none !important; }
 }
 
+/* ─── INTRO ANIMATION VISIBILITY HANDOFF ─────────────────── */
+body[data-intro-playing] .topbar,
+body[data-intro-playing] #main,
+body[data-intro-playing] .pfooter,
+body[data-intro-playing] #toTop {
+  opacity: 0;
+  pointer-events: none;
+}
+
+body:not([data-intro-playing]) .topbar,
+body:not([data-intro-playing]) #main,
+body:not([data-intro-playing]) .pfooter {
+  opacity: 1;
+  transition: opacity 0.5s ease-out;
+}
+
+body[data-intro-playing] #funnelNav {
+  opacity: 0;
+}
+
+body:not([data-intro-playing]) #funnelNav {
+  opacity: 1;
+  transition: opacity 0.4s ease-out 0.1s;
+}
+
