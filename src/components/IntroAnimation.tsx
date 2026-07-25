@@ -463,7 +463,7 @@ const IntroAnimation = ({ onComplete }: Props) => {
     }
   };
 
-  if (!render) return null;
+  
 
   return (
     <div
