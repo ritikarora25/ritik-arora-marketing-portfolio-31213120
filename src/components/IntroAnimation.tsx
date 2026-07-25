@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
 /**
- * Cinematic intro overlay — plays once per session over the real homepage.
+ * Cinematic intro overlay — plays over the real homepage.
  * The portfolio renders underneath at all times (LCP-safe, indexable).
  */
 
@@ -90,6 +90,7 @@ type Figure = {
   swaySeed: number;
   swaySpeed: number;
   swayAmp: number;
+  strideSeed: number;
   faceLeft: boolean;
   // lifecycle
   opacity: number;
@@ -135,26 +136,30 @@ const IntroAnimation = ({ onComplete }: Props) => {
     const vw = window.innerWidth;
     const vh = window.innerHeight;
     const cx = vw / 2;
-    const cy = vh / 2 - 40;
+    const cy = Math.max(180, vh / 2 - 36);
     const figs: Figure[] = [];
     const poses: PoseName[] = ["idle", "idle", "walk", "curious", "lean", "crouch"];
     for (let i = 0; i < 25; i++) {
       // loose cluster within ~240x140 ellipse
       const t = Math.random() * Math.PI * 2;
       const r = Math.sqrt(Math.random());
-      const x = cx + Math.cos(t) * r * 220 + rand(-30, 30);
-      const y = cy + Math.sin(t) * r * 110 + rand(-20, 20);
+      const targetX = cx + Math.cos(t) * r * Math.min(220, vw * 0.24) + rand(-30, 30);
+      const targetY = cy + Math.sin(t) * r * Math.min(110, vh * 0.18) + rand(-20, 20);
+      const lane = i % 4;
+      const startX = lane === 0 ? -80 : lane === 1 ? vw + 80 : rand(vw * 0.18, vw * 0.82);
+      const startY = lane === 2 ? vh + 80 : lane === 3 ? -80 : rand(vh * 0.28, vh * 0.72);
       figs.push({
         id: i,
         isRitik: false,
         color: COLORS[Math.floor(Math.random() * COLORS.length)],
-        size: rand(48, 60),
+        size: rand(54, 70),
         pose: poses[Math.floor(Math.random() * poses.length)],
-        x, y, bx: x, by: y, tx: x, ty: y,
+        x: startX, y: startY, bx: startX, by: startY, tx: targetX, ty: targetY,
         swaySeed: Math.random() * Math.PI * 2,
-        swaySpeed: rand(0.6, 1.4),
-        swayAmp: rand(1.5, 3.5),
-        faceLeft: Math.random() < 0.5,
+        swaySpeed: rand(1.2, 2.4),
+        swayAmp: rand(4, 9),
+        strideSeed: Math.random() * Math.PI * 2,
+        faceLeft: startX > targetX,
         opacity: 1,
         targetOpacity: 1,
         dropOff: false,
@@ -167,10 +172,10 @@ const IntroAnimation = ({ onComplete }: Props) => {
       id: 25,
       isRitik: true,
       color: "#FF6B4A",
-      size: 72,
+      size: 82,
       pose: "idle",
       x: cx, y: cy, bx: cx, by: cy, tx: cx, ty: cy,
-      swaySeed: 0, swaySpeed: 0.8, swayAmp: 2, faceLeft: false,
+      swaySeed: 0, swaySpeed: 1.6, swayAmp: 5, strideSeed: 0, faceLeft: false,
       opacity: 1, targetOpacity: 1, dropOff: false, entrant: false, el: null,
     });
     // mark 6 as drop-offs, 4 as entrants (initially hidden)
@@ -212,19 +217,27 @@ const IntroAnimation = ({ onComplete }: Props) => {
       const t = (now - startFrame) / 1000;
       for (const f of figuresRef.current) {
         // ease toward target
-        const easeK = 0.06;
+      const easeK = 0.085;
+      const dx = f.tx - f.bx;
+      const dy = f.ty - f.by;
+      const moving = Math.hypot(dx, dy) > 8;
         f.bx += (f.tx - f.bx) * easeK;
         f.by += (f.ty - f.by) * easeK;
+      if (moving && Math.abs(dx) > 2) f.faceLeft = dx < 0;
         // sway
         const sway = Math.sin(t * f.swaySpeed + f.swaySeed) * f.swayAmp;
-        const bob = Math.cos(t * f.swaySpeed * 0.7 + f.swaySeed) * (f.swayAmp * 0.4);
+        const stride = Math.sin(t * 9 + f.strideSeed);
+        const bob = moving
+          ? Math.abs(stride) * Math.min(8, f.swayAmp)
+          : Math.cos(t * f.swaySpeed * 0.7 + f.swaySeed) * (f.swayAmp * 0.55);
+        const lean = moving ? Math.max(-12, Math.min(12, dx * 0.035)) + stride * 5 : sway * 0.75;
         f.x = f.bx + sway;
         f.y = f.by + bob;
         // opacity ease
         f.opacity += (f.targetOpacity - f.opacity) * 0.08;
         if (f.el) {
           const scaleX = f.faceLeft ? -1 : 1;
-          f.el.style.transform = `translate3d(${f.x - f.size / 2}px, ${f.y - f.size}px, 0) scaleX(${scaleX})`;
+          f.el.style.transform = `translate3d(${f.x - f.size / 2}px, ${f.y - f.size}px, 0) scaleX(${scaleX}) rotate(${lean}deg)`;
           f.el.style.opacity = String(f.opacity);
         }
       }
@@ -233,9 +246,9 @@ const IntroAnimation = ({ onComplete }: Props) => {
     rafRef.current = requestAnimationFrame(loop);
 
     // -- Sequence --
-    // 0–2s: idle (already the initial state). Nothing to schedule.
+    // Motion begins immediately: figures enter from the viewport edges.
 
-    // 2–4s: fade in stage labels 200ms apart
+    // 0.45–1s: fade in stage labels quickly
     STAGES.forEach((_, i) => {
       setT(() => {
         const el = labelRefs.current[i];
@@ -243,10 +256,10 @@ const IntroAnimation = ({ onComplete }: Props) => {
           el.style.opacity = "1";
           el.style.transform = "translate(-50%, 0)";
         }
-      }, 2000 + i * 200);
+      }, 450 + i * 120);
     });
 
-    // 4–9s: cycle active stage every 1s
+    // 1.25–6.25s: cycle active stage every 1s
     STAGES.forEach((_, i) => {
       setT(() => {
         stageIndexRef.current = i;
@@ -257,10 +270,10 @@ const IntroAnimation = ({ onComplete }: Props) => {
           el.style.transform = `translate(-50%, 0) scale(${j === i ? 1.08 : 1})`;
         });
         applyStageChoreography(i);
-      }, 4000 + i * 1000);
+      }, 1250 + i * 1000);
     });
 
-    // 9–11s: non-Ritik figures fade up; stage labels fly to funnel nav positions
+    // 6.75–8.5s: non-Ritik figures fade up; stage labels fly to funnel nav positions
     setT(() => {
       const m = measure();
       for (const f of figuresRef.current) {
@@ -280,9 +293,9 @@ const IntroAnimation = ({ onComplete }: Props) => {
         el.style.color = "var(--ink, #151833)";
         el.style.transform = "translate(-50%, -50%) scale(1)";
       });
-    }, 9000);
+    }, 6750);
 
-    // 11–13.5s: reveal Ritik + text
+    // 8.4–9.6s: reveal Ritik + text
     setT(() => {
       // center Ritik precisely
       const ritik = figuresRef.current.find((f) => f.isRitik);
@@ -294,9 +307,9 @@ const IntroAnimation = ({ onComplete }: Props) => {
         revealRef.current.style.opacity = "1";
         revealRef.current.style.transform = "translate(-50%, -50%) translateY(0)";
       }
-    }, 11000);
+    }, 8400);
 
-    // 13.5–14.5s: assembly — reveal text -> .brand, Ritik walks up + fades
+    // 9.7–10.5s: assembly — reveal text -> .brand, Ritik walks up + fades
     setT(() => {
       const m = measure();
       if (m.brand && revealRef.current) {
@@ -315,7 +328,7 @@ const IntroAnimation = ({ onComplete }: Props) => {
         ritik.ty = ritik.by - 200;
         ritik.targetOpacity = 0;
       }
-    }, 13500);
+    }, 9700);
 
     // Fade overlay labels to 0 right before overlay dies (real funnel nav underneath takes over visually)
     setT(() => {
@@ -328,17 +341,17 @@ const IntroAnimation = ({ onComplete }: Props) => {
         revealRef.current.style.transition = (revealRef.current.style.transition || "") + ", opacity 200ms ease-out";
         revealRef.current.style.opacity = "0";
       }
-    }, 14300);
+    }, 10400);
 
-    // 14.5–15s: overlay fade out then finish
+    // Overlay fade out then finish
     setT(() => {
       if (overlayRef.current) {
         overlayRef.current.style.transition = "opacity 600ms ease-out";
         overlayRef.current.style.opacity = "0";
       }
-    }, 14500);
+    }, 10600);
 
-    setT(() => finish(false), 15100);
+    setT(() => finish(false), 11200);
 
     return () => {
       timeoutsRef.current.forEach((id) => clearTimeout(id));
@@ -352,7 +365,7 @@ const IntroAnimation = ({ onComplete }: Props) => {
     const vw = window.innerWidth;
     const vh = window.innerHeight;
     const cx = vw / 2;
-    const cy = vh / 2 - 40;
+    const cy = Math.max(180, vh / 2 - 36);
     const figs = figuresRef.current;
     switch (stage) {
       case 0: {
@@ -464,12 +477,13 @@ const IntroAnimation = ({ onComplete }: Props) => {
 
   return (
     <div
+      data-intro-overlay="true"
       ref={overlayRef}
       aria-hidden="true"
       style={{
         position: "fixed",
         inset: 0,
-        zIndex: 50,
+        zIndex: 9999,
         pointerEvents: "auto",
         background: "var(--paper, #F5F4F0)",
         overflow: "hidden",
@@ -479,6 +493,7 @@ const IntroAnimation = ({ onComplete }: Props) => {
       {/* Figures */}
       {figuresRef.current.map((f, i) => (
         <div
+          data-intro-figure="true"
           key={f.id}
           ref={(el) => { figuresRef.current[i].el = el; }}
           style={{
@@ -499,6 +514,7 @@ const IntroAnimation = ({ onComplete }: Props) => {
       {/* Stage labels */}
       {STAGES.map((s, i) => (
         <div
+          data-intro-label="true"
           key={s}
           ref={(el) => { labelRefs.current[i] = el; }}
           style={{
