@@ -179,11 +179,6 @@ const IntroAnimation = ({ onComplete }: Props) => {
       f.y = f.by = rand(vh * 0.3, vh * 0.7);
     });
     figuresRef.current = figs;
-    // Seed pose state so <Pose> re-renders when applyStageChoreography mutates a pose
-    if (poses.length === 0) {
-      // Defer to avoid setState-in-render warning
-      queueMicrotask(() => setPoses(figs.map((f) => f.pose)));
-    }
   }
 
   // Main timeline
