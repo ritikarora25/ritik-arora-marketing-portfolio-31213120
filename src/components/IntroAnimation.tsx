@@ -344,7 +344,7 @@ const IntroAnimation = ({ onComplete }: Props) => {
       startedRef.current = false;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [render]);
+  }, [ready]);
 
   const applyStageChoreography = (stage: number) => {
     const vw = window.innerWidth;
