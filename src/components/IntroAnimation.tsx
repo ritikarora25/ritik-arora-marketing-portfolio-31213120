@@ -123,8 +123,7 @@ const IntroAnimation = ({ onComplete }: Props) => {
   useEffect(() => {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const mobile = window.matchMedia("(max-width: 640px)").matches;
-    const played = typeof sessionStorage !== "undefined" && sessionStorage.getItem("intro-played") === "1";
-    if (reduced || mobile || played) {
+    if (reduced || mobile) {
       onComplete?.();
       return;
     }
@@ -447,7 +446,7 @@ const IntroAnimation = ({ onComplete }: Props) => {
     timeoutsRef.current.forEach((id) => clearTimeout(id));
     timeoutsRef.current = [];
     cancelAnimationFrame(rafRef.current);
-    try { sessionStorage.setItem("intro-played", "1"); } catch {}
+    
     const ov = overlayRef.current;
     if (ov) {
       ov.style.transition = "opacity 300ms ease-out";
