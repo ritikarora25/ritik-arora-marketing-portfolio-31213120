@@ -156,14 +156,14 @@ const IntroAnimation = ({ onComplete }: Props) => {
         el: null,
       });
     }
-    // Ritik at center
+    // Ritik enters from the bottom edge and eases into the center
     figs.push({
       id: 25,
       isRitik: true,
       color: coralVal,
       size: 82,
       pose: "idle",
-      x: cx, y: cy, bx: cx, by: cy, tx: cx, ty: cy,
+      x: cx, y: vh + 80, bx: cx, by: vh + 80, tx: cx, ty: cy,
       swaySeed: 0, swaySpeed: 1.6, swayAmp: 5, strideSeed: 0, faceLeft: false,
       opacity: 1, targetOpacity: 1, dropOff: false, entrant: false, el: null,
     });
@@ -346,6 +346,7 @@ const IntroAnimation = ({ onComplete }: Props) => {
       timeoutsRef.current.forEach((id) => clearTimeout(id));
       timeoutsRef.current = [];
       cancelAnimationFrame(rafRef.current);
+      startedRef.current = false;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [render]);
