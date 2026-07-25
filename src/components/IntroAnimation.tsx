@@ -102,7 +102,21 @@ type Figure = {
 
 const rand = (a: number, b: number) => a + Math.random() * (b - a);
 
-const COLORS = ["#151833", "#151833", "#151833", "#8A8D9F", "#8A8D9F", "#3D3FE0"];
+// Parse any CSS color string into an approximate relative luminance (0..1).
+// Uses a temp element + getComputedStyle so `var(--paper)`, hex, hsl, etc. all work.
+const luminanceOf = (cssColor: string): number => {
+  const probe = document.createElement("div");
+  probe.style.color = cssColor;
+  probe.style.display = "none";
+  document.body.appendChild(probe);
+  const resolved = getComputedStyle(probe).color; // "rgb(r, g, b)" or "rgba(r,g,b,a)"
+  document.body.removeChild(probe);
+  const m = resolved.match(/rgba?\(([^)]+)\)/);
+  if (!m) return 1;
+  const [r, g, b] = m[1].split(",").slice(0, 3).map((s) => parseFloat(s.trim()) / 255);
+  // Rec. 709 luma — good enough for a light/dark bucket check
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+};
 
 interface Props {
   onComplete?: () => void;
@@ -110,6 +124,7 @@ interface Props {
 
 const IntroAnimation = ({ onComplete }: Props) => {
   const [render, setRender] = useState(false);
+  const [poses, setPoses] = useState<PoseName[]>([]);
   const overlayRef = useRef<HTMLDivElement>(null);
   const figuresRef = useRef<Figure[]>([]);
   const labelRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -119,6 +134,10 @@ const IntroAnimation = ({ onComplete }: Props) => {
   const startedRef = useRef(false);
   const stageIndexRef = useRef<number>(-1);
   const doneRef = useRef(false);
+  const colorsRef = useRef<{ crowd: string[]; ritik: string }>({
+    crowd: ["#151833", "#8A8D9F", "#3D3FE0"],
+    ritik: "#FF6B4A",
+  });
 
   // Decide whether to play
   useEffect(() => {
