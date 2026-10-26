@@ -43,14 +43,14 @@ const STAGES = [
 ];
 
 // steps: -1 prologue, 0..4 chapters, 5 closing line, 6 wordmark, 7 fly
-const PROLOGUE_MS = 2600;
-const WORD_MS = 55;
-const HOLD_MS = 2200;
-const CLOSING_MS = 2200;
-const MARK_MS = 1500;
+const PROLOGUE_MS = 3400;
+const WORD_MS = 100;
+const HOLD_MS = 2600;
+const CLOSING_MS = 3200;
+const MARK_MS = 1900;
 const FLY_MS = 1200;
 
-const chapterMs = (i: number) => 700 + STAGES[i].text.split(" ").length * WORD_MS + HOLD_MS;
+const chapterMs = (i: number) => 900 + STAGES[i].text.split(" ").length * WORD_MS + HOLD_MS;
 
 const durationFor = (step: number) => {
   if (step === -1) return PROLOGUE_MS;
