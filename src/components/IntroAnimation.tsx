@@ -149,12 +149,12 @@ const IntroAnimation = ({ onComplete }: Props) => {
         id: i,
         isRitik: false,
         color: crowdColors[Math.floor(Math.random() * crowdColors.length)],
-        size: rand(54, 70),
+        size: rand(14, 22),
         pose: poseChoices[Math.floor(Math.random() * poseChoices.length)],
         x: startX, y: startY, bx: startX, by: startY, tx: targetX, ty: targetY,
         swaySeed: Math.random() * Math.PI * 2,
         swaySpeed: rand(1.2, 2.4),
-        swayAmp: rand(4, 9),
+        swayAmp: rand(1.5, 3.5),
         strideSeed: Math.random() * Math.PI * 2,
         faceLeft: startX > targetX,
         opacity: 1,
@@ -169,7 +169,7 @@ const IntroAnimation = ({ onComplete }: Props) => {
       id: 25,
       isRitik: true,
       color: coralVal,
-      size: 82,
+      size: 34,
       pose: "idle",
       x: cx, y: vh + 80, bx: cx, by: vh + 80, tx: cx, ty: cy,
       swaySeed: 0, swaySpeed: 1.6, swayAmp: 5, strideSeed: 0, faceLeft: false,
@@ -236,7 +236,7 @@ const IntroAnimation = ({ onComplete }: Props) => {
         f.opacity += (f.targetOpacity - f.opacity) * 0.08;
         if (f.el) {
           const scaleX = f.faceLeft ? -1 : 1;
-          f.el.style.transform = `translate3d(${f.x - f.size / 2}px, ${f.y - f.size}px, 0) scaleX(${scaleX}) rotate(${lean}deg)`;
+          f.el.style.transform = `translate3d(${f.x - f.size / 2}px, ${f.y - f.size / 2}px, 0)`; void scaleX; void lean;
           f.el.style.opacity = String(f.opacity);
         }
       }
@@ -430,7 +430,7 @@ const IntroAnimation = ({ onComplete }: Props) => {
     // Directly swap SVG on each figure's DOM node — bypasses React re-renders
     // so the rAF loop keeps valid references and motion never freezes.
     for (const f of figuresRef.current) {
-      if (f.el) f.el.innerHTML = poseHtml(f.pose, f.color);
+      if (f.el) f.el.innerHTML = poseHtml(f.pose, f.color, f.isRitik);
     }
   };
 
@@ -477,14 +477,14 @@ const IntroAnimation = ({ onComplete }: Props) => {
           data-intro-figure="true"
           key={f.id}
           ref={(el) => { figuresRef.current[i].el = el; }}
-          dangerouslySetInnerHTML={{ __html: poseHtml(f.pose, f.color) }}
+          dangerouslySetInnerHTML={{ __html: poseHtml(f.pose, f.color, f.isRitik) }}
           style={{
             position: "absolute",
-            width: `${f.size * 0.72}px`,
+            width: `${f.size}px`,
             height: `${f.size}px`,
             top: 0,
             left: 0,
-            transform: `translate3d(${f.x - f.size / 2}px, ${f.y - f.size}px, 0)`,
+            transform: `translate3d(${f.x - f.size / 2}px, ${f.y - f.size / 2}px, 0)`,
             opacity: f.opacity,
             willChange: "transform, opacity",
           }}
