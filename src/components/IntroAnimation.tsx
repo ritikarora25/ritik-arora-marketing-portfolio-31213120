@@ -1,582 +1,204 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 /**
- * Cinematic intro overlay — plays over the real homepage.
- * The portfolio renders underneath at all times (LCP-safe, indexable).
+ * Netflix-style brand intro (~10s) over the real homepage.
+ * Five ribbons (one per funnel stage) rise, each stage flashes, the ribbons
+ * collapse into the "Ritik Arora." wordmark, which flies into the header brand.
+ * Moving the cursor faster speeds the timeline up.
  */
 
-type PoseName = "idle" | "walk" | "lean" | "curious" | "crouch" | "leave";
-
-const STAGES = ["Acquire", "Activate", "Engage", "Retain", "Monetize"] as const;
-
-// Narrative copy shown per stage during the intro
-const STAGE_COPY: { tag: string; text: string }[] = [
-  { tag: "Finding the right people", text: "There are plenty of people out there, but not everyone is right for your business. Acquisition is about reaching the people who need what you offer, not just getting more visitors." },
-  { tag: "First value", text: "Getting someone to sign up is only the beginning. Activation is helping them experience the value of your product, so they have a reason to keep going." },
-  { tag: "Building habits", text: "Using a product once doesn't mean it has become part of someone's routine. Engagement is giving people useful reasons to come back and interact with it again." },
-  { tag: "Keeping customers", text: "When people stop using a product, sending another reminder isn't always the answer. Retention is about understanding why they leave and giving them a better reason to stay." },
-  { tag: "Growing revenue", text: "More users don't automatically mean more revenue. Monetization is about turning the value people get from your product into revenue through purchases, repeat orders, or upgrades." },
+const STAGES = [
+  { name: "Acquire", tag: "Finding the right people" },
+  { name: "Activate", tag: "First value" },
+  { name: "Engage", tag: "Building habits" },
+  { name: "Retain", tag: "Keeping customers" },
+  { name: "Monetize", tag: "Growing revenue" },
 ];
-const STAGE_MS = 2600; // dwell per stage so the copy is readable
-const CYCLE_START = 3000;
-const FLY_AT = CYCLE_START + STAGES.length * STAGE_MS; // 16000
 
-// ---- Editorial data-viz nodes (no human figures) --------------------------
-// Each "person" is an abstract data point. The state (pose) changes the
-// node's mark: filled = present, ring = noticed, halo = activated/engaged,
-// dashed = leaving. Color injected via {COLOR}.
-const POSE_SVG: Record<PoseName, string> = {
-  idle: `<svg viewBox="0 0 20 20" width="100%" height="100%"><circle cx="10" cy="10" r="5" fill="{COLOR}"/></svg>`,
-  walk: `<svg viewBox="0 0 20 20" width="100%" height="100%"><circle cx="10" cy="10" r="4.5" fill="{COLOR}" fill-opacity="0.75"/></svg>`,
-  curious: `<svg viewBox="0 0 20 20" width="100%" height="100%"><circle cx="10" cy="10" r="5.5" fill="none" stroke="{COLOR}" stroke-width="1.6"/><circle cx="10" cy="10" r="1.8" fill="{COLOR}"/></svg>`,
-  lean: `<svg viewBox="0 0 20 20" width="100%" height="100%"><circle cx="10" cy="10" r="8.5" fill="none" stroke="{COLOR}" stroke-width="1" stroke-opacity="0.45"/><circle cx="10" cy="10" r="5" fill="{COLOR}"/></svg>`,
-  crouch: `<svg viewBox="0 0 20 20" width="100%" height="100%"><circle cx="10" cy="10" r="3" fill="{COLOR}"/></svg>`,
-  leave: `<svg viewBox="0 0 20 20" width="100%" height="100%"><circle cx="10" cy="10" r="5.5" fill="none" stroke="{COLOR}" stroke-width="1.3" stroke-dasharray="2 2"/></svg>`,
-};
-const RITIK_SVG = `<svg viewBox="0 0 20 20" width="100%" height="100%"><circle cx="10" cy="10" r="9" fill="none" stroke="{COLOR}" stroke-width="1"/><circle cx="10" cy="10" r="5.5" fill="{COLOR}"/></svg>`;
+const T_TOTAL = 10;
+const STAGE_START = 1.8;
+const STAGE_LEN = 1.05;
+const COLLAPSE = STAGE_START + STAGES.length * STAGE_LEN; // ~7.05
+const FLY = COLLAPSE + 1.3;
 
-const poseHtml = (pose: PoseName, color: string, isRitik = false) =>
-  (isRitik ? RITIK_SVG : POSE_SVG[pose]).replace(/\{COLOR\}/g, color);
-
-// ---- Figure state -----------------------------------------------------------
-type Figure = {
-  id: number;
-  isRitik: boolean;
-  color: string;
-  size: number;
-  pose: PoseName;
-  // current/base position (px from top-left of viewport)
-  x: number;
-  y: number;
-  bx: number; // base x for sway
-  by: number;
-  // target position for stage transitions
-  tx: number;
-  ty: number;
-  // motion params
-  swaySeed: number;
-  swaySpeed: number;
-  swayAmp: number;
-  strideSeed: number;
-  faceLeft: boolean;
-  // lifecycle
-  opacity: number;
-  targetOpacity: number;
-  dropOff: boolean; // fades/leaves during Activate
-  entrant: boolean; // enters during Retain
-  el: HTMLDivElement | null;
-};
-
-const rand = (a: number, b: number) => a + Math.random() * (b - a);
-
-// Parse any CSS color string into an approximate relative luminance (0..1).
-// Uses a temp element + getComputedStyle so `var(--paper)`, hex, hsl, etc. all work.
-const luminanceOf = (cssColor: string): number => {
-  const probe = document.createElement("div");
-  probe.style.color = cssColor;
-  probe.style.display = "none";
-  document.body.appendChild(probe);
-  const resolved = getComputedStyle(probe).color; // "rgb(r, g, b)" or "rgba(r,g,b,a)"
-  document.body.removeChild(probe);
-  const m = resolved.match(/rgba?\(([^)]+)\)/);
-  if (!m) return 1;
-  const [r, g, b] = m[1].split(",").slice(0, 3).map((s) => parseFloat(s.trim()) / 255);
-  // Rec. 709 luma — good enough for a light/dark bucket check
-  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
-};
+const clamp = (v: number, a = 0, b = 1) => Math.max(a, Math.min(b, v));
+const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+const seg = (p: number, s: number, d: number) => ease(clamp((p - s) / d));
 
 interface Props {
   onComplete?: () => void;
 }
 
 const IntroAnimation = ({ onComplete }: Props) => {
-  const [ready, setReady] = useState(false);
   const overlayRef = useRef<HTMLDivElement>(null);
-  const figuresRef = useRef<Figure[]>([]);
-  const labelRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const revealRef = useRef<HTMLDivElement>(null);
-  const copyRef = useRef<HTMLDivElement>(null);
-  const timeoutsRef = useRef<number[]>([]);
-  const rafRef = useRef<number>(0);
-  const startedRef = useRef(false);
-  const stageIndexRef = useRef<number>(-1);
+  const bgRef = useRef<HTMLDivElement>(null);
+  const ribbonRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const stageRef = useRef<HTMLDivElement>(null);
+  const nameRef = useRef<HTMLDivElement>(null);
+  const tagRef = useRef<HTMLDivElement>(null);
+  const numRef = useRef<HTMLDivElement>(null);
+  const markRef = useRef<HTMLDivElement>(null);
   const doneRef = useRef(false);
-  const colorsRef = useRef<{ crowd: string[]; ritik: string }>({
-    crowd: ["#151833", "#8A8D9F", "#3D3FE0"],
-    ritik: "#FF6B4A",
-  });
+  const rafRef = useRef(0);
 
-
-  // Build figures once on mount so every figure has a real DOM ref before
-  // the rAF loop starts.
-  useEffect(() => {
-    if (figuresRef.current.length > 0) return;
-
-    // Resolve theme-aware colors from CSS custom properties
-    const rootStyle = getComputedStyle(document.documentElement);
-    const readVar = (name: string, fallback: string) => {
-      const v = rootStyle.getPropertyValue(name).trim();
-      return v || fallback;
-    };
-    const paperVal = readVar("--paper", "#F5F4F0");
-    const inkVal = readVar("--ink", "#151833");
-    const slateVal = readVar("--slate", "#8A8D9F");
-    const indigoVal = readVar("--indigo", "#3D3FE0");
-    const coralVal = readVar("--coral", "#FF6B4A");
-    const bgLum = luminanceOf(paperVal);
-    const crowdColors =
-      bgLum > 0.5
-        ? [inkVal, inkVal, inkVal, slateVal, slateVal, indigoVal]
-        : ["rgba(245,244,240,0.9)", "rgba(245,244,240,0.75)", slateVal, slateVal, indigoVal, indigoVal];
-    colorsRef.current = { crowd: crowdColors, ritik: coralVal };
-
-    const vw = window.innerWidth;
-    const vh = window.innerHeight;
-    const cx = vw / 2;
-    const cy = Math.max(180, vh / 2 - 36);
-    const figs: Figure[] = [];
-    const poseChoices: PoseName[] = ["idle", "idle", "walk", "curious", "lean", "crouch"];
-    for (let i = 0; i < 25; i++) {
-      // loose cluster within ~240x140 ellipse
-      const t = Math.random() * Math.PI * 2;
-      const r = Math.sqrt(Math.random());
-      const targetX = cx + Math.cos(t) * r * Math.min(220, vw * 0.24) + rand(-30, 30);
-      const targetY = cy + Math.sin(t) * r * Math.min(110, vh * 0.18) + rand(-20, 20);
-      const lane = i % 4;
-      const startX = lane === 0 ? -80 : lane === 1 ? vw + 80 : rand(vw * 0.18, vw * 0.82);
-      const startY = lane === 2 ? vh + 80 : lane === 3 ? -80 : rand(vh * 0.28, vh * 0.72);
-      figs.push({
-        id: i,
-        isRitik: false,
-        color: crowdColors[Math.floor(Math.random() * crowdColors.length)],
-        size: rand(14, 22),
-        pose: poseChoices[Math.floor(Math.random() * poseChoices.length)],
-        x: startX, y: startY, bx: startX, by: startY, tx: targetX, ty: targetY,
-        swaySeed: Math.random() * Math.PI * 2,
-        swaySpeed: rand(1.2, 2.4),
-        swayAmp: rand(1.5, 3.5),
-        strideSeed: Math.random() * Math.PI * 2,
-        faceLeft: startX > targetX,
-        opacity: 1,
-        targetOpacity: 1,
-        dropOff: false,
-        entrant: false,
-        el: null,
-      });
-    }
-    // Ritik enters from the bottom edge and eases into the center
-    figs.push({
-      id: 25,
-      isRitik: true,
-      color: coralVal,
-      size: 34,
-      pose: "idle",
-      x: cx, y: vh + 80, bx: cx, by: vh + 80, tx: cx, ty: cy,
-      swaySeed: 0, swaySpeed: 1.6, swayAmp: 5, strideSeed: 0, faceLeft: false,
-      opacity: 1, targetOpacity: 1, dropOff: false, entrant: false, el: null,
-    });
-    // mark 6 as drop-offs, 4 as entrants (initially hidden)
-    const shuffled = [...figs.filter((f) => !f.isRitik)].sort(() => Math.random() - 0.5);
-    shuffled.slice(0, 6).forEach((f) => (f.dropOff = true));
-    shuffled.slice(6, 10).forEach((f) => {
-      f.entrant = true;
-      f.opacity = 0;
-      f.targetOpacity = 0;
-      // start off-screen
-      f.x = f.bx = rand(0, 1) < 0.5 ? -60 : vw + 60;
-      f.y = f.by = rand(vh * 0.3, vh * 0.7);
-    });
-    figuresRef.current = figs;
-    setReady(true);
-  }, []);
-
-
-  // Main timeline
-  useEffect(() => {
-    if (!ready || startedRef.current) return;
-    startedRef.current = true;
-
-    const setT = (fn: () => void, ms: number) => {
-      const id = window.setTimeout(fn, ms);
-      timeoutsRef.current.push(id);
-    };
-
-    const measure = () => {
-      const brand = document.querySelector<HTMLElement>(".brand");
-      const links = Array.from(document.querySelectorAll<HTMLElement>("#funnelNav a"));
-      return {
-        brand: brand?.getBoundingClientRect() ?? null,
-        links: links.map((l) => l.getBoundingClientRect()),
-      };
-    };
-
-    // rAF idle loop
-    const startFrame = performance.now();
-    const loop = (now: number) => {
-      const t = (now - startFrame) / 1000;
-      for (const f of figuresRef.current) {
-        // ease toward target
-      const easeK = 0.085;
-      const dx = f.tx - f.bx;
-      const dy = f.ty - f.by;
-      const moving = Math.hypot(dx, dy) > 8;
-        f.bx += (f.tx - f.bx) * easeK;
-        f.by += (f.ty - f.by) * easeK;
-      if (moving && Math.abs(dx) > 2) f.faceLeft = dx < 0;
-        // sway
-        const sway = Math.sin(t * f.swaySpeed + f.swaySeed) * f.swayAmp;
-        const stride = Math.sin(t * 9 + f.strideSeed);
-        const bob = moving
-          ? Math.abs(stride) * Math.min(8, f.swayAmp)
-          : Math.cos(t * f.swaySpeed * 0.7 + f.swaySeed) * (f.swayAmp * 0.55);
-        const lean = moving ? Math.max(-12, Math.min(12, dx * 0.035)) + stride * 5 : sway * 0.75;
-        f.x = f.bx + sway;
-        f.y = f.by + bob;
-        // opacity ease
-        f.opacity += (f.targetOpacity - f.opacity) * 0.08;
-        if (f.el) {
-          const scaleX = f.faceLeft ? -1 : 1;
-          f.el.style.transform = `translate3d(${f.x - f.size / 2}px, ${f.y - f.size / 2}px, 0)`; void scaleX; void lean;
-          f.el.style.opacity = String(f.opacity);
-        }
-      }
-      rafRef.current = requestAnimationFrame(loop);
-    };
-    rafRef.current = requestAnimationFrame(loop);
-
-    // -- Sequence --
-    // Scene 1 (0–2s): figures walk in from viewport edges and idle in a loose cluster.
-    // Nothing else happens — the rAF loop eases each figure toward its gather target.
-
-    // 2.0s: stage labels fade in, staggered by 160ms
-    STAGES.forEach((_, i) => {
-      setT(() => {
-        const el = labelRefs.current[i];
-        if (el) {
-          el.style.opacity = "1";
-          el.style.transform = "translate(-50%, 0)";
-        }
-      }, 2000 + i * 160);
-    });
-
-    // 3.0s: stage cycle begins — each stage holds long enough to read its copy
-    const showCopy = (i: number) => {
-      const c = copyRef.current;
-      if (!c) return;
-      c.style.opacity = "0";
-      c.style.transform = "translate(-50%, 0) translateY(10px)";
-      window.setTimeout(() => {
-        const num = c.querySelector("[data-n]");
-        const tag = c.querySelector("[data-t]");
-        const txt = c.querySelector("[data-x]");
-        if (num) num.textContent = `0${i + 1} · ${STAGES[i]}`;
-        if (tag) tag.textContent = STAGE_COPY[i].tag;
-        if (txt) txt.textContent = STAGE_COPY[i].text;
-        c.style.opacity = "1";
-        c.style.transform = "translate(-50%, 0) translateY(0)";
-      }, i === 0 ? 0 : 320);
-    };
-    STAGES.forEach((_, i) => {
-      setT(() => {
-        stageIndexRef.current = i;
-        labelRefs.current.forEach((el, j) => {
-          if (!el) return;
-          el.style.color = j === i ? "var(--coral, #FF6B4A)" : "var(--ink, #151833)";
-          el.style.transform = `translate(-50%, 0) scale(${j === i ? 1.08 : 1})`;
-        });
-        showCopy(i);
-        applyStageChoreography(i);
-      }, CYCLE_START + i * STAGE_MS);
-    });
-
-    // After the last stage: copy fades, figures walk up, labels fly to #funnelNav.
-    setT(() => {
-      const c = copyRef.current;
-      if (c) { c.style.opacity = "0"; c.style.transform = "translate(-50%, 0) translateY(-10px)"; }
-      const m = measure();
-      for (const f of figuresRef.current) {
-        f.ty = f.by - 120;
-        f.targetOpacity = 0;
-      }
-      labelRefs.current.forEach((el, i) => {
-        if (!el) return;
-        const target = m.links[i];
-        if (!target) return;
-        el.style.transition = "all 1.4s cubic-bezier(.65,0,.35,1)";
-        el.style.top = `${target.top + target.height / 2}px`;
-        el.style.left = `${target.left + target.width / 2}px`;
-        el.style.fontSize = "12px";
-        el.style.color = "var(--ink, #151833)";
-        el.style.transform = "translate(-50%, -50%) scale(1)";
-      });
-    }, FLY_AT);
-
-    setT(() => {
-      labelRefs.current.forEach((el) => {
-        if (!el) return;
-        el.style.transition = "opacity 400ms ease-out";
-        el.style.opacity = "0";
-      });
-    }, FLY_AT + 1500);
-
-    setT(() => {
-      if (overlayRef.current) {
-        overlayRef.current.style.transition = "opacity 600ms ease-out";
-        overlayRef.current.style.opacity = "0";
-      }
-    }, FLY_AT + 1800);
-
-    setT(() => finish(false), FLY_AT + 2400);
-
-    return () => {
-      timeoutsRef.current.forEach((id) => clearTimeout(id));
-      timeoutsRef.current = [];
-      cancelAnimationFrame(rafRef.current);
-      startedRef.current = false;
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ready]);
-
-  const applyStageChoreography = (stage: number) => {
-    const vw = window.innerWidth;
-    const vh = window.innerHeight;
-    const cx = vw / 2;
-    const cy = Math.max(180, vh / 2 - 36);
-    const figs = figuresRef.current;
-    switch (stage) {
-      case 0: {
-        // Acquire — drift toward focal (cx, cy - 20)
-        figs.forEach((f, i) => {
-          if (f.isRitik) return;
-          if (f.entrant) return;
-          const t = i * 0.4;
-          const r = 90 + (i % 5) * 12;
-          f.tx = cx + Math.cos(t) * r;
-          f.ty = cy + Math.sin(t) * r * 0.55;
-          f.pose = i % 3 === 0 ? "curious" : "walk";
-          f.faceLeft = f.tx < cx;
-        });
-        break;
-      }
-      case 1: {
-        // Activate — some lean, some drop off (walk away & fade)
-        figs.forEach((f, i) => {
-          if (f.isRitik) return;
-          if (f.entrant) return;
-          if (f.dropOff) {
-            f.pose = "leave";
-            f.tx = f.bx < cx ? -80 : vw + 80;
-            f.ty = f.by + rand(-10, 10);
-            f.targetOpacity = 0;
-            f.faceLeft = f.tx < cx;
-          } else {
-            f.pose = i % 2 === 0 ? "lean" : "idle";
-            // gather slightly closer
-            f.tx = cx + (f.bx - cx) * 0.7;
-            f.ty = cy + (f.by - cy) * 0.7;
-          }
-        });
-        break;
-      }
-      case 2: {
-        // Engage — pair up
-        const active = figs.filter((f) => !f.isRitik && !f.dropOff && !f.entrant);
-        for (let i = 0; i < active.length; i += 2) {
-          const a = active[i];
-          const b = active[i + 1];
-          const ang = (i / active.length) * Math.PI * 2;
-          const rx = 110 + (i % 3) * 20;
-          const ry = 60 + (i % 2) * 15;
-          const px = cx + Math.cos(ang) * rx;
-          const py = cy + Math.sin(ang) * ry;
-          if (a) {
-            a.tx = px - 18;
-            a.ty = py;
-            a.pose = "lean";
-            a.faceLeft = false;
-          }
-          if (b) {
-            b.tx = px + 18;
-            b.ty = py;
-            b.pose = "lean";
-            b.faceLeft = true;
-          }
-        }
-        break;
-      }
-      case 3: {
-        // Retain — entrants walk in
-        const entrants = figs.filter((f) => f.entrant);
-        entrants.forEach((f, i) => {
-          const ang = Math.PI + (i / entrants.length) * Math.PI;
-          f.tx = cx + Math.cos(ang) * 140;
-          f.ty = cy + Math.sin(ang) * 70;
-          f.pose = "walk";
-          f.targetOpacity = 1;
-          f.faceLeft = f.bx > cx;
-        });
-        break;
-      }
-      case 4: {
-        // Monetize — all remaining face same direction (right), calm alignment
-        figs.forEach((f) => {
-          if (f.dropOff) return;
-          f.pose = "idle";
-          f.faceLeft = false;
-        });
-        break;
-      }
-    }
-    // Directly swap SVG on each figure's DOM node — bypasses React re-renders
-    // so the rAF loop keeps valid references and motion never freezes.
-    for (const f of figuresRef.current) {
-      if (f.el) f.el.innerHTML = poseHtml(f.pose, f.color, f.isRitik);
-    }
-  };
-
-  const finish = (fromSkip: boolean) => {
+  const finish = () => {
     if (doneRef.current) return;
     doneRef.current = true;
-    timeoutsRef.current.forEach((id) => clearTimeout(id));
-    timeoutsRef.current = [];
     cancelAnimationFrame(rafRef.current);
-    
     const ov = overlayRef.current;
     if (ov) {
-      ov.style.transition = "opacity 300ms ease-out";
+      ov.style.transition = "opacity 250ms ease-out";
       ov.style.opacity = "0";
-      setTimeout(() => {
-        if (ov) ov.style.display = "none";
-        onComplete?.();
-      }, fromSkip ? 300 : 100);
-    } else {
-      onComplete?.();
-    }
+      window.setTimeout(() => { ov.style.display = "none"; onComplete?.(); }, 250);
+    } else onComplete?.();
   };
 
-  
+  useEffect(() => {
+    const rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (rm || window.innerWidth < 640) {
+      if (overlayRef.current) overlayRef.current.style.display = "none";
+      doneRef.current = true;
+      onComplete?.();
+      return;
+    }
+
+    // cursor speed → playback rate
+    let speed = 0;
+    let lx = -1, ly = -1, lt = 0;
+    const onMove = (e: MouseEvent) => {
+      const now = performance.now();
+      if (lx >= 0) {
+        const dt = Math.max(8, now - lt);
+        const v = Math.hypot(e.clientX - lx, e.clientY - ly) / dt * 1000; // px/s
+        speed = Math.max(speed, v);
+      }
+      lx = e.clientX; ly = e.clientY; lt = now;
+    };
+    window.addEventListener("mousemove", onMove, { passive: true });
+
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Enter" || e.key === "Escape") finish(); };
+    window.addEventListener("keydown", onKey);
+
+    let p = 0;
+    let last = performance.now();
+    let brand: DOMRect | null = null;
+    let brandSize = 17;
+
+    const frame = (now: number) => {
+      const dt = Math.min(0.05, (now - last) / 1000);
+      last = now;
+      speed *= Math.pow(0.04, dt); // decay quickly when cursor stops
+      const rate = 1 + Math.min(2.5, speed / 1400);
+      p += dt * rate;
+
+      const vw = window.innerWidth, vh = window.innerHeight;
+      const H = Math.min(vh * 0.46, 380);
+      const active = p >= STAGE_START && p < COLLAPSE
+        ? Math.floor((p - STAGE_START) / STAGE_LEN) : -1;
+      const k = seg(p, COLLAPSE, 1.1); // collapse progress
+
+      // Ribbons
+      ribbonRefs.current.forEach((el, i) => {
+        if (!el) return;
+        const rise = seg(p, 0.2 + i * 0.14, 0.9);
+        const isActive = i === active;
+        const h = (H * rise * (isActive ? 1.12 : 1)) * (1 - k) + 6 * k;
+        const w = isActive ? 26 : 16;
+        const x = (i - 2) * 34 * (1 - k);
+        el.style.height = `${h}px`;
+        el.style.width = `${w * (1 - k) + 6 * k}px`;
+        el.style.transform = `translate(calc(-50% + ${x}px), -50%)`;
+        el.style.background = isActive || (active === -1 && p < STAGE_START && i === 4)
+          ? "var(--coral, #FF6B4A)"
+          : i % 2 ? "var(--indigo, #3D3FE0)" : "var(--ink, #151833)";
+        el.style.opacity = String((active >= 0 && !isActive ? 0.22 : 1) * (1 - k));
+      });
+
+      // Stage title
+      if (active >= 0 && stageRef.current) {
+        const local = (p - STAGE_START - active * STAGE_LEN) / STAGE_LEN;
+        const o = clamp(local / 0.18) * clamp((1 - local) / 0.18);
+        stageRef.current.style.opacity = String(o);
+        stageRef.current.style.transform = `translate(-50%, 0) translateY(${(1 - o) * 10}px)`;
+        const s = STAGES[active];
+        if (nameRef.current && nameRef.current.textContent !== s.name) {
+          nameRef.current.textContent = s.name;
+          if (tagRef.current) tagRef.current.textContent = s.tag;
+          if (numRef.current) numRef.current.textContent = `0${active + 1} / 05`;
+        }
+      } else if (stageRef.current) stageRef.current.style.opacity = "0";
+      if (stageRef.current) stageRef.current.style.top = `${vh / 2 + H / 2 + 36}px`;
+
+      // Wordmark
+      const m = markRef.current;
+      if (m) {
+        if (p >= FLY && !brand) {
+          const b = document.querySelector<HTMLElement>(".brand");
+          if (b) { brand = b.getBoundingClientRect(); brandSize = parseFloat(getComputedStyle(b).fontSize) || 17; }
+        }
+        const f = seg(p, FLY, 1.1);
+        const baseScale = 2.6 - 1.6 * k; // 2.6 → 1
+        const tx = brand ? (brand.left + brand.width / 2 - vw / 2) * f : 0;
+        const ty = brand ? (brand.top + brand.height / 2 - vh / 2) * f : 0;
+        const scale = baseScale * (1 - f) + (brandSize / 44) * f;
+        m.style.opacity = String(k);
+        m.style.filter = `blur(${(1 - k) * 10}px)`;
+        m.style.transform = `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(${scale})`;
+        m.style.letterSpacing = `${(1 - k) * 0.3}em`;
+        if (bgRef.current) bgRef.current.style.opacity = String(1 - seg(p, FLY + 0.4, 0.8));
+      }
+
+      if (p >= T_TOTAL - 0.3) { finish(); return; }
+      rafRef.current = requestAnimationFrame(frame);
+    };
+    rafRef.current = requestAnimationFrame(frame);
+
+    return () => {
+      cancelAnimationFrame(rafRef.current);
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("keydown", onKey);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div
       data-intro-overlay="true"
       ref={overlayRef}
       aria-hidden="true"
-      style={{
-        position: "fixed",
-        inset: 0,
-        zIndex: 9999,
-        pointerEvents: "auto",
-        background: "var(--paper, #F5F4F0)",
-        overflow: "hidden",
-        fontFamily: "Poppins, system-ui, sans-serif",
-      }}
+      style={{ position: "fixed", inset: 0, zIndex: 9999, overflow: "hidden", fontFamily: "Poppins, system-ui, sans-serif" }}
     >
-      {/* Figures */}
-      {figuresRef.current.map((f, i) => (
+      <div ref={bgRef} style={{ position: "absolute", inset: 0, background: "var(--paper, #F5F4F0)" }} />
+
+      {STAGES.map((s, i) => (
         <div
-          data-intro-figure="true"
-          key={f.id}
-          ref={(el) => { figuresRef.current[i].el = el; }}
-          dangerouslySetInnerHTML={{ __html: poseHtml(f.pose, f.color, f.isRitik) }}
-          style={{
-            position: "absolute",
-            width: `${f.size}px`,
-            height: `${f.size}px`,
-            top: 0,
-            left: 0,
-            transform: `translate3d(${f.x - f.size / 2}px, ${f.y - f.size / 2}px, 0)`,
-            opacity: f.opacity,
-            willChange: "transform, opacity",
-          }}
+          key={s.name}
+          ref={(el) => { ribbonRefs.current[i] = el; }}
+          style={{ position: "absolute", left: "50%", top: "50%", width: 16, height: 0, borderRadius: 3, willChange: "height, transform, opacity" }}
         />
       ))}
 
-      {/* Stage labels */}
-      {STAGES.map((s, i) => (
-        <div
-          data-intro-label="true"
-          key={s}
-          ref={(el) => { labelRefs.current[i] = el; }}
-          style={{
-            position: "fixed",
-            top: `${window.innerHeight / 2 + 120}px`,
-            left: `${window.innerWidth / 2 + (i - 2) * 110}px`,
-            transform: "translate(-50%, 8px)",
-            opacity: 0,
-            fontSize: "13px",
-            fontWeight: 600,
-            letterSpacing: "0.06em",
-            textTransform: "uppercase",
-            color: "var(--ink, #151833)",
-            transition: "opacity 400ms ease-out, transform 400ms ease-out, color 300ms ease-out",
-            whiteSpace: "nowrap",
-            pointerEvents: "none",
-          }}
-        >
-          {s}
-        </div>
-      ))}
-
-      {/* Stage narrative copy */}
       <div
-        ref={copyRef}
-        data-intro-copy="true"
-        style={{
-          position: "fixed",
-          top: "9vh",
-          left: "50%",
-          width: "min(620px, 88vw)",
-          transform: "translate(-50%, 0) translateY(10px)",
-          opacity: 0,
-          textAlign: "center",
-          transition: "opacity 320ms ease-out, transform 420ms cubic-bezier(.2,.8,.2,1)",
-          pointerEvents: "none",
-        }}
+        ref={stageRef}
+        style={{ position: "absolute", left: "50%", opacity: 0, textAlign: "center", pointerEvents: "none" }}
       >
-        <div data-n style={{ fontSize: 12, fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--coral, #FF6B4A)", fontVariantNumeric: "tabular-nums" }} />
-        <div data-t style={{ display: "inline-block", marginTop: 10, padding: "4px 12px", borderRadius: 100, border: "1px solid var(--line, #E4E2DB)", fontSize: 12, fontWeight: 500, color: "var(--slate, #8A8D9F)", background: "var(--paper, #F5F4F0)" }} />
-        <p data-x style={{ marginTop: 14, fontSize: "clamp(1rem, 1.6vw, 1.2rem)", lineHeight: 1.55, fontWeight: 500, color: "var(--ink, #151833)" }} />
+        <div ref={numRef} style={{ fontSize: 12, fontWeight: 600, letterSpacing: "0.12em", color: "var(--slate, #8A8D9F)", fontVariantNumeric: "tabular-nums" }} />
+        <div ref={nameRef} style={{ fontSize: "clamp(2.2rem, 5vw, 3.4rem)", fontWeight: 700, color: "var(--ink, #151833)", lineHeight: 1.1, marginTop: 6 }} />
+        <div ref={tagRef} style={{ fontSize: 15, fontWeight: 500, color: "var(--coral, #FF6B4A)", marginTop: 6 }} />
       </div>
 
-      {/* Reveal text */}
       <div
-        ref={revealRef}
-        style={{
-          position: "fixed",
-          top: `${(typeof window !== "undefined" ? window.innerHeight : 800) / 2 - 140}px`,
-          left: "50%",
-          transform: "translate(-50%, -50%) translateY(16px)",
-          opacity: 0,
-          fontSize: "clamp(2rem, 5vw, 3.2rem)",
-          fontWeight: 700,
-          color: "var(--ink, #151833)",
-          textAlign: "center",
-          whiteSpace: "nowrap",
-          transition: "opacity 600ms ease-out, transform 700ms cubic-bezier(.65,0,.35,1)",
-          pointerEvents: "none",
-        }}
+        ref={markRef}
+        style={{ position: "absolute", left: "50%", top: "50%", fontSize: 44, fontWeight: 700, color: "var(--ink, #151833)", whiteSpace: "nowrap", opacity: 0, transformOrigin: "center", willChange: "transform, opacity, filter" }}
       >
-        Hi, I'm Ritik Arora.
+        Ritik Arora<span style={{ color: "var(--coral, #FF6B4A)" }}>.</span>
       </div>
 
-      {/* Skip */}
       <button
-        onClick={() => finish(true)}
-        style={{
-          position: "fixed",
-          right: 16,
-          bottom: 16,
-          fontSize: 12,
-          color: "var(--slate, #8A8D9F)",
-          fontFamily: "Poppins, system-ui, sans-serif",
-          background: "none",
-          border: "none",
-          cursor: "pointer",
-          padding: "8px 16px",
-          letterSpacing: "0.05em",
-        }}
+        onClick={finish}
+        style={{ position: "absolute", right: 16, bottom: 16, fontSize: 12, color: "var(--slate, #8A8D9F)", background: "none", border: "none", cursor: "pointer", padding: "8px 16px", letterSpacing: "0.05em", fontFamily: "inherit" }}
       >
-        Skip
+        Skip ↵
       </button>
     </div>
   );
