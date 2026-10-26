@@ -43,14 +43,14 @@ const STAGES = [
 ];
 
 // steps: -1 prologue, 0..4 chapters, 5 closing line, 6 wordmark, 7 fly
-const PROLOGUE_MS = 2600;
-const WORD_MS = 55;
-const HOLD_MS = 2200;
-const CLOSING_MS = 2200;
-const MARK_MS = 1500;
+const PROLOGUE_MS = 3400;
+const WORD_MS = 100;
+const HOLD_MS = 2600;
+const CLOSING_MS = 3200;
+const MARK_MS = 1900;
 const FLY_MS = 1200;
 
-const chapterMs = (i: number) => 700 + STAGES[i].text.split(" ").length * WORD_MS + HOLD_MS;
+const chapterMs = (i: number) => 900 + STAGES[i].text.split(" ").length * WORD_MS + HOLD_MS;
 
 const durationFor = (step: number) => {
   if (step === -1) return PROLOGUE_MS;
@@ -78,7 +78,7 @@ const CSS = `
 @keyframes introWordIn { from { opacity: 0; transform: translateY(0.45em); filter: blur(4px); } to { opacity: 1; transform: none; filter: none; } }
 @keyframes introFadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 @keyframes introRule { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-.intro-w { display: inline-block; opacity: 0; animation: introWordIn 520ms cubic-bezier(.2,.7,.2,1) forwards; }
+.intro-w { display: inline-block; opacity: 0; animation: introWordIn 640ms cubic-bezier(.2,.7,.2,1) forwards; }
 .intro-up { opacity: 0; animation: introFadeUp 600ms cubic-bezier(.2,.7,.2,1) forwards; }
 .intro-hi { color: var(--coral, #FF6B4A); }
 .intro-rule { transform-origin: left; animation: introRule 700ms cubic-bezier(.2,.7,.2,1) forwards; }
@@ -183,9 +183,9 @@ const IntroAnimation = ({ onComplete }: Props) => {
             <div className="intro-up" style={{ fontSize: 13, fontWeight: 600, letterSpacing: "0.18em", color: "var(--slate, #8A8D9F)", textTransform: "uppercase" }}>
               A short story about growth
             </div>
-            <div className="intro-up" style={{ animationDelay: "350ms", fontSize: "clamp(2rem, 4.6vw, 3.4rem)", fontWeight: 700, lineHeight: 1.15, marginTop: 14 }}>
+            <div className="intro-up" style={{ animationDelay: "420ms", fontSize: "clamp(2rem, 4.6vw, 3.4rem)", fontWeight: 700, lineHeight: 1.15, marginTop: 14 }}>
               Growth isn't one thing.<br />
-              <span className="intro-up" style={{ animationDelay: "1100ms", display: "inline-block" }}>
+              <span className="intro-up" style={{ animationDelay: "1400ms", display: "inline-block" }}>
                 It happens in <span className="intro-hi">five stages.</span>
               </span>
             </div>
@@ -225,9 +225,9 @@ const IntroAnimation = ({ onComplete }: Props) => {
         <div style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center", textAlign: "center", padding: 24 }}>
           <div style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)", fontWeight: 700, lineHeight: 1.2 }}>
             <span className="intro-up" style={{ display: "inline-block" }}>Five stages.</span>{" "}
-            <span className="intro-up intro-hi" style={{ display: "inline-block", animationDelay: "500ms" }}>One growth marketer</span>
+            <span className="intro-up intro-hi" style={{ display: "inline-block", animationDelay: "700ms" }}>One growth marketer</span>
             <br />
-            <span className="intro-up" style={{ display: "inline-block", animationDelay: "1000ms", fontSize: "0.55em", fontWeight: 500, color: "var(--slate, #8A8D9F)", marginTop: 10 }}>
+            <span className="intro-up" style={{ display: "inline-block", animationDelay: "1400ms", fontSize: "0.55em", fontWeight: 500, color: "var(--slate, #8A8D9F)", marginTop: 10 }}>
               who has worked across all of them.
             </span>
           </div>
