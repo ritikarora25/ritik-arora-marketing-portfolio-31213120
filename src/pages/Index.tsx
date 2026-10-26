@@ -34,9 +34,9 @@ const Index = () => {
       <IntroAnimation onComplete={() => setIntroPlaying(false)} />
       <Helmet>
         <title>Ritik Arora — Growth & Marketing</title>
-        <meta name="description" content="Growth marketer, 5+ years across brand, CRM, retention and product — currently at Freo, Bengaluru." />
+        <meta name="description" content="Growth marketer, 5+ years across brand, CRM, retention and product — most recently at Freo, Bengaluru." />
         <meta property="og:title" content="Ritik Arora — Growth & Marketing" />
-        <meta property="og:description" content="Growth marketer, 5+ years across brand, CRM, retention and product — currently at Freo, Bengaluru." />
+        <meta property="og:description" content="Growth marketer, 5+ years across brand, CRM, retention and product — most recently at Freo, Bengaluru." />
         <meta property="og:type" content="profile" />
         <meta property="og:url" content="https://ritik-arora-marketing-portfolio.lovable.app/" />
       </Helmet>
