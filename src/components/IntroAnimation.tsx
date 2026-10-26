@@ -1,205 +1,286 @@
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 /**
- * Netflix-style brand intro (~10s) over the real homepage.
- * Five ribbons (one per funnel stage) rise, each stage flashes, the ribbons
- * collapse into the "Ritik Arora." wordmark, which flies into the header brand.
- * Moving the cursor faster speeds the timeline up.
+ * Story-led brand intro over the real homepage.
+ * A short prologue, then each funnel stage is told as a chapter: number, name,
+ * micro-tag and its thesis sentence revealed word by word with the key idea
+ * highlighted. A funnel tracker at the bottom fills as the story moves on.
+ * It ends on "Ritik Arora." which flies into the header brand.
+ * Click / → / Space skips to the next chapter; Esc / Enter / Skip ends it.
  */
 
 const STAGES = [
-  { name: "Acquire", tag: "Finding the right people" },
-  { name: "Activate", tag: "First value" },
-  { name: "Engage", tag: "Building habits" },
-  { name: "Retain", tag: "Keeping customers" },
-  { name: "Monetize", tag: "Growing revenue" },
+  {
+    name: "Acquire",
+    tag: "Finding the right people",
+    text: "There are plenty of people out there, but not everyone is right for your business. Acquisition is about reaching the people who need what you offer, not just getting more visitors.",
+    key: "the people who need what you offer,",
+  },
+  {
+    name: "Activate",
+    tag: "First value",
+    text: "Getting someone to sign up is only the beginning. Activation is helping them experience the value of your product, so they have a reason to keep going.",
+    key: "experience the value",
+  },
+  {
+    name: "Engage",
+    tag: "Building habits",
+    text: "Using a product once doesn't mean it has become part of someone's routine. Engagement is giving people useful reasons to come back and interact with it again.",
+    key: "useful reasons to come back",
+  },
+  {
+    name: "Retain",
+    tag: "Keeping customers",
+    text: "When people stop using a product, sending another reminder isn't always the answer. Retention is about understanding why they leave and giving them a better reason to stay.",
+    key: "why they leave",
+  },
+  {
+    name: "Monetize",
+    tag: "Growing revenue",
+    text: "More users don't automatically mean more revenue. Monetization is about turning the value people get from your product into revenue through purchases, repeat orders, or upgrades.",
+    key: "turning the value people get",
+  },
 ];
 
-const T_TOTAL = 10;
-const STAGE_START = 1.8;
-const STAGE_LEN = 1.05;
-const COLLAPSE = STAGE_START + STAGES.length * STAGE_LEN; // ~7.05
-const FLY = COLLAPSE + 1.3;
+// steps: -1 prologue, 0..4 chapters, 5 closing line, 6 wordmark, 7 fly
+const PROLOGUE_MS = 2600;
+const WORD_MS = 55;
+const HOLD_MS = 2200;
+const CLOSING_MS = 2200;
+const MARK_MS = 1500;
+const FLY_MS = 1200;
 
-const clamp = (v: number, a = 0, b = 1) => Math.max(a, Math.min(b, v));
-const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
-const seg = (p: number, s: number, d: number) => ease(clamp((p - s) / d));
+const chapterMs = (i: number) => 700 + STAGES[i].text.split(" ").length * WORD_MS + HOLD_MS;
+
+const durationFor = (step: number) => {
+  if (step === -1) return PROLOGUE_MS;
+  if (step >= 0 && step <= 4) return chapterMs(step);
+  if (step === 5) return CLOSING_MS;
+  if (step === 6) return MARK_MS;
+  return FLY_MS;
+};
+
+const splitWords = (text: string, key: string) => {
+  const idx = text.indexOf(key);
+  const words: { w: string; hi: boolean }[] = [];
+  const push = (s: string, hi: boolean) =>
+    s.split(" ").filter(Boolean).forEach((w) => words.push({ w, hi }));
+  if (idx < 0) push(text, false);
+  else {
+    push(text.slice(0, idx), false);
+    push(key, true);
+    push(text.slice(idx + key.length), false);
+  }
+  return words;
+};
+
+const CSS = `
+@keyframes introWordIn { from { opacity: 0; transform: translateY(0.45em); filter: blur(4px); } to { opacity: 1; transform: none; filter: none; } }
+@keyframes introFadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes introRule { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.intro-w { display: inline-block; opacity: 0; animation: introWordIn 520ms cubic-bezier(.2,.7,.2,1) forwards; }
+.intro-up { opacity: 0; animation: introFadeUp 600ms cubic-bezier(.2,.7,.2,1) forwards; }
+.intro-hi { color: var(--coral, #FF6B4A); }
+.intro-rule { transform-origin: left; animation: introRule 700ms cubic-bezier(.2,.7,.2,1) forwards; }
+`;
 
 interface Props {
   onComplete?: () => void;
 }
 
 const IntroAnimation = ({ onComplete }: Props) => {
+  const [step, setStep] = useState(-1);
+  const [hidden, setHidden] = useState(false);
   const overlayRef = useRef<HTMLDivElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
-  const ribbonRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const stageRef = useRef<HTMLDivElement>(null);
-  const nameRef = useRef<HTMLDivElement>(null);
-  const tagRef = useRef<HTMLDivElement>(null);
-  const numRef = useRef<HTMLDivElement>(null);
   const markRef = useRef<HTMLDivElement>(null);
   const doneRef = useRef(false);
-  const rafRef = useRef(0);
+  const timerRef = useRef(0);
 
-  const finish = () => {
+  const finish = useCallback(() => {
     if (doneRef.current) return;
     doneRef.current = true;
-    cancelAnimationFrame(rafRef.current);
+    window.clearTimeout(timerRef.current);
     const ov = overlayRef.current;
     if (ov) {
-      ov.style.transition = "opacity 250ms ease-out";
+      ov.style.transition = "opacity 300ms ease-out";
       ov.style.opacity = "0";
-      window.setTimeout(() => { ov.style.display = "none"; onComplete?.(); }, 250);
-    } else onComplete?.();
-  };
-
-  useEffect(() => {
-    const rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    void rm;
-    if (window.innerWidth < 640) {
-      if (overlayRef.current) overlayRef.current.style.display = "none";
-      doneRef.current = true;
-      onComplete?.();
-      return;
     }
+    window.setTimeout(() => { setHidden(true); onComplete?.(); }, 300);
+  }, [onComplete]);
 
-    // cursor speed → playback rate
-    let speed = 0;
-    let lx = -1, ly = -1, lt = 0;
-    const onMove = (e: MouseEvent) => {
-      const now = performance.now();
-      if (lx >= 0) {
-        const dt = Math.max(8, now - lt);
-        const v = Math.hypot(e.clientX - lx, e.clientY - ly) / dt * 1000; // px/s
-        speed = Math.max(speed, v);
-      }
-      lx = e.clientX; ly = e.clientY; lt = now;
-    };
-    window.addEventListener("mousemove", onMove, { passive: true });
+  const next = useCallback(() => {
+    setStep((s) => (s < 5 ? s + 1 : s));
+  }, []);
 
-    const onKey = (e: KeyboardEvent) => { if (e.key === "Enter" || e.key === "Escape") finish(); };
-    window.addEventListener("keydown", onKey);
-
-    let p = 0;
-    let last = performance.now();
-    let brand: DOMRect | null = null;
-    let brandSize = 17;
-
-    const frame = (now: number) => {
-      const dt = Math.min(0.05, (now - last) / 1000);
-      last = now;
-      speed *= Math.pow(0.04, dt); // decay quickly when cursor stops
-      const rate = 1 + Math.min(2.5, speed / 1400);
-      p += dt * rate;
-
-      const vw = window.innerWidth, vh = window.innerHeight;
-      const H = Math.min(vh * 0.46, 380);
-      const active = p >= STAGE_START && p < COLLAPSE
-        ? Math.floor((p - STAGE_START) / STAGE_LEN) : -1;
-      const k = seg(p, COLLAPSE, 1.1); // collapse progress
-
-      // Ribbons
-      ribbonRefs.current.forEach((el, i) => {
-        if (!el) return;
-        const rise = seg(p, 0.2 + i * 0.14, 0.9);
-        const isActive = i === active;
-        const h = (H * rise * (isActive ? 1.12 : 1)) * (1 - k) + 6 * k;
-        const w = isActive ? 26 : 16;
-        const x = (i - 2) * 34 * (1 - k);
-        el.style.height = `${h}px`;
-        el.style.width = `${w * (1 - k) + 6 * k}px`;
-        el.style.transform = `translate(calc(-50% + ${x}px), -50%)`;
-        el.style.background = isActive || (active === -1 && p < STAGE_START && i === 4)
-          ? "var(--coral, #FF6B4A)"
-          : i % 2 ? "var(--indigo, #3D3FE0)" : "var(--ink, #151833)";
-        el.style.opacity = String((active >= 0 && !isActive ? 0.22 : 1) * (1 - k));
-      });
-
-      // Stage title
-      if (active >= 0 && stageRef.current) {
-        const local = (p - STAGE_START - active * STAGE_LEN) / STAGE_LEN;
-        const o = clamp(local / 0.18) * clamp((1 - local) / 0.18);
-        stageRef.current.style.opacity = String(o);
-        stageRef.current.style.transform = `translate(-50%, 0) translateY(${(1 - o) * 10}px)`;
-        const s = STAGES[active];
-        if (nameRef.current && nameRef.current.textContent !== s.name) {
-          nameRef.current.textContent = s.name;
-          if (tagRef.current) tagRef.current.textContent = s.tag;
-          if (numRef.current) numRef.current.textContent = `0${active + 1} / 05`;
-        }
-      } else if (stageRef.current) stageRef.current.style.opacity = "0";
-      if (stageRef.current) stageRef.current.style.top = `${vh / 2 + H / 2 + 36}px`;
-
-      // Wordmark
-      const m = markRef.current;
-      if (m) {
-        if (p >= FLY && !brand) {
-          const b = document.querySelector<HTMLElement>(".brand");
-          if (b) { brand = b.getBoundingClientRect(); brandSize = parseFloat(getComputedStyle(b).fontSize) || 17; }
-        }
-        const f = seg(p, FLY, 1.1);
-        const baseScale = 2.6 - 1.6 * k; // 2.6 → 1
-        const tx = brand ? (brand.left + brand.width / 2 - vw / 2) * f : 0;
-        const ty = brand ? (brand.top + brand.height / 2 - vh / 2) * f : 0;
-        const scale = baseScale * (1 - f) + (brandSize / 44) * f;
-        m.style.opacity = String(k);
-        m.style.filter = `blur(${(1 - k) * 10}px)`;
-        m.style.transform = `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(${scale})`;
-        m.style.letterSpacing = `${(1 - k) * 0.3}em`;
-        if (bgRef.current) bgRef.current.style.opacity = String(1 - seg(p, FLY + 0.4, 0.8));
-      }
-
-      if (p >= T_TOTAL - 0.3) { finish(); return; }
-      rafRef.current = requestAnimationFrame(frame);
-    };
-    rafRef.current = requestAnimationFrame(frame);
-
-    return () => {
-      cancelAnimationFrame(rafRef.current);
-      window.removeEventListener("mousemove", onMove);
-      window.removeEventListener("keydown", onKey);
-    };
+  // Mobile: skip entirely
+  useEffect(() => {
+    if (window.innerWidth < 640) {
+      doneRef.current = true;
+      setHidden(true);
+      onComplete?.();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Timeline
+  useEffect(() => {
+    if (doneRef.current) return;
+    window.clearTimeout(timerRef.current);
+    if (step === 7) {
+      // fly wordmark into header brand
+      const m = markRef.current;
+      const b = document.querySelector<HTMLElement>(".brand");
+      if (m && b) {
+        const r = b.getBoundingClientRect();
+        const size = parseFloat(getComputedStyle(b).fontSize) || 17;
+        const dx = r.left + r.width / 2 - window.innerWidth / 2;
+        const dy = r.top + r.height / 2 - window.innerHeight / 2;
+        m.style.transition = `transform ${FLY_MS - 150}ms cubic-bezier(.7,0,.2,1)`;
+        m.style.transform = `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(${size / 64})`;
+      }
+      if (bgRef.current) {
+        bgRef.current.style.transition = `opacity ${FLY_MS - 300}ms ease-out 300ms`;
+        bgRef.current.style.opacity = "0";
+      }
+      timerRef.current = window.setTimeout(finish, FLY_MS);
+      return;
+    }
+    timerRef.current = window.setTimeout(() => setStep((s) => s + 1), durationFor(step));
+    return () => window.clearTimeout(timerRef.current);
+  }, [step, finish]);
+
+  // Controls
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape" || e.key === "Enter") finish();
+      else if (e.key === "ArrowRight" || e.key === " ") { e.preventDefault(); next(); }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [finish, next]);
+
+  if (hidden) return null;
+
+  const chapter = step >= 0 && step <= 4 ? STAGES[step] : null;
+  const showTracker = step >= 0 && step <= 5;
 
   return (
     <div
       data-intro-overlay="true"
       ref={overlayRef}
       aria-hidden="true"
-      style={{ position: "fixed", inset: 0, zIndex: 9999, overflow: "hidden", fontFamily: "Poppins, system-ui, sans-serif" }}
+      onClick={next}
+      style={{ position: "fixed", inset: 0, zIndex: 9999, overflow: "hidden", fontFamily: "Poppins, system-ui, sans-serif", color: "var(--ink, #151833)", cursor: step < 5 ? "pointer" : "default" }}
     >
+      <style>{CSS}</style>
       <div ref={bgRef} style={{ position: "absolute", inset: 0, background: "var(--paper, #F5F4F0)" }} />
 
-      {STAGES.map((s, i) => (
+      {/* Prologue */}
+      {step === -1 && (
+        <div style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center", textAlign: "center", padding: 24 }}>
+          <div>
+            <div className="intro-up" style={{ fontSize: 13, fontWeight: 600, letterSpacing: "0.18em", color: "var(--slate, #8A8D9F)", textTransform: "uppercase" }}>
+              A short story about growth
+            </div>
+            <div className="intro-up" style={{ animationDelay: "350ms", fontSize: "clamp(2rem, 4.6vw, 3.4rem)", fontWeight: 700, lineHeight: 1.15, marginTop: 14 }}>
+              Growth isn't one thing.<br />
+              <span className="intro-up" style={{ animationDelay: "1100ms", display: "inline-block" }}>
+                It happens in <span className="intro-hi">five stages.</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Chapter */}
+      {chapter && (
+        <div key={step} style={{ position: "absolute", left: "50%", top: "44%", transform: "translate(-50%, -50%)", width: "min(760px, 86vw)" }}>
+          <div className="intro-up" style={{ display: "flex", alignItems: "baseline", gap: 14, fontVariantNumeric: "tabular-nums" }}>
+            <span style={{ fontSize: 13, fontWeight: 600, letterSpacing: "0.16em", color: "var(--slate, #8A8D9F)" }}>
+              CHAPTER 0{step + 1} / 05
+            </span>
+            <span className="intro-rule" style={{ flex: 1, height: 1, background: "var(--line, #E4E2DB)" }} />
+          </div>
+          <div className="intro-up" style={{ animationDelay: "120ms", display: "flex", alignItems: "baseline", flexWrap: "wrap", gap: "6px 18px", marginTop: 14 }}>
+            <span style={{ fontSize: "clamp(2.6rem, 6vw, 4.4rem)", fontWeight: 700, lineHeight: 1 }}>
+              {chapter.name}<span className="intro-hi">.</span>
+            </span>
+            <span style={{ fontSize: 15, fontWeight: 600, color: "var(--coral, #FF6B4A)", border: "1px solid var(--coral, #FF6B4A)", borderRadius: 999, padding: "4px 12px" }}>
+              {chapter.tag}
+            </span>
+          </div>
+          <p style={{ fontSize: "clamp(1.15rem, 2vw, 1.5rem)", fontWeight: 500, lineHeight: 1.55, marginTop: 26, maxWidth: 720 }}>
+            {splitWords(chapter.text, chapter.key).map((w, i) => (
+              <span key={i} className={`intro-w${w.hi ? " intro-hi" : ""}`} style={{ animationDelay: `${600 + i * WORD_MS}ms`, fontWeight: w.hi ? 700 : 500 }}>
+                {w.w}&nbsp;
+              </span>
+            ))}
+          </p>
+        </div>
+      )}
+
+      {/* Closing line */}
+      {step === 5 && (
+        <div style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center", textAlign: "center", padding: 24 }}>
+          <div style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)", fontWeight: 700, lineHeight: 1.2 }}>
+            <span className="intro-up" style={{ display: "inline-block" }}>Five stages.</span>{" "}
+            <span className="intro-up intro-hi" style={{ display: "inline-block", animationDelay: "500ms" }}>One growth marketer</span>
+            <br />
+            <span className="intro-up" style={{ display: "inline-block", animationDelay: "1000ms", fontSize: "0.55em", fontWeight: 500, color: "var(--slate, #8A8D9F)", marginTop: 10 }}>
+              who has worked across all of them.
+            </span>
+          </div>
+        </div>
+      )}
+
+      {/* Wordmark */}
+      {step >= 6 && (
         <div
-          key={s.name}
-          ref={(el) => { ribbonRefs.current[i] = el; }}
-          style={{ position: "absolute", left: "50%", top: "50%", width: 16, height: 0, borderRadius: 3, willChange: "height, transform, opacity" }}
-        />
-      ))}
+          ref={markRef}
+          className="intro-up"
+          style={{ position: "absolute", left: "50%", top: "50%", transform: "translate(-50%, -50%)", fontSize: 64, fontWeight: 700, whiteSpace: "nowrap", transformOrigin: "center", willChange: "transform" }}
+        >
+          Ritik Arora<span className="intro-hi">.</span>
+        </div>
+      )}
 
+      {/* Funnel tracker */}
       <div
-        ref={stageRef}
-        style={{ position: "absolute", left: "50%", opacity: 0, textAlign: "center", pointerEvents: "none" }}
+        style={{ position: "absolute", left: "50%", bottom: 56, transform: "translateX(-50%)", display: "flex", alignItems: "flex-end", gap: 10, opacity: showTracker ? 1 : 0, transition: "opacity 500ms ease" }}
       >
-        <div ref={numRef} style={{ fontSize: 12, fontWeight: 600, letterSpacing: "0.12em", color: "var(--slate, #8A8D9F)", fontVariantNumeric: "tabular-nums" }} />
-        <div ref={nameRef} style={{ fontSize: "clamp(2.2rem, 5vw, 3.4rem)", fontWeight: 700, color: "var(--ink, #151833)", lineHeight: 1.1, marginTop: 6 }} />
-        <div ref={tagRef} style={{ fontSize: 15, fontWeight: 500, color: "var(--coral, #FF6B4A)", marginTop: 6 }} />
+        {STAGES.map((s, i) => {
+          const state = step > 4 || i < step ? "done" : i === step ? "active" : "todo";
+          return (
+            <div key={s.name} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, width: 78 }}>
+              <div
+                style={{
+                  width: 78 - i * 10,
+                  height: 6,
+                  borderRadius: 3,
+                  background: state === "active" ? "var(--coral, #FF6B4A)" : state === "done" ? "var(--ink, #151833)" : "var(--line, #E4E2DB)",
+                  transition: "background 400ms ease",
+                }}
+              />
+              <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.06em", color: state === "todo" ? "var(--slate, #8A8D9F)" : "var(--ink, #151833)", transition: "color 400ms ease" }}>
+                {s.name}
+              </span>
+            </div>
+          );
+        })}
       </div>
 
-      <div
-        ref={markRef}
-        style={{ position: "absolute", left: "50%", top: "50%", fontSize: 44, fontWeight: 700, color: "var(--ink, #151833)", whiteSpace: "nowrap", opacity: 0, transformOrigin: "center", willChange: "transform, opacity, filter" }}
-      >
-        Ritik Arora<span style={{ color: "var(--coral, #FF6B4A)" }}>.</span>
-      </div>
+      {step < 5 && (
+        <div style={{ position: "absolute", left: 20, bottom: 18, fontSize: 12, color: "var(--slate, #8A8D9F)", letterSpacing: "0.04em" }}>
+          Click or press → for the next chapter
+        </div>
+      )}
 
       <button
-        onClick={finish}
-        style={{ position: "absolute", right: 16, bottom: 16, fontSize: 12, color: "var(--slate, #8A8D9F)", background: "none", border: "none", cursor: "pointer", padding: "8px 16px", letterSpacing: "0.05em", fontFamily: "inherit" }}
+        onClick={(e) => { e.stopPropagation(); finish(); }}
+        style={{ position: "absolute", right: 16, bottom: 10, fontSize: 12, color: "var(--slate, #8A8D9F)", background: "none", border: "none", cursor: "pointer", padding: "8px 16px", letterSpacing: "0.05em", fontFamily: "inherit" }}
       >
-        Skip ↵
+        Skip intro ↵
       </button>
     </div>
   );
