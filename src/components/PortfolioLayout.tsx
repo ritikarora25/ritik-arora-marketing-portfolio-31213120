@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import BackToTopButton from "./BackToTopButton";
 import CustomCursor from "./CustomCursor";
 import ScrollProgress from "./ScrollProgress";
@@ -18,9 +19,10 @@ const PortfolioLayout = ({ children }: { children: React.ReactNode }) => {
 
       <header className="topbar">
         <div className="wrap topbar-inner">
-          <span className="brand">Ritik Arora<span>.</span></span>
+          <Link to="/" className="brand" aria-label="Ritik Arora — home">Ritik Arora<span>.</span></Link>
           <div className="top-btns">
-            <MagneticButton className="btn btn-ghost" href="#contact">Contact</MagneticButton>
+            <Link className="btn btn-ghost" to="/thoughts">Thoughts</Link>
+            <MagneticButton className="btn btn-ghost" href="/#contact">Contact</MagneticButton>
             <MagneticButton
               className="btn btn-solid"
               href="https://drive.google.com/uc?export=download&id=1Boeh4dRe0Rnuj6bff9joBrHITLEohmst"
