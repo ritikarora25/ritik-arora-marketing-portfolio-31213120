@@ -508,3 +508,22 @@ body:not([data-intro-playing]) #funnelNav {
   transition: opacity 0.4s ease-out 0.1s;
 }
 
+
+/* ===== Thoughts pages ===== */
+.brand { text-decoration: none; color: inherit; }
+.thoughts-page { padding-top: 120px; padding-bottom: 80px; }
+.thoughts-eyebrow { font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; color: var(--coral); font-weight: 600; margin-bottom: 12px; }
+.thoughts-h1 { font-size: clamp(1.9rem, 4vw, 2.8rem); font-weight: 700; line-height: 1.15; color: var(--ink); max-width: 760px; margin-bottom: 14px; }
+.thoughts-lead { color: var(--slate); max-width: 620px; margin-bottom: 40px; }
+.thoughts-list { display: grid; gap: 18px; max-width: 760px; }
+.thought-card { display: block; background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 26px 28px; text-decoration: none; color: inherit; transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+.thought-card:hover { transform: translateY(-3px); border-color: var(--indigo); box-shadow: 0 10px 30px -18px rgba(21,24,51,.35); }
+.thought-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: .8rem; color: var(--slate); margin-bottom: 12px; font-variant-numeric: tabular-nums; letter-spacing: .02em; }
+.thought-meta time { margin-right: 6px; }
+.thought-title { font-size: 1.3rem; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
+.thought-summary { color: #3c3f52; line-height: 1.6; margin-bottom: 14px; }
+.thought-cta { color: var(--indigo); font-weight: 600; font-size: .9rem; }
+.thought-back { display: inline-block; color: var(--indigo); font-size: .9rem; font-weight: 500; margin-bottom: 24px; text-decoration: none; }
+.thought-article { max-width: 760px; }
+.thought-body { margin: 24px 0 36px; font-size: 1.05rem; line-height: 1.75; color: var(--ink); }
+.thought-body p { white-space: pre-line; margin-bottom: 1.1em; }

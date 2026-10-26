@@ -5,6 +5,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import Thoughts from "./pages/Thoughts";
+import ThoughtPost from "./pages/ThoughtPost";
 // Import TooltipProvider directly from radix to avoid multi-react issues
 import { Provider as TooltipProvider } from "@radix-ui/react-tooltip";
 
@@ -18,6 +20,8 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/thoughts" element={<Thoughts />} />
+          <Route path="/thoughts/:slug" element={<ThoughtPost />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
