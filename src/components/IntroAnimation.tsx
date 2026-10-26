@@ -9,6 +9,18 @@ type PoseName = "idle" | "walk" | "lean" | "curious" | "crouch" | "leave";
 
 const STAGES = ["Acquire", "Activate", "Engage", "Retain", "Monetize"] as const;
 
+// Narrative copy shown per stage during the intro
+const STAGE_COPY: { tag: string; text: string }[] = [
+  { tag: "Finding the right people", text: "There are plenty of people out there, but not everyone is right for your business. Acquisition is about reaching the people who need what you offer, not just getting more visitors." },
+  { tag: "First value", text: "Getting someone to sign up is only the beginning. Activation is helping them experience the value of your product, so they have a reason to keep going." },
+  { tag: "Building habits", text: "Using a product once doesn't mean it has become part of someone's routine. Engagement is giving people useful reasons to come back and interact with it again." },
+  { tag: "Keeping customers", text: "When people stop using a product, sending another reminder isn't always the answer. Retention is about understanding why they leave and giving them a better reason to stay." },
+  { tag: "Growing revenue", text: "More users don't automatically mean more revenue. Monetization is about turning the value people get from your product into revenue through purchases, repeat orders, or upgrades." },
+];
+const STAGE_MS = 2600; // dwell per stage so the copy is readable
+const CYCLE_START = 3000;
+const FLY_AT = CYCLE_START + STAGES.length * STAGE_MS; // 16000
+
 // ---- Poses as plain SVG strings (color injected via {COLOR} token) ---------
 // Mutated directly via innerHTML — bypasses React re-renders so the rAF loop
 // keeps valid references to figure DOM nodes.
@@ -81,6 +93,7 @@ const IntroAnimation = ({ onComplete }: Props) => {
   const figuresRef = useRef<Figure[]>([]);
   const labelRefs = useRef<(HTMLDivElement | null)[]>([]);
   const revealRef = useRef<HTMLDivElement>(null);
+  const copyRef = useRef<HTMLDivElement>(null);
   const timeoutsRef = useRef<number[]>([]);
   const rafRef = useRef<number>(0);
   const startedRef = useRef(false);
@@ -244,7 +257,23 @@ const IntroAnimation = ({ onComplete }: Props) => {
       }, 2000 + i * 160);
     });
 
-    // 3.0s: stage cycle begins — one stage per second (3s, 4s, 5s, 6s, 7s)
+    // 3.0s: stage cycle begins — each stage holds long enough to read its copy
+    const showCopy = (i: number) => {
+      const c = copyRef.current;
+      if (!c) return;
+      c.style.opacity = "0";
+      c.style.transform = "translate(-50%, 0) translateY(10px)";
+      window.setTimeout(() => {
+        const num = c.querySelector("[data-n]");
+        const tag = c.querySelector("[data-t]");
+        const txt = c.querySelector("[data-x]");
+        if (num) num.textContent = `0${i + 1} · ${STAGES[i]}`;
+        if (tag) tag.textContent = STAGE_COPY[i].tag;
+        if (txt) txt.textContent = STAGE_COPY[i].text;
+        c.style.opacity = "1";
+        c.style.transform = "translate(-50%, 0) translateY(0)";
+      }, i === 0 ? 0 : 320);
+    };
     STAGES.forEach((_, i) => {
       setT(() => {
         stageIndexRef.current = i;
@@ -253,13 +282,15 @@ const IntroAnimation = ({ onComplete }: Props) => {
           el.style.color = j === i ? "var(--coral, #FF6B4A)" : "var(--ink, #151833)";
           el.style.transform = `translate(-50%, 0) scale(${j === i ? 1.08 : 1})`;
         });
+        showCopy(i);
         applyStageChoreography(i);
-      }, 3000 + i * 1000);
+      }, CYCLE_START + i * STAGE_MS);
     });
 
-    // 8.0s: all figures walk upward (ty = by - 120) and fade out; overlay labels
-    // fly to the real #funnelNav link centers with a 1.4s cubic-bezier transition.
+    // After the last stage: copy fades, figures walk up, labels fly to #funnelNav.
     setT(() => {
+      const c = copyRef.current;
+      if (c) { c.style.opacity = "0"; c.style.transform = "translate(-50%, 0) translateY(-10px)"; }
       const m = measure();
       for (const f of figuresRef.current) {
         f.ty = f.by - 120;
@@ -276,27 +307,24 @@ const IntroAnimation = ({ onComplete }: Props) => {
         el.style.color = "var(--ink, #151833)";
         el.style.transform = "translate(-50%, -50%) scale(1)";
       });
-    }, 8000);
+    }, FLY_AT);
 
-    // 9.5s: fade overlay labels out (real #funnelNav cross-fades in via CSS)
     setT(() => {
       labelRefs.current.forEach((el) => {
         if (!el) return;
         el.style.transition = "opacity 400ms ease-out";
         el.style.opacity = "0";
       });
-    }, 9500);
+    }, FLY_AT + 1500);
 
-    // 9.8s: fade the overlay itself over 0.6s
     setT(() => {
       if (overlayRef.current) {
         overlayRef.current.style.transition = "opacity 600ms ease-out";
         overlayRef.current.style.opacity = "0";
       }
-    }, 9800);
+    }, FLY_AT + 1800);
 
-    // 10.4s: hide overlay and hand off
-    setT(() => finish(false), 10400);
+    setT(() => finish(false), FLY_AT + 2400);
 
     return () => {
       timeoutsRef.current.forEach((id) => clearTimeout(id));
@@ -486,6 +514,27 @@ const IntroAnimation = ({ onComplete }: Props) => {
           {s}
         </div>
       ))}
+
+      {/* Stage narrative copy */}
+      <div
+        ref={copyRef}
+        data-intro-copy="true"
+        style={{
+          position: "fixed",
+          top: "9vh",
+          left: "50%",
+          width: "min(620px, 88vw)",
+          transform: "translate(-50%, 0) translateY(10px)",
+          opacity: 0,
+          textAlign: "center",
+          transition: "opacity 320ms ease-out, transform 420ms cubic-bezier(.2,.8,.2,1)",
+          pointerEvents: "none",
+        }}
+      >
+        <div data-n style={{ fontSize: 12, fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--coral, #FF6B4A)", fontVariantNumeric: "tabular-nums" }} />
+        <div data-t style={{ display: "inline-block", marginTop: 10, padding: "4px 12px", borderRadius: 100, border: "1px solid var(--line, #E4E2DB)", fontSize: 12, fontWeight: 500, color: "var(--slate, #8A8D9F)", background: "var(--paper, #F5F4F0)" }} />
+        <p data-x style={{ marginTop: 14, fontSize: "clamp(1rem, 1.6vw, 1.2rem)", lineHeight: 1.55, fontWeight: 500, color: "var(--ink, #151833)" }} />
+      </div>
 
       {/* Reveal text */}
       <div
