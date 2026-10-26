@@ -45,7 +45,7 @@ So before asking, “What campaign should we run?”
 
 Maybe the better question is:
 “Why should this customer will care?”`,
-    linkedinUrl: "https://www.linkedin.com/in/ritikarora25/recent-activity/all/",
+    linkedinUrl: "https://lnkd.in/p/dpcZXJ-N",
   },
 ];
 
