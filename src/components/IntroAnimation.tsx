@@ -21,20 +21,22 @@ const STAGE_MS = 2600; // dwell per stage so the copy is readable
 const CYCLE_START = 3000;
 const FLY_AT = CYCLE_START + STAGES.length * STAGE_MS; // 16000
 
-// ---- Poses as plain SVG strings (color injected via {COLOR} token) ---------
-// Mutated directly via innerHTML — bypasses React re-renders so the rAF loop
-// keeps valid references to figure DOM nodes.
+// ---- Editorial data-viz nodes (no human figures) --------------------------
+// Each "person" is an abstract data point. The state (pose) changes the
+// node's mark: filled = present, ring = noticed, halo = activated/engaged,
+// dashed = leaving. Color injected via {COLOR}.
 const POSE_SVG: Record<PoseName, string> = {
-  idle: `<svg viewBox="0 0 40 56" width="100%" height="100%"><circle cx="20" cy="8" r="5" fill="{COLOR}"/><path d="M14 14 Q20 12 26 14 L25 32 Q20 34 15 32 Z" fill="{COLOR}"/><path d="M15 32 L13 50 M25 32 L27 50" stroke="{COLOR}" stroke-width="3.5" stroke-linecap="round"/><path d="M14 16 L11 28 M26 16 L29 28" stroke="{COLOR}" stroke-width="3" stroke-linecap="round"/></svg>`,
-  walk: `<svg viewBox="0 0 40 56" width="100%" height="100%"><circle cx="20" cy="8" r="5" fill="{COLOR}"/><path d="M14 14 Q20 12 26 14 L25 32 Q20 34 15 32 Z" fill="{COLOR}"/><path d="M15 32 L10 50 M25 32 L30 50" stroke="{COLOR}" stroke-width="3.5" stroke-linecap="round"/><path d="M14 16 L18 28 M26 16 L23 30" stroke="{COLOR}" stroke-width="3" stroke-linecap="round"/></svg>`,
-  lean: `<svg viewBox="0 0 40 56" width="100%" height="100%"><circle cx="23" cy="8" r="5" fill="{COLOR}"/><path d="M16 14 Q22 12 28 14 L26 32 Q20 34 15 32 Z" fill="{COLOR}"/><path d="M15 32 L13 50 M26 32 L28 50" stroke="{COLOR}" stroke-width="3.5" stroke-linecap="round"/><path d="M16 16 L10 24 M28 16 L34 22" stroke="{COLOR}" stroke-width="3" stroke-linecap="round"/></svg>`,
-  curious: `<svg viewBox="0 0 40 56" width="100%" height="100%"><circle cx="20" cy="8" r="5" fill="{COLOR}"/><path d="M14 14 Q20 12 26 14 L25 32 Q20 34 15 32 Z" fill="{COLOR}"/><path d="M15 32 L13 50 M25 32 L27 50" stroke="{COLOR}" stroke-width="3.5" stroke-linecap="round"/><path d="M14 16 L6 20 M26 16 L34 20" stroke="{COLOR}" stroke-width="3" stroke-linecap="round"/></svg>`,
-  crouch: `<svg viewBox="0 0 40 56" width="100%" height="100%"><circle cx="20" cy="18" r="5" fill="{COLOR}"/><path d="M14 24 Q20 22 26 24 L25 38 Q20 40 15 38 Z" fill="{COLOR}"/><path d="M15 38 L11 50 L18 50 M25 38 L29 50 L22 50" stroke="{COLOR}" stroke-width="3.5" stroke-linecap="round" fill="none"/><path d="M14 26 L10 36 M26 26 L30 36" stroke="{COLOR}" stroke-width="3" stroke-linecap="round"/></svg>`,
-  leave: `<svg viewBox="0 0 40 56" width="100%" height="100%"><circle cx="17" cy="8" r="5" fill="{COLOR}"/><path d="M12 14 Q18 12 24 14 L22 32 Q18 34 14 32 Z" fill="{COLOR}"/><path d="M14 32 L9 50 M22 32 L26 50" stroke="{COLOR}" stroke-width="3.5" stroke-linecap="round"/><path d="M12 16 L6 24 M24 16 L28 26" stroke="{COLOR}" stroke-width="3" stroke-linecap="round"/></svg>`,
+  idle: `<svg viewBox="0 0 20 20" width="100%" height="100%"><circle cx="10" cy="10" r="5" fill="{COLOR}"/></svg>`,
+  walk: `<svg viewBox="0 0 20 20" width="100%" height="100%"><circle cx="10" cy="10" r="4.5" fill="{COLOR}" fill-opacity="0.75"/></svg>`,
+  curious: `<svg viewBox="0 0 20 20" width="100%" height="100%"><circle cx="10" cy="10" r="5.5" fill="none" stroke="{COLOR}" stroke-width="1.6"/><circle cx="10" cy="10" r="1.8" fill="{COLOR}"/></svg>`,
+  lean: `<svg viewBox="0 0 20 20" width="100%" height="100%"><circle cx="10" cy="10" r="8.5" fill="none" stroke="{COLOR}" stroke-width="1" stroke-opacity="0.45"/><circle cx="10" cy="10" r="5" fill="{COLOR}"/></svg>`,
+  crouch: `<svg viewBox="0 0 20 20" width="100%" height="100%"><circle cx="10" cy="10" r="3" fill="{COLOR}"/></svg>`,
+  leave: `<svg viewBox="0 0 20 20" width="100%" height="100%"><circle cx="10" cy="10" r="5.5" fill="none" stroke="{COLOR}" stroke-width="1.3" stroke-dasharray="2 2"/></svg>`,
 };
+const RITIK_SVG = `<svg viewBox="0 0 20 20" width="100%" height="100%"><circle cx="10" cy="10" r="9" fill="none" stroke="{COLOR}" stroke-width="1"/><circle cx="10" cy="10" r="5.5" fill="{COLOR}"/></svg>`;
 
-const poseHtml = (pose: PoseName, color: string) =>
-  POSE_SVG[pose].replace(/\{COLOR\}/g, color);
+const poseHtml = (pose: PoseName, color: string, isRitik = false) =>
+  (isRitik ? RITIK_SVG : POSE_SVG[pose]).replace(/\{COLOR\}/g, color);
 
 // ---- Figure state -----------------------------------------------------------
 type Figure = {
@@ -147,12 +149,12 @@ const IntroAnimation = ({ onComplete }: Props) => {
         id: i,
         isRitik: false,
         color: crowdColors[Math.floor(Math.random() * crowdColors.length)],
-        size: rand(54, 70),
+        size: rand(14, 22),
         pose: poseChoices[Math.floor(Math.random() * poseChoices.length)],
         x: startX, y: startY, bx: startX, by: startY, tx: targetX, ty: targetY,
         swaySeed: Math.random() * Math.PI * 2,
         swaySpeed: rand(1.2, 2.4),
-        swayAmp: rand(4, 9),
+        swayAmp: rand(1.5, 3.5),
         strideSeed: Math.random() * Math.PI * 2,
         faceLeft: startX > targetX,
         opacity: 1,
@@ -167,7 +169,7 @@ const IntroAnimation = ({ onComplete }: Props) => {
       id: 25,
       isRitik: true,
       color: coralVal,
-      size: 82,
+      size: 34,
       pose: "idle",
       x: cx, y: vh + 80, bx: cx, by: vh + 80, tx: cx, ty: cy,
       swaySeed: 0, swaySpeed: 1.6, swayAmp: 5, strideSeed: 0, faceLeft: false,
@@ -234,7 +236,7 @@ const IntroAnimation = ({ onComplete }: Props) => {
         f.opacity += (f.targetOpacity - f.opacity) * 0.08;
         if (f.el) {
           const scaleX = f.faceLeft ? -1 : 1;
-          f.el.style.transform = `translate3d(${f.x - f.size / 2}px, ${f.y - f.size}px, 0) scaleX(${scaleX}) rotate(${lean}deg)`;
+          f.el.style.transform = `translate3d(${f.x - f.size / 2}px, ${f.y - f.size / 2}px, 0)`; void scaleX; void lean;
           f.el.style.opacity = String(f.opacity);
         }
       }
@@ -428,7 +430,7 @@ const IntroAnimation = ({ onComplete }: Props) => {
     // Directly swap SVG on each figure's DOM node — bypasses React re-renders
     // so the rAF loop keeps valid references and motion never freezes.
     for (const f of figuresRef.current) {
-      if (f.el) f.el.innerHTML = poseHtml(f.pose, f.color);
+      if (f.el) f.el.innerHTML = poseHtml(f.pose, f.color, f.isRitik);
     }
   };
 
@@ -475,14 +477,14 @@ const IntroAnimation = ({ onComplete }: Props) => {
           data-intro-figure="true"
           key={f.id}
           ref={(el) => { figuresRef.current[i].el = el; }}
-          dangerouslySetInnerHTML={{ __html: poseHtml(f.pose, f.color) }}
+          dangerouslySetInnerHTML={{ __html: poseHtml(f.pose, f.color, f.isRitik) }}
           style={{
             position: "absolute",
-            width: `${f.size * 0.72}px`,
+            width: `${f.size}px`,
             height: `${f.size}px`,
             top: 0,
             left: 0,
-            transform: `translate3d(${f.x - f.size / 2}px, ${f.y - f.size}px, 0)`,
+            transform: `translate3d(${f.x - f.size / 2}px, ${f.y - f.size / 2}px, 0)`,
             opacity: f.opacity,
             willChange: "transform, opacity",
           }}
