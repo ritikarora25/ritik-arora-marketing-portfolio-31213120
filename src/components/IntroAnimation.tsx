@@ -55,7 +55,8 @@ const IntroAnimation = ({ onComplete }: Props) => {
 
   useEffect(() => {
     const rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (rm || window.innerWidth < 640) {
+    void rm;
+    if (window.innerWidth < 640) {
       if (overlayRef.current) overlayRef.current.style.display = "none";
       doneRef.current = true;
       onComplete?.();
