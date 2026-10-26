@@ -238,10 +238,9 @@ const IntroAnimation = ({ onComplete }: Props) => {
       {step >= 6 && (
         <div
           ref={markRef}
-          className="intro-up"
           style={{ position: "absolute", left: "50%", top: "50%", transform: "translate(-50%, -50%)", fontSize: 64, fontWeight: 700, whiteSpace: "nowrap", transformOrigin: "center", willChange: "transform" }}
         >
-          Ritik Arora<span className="intro-hi">.</span>
+          <div className="intro-up">Ritik Arora<span className="intro-hi">.</span></div>
         </div>
       )}
 
