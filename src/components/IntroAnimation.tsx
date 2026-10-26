@@ -515,6 +515,27 @@ const IntroAnimation = ({ onComplete }: Props) => {
         </div>
       ))}
 
+      {/* Stage narrative copy */}
+      <div
+        ref={copyRef}
+        data-intro-copy="true"
+        style={{
+          position: "fixed",
+          top: "9vh",
+          left: "50%",
+          width: "min(620px, 88vw)",
+          transform: "translate(-50%, 0) translateY(10px)",
+          opacity: 0,
+          textAlign: "center",
+          transition: "opacity 320ms ease-out, transform 420ms cubic-bezier(.2,.8,.2,1)",
+          pointerEvents: "none",
+        }}
+      >
+        <div data-n style={{ fontSize: 12, fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--coral, #FF6B4A)", fontVariantNumeric: "tabular-nums" }} />
+        <div data-t style={{ display: "inline-block", marginTop: 10, padding: "4px 12px", borderRadius: 100, border: "1px solid var(--line, #E4E2DB)", fontSize: 12, fontWeight: 500, color: "var(--slate, #8A8D9F)", background: "var(--paper, #F5F4F0)" }} />
+        <p data-x style={{ marginTop: 14, fontSize: "clamp(1rem, 1.6vw, 1.2rem)", lineHeight: 1.55, fontWeight: 500, color: "var(--ink, #151833)" }} />
+      </div>
+
       {/* Reveal text */}
       <div
         ref={revealRef}
