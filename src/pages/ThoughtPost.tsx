@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams } from "@/lib/router-compat";
 import { Helmet } from "react-helmet-async";
 import PortfolioLayout from "@/components/PortfolioLayout";
 import { getThought } from "@/data/thoughts";

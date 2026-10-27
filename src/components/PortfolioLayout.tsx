@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "@/lib/router-compat";
 import BackToTopButton from "./BackToTopButton";
 import CustomCursor from "./CustomCursor";
 import ScrollProgress from "./ScrollProgress";
