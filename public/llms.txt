@@ -1,7 +1,14 @@
 # Ritik Arora — Growth Marketer Portfolio
 
-> Portfolio of Ritik Arora, a Growth Marketer specializing in CRM, Product Marketing, and Customer Lifecycle Management.
+> Portfolio of Ritik Arora, a Bengaluru-based Growth Marketer with 5+ years in CRM, Product Marketing, and Customer Lifecycle Management.
+
+Ritik's work is organised around the growth funnel: Acquire, Activate, Engage, Retain, Monetize. He also writes field notes on CRM, retention and product marketing.
 
 ## Pages
 
-- [Home](/): Overview of Ritik Arora's experience, skills, achievements, education, and contact information.
+- [Home](/): Experience across the five funnel stages, skills, achievements, education, and contact.
+- [Thoughts](/thoughts): Field notes on CRM, lifecycle, retention and product marketing.
+
+## Thoughts
+
+- [CRM is often asked to solve a product problem](/thoughts/crm-vs-product-problem): Why CRM can only accelerate existing intent — three different problems (drop-off, unclear value, no inherent need) and who should fix each.
