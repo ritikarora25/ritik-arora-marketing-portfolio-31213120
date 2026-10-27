@@ -10,8 +10,6 @@ import {
   useRouter,
 } from "@tanstack/react-router";
 import { Provider as TooltipProvider } from "@radix-ui/react-tooltip";
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
 import NotFound from "@/pages/NotFound";
 import { reportLovableError } from "@/lib/lovable-error-reporting";
 import appCss from "../styles.css?url";
@@ -30,16 +28,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "icon", href: "/favicon.ico" },
-      { rel: "preload", as: "font", type: "font/ttf", href: "/fonts/poppins-400.ttf", crossOrigin: "anonymous" },
-      { rel: "preload", as: "font", type: "font/ttf", href: "/fonts/poppins-700.ttf", crossOrigin: "anonymous" },
+      { rel: "preload", as: "font", type: "font/woff2", href: "/fonts/poppins-400.woff2", crossOrigin: "anonymous" },
+      { rel: "preload", as: "font", type: "font/woff2", href: "/fonts/poppins-700.woff2", crossOrigin: "anonymous" },
     ],
     scripts: [
-      { src: `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`, async: true },
       {
-        children: `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', '${GA_ID}');`,
-      },
-      {
-        children: `(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "xlslx8dq4g");`,
+        children: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}');window.clarity=window.clarity||function(){(window.clarity.q=window.clarity.q||[]).push(arguments)};(function(){function load(){function start(){['https://www.googletagmanager.com/gtag/js?id=${GA_ID}','https://www.clarity.ms/tag/xlslx8dq4g'].forEach(function(src){var s=document.createElement('script');s.src=src;s.async=true;document.head.appendChild(s);});}if('requestIdleCallback' in window){window.requestIdleCallback(start,{timeout:2000});}else{setTimeout(start,1000);}}if(document.readyState==='complete'){load();}else{window.addEventListener('load',load,{once:true});}})();`,
       },
     ],
   }),
@@ -68,8 +62,6 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <Toaster />
-        <Sonner />
         <Outlet />
       </TooltipProvider>
     </QueryClientProvider>

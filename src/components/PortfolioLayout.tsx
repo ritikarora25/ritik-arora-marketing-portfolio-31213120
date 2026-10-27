@@ -1,14 +1,21 @@
-import React from "react";
+import React, { lazy, Suspense, useEffect, useState } from "react";
 import { Link } from "@/lib/router-compat";
 import BackToTopButton from "./BackToTopButton";
-import CustomCursor from "./CustomCursor";
 import ScrollProgress from "./ScrollProgress";
 import MagneticButton from "./MagneticButton";
 
+const CustomCursor = lazy(() => import("./CustomCursor"));
+
 const PortfolioLayout = ({ children }: { children: React.ReactNode }) => {
+  const [cursorReady, setCursorReady] = useState(false);
+  useEffect(() => {
+    if (!window.matchMedia("(pointer: fine)").matches || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const timer = window.setTimeout(() => setCursorReady(true), 1000);
+    return () => window.clearTimeout(timer);
+  }, []);
   return (
     <div className="min-h-screen relative">
-      <CustomCursor />
+      {cursorReady && <Suspense fallback={null}><CustomCursor /></Suspense>}
       <ScrollProgress />
       <a
         href="#main"

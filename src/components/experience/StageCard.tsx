@@ -97,7 +97,7 @@ const StageCard = ({ stage, persona }: Props) => {
       <article className={`exp-card ${revealed ? "in" : ""}`}>
         <div className="exp-top">
           {info.logo ? (
-            <img className="exp-logo" src={info.logo} alt={`${info.co} logo`} loading="lazy" />
+            <img className="exp-logo" src={info.logo} alt={`${info.co} logo`} loading="lazy" decoding="async" width={42} height={42} />
           ) : (
             <div className="exp-logo-mono" aria-hidden="true">{info.monogram}</div>
           )}

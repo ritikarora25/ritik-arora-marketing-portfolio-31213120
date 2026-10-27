@@ -162,7 +162,7 @@ const PortfolioHero = ({ persona, setPersona }: Props) => {
           }}
         >
           <picture>
-            <source type="image/webp" srcSet="/lovable-uploads/b900e373-588f-4459-b950-6d8f999f7d94-448.webp" />
+            <source type="image/webp" srcSet="/lovable-uploads/b900e373-588f-4459-b950-6d8f999f7d94-224.webp 224w, /lovable-uploads/b900e373-588f-4459-b950-6d8f999f7d94-448.webp 448w" sizes="(max-width: 800px) 110px, 220px" />
             <img
               alt="Ritik Arora"
               src="/lovable-uploads/b900e373-588f-4459-b950-6d8f999f7d94-448.jpg"
