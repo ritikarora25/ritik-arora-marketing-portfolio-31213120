@@ -11,6 +11,13 @@ const Thoughts = () => (
       <title>Thoughts on CRM & Retention — Ritik Arora</title>
       <meta name="description" content="Field notes by Ritik Arora on CRM, lifecycle, retention and product marketing." />
       <link rel="canonical" href={`${SITE}/thoughts`} />
+      <meta property="og:title" content="Thoughts on CRM & Retention — Ritik Arora" />
+      <meta property="og:description" content="Field notes by Ritik Arora on CRM, lifecycle, retention and product marketing." />
+      <meta property="og:type" content="website" />
+      <meta property="og:url" content={`${SITE}/thoughts`} />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content="Thoughts on CRM & Retention — Ritik Arora" />
+      <meta name="twitter:description" content="Field notes by Ritik Arora on CRM, lifecycle, retention and product marketing." />
     </Helmet>
     <section className="wrap thoughts-page">
       <p className="thoughts-eyebrow">Thoughts</p>
