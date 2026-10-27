@@ -213,7 +213,7 @@ export const stageCompanies: Record<StageId, {
   retain: {
     co: 'ApnaKlub',
     period: 'Product Marketing Specialist · Feb 2024 – Dec 2024 · Remote',
-    logo: '/lovable-uploads/e13a6cc9-f71f-4aac-94aa-6feb74b2055c.png',
+    logo: '/lovable-uploads/e13a6cc9-f71f-4aac-94aa-6feb74b2055c.webp',
     role: stageCopy.retain.role.default,
     metrics: [
       { num: '200K+', label: 'Users impacted', count: { target: 200, suffix: 'K+' } },

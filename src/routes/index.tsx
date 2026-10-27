@@ -14,7 +14,7 @@ export const Route = createFileRoute("/")({
     }),
     links: [
       { rel: "canonical", href: `${SITE}/` },
-      { rel: "preload", as: "image", type: "image/webp", href: "/lovable-uploads/b900e373-588f-4459-b950-6d8f999f7d94-448.webp", fetchPriority: "high" },
+      { rel: "preload", as: "image", type: "image/webp", href: "/lovable-uploads/b900e373-588f-4459-b950-6d8f999f7d94-448.webp", imageSrcSet: "/lovable-uploads/b900e373-588f-4459-b950-6d8f999f7d94-224.webp 224w, /lovable-uploads/b900e373-588f-4459-b950-6d8f999f7d94-448.webp 448w", imageSizes: "(max-width: 800px) 110px, 220px", fetchPriority: "high" },
     ],
     scripts: [{ type: "application/ld+json", children: JSON.stringify(profileJsonLd) }],
   }),
