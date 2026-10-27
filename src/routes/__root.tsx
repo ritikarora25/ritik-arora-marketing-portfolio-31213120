@@ -1,4 +1,5 @@
 import { useEffect, type ReactNode } from "react";
+import type { ErrorComponentProps } from "@tanstack/react-router";
 import { QueryClientProvider, type QueryClient } from "@tanstack/react-query";
 import {
   createRootRouteWithContext,
@@ -75,7 +76,7 @@ function RootComponent() {
   );
 }
 
-function RootError({ error, reset }: { error: Error; reset: () => void }) {
+function RootError({ error, reset }: ErrorComponentProps) {
   const router = useRouter();
   useEffect(() => {
     console.error(error);

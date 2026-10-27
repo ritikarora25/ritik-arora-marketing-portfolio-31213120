@@ -50,7 +50,7 @@ const CLOSING_MS = 3200;
 const MARK_MS = 1900;
 const FLY_MS = 1200;
 
-const chapterMs = (i: number) => 900 + STAGES[i].text.split(" ").length * WORD_MS + HOLD_MS;
+const chapterMs = (i: number) => 900 + (STAGES[i]?.text ?? "").split(" ").length * WORD_MS + HOLD_MS;
 
 const durationFor = (step: number) => {
   if (step === -1) return PROLOGUE_MS;
