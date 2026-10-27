@@ -169,7 +169,7 @@ const PortfolioHero = ({ persona, setPersona }: Props) => {
               width={220}
               height={220}
               decoding="async"
-              {...({ fetchpriority: "high" } as any)}
+              fetchPriority="high"
             />
           </picture>
           <span className="hero-photo-glow" aria-hidden="true" />
