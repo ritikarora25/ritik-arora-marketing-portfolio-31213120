@@ -7,7 +7,7 @@ const Thoughts = () => (
     <section className="wrap thoughts-page">
       <p className="thoughts-eyebrow">Thoughts</p>
       <h1 className="thoughts-h1">Field notes on CRM, retention & growth</h1>
-      <p className="thoughts-lead">Things I've learned running lifecycle programmes, first shared on LinkedIn.</p>
+      <p className="thoughts-lead">Notes and practical frameworks from work across CRM, lifecycle and retention.</p>
       <div className="thoughts-list">
         {thoughts.map((t) => (
           <Link key={t.slug} to={`/thoughts/${t.slug}`} className="thought-card">
