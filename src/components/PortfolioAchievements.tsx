@@ -9,7 +9,11 @@ const items = [
 ];
 
 const PortfolioAchievements = () => (
-  <section id="achievements" className="wrap" style={{ paddingTop: 0, paddingBottom: 28 }}>
+  <section id="achievements" className="wrap psection" style={{ paddingTop: 0, paddingBottom: 28 }}>
+    <div className="section-head">
+      <h2>Impact across the funnel</h2>
+      <span className="section-tag">One metric per stage</span>
+    </div>
     <motion.div
       className="strip"
       initial={{ opacity: 0, y: 20 }}
