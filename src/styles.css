@@ -596,3 +596,4 @@ body:not([data-intro-playing]) #funnelNav {
 .thought-article { max-width: 760px; }
 .thought-body { margin: 24px 0 36px; font-size: 1.05rem; line-height: 1.75; color: var(--ink); }
 .thought-body p { white-space: pre-line; margin-bottom: 1.1em; }
+.thought-body .thought-h2 { font-size: 1.15rem; font-weight: 600; line-height: 1.4; margin: 1.4em 0 0.35em; color: var(--ink); }

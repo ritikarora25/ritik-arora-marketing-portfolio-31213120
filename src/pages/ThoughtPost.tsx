@@ -19,7 +19,18 @@ const ThoughtPost = () => {
         </div>
         <h1 className="thoughts-h1">{t.title}</h1>
         <div className="thought-body">
-          {paragraphs.map((p, i) => <p key={i}>{p}</p>)}
+          {paragraphs.map((p, i) => {
+            const m = p.match(/^(\d+\.\s+[^\n]+)\n([\s\S]+)$/);
+            if (m) {
+              return (
+                <section key={i}>
+                  <h2 className="thought-h2">{m[1]}</h2>
+                  <p>{m[2]}</p>
+                </section>
+              );
+            }
+            return <p key={i}>{p}</p>;
+          })}
         </div>
         {t.linkedinUrl && (
           <a className="btn btn-ghost" href={t.linkedinUrl} target="_blank" rel="noopener noreferrer">
