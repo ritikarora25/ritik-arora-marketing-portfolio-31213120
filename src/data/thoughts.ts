@@ -68,6 +68,8 @@ Before approving the campaign, answer four questions: Who is inactive relative t
 If the reason to return is missing, revisit product value or positioning first. CRM can make an existing reason timely and relevant. It cannot manufacture a need the customer does not have.`,
     sources: [
       { label: "Ritik's documented ApnaKlub retention experience and reported outcomes", url: "/#retain" },
+      { label: "Bloomreach: judging inactivity against purchase rhythm", url: "https://www.bloomreach.com/en/blog/win-back-emails-guide" },
+      { label: "Braze: using control groups to measure customer engagement impact", url: "https://www.braze.com/resources/articles/using-global-control-groups-to-measure-the-impact-of-customer-engagement" },
     ],
   },
   {

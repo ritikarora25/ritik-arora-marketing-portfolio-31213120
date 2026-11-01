@@ -8,4 +8,8 @@ describe("Related thoughts", () => {
   it("returns nothing for an unknown post", () => {
     expect(getRelatedThoughts("does-not-exist")).toEqual([]);
   });
+  it("connects the CRM field note and the customer reactivation framework in both directions", () => {
+    expect(getRelatedThoughts("crm-vs-product-problem").map((t) => t.slug)).toContain("customer-reactivation-before-win-back-campaign");
+    expect(getRelatedThoughts("customer-reactivation-before-win-back-campaign").map((t) => t.slug)).toContain("crm-vs-product-problem");
+  });
 });
