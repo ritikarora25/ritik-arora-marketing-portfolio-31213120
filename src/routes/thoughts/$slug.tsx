@@ -1,7 +1,7 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import ThoughtPost from "@/pages/ThoughtPost";
 import { getThought } from "@/data/thoughts";
-import { SITE, pageMeta } from "@/lib/seo";
+import { SITE, SHARE_IMAGE, pageMeta } from "@/lib/seo";
 
 export const Route = createFileRoute("/thoughts/$slug")({
   loader: ({ params }) => {
@@ -33,6 +33,7 @@ export const Route = createFileRoute("/thoughts/$slug")({
             keywords: t.tags.join(", "),
             author: { "@type": "Person", name: "Ritik Arora", url: SITE },
             mainEntityOfPage: url,
+            image: SHARE_IMAGE,
           }),
         },
       ],

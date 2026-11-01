@@ -14,7 +14,7 @@ const LatestThoughts = () => {
         {latest.map((t) => (
           <Link key={t.slug} to={`/thoughts/${t.slug}`} className="thought-card">
             <div className="thought-meta">
-              <span>{t.displayDate}</span>
+              <time dateTime={t.date}>{t.displayDate}</time>
               {t.tags.map((tag) => <span key={tag} className="chip">{tag}</span>)}
             </div>
             <h3 className="thought-title">{t.title}</h3>

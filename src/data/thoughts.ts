@@ -44,7 +44,7 @@ Product marketing helps make that reason clear in the first place.
 So before asking, “What campaign should we run?”
 
 Maybe the better question is:
-“Why should this customer will care?”`,
+“Why should this customer care?”`,
     linkedinUrl: "https://lnkd.in/p/dpcZXJ-N",
   },
 ];

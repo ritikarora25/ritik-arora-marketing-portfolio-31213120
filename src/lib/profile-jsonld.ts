@@ -9,7 +9,7 @@ export const profileJsonLd = {
           "givenName": "Ritik",
           "familyName": "Arora",
           "jobTitle": "Growth & Retention Marketer",
-          "description": "Growth & Retention Marketer with 5+ years of experience in CRM, customer lifecycle management, and data driven marketing across fintech, e-commerce, and retail.",
+          "description": "Growth & Retention Marketer with 5+ years of experience in CRM, customer lifecycle management, and data-driven marketing across fintech, e-commerce, and retail.",
           "url": "https://ritik-arora-marketing-portfolio.lovable.app/",
           "email": "mailto:ritikchuchra1@gmail.com",
           "image": "https://ritik-arora-marketing-portfolio.lovable.app/lovable-uploads/b900e373-588f-4459-b950-6d8f999f7d94.jpg",
@@ -38,10 +38,11 @@ export const profileJsonLd = {
             { "@type": "Occupation", "name": "Marketing Analyst" }
           ],
           "worksFor": [
+            { "@type": "Organization", "name": "Freo", "url": "https://freo.money/" },
             { "@type": "Organization", "name": "ApnaKlub", "url": "https://www.apnaklub.com/" },
             { "@type": "Organization", "name": "CARS24", "url": "https://www.cars24.com/" },
             { "@type": "Organization", "name": "1K Kirana Bazaar" },
-            { "@type": "Organization", "name": "Stupa Sport Analytics", "url": "https://stupasports.ai/home" }
+            { "@type": "Organization", "name": "Stupa Sports Analytics", "url": "https://stupasports.ai/home" }
           ],
           "alumniOf": [
             { "@type": "EducationalOrganization", "name": "Chaudhary Devi Lal University" }
