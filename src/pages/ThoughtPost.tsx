@@ -1,12 +1,13 @@
 import { Link, useParams } from "@/lib/router-compat";
 import PortfolioLayout from "@/components/PortfolioLayout";
-import { getThought } from "@/data/thoughts";
+import { getThought, getRelatedThoughts } from "@/data/thoughts";
 import NotFound from "./NotFound";
 
 const ThoughtPost = () => {
   const { slug = "" } = useParams();
   const t = getThought(slug);
   if (!t) return <NotFound />;
+  const related = getRelatedThoughts(t.slug);
   const paragraphs = t.body.split(/\n\s*\n/);
 
   return (
@@ -37,6 +38,28 @@ const ThoughtPost = () => {
             Originally on LinkedIn ↗
           </a>
         )}
+        <nav className="thought-related" aria-labelledby="related-h">
+          <h2 id="related-h" className="thought-h2">More thoughts</h2>
+          {related.length > 0 && (
+            <div className="thoughts-list">
+              {related.map((r) => (
+                <Link key={r.slug} to={`/thoughts/${r.slug}`} className="thought-card">
+                  <div className="thought-meta">
+                    <time dateTime={r.date}>{r.displayDate}</time>
+                    {r.tags.map((tag) => <span key={tag} className="chip">{tag}</span>)}
+                  </div>
+                  <h3 className="thought-title">{r.title}</h3>
+                  <p className="thought-summary">{r.summary}</p>
+                </Link>
+              ))}
+            </div>
+          )}
+          <p className="thought-related-links">
+            <Link to="/thoughts">Browse all thoughts →</Link>
+            {" · "}
+            <Link to="/">See the work behind these notes →</Link>
+          </p>
+        </nav>
       </article>
     </PortfolioLayout>
   );
