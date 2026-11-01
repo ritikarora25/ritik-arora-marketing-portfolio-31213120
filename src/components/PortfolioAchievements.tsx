@@ -5,7 +5,7 @@ const items = [
   { lbl: "02 Activate", num: "5", cap: "Team led, onboarding ops (Freo)" },
   { lbl: "03 Engage", num: "₹8L", cap: "Saved per month, CRM (CARS24)" },
   { lbl: "04 Retain", num: "5–7%", cap: "Order-rate lift, WhatsApp (ApnaKlub)" },
-  { lbl: "05 Monetize", num: "₹50L", cap: "Revenue in 6 months (1K Kirana)" },
+  { lbl: "05 Monetize", num: "₹50L+", cap: "Revenue in 6 months (1K Kirana)" },
 ];
 
 const PortfolioAchievements = () => (

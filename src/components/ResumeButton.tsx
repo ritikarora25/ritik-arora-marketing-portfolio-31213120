@@ -1,7 +1,8 @@
 const ResumeButton = () => (
   <a
     className="btn btn-solid"
-    href="https://drive.google.com/uc?export=download&id=1Boeh4dRe0Rnuj6bff9joBrHITLEohmst"
+    href="/ritik-arora-resume.pdf"
+    download="Ritik-Arora-Resume.pdf"
     target="_blank"
     rel="noopener noreferrer"
   >

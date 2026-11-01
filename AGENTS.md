@@ -5,5 +5,5 @@
 - Page UI stays in `src/pages/`; route files only wire head + loader + component, so layout logic isn't duplicated.
 - Routing imports go through `src/lib/router-compat.tsx` (react-router-style API over TanStack Router) to keep call sites unchanged.
 - Browser APIs (`window`, `document`) only inside effects/handlers — pages render on the server too.
-- Keep the public XML sitemap refreshed from published Thoughts slugs by the build-only Vite plugin; preserve existing lastmod values and never add build-time dates.
+- /sitemap.xml is served dynamically by `src/routes/sitemap[.]xml.ts` from Thoughts slugs (no static public/sitemap.xml, which would shadow it); never add build-time lastmod dates.
 - Serve local Poppins as WOFF2, match responsive portrait preloads to image sources, and defer optional cursor/analytics code while keeping all article and portfolio content server-rendered.

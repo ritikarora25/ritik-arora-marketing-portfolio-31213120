@@ -11,7 +11,7 @@ export const pageMeta = (o: { title: string; description: string; path: string; 
   { property: "og:url", content: `${SITE}${o.path}` },
   { property: "og:image", content: SHARE_IMAGE },
   { property: "og:site_name", content: "Ritik Arora" },
-  { name: "twitter:card", content: "summary_large_image" },
+  { name: "twitter:card", content: "summary" },
   { name: "twitter:title", content: o.ogTitle ?? o.title },
   { name: "twitter:description", content: o.description },
   { name: "twitter:image", content: SHARE_IMAGE },
