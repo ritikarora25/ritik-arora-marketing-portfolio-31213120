@@ -50,3 +50,15 @@ Maybe the better question is:
 ];
 
 export const getThought = (slug: string) => thoughts.find((t) => t.slug === slug);
+
+/** Other posts ranked by shared tags, then newest first. */
+export const getRelatedThoughts = (slug: string, limit = 3) => {
+  const current = getThought(slug);
+  if (!current) return [];
+  return thoughts
+    .filter((t) => t.slug !== slug)
+    .map((t) => ({ t, score: t.tags.filter((tag) => current.tags.includes(tag)).length }))
+    .sort((a, b) => b.score - a.score || b.t.date.localeCompare(a.t.date))
+    .slice(0, limit)
+    .map(({ t }) => t);
+};
