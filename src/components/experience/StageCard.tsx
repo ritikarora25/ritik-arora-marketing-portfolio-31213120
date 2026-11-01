@@ -97,12 +97,12 @@ const StageCard = ({ stage, persona }: Props) => {
       <article className={`exp-card ${revealed ? "in" : ""}`}>
         <div className="exp-top">
           {info.logo ? (
-            <img className="exp-logo" src={info.logo} alt={`${info.co} logo`} loading="lazy" decoding="async" width={42} height={42} />
+            <img className="exp-logo" src={info.logo} alt="" loading="lazy" decoding="async" width={42} height={42} />
           ) : (
             <div className="exp-logo-mono" aria-hidden="true">{info.monogram}</div>
           )}
           <div>
-            <div className="exp-co">{info.co}</div>
+            <h3 className="exp-co">{info.co}</h3>
             <div className="exp-period">{info.period}</div>
           </div>
         </div>

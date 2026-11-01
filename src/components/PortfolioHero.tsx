@@ -94,17 +94,22 @@ const PortfolioHero = ({ persona, setPersona }: Props) => {
       <div className="hero-grid">
         <div className="hero-copy">
           <h1 id="heroH1" ref={h1Ref}>
-            <span className="word">I </span>
-            <span className="word">make </span>
-            <span className="word">users </span>
-            <span className="word">come </span>
-            <span className="word">back </span>
+            <span className="word">Growth </span>
+            <span className="word">&amp; </span>
+            <span className="word">retention </span>
+            <span className="word">marketer </span>
             <span className="word">— </span>
-            <span className="word"><em>and </em></span>
-            <span className="word"><em>turn </em></span>
+            <span className="word">CRM, </span>
+            <span className="word">lifecycle </span>
+            <span className="word">and </span>
+            <span className="word">product </span>
+            <span className="word">journeys </span>
             <span className="word"><em>that </em></span>
+            <span className="word"><em>turn </em></span>
+            <span className="word"><em>users </em></span>
             <span className="word"><em>into </em></span>
-            <span className="word"><em>growth.</em></span>
+            <span className="word"><em>repeat </em></span>
+            <span className="word"><em>customers.</em></span>
           </h1>
           <p className="hero-sub">
             Growth marketer, 5+ years across brand, CRM, retention and product — from Stupa to Freo, building the journeys that move people from first click to habit.
