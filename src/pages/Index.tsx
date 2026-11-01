@@ -8,6 +8,7 @@ import PortfolioAchievements from "@/components/PortfolioAchievements";
 import PortfolioSkills from "@/components/PortfolioSkills";
 import PortfolioEducation from "@/components/PortfolioEducation";
 import PortfolioContact from "@/components/PortfolioContact";
+import LatestThoughts from "@/components/LatestThoughts";
 import type { Persona } from "@/data/journey";
 
 const Index = () => {
@@ -40,6 +41,7 @@ const Index = () => {
         <PortfolioAchievements />
         <PortfolioSkills />
         <PortfolioEducation />
+        <LatestThoughts />
         <PortfolioContact />
       </PortfolioLayout>
     </>
