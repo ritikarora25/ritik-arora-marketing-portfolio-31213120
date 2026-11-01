@@ -33,6 +33,22 @@ const ThoughtPost = () => {
             return <p key={i}>{p}</p>;
           })}
         </div>
+        {t.sources && t.sources.length > 0 && (
+          <section className="thought-body" aria-labelledby="sources-h">
+            <h2 id="sources-h" className="thought-h2">Sources and evidence</h2>
+            <ul>
+              {t.sources.map((source) => (
+                <li key={source.url}>
+                  {source.url.startsWith("/") ? (
+                    <Link to={source.url}>{source.label}</Link>
+                  ) : (
+                    <a href={source.url} target="_blank" rel="noopener noreferrer">{source.label} ↗</a>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
         {t.linkedinUrl && (
           <a className="btn btn-ghost" href={t.linkedinUrl} target="_blank" rel="noopener noreferrer">
             Originally on LinkedIn ↗

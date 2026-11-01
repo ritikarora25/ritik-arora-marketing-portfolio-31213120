@@ -11,4 +11,5 @@ Ritik's work is organised around the growth funnel: Acquire, Activate, Engage, R
 
 ## Thoughts
 
+- [Customer reactivation: diagnose the gap before a win-back campaign](/thoughts/customer-reactivation-before-win-back-campaign): A B2B repeat-purchase framework grounded in documented ApnaKlub experience, with transparent outcome limitations.
 - [CRM is often asked to solve a product problem](/thoughts/crm-vs-product-problem): Why CRM can only accelerate existing intent — three different problems (drop-off, unclear value, no inherent need) and who should fix each.
