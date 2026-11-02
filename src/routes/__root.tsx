@@ -58,8 +58,32 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+function usePageViewTracking() {
+  const router = useRouter();
+  useEffect(() => {
+    let last = "";
+    const send = () => {
+      // Wait a frame so the new page's <title> is in place before reporting.
+      requestAnimationFrame(() => {
+        const path = window.location.pathname + window.location.search;
+        if (path === last) return;
+        last = path;
+        const w = window as unknown as { gtag?: (...a: unknown[]) => void };
+        w.gtag?.("event", "page_view", {
+          page_title: document.title,
+          page_location: window.location.href,
+          page_path: path,
+        });
+      });
+    };
+    send();
+    return router.subscribe("onResolved", send);
+  }, [router]);
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  usePageViewTracking();
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
