@@ -58,16 +58,17 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+let lastTrackedPath = "";
+
 function usePageViewTracking() {
   const router = useRouter();
   useEffect(() => {
-    let last = "";
     const send = () => {
       // Wait a frame so the new page's <title> is in place before reporting.
       requestAnimationFrame(() => {
         const path = window.location.pathname + window.location.search;
-        if (path === last) return;
-        last = path;
+        if (path === lastTrackedPath) return;
+        lastTrackedPath = path;
         const w = window as unknown as { gtag?: (...a: unknown[]) => void };
         w.gtag?.("event", "page_view", {
           page_title: document.title,
