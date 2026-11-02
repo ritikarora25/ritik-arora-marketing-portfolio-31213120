@@ -64,7 +64,7 @@ const ThoughtPost = () => {
                     <time dateTime={r.date}>{r.displayDate}</time>
                     {r.tags.map((tag) => <span key={tag} className="chip">{tag}</span>)}
                   </div>
-                  <h3 className="thought-title">{r.title}</h3>
+                  <h2 className="thought-title">{r.title}</h2>
                   <p className="thought-summary">{r.summary}</p>
                 </Link>
               ))}
