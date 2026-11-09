@@ -1,6 +1,11 @@
 export const profileJsonLd = {
         "@context": "https://schema.org",
         "@type": "ProfilePage",
+        "@id": "https://ritik-arora-marketing-portfolio.lovable.app/#profile",
+        "url": "https://ritik-arora-marketing-portfolio.lovable.app/",
+        "name": "Ritik Arora — Growth & Marketing",
+        "inLanguage": "en",
+        "isPartOf": { "@id": "https://ritik-arora-marketing-portfolio.lovable.app/#website" },
         "mainEntity": {
           "@type": "Person",
           "@id": "https://ritik-arora-marketing-portfolio.lovable.app/#person",
