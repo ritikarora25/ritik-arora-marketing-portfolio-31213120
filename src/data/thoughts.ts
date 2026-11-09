@@ -15,6 +15,8 @@ export interface Thought {
 export const thoughts: Thought[] = [
   {
     slug: "lifecycle-marketing-strategy",
+    ogTitle: "Lifecycle marketing: one question per funnel stage",
+    ogDescription: "Acquire, activate, engage, retain, monetize — the single question each stage must answer, with real examples from five growth roles.",
     title: "Lifecycle marketing strategy: one question per stage of the funnel",
     date: "2026-11-09",
     displayDate: "Nov 9, 2026",
@@ -64,6 +66,8 @@ A lifecycle marketing strategy is useful when it tells you what not to send as c
   },
   {
     slug: "best-crm-for-2027",
+    ogTitle: "Best CRM for 2027: Sales CRM or Customer Engagement Platform?",
+    ogDescription: "Who closes the deal — a person or the product? A no-fluff guide to picking between HubSpot, Salesforce, Braze, MoEngage, CleverTap and more.",
     title: "Best CRM for 2027: Sales CRM vs Customer Engagement Platform",
     date: "2026-11-09",
     displayDate: "Nov 9, 2026",
@@ -194,6 +198,8 @@ The best CRM for 2027 is the one that matches the actual motion of your business
   },
   {
     slug: "customer-reactivation-before-win-back-campaign",
+    ogTitle: "Diagnose the gap before your next win-back campaign",
+    ogDescription: "Most reactivation campaigns fail because nobody asked why customers left. A practical framework for finding the gap first.",
     title: "Customer reactivation: diagnose the gap before a win-back campaign",
     date: "2026-11-01",
     displayDate: "Nov 1, 2026",
@@ -255,6 +261,8 @@ If the reason to return is missing, revisit product value or positioning first. 
   },
   {
     slug: "crm-vs-product-problem",
+    ogTitle: "CRM can"t fix a product problem",
+    ogDescription: "When retention dips, CRM gets the blame. Three signs the real problem is the product — and what to do instead.",
     title: "CRM is often asked to solve a product problem",
     date: "2026-10-07",
     displayDate: "Oct 7, 2026",
