@@ -603,4 +603,4 @@ body:not([data-intro-playing]) #funnelNav {
 .thought-related-links { margin-top: 20px; font-weight: 600; }
 .thought-related-links a { color: var(--primary); }
 
-.thought-h3 { font-size: 1.15rem; font-weight: 600; margin: 1.6rem 0 0.4rem; color: var(--ink, #151833); }
+.thought-body .thought-h3 { font-size: 1.02rem; font-weight: 600; line-height: 1.4; margin: 1.2em 0 0.3em; color: var(--ink); }
