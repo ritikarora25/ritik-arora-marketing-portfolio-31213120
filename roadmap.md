@@ -1,4 +1,5 @@
 # Tasks
+- [ ] Connect profile, website, Thoughts list and articles with structured data and verify server output.
 - [x] Validate a narrow CRM/retention keyword for India and preserve research evidence.
 - [x] Add one evidence-backed Thoughts article and verify its links, metadata, and sitemap entry.
 - [x] Keep the sitemap and robots rules aligned with Home and all Thoughts posts.

@@ -8,3 +8,4 @@
 - /sitemap.xml is served dynamically by `src/routes/sitemap[.]xml.ts` from Thoughts slugs (no static public/sitemap.xml, which would shadow it); never add build-time lastmod dates.
 - Serve local Poppins as WOFF2, match responsive portrait preloads to image sources, and defer optional cursor/analytics code while keeping all article and portfolio content server-rendered.
 - Thoughts may include optional public sources rendered beside the article; preserve research evidence under .lovable/research and distinguish reported portfolio outcomes from proposed frameworks and causal results.
+- Structured data uses shared content graph helpers with stable Person, WebSite, page and article IDs; keep route head output linked to real content and never invent publication or modification dates.

@@ -1,7 +1,8 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import ThoughtPost from "@/pages/ThoughtPost";
 import { getThought } from "@/data/thoughts";
-import { SITE, SHARE_IMAGE, pageMeta } from "@/lib/seo";
+import { SITE, pageMeta } from "@/lib/seo";
+import { articleJsonLd } from "@/lib/content-jsonld";
 
 export const Route = createFileRoute("/thoughts/$slug")({
   loader: ({ params }) => {
@@ -24,17 +25,7 @@ export const Route = createFileRoute("/thoughts/$slug")({
       scripts: [
         {
           type: "application/ld+json",
-          children: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BlogPosting",
-            headline: t.title,
-            datePublished: t.date,
-            description: t.summary,
-            keywords: t.tags.join(", "),
-            author: { "@type": "Person", name: "Ritik Arora", url: SITE },
-            mainEntityOfPage: url,
-            image: SHARE_IMAGE,
-          }),
+          children: JSON.stringify(articleJsonLd(t)),
         },
       ],
     };
