@@ -51,7 +51,7 @@ Get this choice wrong and no amount of onboarding will fix it.
 
 For businesses where a human closes the deal.
 
-### [HubSpot](https://www.hubspot.com/)
+## [HubSpot](https://www.hubspot.com/)
 
 Best for: B2B startups and hybrid models with inbound marketing.
 
@@ -59,19 +59,19 @@ HubSpot remains the most complete all-in-one entry point for B2B teams. The free
 
 Best fit: Seed to Series A B2B teams where marketing and sales share the same system.
 
-### [Pipedrive](https://www.pipedrive.com/) and [Close](https://www.close.com/)
+## [Pipedrive](https://www.pipedrive.com/) and [Close](https://www.close.com/)
 
 Best for: Founder-led sales and lean teams that just need to close.
 
 Both tools exist to do one thing well: give a small sales team a clean visual pipeline and get out of the way. No bloat, no six-month implementation, no dedicated admin. Pipedrive is the more polished option; Close is built for high-velocity outbound with calling and email sequences baked in. If you are a founder still running sales yourself or managing a team of two to five reps, either of these beats HubSpot on simplicity.
 
-### [Salesforce](https://www.salesforce.com/)
+## [Salesforce](https://www.salesforce.com/)
 
 Best for: Post-Series B enterprises with dedicated RevOps.
 
 Salesforce is the enterprise standard for a reason. The customization ceiling is effectively unlimited and the ecosystem — AppExchange, integrations, consulting partners — is unmatched. But it requires real infrastructure to run well: dedicated admins, engineering support for custom objects and flows, and significant onboarding time. Recommending Salesforce to a team under 50 people without RevOps bandwidth is setting them up to fail.
 
-### [Zoho CRM](https://www.zoho.com/crm/)
+## [Zoho CRM](https://www.zoho.com/crm/)
 
 Best for: Budget-conscious teams that need the basics covered.
 
@@ -81,31 +81,31 @@ Zoho does not get enough credit. It has a solid feature set — pipeline managem
 
 For businesses where the product and automated journeys do the heavy lifting.
 
-### [Braze](https://www.braze.com/)
+## [Braze](https://www.braze.com/)
 
 Best for: Global consumer apps at enterprise scale.
 
 Braze is the benchmark. The canvas builder is the most sophisticated journey-building interface in the market — multi-step, multi-channel, real-time event-triggered, with tight content personalization. It handles scale that would break most competitors. The price reflects all of this: Braze is not a growth-stage tool. If you are not running tens of millions of MAUs or do not have a dedicated lifecycle team to run it, you are paying for capabilities you cannot fully use.
 
-### [MoEngage](https://www.moengage.com/)
+## [MoEngage](https://www.moengage.com/)
 
 Best for: High-scale consumer tech in India and SEA.
 
 MoEngage has earned its reputation in the Indian and Southeast Asian consumer internet ecosystem. Strong mobile push deliverability, deep WhatsApp integration — critical for markets where WhatsApp is the primary channel — solid RFM segmentation, and a campaign builder that lifecycle teams can actually use without engineering on call. It has become the default choice for fintech, OTT, and marketplace apps in this region. The analytics layer has matured significantly and the gap with CleverTap on that front is narrowing fast.
 
-### [CleverTap](https://clevertap.com/)
+## [CleverTap](https://clevertap.com/)
 
 Best for: Retention-first teams that want analytics and engagement in one place.
 
 CleverTap's core differentiator is that the analytics and engagement live in the same platform. You can go from a cohort analysis to a campaign targeting that exact cohort without exporting a single CSV. The behavioral analytics and funnel visualization are genuinely strong. Where it sometimes loses to MoEngage is in campaign execution speed and the richness of the journey builder, but for teams that want to understand their retention data and act on it in the same tool, CleverTap is a natural fit.
 
-### [Customer.io](https://customer.io/)
+## [Customer.io](https://customer.io/)
 
 Best for: Growth engineers and SaaS teams with event-driven data.
 
 Customer.io is built for teams that care about data model quality. The event-based architecture is clean, the webhook support is excellent, and the pricing is transparent and usage-based — a refreshing contrast to the "call us for enterprise pricing" black box most CEPs hide behind. If you have a solid data layer and a growth engineer who wants full control over trigger logic, Customer.io gives more flexibility per dollar than almost anything else on this list.
 
-### [WebEngage](https://webengage.com/)
+## [WebEngage](https://webengage.com/)
 
 Best for: D2C and consumer brands needing unified omnichannel workflows.
 
@@ -115,19 +115,19 @@ WebEngage is the quiet workhorse of this category. It does not have Braze's bran
 
 Do not start with the tool. Start with these.
 
-### 1. Who is closing the deal — a human or the product?
+## 1. Who is closing the deal — a human or the product?
 
 Human means Sales CRM. Product and automation means CEP. If the answer is both — enterprise SaaS with product-led growth, for example — you likely need both, and you need to be clear about which team owns which tool before you buy either.
 
-### 2. What are your primary communication channels?
+## 2. What are your primary communication channels?
 
 Email and phone calls means any Sales CRM handles this. WhatsApp, mobile push, and in-app means you need a CEP with strong mobile and WhatsApp support. Most Sales CRMs do not come close.
 
-### 3. What does your data architecture look like?
+## 3. What does your data architecture look like?
 
 SDK event streaming from the product means CEP-native setup. Warehouse-first with Snowflake or BigQuery and Reverse ETL means look at tools like Customer.io or Braze that have strong warehouse sync support.
 
-### 4. What is your engineering bandwidth?
+## 4. What is your engineering bandwidth?
 
 Dedicated growth engineer or marketing tech team means you can use more powerful, complex tools. Marketing team running independently means prioritize tools with strong no-code journey builders: MoEngage, WebEngage, HubSpot.
 
