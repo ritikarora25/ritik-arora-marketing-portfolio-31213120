@@ -94,7 +94,9 @@ const PortfolioHero = ({ persona, setPersona }: Props) => {
       <div className="hero-grid">
         <div className="hero-copy">
           <h1 id="heroH1" ref={h1Ref}>
-            <span className="word">Growth </span>
+            <span className="word">Ritik </span>
+            <span className="word">Arora, </span>
+            <span className="word">growth </span>
             <span className="word">&amp; </span>
             <span className="word">retention </span>
             <span className="word">marketer </span>
