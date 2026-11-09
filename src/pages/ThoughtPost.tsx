@@ -21,6 +21,8 @@ const ThoughtPost = () => {
         <h1 className="thoughts-h1">{t.title}</h1>
         <div className="thought-body">
           {paragraphs.map((p, i) => {
+            if (p.startsWith("### ")) return <h3 key={i} className="thought-h3">{p.slice(4)}</h3>;
+            if (p.startsWith("## ")) return <h2 key={i} className="thought-h2">{p.slice(3)}</h2>;
             const m = p.match(/^(\d+\.\s+[^\n]+)\n([\s\S]+)$/);
             if (m) {
               return (
