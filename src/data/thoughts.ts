@@ -7,6 +7,8 @@ export interface Thought {
   summary: string;
   body: string; // blank lines separate paragraphs; numbered topic titles become H2s
   linkedinUrl?: string;
+  ogTitle?: string; // social share headline
+  ogDescription?: string; // short social share blurb
   sources?: { label: string; url: string }[];
 }
 
