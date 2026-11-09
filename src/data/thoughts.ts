@@ -261,7 +261,7 @@ If the reason to return is missing, revisit product value or positioning first. 
   },
   {
     slug: "crm-vs-product-problem",
-    ogTitle: "CRM can"t fix a product problem",
+    ogTitle: "CRM can’t fix a product problem",
     ogDescription: "When retention dips, CRM gets the blame. Three signs the real problem is the product — and what to do instead.",
     title: "CRM is often asked to solve a product problem",
     date: "2026-10-07",
