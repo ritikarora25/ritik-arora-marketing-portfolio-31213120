@@ -10,7 +10,7 @@ const LatestThoughts = () => {
         <h2 id="writing-h">Latest writing</h2>
         <Link to="/thoughts" className="section-tag">All thoughts →</Link>
       </div>
-      <div className="thoughts-list">
+      <div className="thoughts-list thoughts-swipe" tabIndex={0} aria-label="Latest posts, scroll or swipe up for more">
         {latest.map((t) => (
           <Link key={t.slug} to={`/thoughts/${t.slug}`} className="thought-card">
             <div className="thought-meta">
