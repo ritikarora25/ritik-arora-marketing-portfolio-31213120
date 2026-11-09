@@ -28,7 +28,7 @@ const ThoughtPost = () => {
               return (
                 <section key={i}>
                   <h2 className="thought-h2">{m[1]}</h2>
-                  <p>{renderInline(m[2])}</p>
+                  <p>{renderInline(m[2] ?? "")}</p>
                 </section>
               );
             }
