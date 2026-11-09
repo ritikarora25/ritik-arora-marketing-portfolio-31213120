@@ -116,7 +116,7 @@ const StageCard = ({ stage, persona }: Props) => {
                 className="num"
                 style={!m.count ? { fontSize: "0.9rem", lineHeight: 1.3, display: "block" } : undefined}
               >
-                {m.count ? (counts[i] ?? `${m.count.prefix ?? ""}0${m.count.suffix ?? ""}`) : m.num}
+                {m.count ? (counts[i] ?? m.num) : m.num}
               </span>
               <span className="label">{m.label}</span>
             </div>
