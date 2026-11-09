@@ -611,3 +611,8 @@ body:not([data-intro-playing]) #funnelNav {
 .thoughts-swipe > .thought-card { scroll-snap-align: start; overflow: hidden; }
 .thoughts-swipe > .thought-card:hover { transform: none; }
 .thought-body a { color: var(--indigo); text-decoration: underline; text-underline-offset: 3px; }
+
+.thought-cover { display:block; width:100%; height:auto; aspect-ratio:1200/630; border-radius:14px; border:1px solid var(--line); margin:20px 0 16px; }
+.thought-share { display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:0 0 28px; }
+.thought-share-label { font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--slate); margin-right:4px; }
+.thought-share .chip { cursor:pointer; text-decoration:none; font:inherit; font-size:13px; }

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link, useParams } from "@/lib/router-compat";
 import PortfolioLayout from "@/components/PortfolioLayout";
 import { getThought, getRelatedThoughts } from "@/data/thoughts";
@@ -19,6 +20,15 @@ const ThoughtPost = () => {
           {t.tags.map((tag) => <span key={tag} className="chip">{tag}</span>)}
         </div>
         <h1 className="thoughts-h1">{t.title}</h1>
+        <img
+          className="thought-cover"
+          src={`/og/${t.slug}.jpg`}
+          alt={t.title}
+          width={1200}
+          height={630}
+          fetchPriority="high"
+        />
+        <ShareButtons slug={t.slug} title={t.ogTitle ?? t.title} />
         <div className="thought-body">
           {paragraphs.map((p, i) => {
             if (p.startsWith("### ")) return <h3 key={i} className="thought-h3">{renderInline(p.slice(4))}</h3>;
@@ -84,6 +94,30 @@ const ThoughtPost = () => {
 };
 
 export default ThoughtPost;
+
+function ShareButtons({ slug, title }: { slug: string; title: string }) {
+  const url = `https://ritik-arora-marketing-portfolio.lovable.app/thoughts/${slug}`;
+  const u = encodeURIComponent(url);
+  const tx = encodeURIComponent(title);
+  const [copied, setCopied] = useState(false);
+  const copy = async () => {
+    try {
+      if (navigator.share) { await navigator.share({ title, url }); return; }
+      await navigator.clipboard.writeText(url);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch { /* cancelled */ }
+  };
+  return (
+    <div className="thought-share" aria-label="Share this article">
+      <span className="thought-share-label">Share</span>
+      <a className="chip" href={`https://www.linkedin.com/sharing/share-offsite/?url=${u}`} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a className="chip" href={`https://x.com/intent/tweet?url=${u}&text=${tx}`} target="_blank" rel="noopener noreferrer">X</a>
+      <a className="chip" href={`https://wa.me/?text=${tx}%20${u}`} target="_blank" rel="noopener noreferrer">WhatsApp</a>
+      <button type="button" className="chip" onClick={copy}>{copied ? "Link copied" : "Copy link"}</button>
+    </div>
+  );
+}
 
 /** Turns [label](https://url) into outbound links; everything else stays plain text. */
 function renderInline(text: string) {
