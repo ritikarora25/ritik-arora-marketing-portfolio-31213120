@@ -1,6 +1,6 @@
 import type { Thought } from "@/data/thoughts";
 import { profileJsonLd } from "@/lib/profile-jsonld";
-import { SITE, SHARE_IMAGE } from "@/lib/seo";
+import { SITE, articleShareImage } from "@/lib/seo";
 
 export const websiteJsonLd = {
   "@type": "WebSite",
@@ -85,7 +85,7 @@ export function articleJsonLd(post: Thought) {
         author: { "@id": person["@id"] },
         publisher: { "@id": person["@id"] },
         mainEntityOfPage: { "@id": `${url}#webpage` },
-        image: SHARE_IMAGE,
+        image: articleShareImage(post.slug),
         isPartOf: { "@type": "Blog", "@id": blogId, url: `${SITE}/thoughts`, name: "Thoughts on CRM & Retention" },
         ...(post.sources?.length ? { citation: post.sources.map((source) => ({
           "@type": "CreativeWork",

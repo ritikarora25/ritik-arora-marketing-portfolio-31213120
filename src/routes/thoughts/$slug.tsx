@@ -1,7 +1,7 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import ThoughtPost from "@/pages/ThoughtPost";
 import { getThought } from "@/data/thoughts";
-import { SITE, pageMeta } from "@/lib/seo";
+import { SITE, pageMeta, articleShareImage } from "@/lib/seo";
 import { articleJsonLd } from "@/lib/content-jsonld";
 
 export const Route = createFileRoute("/thoughts/$slug")({
@@ -16,7 +16,7 @@ export const Route = createFileRoute("/thoughts/$slug")({
     const url = `${SITE}/thoughts/${t.slug}`;
     return {
       meta: [
-        ...pageMeta({ title: `${t.title} — Ritik Arora`, ogTitle: t.title, description: t.summary, path: `/thoughts/${t.slug}`, type: "article" }),
+        ...pageMeta({ title: `${t.title} — Ritik Arora`, ogTitle: t.ogTitle ?? t.title, ogDescription: t.ogDescription, description: t.summary, path: `/thoughts/${t.slug}`, type: "article", image: articleShareImage(t.slug), imageAlt: t.title }),
         { property: "article:published_time", content: t.date },
         { property: "article:author", content: "Ritik Arora" },
         ...t.tags.map((tag) => ({ property: "article:tag", content: tag })),
