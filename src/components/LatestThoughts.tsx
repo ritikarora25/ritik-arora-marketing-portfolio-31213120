@@ -8,9 +8,9 @@ const LatestThoughts = () => {
     <section className="wrap" id="writing" aria-labelledby="writing-h" style={{ padding: "40px 28px" }}>
       <div className="section-head">
         <h2 id="writing-h">Latest writing</h2>
-        <Link to="/thoughts" className="section-tag">All thoughts →</Link>
+        <span className="section-tag">Swipe ↕ · <Link to="/thoughts">All thoughts →</Link></span>
       </div>
-      <div className="thoughts-list">
+      <div className="thoughts-list thoughts-swipe" tabIndex={0} aria-label="Latest posts, scroll or swipe up for more">
         {latest.map((t) => (
           <Link key={t.slug} to={`/thoughts/${t.slug}`} className="thought-card">
             <div className="thought-meta">

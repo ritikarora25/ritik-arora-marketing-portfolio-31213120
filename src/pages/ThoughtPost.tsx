@@ -21,18 +21,18 @@ const ThoughtPost = () => {
         <h1 className="thoughts-h1">{t.title}</h1>
         <div className="thought-body">
           {paragraphs.map((p, i) => {
-            if (p.startsWith("### ")) return <h3 key={i} className="thought-h3">{p.slice(4)}</h3>;
-            if (p.startsWith("## ")) return <h2 key={i} className="thought-h2">{p.slice(3)}</h2>;
+            if (p.startsWith("### ")) return <h3 key={i} className="thought-h3">{renderInline(p.slice(4))}</h3>;
+            if (p.startsWith("## ")) return <h2 key={i} className="thought-h2">{renderInline(p.slice(3))}</h2>;
             const m = p.match(/^(\d+\.\s+[^\n]+)\n([\s\S]+)$/);
             if (m) {
               return (
                 <section key={i}>
                   <h2 className="thought-h2">{m[1]}</h2>
-                  <p>{m[2]}</p>
+                  <p>{renderInline(m[2] ?? "")}</p>
                 </section>
               );
             }
-            return <p key={i}>{p}</p>;
+            return <p key={i}>{renderInline(p)}</p>;
           })}
         </div>
         {t.sources && t.sources.length > 0 && (
@@ -84,3 +84,12 @@ const ThoughtPost = () => {
 };
 
 export default ThoughtPost;
+
+/** Turns [label](https://url) into outbound links; everything else stays plain text. */
+function renderInline(text: string) {
+  const parts = text.split(/(\[[^\]]+\]\(https?:\/\/[^)\s]+\))/g);
+  return parts.map((part, i) => {
+    const m = part.match(/^\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)$/);
+    return m ? <a key={i} href={m[2]} target="_blank" rel="noopener">{m[1]}</a> : part;
+  });
+}

@@ -604,3 +604,10 @@ body:not([data-intro-playing]) #funnelNav {
 .thought-related-links a { color: var(--primary); }
 
 .thought-body .thought-h3 { font-size: 1.02rem; font-weight: 600; line-height: 1.4; margin: 1.2em 0 0.3em; color: var(--ink); }
+
+/* Homepage latest writing: vertical swipe, one card per stop */
+.thoughts-swipe { grid-auto-rows: 100%; height: 300px; overflow-y: auto; scroll-snap-type: y mandatory; overscroll-behavior-y: contain; scrollbar-width: none; gap: 14px; padding: 4px; }
+.thoughts-swipe::-webkit-scrollbar { display: none; }
+.thoughts-swipe > .thought-card { scroll-snap-align: start; overflow: hidden; }
+.thoughts-swipe > .thought-card:hover { transform: none; }
+.thought-body a { color: var(--indigo); text-decoration: underline; text-underline-offset: 3px; }
