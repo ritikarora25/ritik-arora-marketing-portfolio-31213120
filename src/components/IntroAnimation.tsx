@@ -152,13 +152,15 @@ const IntroAnimation = ({ onComplete }: Props) => {
 
   // Controls
   useEffect(() => {
+    if (hidden || doneRef.current) return;
     const onKey = (e: KeyboardEvent) => {
+      if (doneRef.current) return;
       if (e.key === "Escape" || e.key === "Enter") finish();
       else if (e.key === "ArrowRight" || e.key === " ") { e.preventDefault(); next(); }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [finish, next]);
+  }, [finish, next, hidden]);
 
   if (hidden) return null;
 
