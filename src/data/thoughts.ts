@@ -102,6 +102,18 @@ The costly mistake: a fintech app buying HubSpot to run retention campaigns, onl
 
 Get this choice wrong and no amount of onboarding will fix it.
 
+## Sales CRM vs Customer Engagement Platform at a glance
+
+- **Built around:** a Sales CRM tracks deals, contacts and accounts. A CEP tracks product events and user behaviour.
+- **Who closes:** in a Sales CRM, a sales rep closes through calls, meetings and one-to-one email. In a CEP, the product and automated journeys move the user.
+- **What triggers action:** a deal moving to a new pipeline stage, versus a user doing (or not doing) something inside the app.
+- **Main channels:** email, phone and meetings, versus push, WhatsApp, SMS, in-app and email at scale.
+- **Measured by:** pipeline value, win rate and forecast accuracy, versus activation, retention and repeat purchase.
+- **Typical tools:** HubSpot, Pipedrive, Close, Salesforce, Zoho — versus Braze, MoEngage, CleverTap, Customer.io, WebEngage.
+- **Common mistake:** using a Sales CRM for app retention journeys, or a CEP to manage a sales team.
+
+> **Quick test:** if your best customers talked to a person before paying, start with a Sales CRM. If they paid without talking to anyone, start with a CEP.
+
 ## Best Sales CRMs for 2027
 
 For businesses where a human closes the deal.
@@ -166,6 +178,18 @@ Best for: D2C and consumer brands needing unified omnichannel workflows.
 
 WebEngage is the quiet workhorse of this category. It does not have Braze's brand cachet or CleverTap's analytics depth, but it is a well-rounded omnichannel suite that consistently performs across email, push, in-app, SMS, and WhatsApp. The journey builder is practical, team support is strong, and the pricing makes it accessible to scaling brands that are not yet at MoEngage or Braze scale. Good choice for D2C and consumer internet businesses that need the full channel stack without enterprise pricing.
 
+## When do you need both?
+
+Many product-led companies end up running both — but not on day one.
+
+- **Self-serve users** sign up, activate and buy inside the product. A CEP handles their onboarding, nudges and retention journeys.
+- **High-value accounts** show buying signals — team invites, heavy usage, pricing-page visits — and get handed to a sales rep in the Sales CRM.
+- **The connection** is shared data: product events flow to the CRM as account signals, and deal status flows back so automated messages don't contradict a live sales conversation.
+
+Before buying the second tool, agree who owns each customer at each stage. Two tools messaging the same person without rules is worse than one tool used well. This is the same stage-ownership question behind a good [lifecycle marketing strategy](/thoughts/lifecycle-marketing-strategy).
+
+And remember: switching tools will not fix weak retention if customers have no strong reason to come back. That is often [a product problem, not a CRM problem](/thoughts/crm-vs-product-problem).
+
 ## The 2027 Decision Framework: 4 Questions Before You Buy
 
 Do not start with the tool. Start with these.
@@ -191,6 +215,16 @@ Dedicated growth engineer or marketing tech team means you can use more powerful
 If you sell to businesses with a sales team: start with HubSpot or Pipedrive. Add Salesforce when you have RevOps.
 
 If you run a consumer app, fintech, or marketplace: MoEngage or CleverTap if you are India or SEA-focused. Customer.io if your team is data-heavy. Braze when you are at scale.
+
+## A 2-minute picker by company stage
+
+- **Pre-seed / founder-led sales:** Pipedrive or Close, or HubSpot's free tier. Skip the CEP until you have enough users to segment.
+- **Seed to Series A, B2B:** HubSpot as the shared marketing and sales system.
+- **Seed to Series A, consumer app:** a CEP with no-code journeys — WebEngage, MoEngage or CleverTap in India and SEA; Customer.io if engineers own the data.
+- **Product-led SaaS with a sales team:** a CEP for self-serve users plus a Sales CRM for larger accounts, with clear ownership rules.
+- **Post-Series B with RevOps or a lifecycle team:** Salesforce for sales; Braze or MoEngage for high-scale engagement.
+
+These are starting points based on how each category works, not rankings from a controlled test. Check current pricing, data residency and WhatsApp support with each vendor before you buy.
 
 If you are still confused: go back to the one question that settles it — who or what is closing the deal?
 

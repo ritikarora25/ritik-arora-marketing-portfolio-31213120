@@ -123,10 +123,11 @@ function ShareButtons({ slug, title }: { slug: string; title: string }) {
 
 /** Turns [label](https://url) into outbound links; everything else stays plain text. */
 function renderInline(text: string) {
-  const parts = text.split(/(\[[^\]]+\]\(https?:\/\/[^)\s]+\)|\*\*[^*]+\*\*)/g);
+  const parts = text.split(/(\[[^\]]+\]\((?:https?:\/\/|\/)[^)\s]*\)|\*\*[^*]+\*\*)/g);
   return parts.map((part, i) => {
     if (part.startsWith("**") && part.endsWith("**")) return <strong key={i}>{part.slice(2, -2)}</strong>;
-    const m = part.match(/^\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)$/);
+    const m = part.match(/^\[([^\]]+)\]\(((?:https?:\/\/|\/)[^)\s]*)\)$/);
+    if (m && m[2].startsWith("/")) return <Link key={i} to={m[2]}>{m[1]}</Link>;
     return m ? <a key={i} href={m[2]} target="_blank" rel="noopener">{m[1]}</a> : part;
   });
 }
