@@ -12,7 +12,7 @@ Ritik's work is organised around the growth funnel: Acquire, Activate, Engage, R
 ## Thoughts
 
 - [Customer reactivation: diagnose the gap before a win-back campaign](https://ritik-arora-marketing-portfolio.lovable.app/thoughts/customer-reactivation-before-win-back-campaign): A B2B repeat-purchase framework grounded in documented ApnaKlub experience, with transparent outcome limitations.
-- [Best CRM in 2027](https://ritik-arora-marketing-portfolio.lovable.app/thoughts/best-crm-for-2027): Sales CRM vs Customer Engagement Platform, with comparison table, stage picker, FAQ and a downloadable checklist.
+- [Best CRM for 2027](https://ritik-arora-marketing-portfolio.lovable.app/thoughts/best-crm-for-2027): Sales CRM vs Customer Engagement Platform, with comparison table, stage picker, FAQ and a downloadable checklist.
 - [Lifecycle marketing strategy](https://ritik-arora-marketing-portfolio.lovable.app/thoughts/lifecycle-marketing-strategy): One question, owner and success event per funnel stage, with examples from five roles.
 - [Why CRM fails](https://ritik-arora-marketing-portfolio.lovable.app/thoughts/crm-vs-product-problem): Diagnose drop-off vs unclear value vs no need before briefing a campaign.
 
