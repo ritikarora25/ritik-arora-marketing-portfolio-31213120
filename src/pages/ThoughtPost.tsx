@@ -89,7 +89,7 @@ const ThoughtPost = () => {
         <section className="thought-author" aria-labelledby="author-h">
           <h2 id="author-h" className="thought-takeaways-h">About the author</h2>
           <p>
-            <strong>Ritik Arora</strong> is a Bengaluru-based growth and retention marketer with 5+ years in CRM, lifecycle marketing and product marketing across fintech, auto, B2B commerce and sports analytics — most recently at Freo.{" "}
+            <strong>Ritik Arora</strong> is a growth and retention marketer with 5+ years in CRM, lifecycle marketing and product marketing across fintech, auto, B2B commerce and sports analytics — most recently at Freo.{" "}
             <Link to="/">See his experience</Link> or{" "}
             <a href="https://www.linkedin.com/in/ritikarora25/" target="_blank" rel="noopener noreferrer author">connect on LinkedIn</a>.
           </p>
