@@ -278,6 +278,7 @@ hr.divider { border: none; border-top: 1px solid var(--line); }
 .about-text p.reveal-p { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
 .about-text p.reveal-p.in { opacity: 1; transform: translateY(0); }
 .about-text p.char-para { color: transparent; }
+.char-word { white-space: nowrap; }
 .char-unit { display: inline-block; position: relative; white-space: pre; }
 .char-ghost { color: rgba(44,47,69,0.2); }
 .char-live { position: absolute; left: 0; top: 0; color: #2c2f45; opacity: 0; transition: opacity .08s ease; white-space: pre; }
@@ -642,3 +643,5 @@ body:not([data-intro-playing]) #funnelNav {
 .thought-takeaways li+li{margin-top:6px}
 .thought-author p{margin:0;line-height:1.6}
 .thought-author a{color:var(--indigo);text-decoration:underline}
+
+@media (max-width: 640px) { .persona-chip { min-height: 44px; padding: 10px 18px; } }
