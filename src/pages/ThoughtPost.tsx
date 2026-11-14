@@ -33,6 +33,18 @@ const ThoughtPost = () => {
           {paragraphs.map((p, i) => {
             if (p.startsWith("> ")) return <blockquote key={i}>{renderInline(p.slice(2))}</blockquote>;
             if (p.startsWith("- ")) return <ul key={i} className="thought-checklist">{p.split("\n").map((line, j) => <li key={j}>{renderInline(line.replace(/^- /, ""))}</li>)}</ul>;
+            if (p.startsWith("|")) {
+              const rows = p.split("\n").filter((l) => !/^\|[\s|:-]+\|$/.test(l)).map((l) => l.replace(/^\||\|$/g, "").split("|").map((c) => c.trim()));
+              const [head, ...body] = rows;
+              return (
+                <div key={i} className="thought-table-wrap">
+                  <table className="thought-table">
+                    <thead><tr>{head.map((c, j) => <th key={j} scope="col">{renderInline(c)}</th>)}</tr></thead>
+                    <tbody>{body.map((r, k) => <tr key={k}>{r.map((c, j) => j === 0 ? <th key={j} scope="row">{renderInline(c)}</th> : <td key={j}>{renderInline(c)}</td>)}</tr>)}</tbody>
+                  </table>
+                </div>
+              );
+            }
             if (p.startsWith("### ")) return <h3 key={i} className="thought-h3">{renderInline(p.slice(4))}</h3>;
             if (p.startsWith("## ")) return <h2 key={i} className="thought-h2">{renderInline(p.slice(3))}</h2>;
             const m = p.match(/^(\d+\.\s+[^\n]+)\n([\s\S]+)$/);

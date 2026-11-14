@@ -104,13 +104,15 @@ Get this choice wrong and no amount of onboarding will fix it.
 
 ## Sales CRM vs Customer Engagement Platform at a glance
 
-- **Built around:** a Sales CRM tracks deals, contacts and accounts. A CEP tracks product events and user behaviour.
-- **Who closes:** in a Sales CRM, a sales rep closes through calls, meetings and one-to-one email. In a CEP, the product and automated journeys move the user.
-- **What triggers action:** a deal moving to a new pipeline stage, versus a user doing (or not doing) something inside the app.
-- **Main channels:** email, phone and meetings, versus push, WhatsApp, SMS, in-app and email at scale.
-- **Measured by:** pipeline value, win rate and forecast accuracy, versus activation, retention and repeat purchase.
-- **Typical tools:** HubSpot, Pipedrive, Close, Salesforce, Zoho — versus Braze, MoEngage, CleverTap, Customer.io, WebEngage.
-- **Common mistake:** using a Sales CRM for app retention journeys, or a CEP to manage a sales team.
+| | Sales CRM | Customer Engagement Platform |
+|---|---|---|
+| Built around | Deals, contacts and accounts | Product events and user behaviour |
+| Who closes | A sales rep, through calls, meetings and one-to-one email | The product and automated journeys |
+| What triggers action | A deal moving to a new pipeline stage | A user doing (or not doing) something in the app |
+| Main channels | Email, phone and meetings | Push, WhatsApp, SMS, in-app and email at scale |
+| Measured by | Pipeline value, win rate, forecast accuracy | Activation, retention, repeat purchase |
+| Typical tools | HubSpot, Pipedrive, Close, Salesforce, Zoho | Braze, MoEngage, CleverTap, Customer.io, WebEngage |
+| Common mistake | Using it to run app retention journeys | Using it to manage a sales team |
 
 > **Quick test:** if your best customers talked to a person before paying, start with a Sales CRM. If they paid without talking to anyone, start with a CEP.
 
@@ -228,7 +230,29 @@ These are starting points based on how each category works, not rankings from a 
 
 If you are still confused: go back to the one question that settles it — who or what is closing the deal?
 
-The best CRM for 2027 is the one that matches the actual motion of your business. Everything else is noise.`,
+The best CRM for 2027 is the one that matches the actual motion of your business. Everything else is noise.
+
+## Frequently asked questions
+
+### Can I use HubSpot or Salesforce to send WhatsApp messages when users drop off in my app?
+
+Only partly. Both can send WhatsApp through add-ons, but they are not built to react in real time to what a user does inside your product. If app behaviour should trigger the message, a Customer Engagement Platform is the better fit.
+
+### When should a startup move from a Sales CRM to a Customer Engagement Platform?
+
+You usually do not move — you add one. Add a CEP when a meaningful share of revenue comes from users who sign up and pay without talking to anyone, and you need automated journeys to activate and retain them.
+
+### Is a Customer Engagement Platform the same as marketing automation?
+
+Not quite. Classic marketing automation is mostly email nurture for leads. A CEP works from live product events and reaches users across push, in-app, WhatsApp, SMS and email.
+
+### Do product-led companies need both?
+
+Often, yes. Self-serve users are guided by the CEP, while larger accounts that show buying signals are passed to sales reps in the CRM.
+
+### What is the best CRM for an early-stage startup?
+
+Start from who closes the deal. Founder-led sales teams do well with Pipedrive or Close; inbound B2B teams with HubSpot; consumer apps with a CEP such as MoEngage, CleverTap or Customer.io.`,
   },
   {
     slug: "customer-reactivation-before-win-back-campaign",

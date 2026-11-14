@@ -627,3 +627,10 @@ body:not([data-intro-playing]) #funnelNav {
   .thought-article-guide .thought-body { font-size: 1rem; }
   .thought-article-guide .thought-body .thought-h2 { font-size: 1.2rem; }
 }
+
+.thought-table-wrap { overflow-x: auto; margin: 24px 0; border: 1px solid var(--line); border-radius: 12px; }
+.thought-table { width: 100%; min-width: 560px; border-collapse: collapse; font-size: 15px; line-height: 1.5; }
+.thought-table th, .thought-table td { padding: 12px 14px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+.thought-table thead th { background: color-mix(in srgb, var(--indigo) 8%, transparent); font-weight: 600; }
+.thought-table tbody th { font-weight: 600; white-space: nowrap; }
+.thought-table tr:last-child th, .thought-table tr:last-child td { border-bottom: 0; }
