@@ -18,12 +18,6 @@ export const profileJsonLd = {
           "url": "https://ritik-arora-marketing-portfolio.lovable.app/",
           "email": "mailto:ritikchuchra1@gmail.com",
           "image": "https://ritik-arora-marketing-portfolio.lovable.app/lovable-uploads/b900e373-588f-4459-b950-6d8f999f7d94.jpg",
-          "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Bengaluru",
-            "addressRegion": "Karnataka",
-            "addressCountry": "IN"
-          },
           "nationality": {
             "@type": "Country",
             "name": "India"
