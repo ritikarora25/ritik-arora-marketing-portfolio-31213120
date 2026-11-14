@@ -51,7 +51,12 @@ const ThoughtPost = () => {
                 </div>
               );
             }
-            if (p.startsWith("### ")) return <h3 key={i} className="thought-h3">{renderInline(p.slice(4))}</h3>;
+            if (p.startsWith("### ")) {
+              const hasH2Before = paragraphs.slice(0, i).some((q) => q.startsWith("## ") || /^\d+\.\s+[^\n]+\n/.test(q));
+              return hasH2Before
+                ? <h3 key={i} className="thought-h3">{renderInline(p.slice(4))}</h3>
+                : <h2 key={i} className="thought-h2">{renderInline(p.slice(4))}</h2>;
+            }
             if (p.startsWith("## ")) return <h2 key={i} className="thought-h2">{renderInline(p.slice(3))}</h2>;
             const m = p.match(/^(\d+\.\s+[^\n]+)\n([\s\S]+)$/);
             if (m) {
