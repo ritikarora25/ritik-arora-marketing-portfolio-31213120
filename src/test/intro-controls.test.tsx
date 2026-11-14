@@ -18,9 +18,9 @@ describe("Intro keyboard controls", () => {
   it("advances with Space while playing but releases it immediately after skipping", () => {
     vi.useFakeTimers();
     vi.stubGlobal("innerWidth", 1280);
-    const { getByText } = render(<IntroAnimation />);
+    const { getByRole } = render(<IntroAnimation />);
     expect(pressSpace()).toBe(true);
-    fireEvent.click(getByText("Skip intro ↵"));
+    fireEvent.click(getByRole("button", { name: "Skip intro" }));
     expect(pressSpace()).toBe(false);
     act(() => { vi.advanceTimersByTime(300); });
     expect(pressSpace()).toBe(false);
