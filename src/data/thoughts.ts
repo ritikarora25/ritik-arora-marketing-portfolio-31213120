@@ -305,6 +305,17 @@ For CRM and lifecycle marketers, the first question is not which win-back messag
 
 > **Evidence note:** This framework builds on the behaviour-based segmentation and multilingual WhatsApp work documented in my ApnaKlub experience. It is a proposed approach, not a claim that a specific win-back experiment was run there.
 
+## Reactivation vs win-back: what is the difference?
+
+A win-back campaign is one tactic inside customer reactivation. Reactivation is the wider job: working out why someone stopped, then deciding whether a message, a service fix or a product change is what brings them back.
+
+| | Customer reactivation | Win-back campaign |
+|---|---|---|
+| Starts with | Diagnosing why the customer went quiet | A message or offer to a lapsed list |
+| Scope | Messaging, service recovery and product barriers | Usually messaging and incentives |
+| Success measure | A meaningful return action, such as a completed order | Often opens, clicks or redemptions |
+| Best used when | You don't yet know the reason for inactivity | The reason is known and a message can address it |
+
 1. Define inactivity around the customer's buying pattern
 An inactivity window should reflect how customers normally use the product. One fixed cutoff can incorrectly label an occasional buyer as lost while missing a frequent buyer who has already stopped returning.
 
