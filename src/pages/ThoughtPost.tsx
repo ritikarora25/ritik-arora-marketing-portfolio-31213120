@@ -127,7 +127,8 @@ function renderInline(text: string) {
   return parts.map((part, i) => {
     if (part.startsWith("**") && part.endsWith("**")) return <strong key={i}>{part.slice(2, -2)}</strong>;
     const m = part.match(/^\[([^\]]+)\]\(((?:https?:\/\/|\/)[^)\s]*)\)$/);
-    if (m?.[2]?.startsWith("/")) return <Link key={i} to={m[2]}>{m[1]}</Link>;
+    const [, label = "", href = ""] = m ?? [];
+    if (m && href.startsWith("/")) return <Link key={i} to={href}>{label}</Link>;
     return m ? <a key={i} href={m[2]} target="_blank" rel="noopener">{m[1]}</a> : part;
   });
 }
