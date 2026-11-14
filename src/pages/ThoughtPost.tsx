@@ -13,7 +13,7 @@ const ThoughtPost = () => {
 
   return (
     <PortfolioLayout>
-      <article className="wrap thoughts-page thought-article">
+      <article className={`wrap thoughts-page thought-article${t.slug === "customer-reactivation-before-win-back-campaign" ? " thought-article-guide" : ""}`}>
         <Link to="/thoughts" className="thought-back">← All thoughts</Link>
         <div className="thought-meta">
           <time dateTime={t.date}>{t.displayDate}</time>
@@ -31,6 +31,8 @@ const ThoughtPost = () => {
         <ShareButtons slug={t.slug} title={t.ogTitle ?? t.title} />
         <div className="thought-body">
           {paragraphs.map((p, i) => {
+            if (p.startsWith("> ")) return <blockquote key={i}>{renderInline(p.slice(2))}</blockquote>;
+            if (p.startsWith("- ")) return <ul key={i} className="thought-checklist">{p.split("\n").map((line, j) => <li key={j}>{renderInline(line.replace(/^- /, ""))}</li>)}</ul>;
             if (p.startsWith("### ")) return <h3 key={i} className="thought-h3">{renderInline(p.slice(4))}</h3>;
             if (p.startsWith("## ")) return <h2 key={i} className="thought-h2">{renderInline(p.slice(3))}</h2>;
             const m = p.match(/^(\d+\.\s+[^\n]+)\n([\s\S]+)$/);
@@ -121,8 +123,9 @@ function ShareButtons({ slug, title }: { slug: string; title: string }) {
 
 /** Turns [label](https://url) into outbound links; everything else stays plain text. */
 function renderInline(text: string) {
-  const parts = text.split(/(\[[^\]]+\]\(https?:\/\/[^)\s]+\))/g);
+  const parts = text.split(/(\[[^\]]+\]\(https?:\/\/[^)\s]+\)|\*\*[^*]+\*\*)/g);
   return parts.map((part, i) => {
+    if (part.startsWith("**") && part.endsWith("**")) return <strong key={i}>{part.slice(2, -2)}</strong>;
     const m = part.match(/^\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)$/);
     return m ? <a key={i} href={m[2]} target="_blank" rel="noopener">{m[1]}</a> : part;
   });
