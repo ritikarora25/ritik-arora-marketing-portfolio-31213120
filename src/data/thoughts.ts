@@ -205,7 +205,7 @@ The best CRM for 2027 is the one that matches the actual motion of your business
     displayDate: "Nov 1, 2026",
     tags: ["CRM", "Retention", "Lifecycle"],
     summary:
-      "A practical customer reactivation framework for B2B repeat-purchase journeys: define inactivity, segment by past behaviour, restore a reason to order, and measure more than clicks.",
+      "A B2B customer reactivation framework with an illustrative repeat-order example and a reusable segmentation worksheet: diagnose inactivity, match the message to the barrier, and measure meaningful returns.",
     body: `Customer reactivation means helping a previously active customer return to a meaningful product action after a period of inactivity. In a repeat-purchase business, that action is usually another completed order—not opening a message.
 
 For CRM and lifecycle marketers, the first question is not which win-back message to send. It is whether the customer has lost the habit, lost the reason to buy, or hit a barrier the campaign cannot remove.
@@ -249,7 +249,73 @@ Where feasible, randomly reserve a comparable holdout group that does not receiv
 
 Treat small samples and short windows cautiously. A quick purchase followed by another long absence is different from renewed repeat behaviour. Do not change the success definition after seeing the result.
 
-6. Decide whether CRM is actually the right fix
+6. Illustrative B2B example: a missed replenishment order
+The following is a fictional wholesale repeat-order scenario, not an ApnaKlub case study or a campaign I claim to have run. All timings and counts below are teaching assumptions, not benchmarks or reported results.
+
+Imagine a retailer that has completed six orders, usually about 14 days apart, but has not ordered for 28 days. A missed buying cycle makes the account worth checking; it does not establish why the retailer stopped. Compare that pattern with similar buyers and check seasonality before labelling the account inactive.
+
+Suppose the retailer's usual SKU is currently available, the account has permission to receive WhatsApp messages in its preferred language, and there is no unresolved delivery or payment issue. The working hypothesis is a missed replenishment habit. If the SKU were unavailable, a reminder would not fix the gap. If a service issue were open, route the account to service recovery instead.
+
+For this illustration, eligibility means at least three completed orders, a usual interval of roughly 14 days, at least 28 days since the last completed order, no open service issue and valid channel permission. Never-completed-first-order accounts belong in activation, not this cohort. These cutoffs are deliberately hypothetical; use your own purchase history to choose yours.
+
+A proposed message could be: “Hi [retailer name], [previously purchased SKU] is available to order again. View the current stock and price here: [SKU ordering link].” Send only after confirming stock, price and the destination. This is a draft to test, not evidence that this wording improves conversion. Do not promise delivery terms or savings the product cannot support.
+
+Define the return event as a completed order within 14 days of assignment. Check for that event before any follow-up; stop messaging on return, opt-out, lost eligibility or a new unresolved issue. Record cancellations and refunds separately so a short-lived order does not masquerade as durable recovery.
+
+To illustrate measurement, imagine 1,000 eligible accounts randomly assigned to two equal groups. If 60 of 500 contacted accounts and 45 of 500 holdout accounts completed an order, the observed return rates would be 12% and 9%: a difference of 3 percentage points. That is 15 more returning accounts in the contacted group, not 60 campaign-caused returns. These invented counts do not demonstrate a real lift or statistical significance. Check uncertainty, group comparability, net revenue and later repeat orders before deciding whether to scale.
+
+7. Practical segmentation worksheet
+Use one copy of the following worksheet for each segment. Leave unknowns visible instead of treating a guessed reason for inactivity as a fact. The filled examples are proposals for the fictional scenario above, not historical campaign records.
+
+Segment and buying pattern
+Segment name: ______
+Prior completed-order count: ______
+Typical purchase interval and how it was calculated: ______
+Inactivity threshold, seasonal exceptions and supporting evidence: ______
+Example: previously frequent replenishment buyers who have missed two assumed 14-day buying cycles.
+
+Observed signal and reason to return
+Last completed order, preferred SKUs/categories and language: ______
+Open delivery, payment or service issues: ______
+Working hypothesis about the lapse: ______
+Evidence that would confirm or challenge it: ______
+Verified reason to return now: ______
+Example: the usual SKU is in stock; “missed habit” remains a hypothesis until checked against feedback and behaviour.
+
+Eligibility and exclusions
+Required prior purchase history and inactivity rule: ______
+Channel permission check and suppression source: ______
+Exclude: never-activated customers, opt-outs, unavailable products and unresolved barriers as appropriate.
+Service-recovery owner when a barrier is found: ______
+Example: an open delivery complaint moves the account out of the promotional segment and into service recovery.
+
+Message and destination
+Proposed message, channel and language: ______
+Relevant ordering destination: ______
+Stock, price and promise verification owner: ______
+Follow-up timing, maximum contacts and cross-channel coordination: ______
+Example: a verified SKU-led reminder, not a blanket discount sent to every inactive account.
+
+Return event and exit rules
+Qualifying completed action: ______
+Measurement window and when it starts: ______
+Event checked before every send: ______
+Exit on return, opt-out, lost eligibility or a newly unresolved issue.
+Cancellation/refund handling: ______
+Example: a completed order within the assumed 14-day window, with follow-ups suppressed as soon as it occurs.
+
+Measurement and decision
+Eligible accounts assigned to contacted group / holdout: ______ / ______
+Returning accounts in each group: ______ / ______
+Return rate = returning accounts ÷ assigned eligible accounts.
+Observed incremental difference = contacted return rate − holdout return rate, in percentage points.
+Net revenue, incentive cost, opt-outs and subsequent repeat-order window: ______
+Uncertainty checks and scale / revise / stop criteria agreed before launch: ______
+Without a comparable holdout, report observed returns—not proven incremental campaign impact.
+
+Review the completed sheet with product, service and growth before launch. If the reason-to-return or event-verification fields are blank, more persuasive copy is not the next fix.
+
+8. Decide whether CRM is actually the right fix
 Before approving the campaign, answer four questions: Who is inactive relative to their usual behaviour? What credible reason do they have to return now? Can the product deliver that promise? What evidence will distinguish campaign-driven returns from natural ones?
 
 If the reason to return is missing, revisit product value or positioning first. CRM can make an existing reason timely and relevant. It cannot manufacture a need the customer does not have.`,
