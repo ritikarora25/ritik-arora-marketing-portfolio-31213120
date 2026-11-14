@@ -74,7 +74,7 @@ export function articleJsonLd(post: Thought) {
       person,
       websiteJsonLd,
       {
-        "@type": "BlogPosting",
+        "@type": ["Article", "BlogPosting"],
         "@id": `${url}#article`,
         url,
         headline: post.title,
@@ -83,7 +83,7 @@ export function articleJsonLd(post: Thought) {
         datePublished: post.date,
         keywords: post.tags.join(", "),
         inLanguage: "en",
-        author: { "@id": person["@id"] },
+        author: { "@type": "Person", "@id": person["@id"], name: person.name, url: person.url },
         publisher: { "@id": person["@id"] },
         mainEntityOfPage: { "@id": `${url}#webpage` },
         image: articleShareImage(post.slug),

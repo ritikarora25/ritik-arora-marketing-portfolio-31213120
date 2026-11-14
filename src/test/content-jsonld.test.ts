@@ -8,7 +8,7 @@ describe("Structured content relationships", () => {
   it("connects every article to the documented author and its own page", () => {
     for (const post of thoughts) {
       const data = JSON.parse(JSON.stringify(articleJsonLd(post)));
-      const article = data["@graph"].find((node: Record<string, unknown>) => node["@type"] === "BlogPosting");
+      const article = data["@graph"].find((node: Record<string, unknown>) => [node["@type"]].flat().includes("Article"));
       expect(article.author["@id"]).toBe(profileJsonLd.mainEntity["@id"]);
       expect(article.mainEntityOfPage["@id"]).toBe(`${SITE}/thoughts/${post.slug}#webpage`);
       expect(article.datePublished).toBe(post.date);

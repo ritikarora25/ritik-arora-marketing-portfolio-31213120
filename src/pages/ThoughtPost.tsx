@@ -20,14 +20,18 @@ const ThoughtPost = () => {
           {t.tags.map((tag) => <span key={tag} className="chip">{tag}</span>)}
         </div>
         <h1 className="thoughts-h1">{t.title}</h1>
+        <picture>
+          <source type="image/webp" srcSet={`/og/${t.slug}-640.webp 640w, /og/${t.slug}-1200.webp 1200w`} sizes="(max-width: 760px) 100vw, 720px" />
         <img
           className="thought-cover"
           src={`/og/${t.slug}.jpg`}
           alt={t.title}
           width={1200}
           height={630}
+          decoding="async"
           fetchPriority="high"
         />
+        </picture>
         <ShareButtons slug={t.slug} title={t.ogTitle ?? t.title} />
         {t.takeaways && t.takeaways.length > 0 && (
           <aside className="thought-takeaways" aria-labelledby="takeaways-h">
