@@ -9,7 +9,7 @@ export const Route = createFileRoute("/")({
     meta: pageMeta({
       title: "Ritik Arora — Growth & Marketing",
       ogTitle: "Ritik Arora | Growth, CRM & Lifecycle Marketing",
-      description: "Growth marketer, 5+ years across brand, CRM, retention and product — most recently at Freo, Bengaluru.",
+      description: "Growth marketer, 5+ years across brand, CRM, retention and product — most recently at Freo.",
       path: "/",
       type: "profile",
     }),

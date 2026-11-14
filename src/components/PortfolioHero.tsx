@@ -149,7 +149,6 @@ const PortfolioHero = ({ persona, setPersona }: Props) => {
           </div>
 
           <div className="hero-meta">
-            <span>Bengaluru, Karnataka, India</span>
             <a href="mailto:ritikchuchra1@gmail.com">ritikchuchra1@gmail.com</a>
             <a href="https://www.linkedin.com/in/ritikarora25/" target="_blank" rel="noopener noreferrer">
               LinkedIn ↗

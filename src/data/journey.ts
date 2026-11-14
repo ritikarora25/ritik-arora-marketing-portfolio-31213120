@@ -186,7 +186,7 @@ export const stageCompanies: Record<StageId, {
   },
   activate: {
     co: 'Freo',
-    period: 'Assistant Manager · Oct 2025 – Jul 2026 · Bengaluru',
+    period: 'Assistant Manager · Oct 2025 – Jul 2026',
     monogram: 'F',
     role: stageCopy.activate.role.default,
     metrics: [
