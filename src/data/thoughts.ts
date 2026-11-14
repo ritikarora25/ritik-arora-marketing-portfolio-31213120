@@ -57,11 +57,15 @@ At KiranaBazaar, 150K+ kirana users needed both retention and a new revenue line
 6. How to turn the stages into a working plan
 Write one line per stage: the question, the success event, the owner, and the channels allowed to act on it. Then check three things before launching any campaign.
 
-First, which stage is the metric actually failing in? A retention dip is often an activation problem that surfaced late. Second, is this a communication problem at all? CRM accelerates people who already have a reason to act; if the reason is missing, it is a product or positioning problem. Third, how will you know the campaign caused the change? Agree the measurement window, and use a holdout group where you can.
+First, which stage is the metric actually failing in? A retention dip is often an activation problem that surfaced late. Second, is this a communication problem at all? CRM accelerates people who already have a reason to act; if the reason is missing, it is a product or positioning problem (I unpack that distinction in [CRM is often asked to solve a product problem](/thoughts/crm-vs-product-problem)). Third, how will you know the campaign caused the change? Agree the measurement window, and use a holdout group where you can.
 
-A lifecycle marketing strategy is useful when it tells you what not to send as clearly as what to send. If every stage has one question and one success event, the campaigns tend to follow.`,
+A lifecycle marketing strategy is useful when it tells you what not to send as clearly as what to send. If every stage has one question and one success event, the campaigns tend to follow.
+
+For the Retain stage in practice, see [how to diagnose the gap before a win-back campaign](/thoughts/customer-reactivation-before-win-back-campaign); for choosing the tools each stage runs on, see [Sales CRM vs Customer Engagement Platform](/thoughts/best-crm-for-2027).`,
     sources: [
       { label: "Ritik's documented experience across all five stages", url: "/#journey" },
+      { label: "Dave McClure: Startup Metrics for Pirates (the AARRR funnel this five-stage model adapts)", url: "https://www.slideshare.net/dmc500hats/startup-metrics-for-pirates-long-version" },
+      { label: "Braze: using control groups to measure customer engagement impact", url: "https://www.braze.com/resources/articles/using-global-control-groups-to-measure-the-impact-of-customer-engagement" },
     ],
   },
   {
@@ -254,7 +258,14 @@ Often, yes. Self-serve users are guided by the CEP, while larger accounts that s
 
 ### What is the best CRM for an early-stage startup?
 
-Start from who closes the deal. Founder-led sales teams do well with Pipedrive or Close; inbound B2B teams with HubSpot; consumer apps with a CEP such as MoEngage, CleverTap or Customer.io.`,
+Start from who closes the deal. Founder-led sales teams do well with Pipedrive or Close; inbound B2B teams with HubSpot; consumer apps with a CEP such as MoEngage, CleverTap or Customer.io.
+
+If your retention numbers are the reason you are shopping for software, read [customer reactivation: diagnose the gap before a win-back campaign](/thoughts/customer-reactivation-before-win-back-campaign) first — the tool rarely fixes a missing segmentation rule.`,
+    sources: [
+      { label: "Braze: what a customer engagement platform is", url: "https://www.braze.com/resources/articles/what-is-a-customer-engagement-platform" },
+      { label: "HubSpot: CRM pricing by seat and tier", url: "https://www.hubspot.com/pricing/crm" },
+      { label: "Meta: WhatsApp Business Platform message pricing", url: "https://developers.facebook.com/docs/whatsapp/pricing" },
+    ],
   },
   {
     slug: "customer-reactivation-before-win-back-campaign",
@@ -435,7 +446,9 @@ Review the completed sheet with product, service and growth before launch. If th
 8. Decide whether CRM is actually the right fix
 Before approving the campaign, answer four questions: Who is inactive relative to their usual behaviour? What credible reason do they have to return now? Can the product deliver that promise? What evidence will distinguish campaign-driven returns from natural ones?
 
-If the reason to return is missing, revisit product value or positioning first. CRM can make an existing reason timely and relevant. It cannot manufacture a need the customer does not have.`,
+If the reason to return is missing, revisit product value or positioning first. CRM can make an existing reason timely and relevant. It cannot manufacture a need the customer does not have.
+
+Reactivation is one stage of a wider plan; see [lifecycle marketing strategy: one question per stage](/thoughts/lifecycle-marketing-strategy).`,
     sources: [
       { label: "Ritik's documented ApnaKlub retention experience and reported outcomes", url: "/#retain" },
       { label: "Bloomreach: judging inactivity against purchase rhythm", url: "https://www.bloomreach.com/en/blog/win-back-emails-guide" },
@@ -446,7 +459,7 @@ If the reason to return is missing, revisit product value or positioning first. 
     slug: "crm-vs-product-problem",
     ogTitle: "CRM can’t fix a product problem",
     ogDescription: "When retention dips, CRM gets the blame. Three signs the real problem is the product — and what to do instead.",
-    title: "CRM is often asked to solve a product problem",
+    title: "Why CRM fails: when retention is a product problem, not a campaign problem",
     date: "2026-10-07",
     displayDate: "Oct 7, 2026",
     tags: ["CRM", "Product Marketing", "Lifecycle"],
@@ -478,7 +491,50 @@ Product marketing helps make that reason clear in the first place.
 So before asking, “What campaign should we run?”
 
 Maybe the better question is:
-“Why should this customer care?”`,
+“Why should this customer care?”
+
+## Why CRM fails when the problem is upstream
+
+The sections above are the original LinkedIn post. What follows expands it into a diagnostic you can run before briefing a campaign. It is a proposed framework drawn from my work, not the result of a controlled study.
+
+CRM gets the blame because it is the fastest lever to pull. A new journey can ship in a week; a positioning change or a product fix takes longer and needs other teams. So the metric drop lands on whoever can send a message tomorrow.
+
+Marc Andreessen made a related point years ago: when the market and product do not fit, no amount of execution elsewhere saves the outcome. Messaging is part of execution. It amplifies demand that exists; it rarely creates it.
+
+## How to tell which problem you have
+
+Look at behaviour before you look at messages.
+
+- **Drop-off problem:** people start the key action and stop part way — an incomplete KYC, an abandoned cart, a half-finished setup. Intent is visible in the data.
+- **Clarity problem:** people visit, browse and leave without starting. They ask questions support could answer in one line. Different segments describe the product differently.
+- **Need problem:** even people who completed the first value moment do not return, and reminders produce opens but not repeat actions.
+
+> **Quick test:** if your best-fit users, who already got value once, are not coming back, the issue is unlikely to be the reminder.
+
+## Who should own each fix
+
+| Problem | Signal | Primary owner | What CRM can do |
+|---|---|---|---|
+| Drop-off | Started but did not finish | CRM / lifecycle | Timing, segmentation, nudges, removing friction in the journey |
+| Unclear value | Visited but did not start | Product marketing | Test the new message once positioning is agreed |
+| No strong need | Got value once, did not return | Product and leadership | Measure, and avoid spending budget trying to force it |
+
+## A five-question check before any new campaign
+
+- Which stage of the funnel is the metric actually failing in?
+- Is there evidence of intent — a started action — among the people you want to message?
+- Can a customer explain, in one sentence, why they should care?
+- Did people who reached first value come back without being reminded?
+- How will you know the campaign caused the change — is there a holdout group?
+
+If the answers point to drop-off, CRM is the right fix. If they point to clarity, brief product marketing first. If they point to need, the honest move is to raise it as a product question rather than launch another journey.
+
+For how this fits into each funnel stage, see [lifecycle marketing strategy: one question per stage](/thoughts/lifecycle-marketing-strategy). For a worked retention example, see [customer reactivation: diagnose the gap before a win-back campaign](/thoughts/customer-reactivation-before-win-back-campaign).`,
+    sources: [
+      { label: "Marc Andreessen: the only thing that matters (product–market fit)", url: "https://pmarchive.com/guide_to_startups_part4.html" },
+      { label: "Lenny Rachitsky: how to know if you’ve got product–market fit", url: "https://www.lennysnewsletter.com/p/how-to-know-if-youve-got-productmarket" },
+      { label: "Ritik's documented onboarding, reactivation and conversion work", url: "/#journey" },
+    ],
     linkedinUrl: "https://lnkd.in/p/dpcZXJ-N",
   },
 ];
