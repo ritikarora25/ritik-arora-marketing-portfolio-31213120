@@ -24,17 +24,6 @@ const PortfolioHero = ({ persona, setPersona }: Props) => {
   const [proofDone, setProofDone] = useState(false);
   const h1Ref = useRef<HTMLHeadingElement>(null);
 
-  // H1 word-by-word reveal
-  useEffect(() => {
-    const rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const h1 = h1Ref.current;
-    if (!h1 || rm) return;
-    const spans = h1.querySelectorAll<HTMLSpanElement>("span.word");
-    spans.forEach((s, i) => {
-      s.style.animationDelay = `${i * 75}ms`;
-    });
-  }, []);
-
   // Typewriter proof line
   useEffect(() => {
     const rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
