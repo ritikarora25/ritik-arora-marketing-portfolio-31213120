@@ -29,6 +29,12 @@ const ThoughtPost = () => {
           fetchPriority="high"
         />
         <ShareButtons slug={t.slug} title={t.ogTitle ?? t.title} />
+        {t.takeaways && t.takeaways.length > 0 && (
+          <aside className="thought-takeaways" aria-labelledby="takeaways-h">
+            <h2 id="takeaways-h" className="thought-takeaways-h">Key takeaways</h2>
+            <ul>{t.takeaways.map((k, i) => <li key={i}>{k}</li>)}</ul>
+          </aside>
+        )}
         <div className="thought-body">
           {paragraphs.map((p, i) => {
             if (p.startsWith("> ")) return <blockquote key={i}>{renderInline(p.slice(2))}</blockquote>;
@@ -80,6 +86,14 @@ const ThoughtPost = () => {
             Originally on LinkedIn ↗
           </a>
         )}
+        <section className="thought-author" aria-labelledby="author-h">
+          <h2 id="author-h" className="thought-takeaways-h">About the author</h2>
+          <p>
+            <strong>Ritik Arora</strong> is a Bengaluru-based growth and retention marketer with 5+ years in CRM, lifecycle marketing and product marketing across fintech, auto, B2B commerce and sports analytics — most recently at Freo.{" "}
+            <Link to="/">See his experience</Link> or{" "}
+            <a href="https://www.linkedin.com/in/ritikarora25/" target="_blank" rel="noopener noreferrer author">connect on LinkedIn</a>.
+          </p>
+        </section>
         <nav className="thought-related" aria-labelledby="related-h">
           <h2 id="related-h" className="thought-h2">More thoughts</h2>
           {related.length > 0 && (

@@ -6,12 +6,18 @@ Ritik's work is organised around the growth funnel: Acquire, Activate, Engage, R
 
 ## Pages
 
-- [Home](/): Experience across the five funnel stages, skills, achievements, education, and contact.
-- [Thoughts](/thoughts): Field notes on CRM, lifecycle, retention and product marketing.
+- [Home](https://ritik-arora-marketing-portfolio.lovable.app/): Experience across the five funnel stages, skills, achievements, education, and contact.
+- [Thoughts](https://ritik-arora-marketing-portfolio.lovable.app/thoughts): Field notes on CRM, lifecycle, retention and product marketing.
 
 ## Thoughts
 
-- [Customer reactivation: diagnose the gap before a win-back campaign](/thoughts/customer-reactivation-before-win-back-campaign): A B2B repeat-purchase framework grounded in documented ApnaKlub experience, with transparent outcome limitations.
-- [Best CRM for startups in 2027](/thoughts/best-crm-for-2027): Sales CRM vs Customer Engagement Platform, with comparison table, stage picker, FAQ and a downloadable checklist.
-- [Lifecycle marketing strategy](/thoughts/lifecycle-marketing-strategy): One question, owner and success event per funnel stage, with examples from five roles.
-- [Why CRM fails](/thoughts/crm-vs-product-problem): Diagnose drop-off vs unclear value vs no need before briefing a campaign.
+- [Customer reactivation: diagnose the gap before a win-back campaign](https://ritik-arora-marketing-portfolio.lovable.app/thoughts/customer-reactivation-before-win-back-campaign): A B2B repeat-purchase framework grounded in documented ApnaKlub experience, with transparent outcome limitations.
+- [Best CRM for startups in 2027](https://ritik-arora-marketing-portfolio.lovable.app/thoughts/best-crm-for-2027): Sales CRM vs Customer Engagement Platform, with comparison table, stage picker, FAQ and a downloadable checklist.
+- [Lifecycle marketing strategy](https://ritik-arora-marketing-portfolio.lovable.app/thoughts/lifecycle-marketing-strategy): One question, owner and success event per funnel stage, with examples from five roles.
+- [Why CRM fails](https://ritik-arora-marketing-portfolio.lovable.app/thoughts/crm-vs-product-problem): Diagnose drop-off vs unclear value vs no need before briefing a campaign.
+
+## Optional
+
+- [Full article text](https://ritik-arora-marketing-portfolio.lovable.app/llms-full.txt): All Thoughts articles in plain markdown.
+- [Resume (PDF)](https://ritik-arora-marketing-portfolio.lovable.app/ritik-arora-resume.pdf): Work history.
+- [LinkedIn](https://www.linkedin.com/in/ritikarora25/): Profile.
