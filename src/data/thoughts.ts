@@ -289,7 +289,7 @@ If your retention numbers are the reason you are shopping for software, read [cu
       "Define 'lapsed' against each customer's normal buying interval, not a fixed 30/60/90 days.",
       "Exclude customers with open service issues or no channel permission.",
       "Measure reactivation against a holdout group; the worked example is illustrative, not real results.",
-      "A downloadable-style worksheet covers segment, reason, message, exit rules and measurement.",
+      "A fill-in worksheet covers segment, reason, message, exit rules and measurement.",
     ],
     ogTitle: "Diagnose the gap before your next win-back campaign",
     ogDescription: "Most reactivation campaigns fail because nobody asked why customers left. A practical framework for finding the gap first.",

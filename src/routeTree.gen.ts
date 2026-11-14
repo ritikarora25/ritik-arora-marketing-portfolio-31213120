@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LlmsFullDottxtRouteImport } from './routes/llms-full[.]txt'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ThoughtsIndexRouteImport } from './routes/thoughts/index'
 import { Route as ThoughtsSlugRouteImport } from './routes/thoughts/$slug'
@@ -17,6 +18,11 @@ import { Route as ThoughtsSlugRouteImport } from './routes/thoughts/$slug'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LlmsFullDottxtRoute = LlmsFullDottxtRouteImport.update({
+  id: '/llms-full.txt',
+  path: '/llms-full.txt',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -37,12 +43,14 @@ const ThoughtsSlugRoute = ThoughtsSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/llms-full.txt': typeof LlmsFullDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/thoughts/$slug': typeof ThoughtsSlugRoute
   '/thoughts/': typeof ThoughtsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/llms-full.txt': typeof LlmsFullDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/thoughts/$slug': typeof ThoughtsSlugRoute
   '/thoughts': typeof ThoughtsIndexRoute
@@ -50,20 +58,29 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/llms-full.txt': typeof LlmsFullDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/thoughts/$slug': typeof ThoughtsSlugRoute
   '/thoughts/': typeof ThoughtsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/sitemap.xml' | '/thoughts/$slug' | '/thoughts/'
+  fullPaths:
+    '/' | '/llms-full.txt' | '/sitemap.xml' | '/thoughts/$slug' | '/thoughts/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/sitemap.xml' | '/thoughts/$slug' | '/thoughts'
-  id: '__root__' | '/' | '/sitemap.xml' | '/thoughts/$slug' | '/thoughts/'
+  to: '/' | '/llms-full.txt' | '/sitemap.xml' | '/thoughts/$slug' | '/thoughts'
+  id:
+    | '__root__'
+    | '/'
+    | '/llms-full.txt'
+    | '/sitemap.xml'
+    | '/thoughts/$slug'
+    | '/thoughts/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  LlmsFullDottxtRoute: typeof LlmsFullDottxtRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ThoughtsSlugRoute: typeof ThoughtsSlugRoute
   ThoughtsIndexRoute: typeof ThoughtsIndexRoute
@@ -76,6 +93,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/llms-full.txt': {
+      id: '/llms-full.txt'
+      path: '/llms-full.txt'
+      fullPath: '/llms-full.txt'
+      preLoaderRoute: typeof LlmsFullDottxtRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -104,6 +128,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LlmsFullDottxtRoute: LlmsFullDottxtRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ThoughtsSlugRoute: ThoughtsSlugRoute,
   ThoughtsIndexRoute: ThoughtsIndexRoute,
