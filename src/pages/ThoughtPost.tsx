@@ -140,6 +140,7 @@ function renderInline(text: string) {
     if (part.startsWith("**") && part.endsWith("**")) return <strong key={i}>{part.slice(2, -2)}</strong>;
     const m = part.match(/^\[([^\]]+)\]\(((?:https?:\/\/|\/)[^)\s]*)\)$/);
     const [, label = "", href = ""] = m ?? [];
+    if (m && href.startsWith("/downloads/")) return <a key={i} href={href} download>{label}</a>;
     if (m && href.startsWith("/")) return <Link key={i} to={href}>{label}</Link>;
     return m ? <a key={i} href={m[2]} target="_blank" rel="noopener">{m[1]}</a> : part;
   });

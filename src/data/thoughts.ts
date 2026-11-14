@@ -116,6 +116,8 @@ Get this choice wrong and no amount of onboarding will fix it.
 
 > **Quick test:** if your best customers talked to a person before paying, start with a Sales CRM. If they paid without talking to anyone, start with a CEP.
 
+> **Free checklist:** score your team across five criteria and get a shortlist. [Download the Sales CRM vs CEP checklist (PDF)](/downloads/crm-vs-cep-checklist.pdf)
+
 ## Best Sales CRMs for 2027
 
 For businesses where a human closes the deal.
