@@ -35,7 +35,7 @@ const ThoughtPost = () => {
             if (p.startsWith("- ")) return <ul key={i} className="thought-checklist">{p.split("\n").map((line, j) => <li key={j}>{renderInline(line.replace(/^- /, ""))}</li>)}</ul>;
             if (p.startsWith("|")) {
               const rows = p.split("\n").filter((l) => !/^\|[\s|:-]+\|$/.test(l)).map((l) => l.replace(/^\||\|$/g, "").split("|").map((c) => c.trim()));
-              const [head, ...body] = rows;
+              const [head = [], ...body] = rows;
               return (
                 <div key={i} className="thought-table-wrap">
                   <table className="thought-table">
