@@ -10,11 +10,19 @@ export interface Thought {
   ogTitle?: string; // social share headline
   ogDescription?: string; // short social share blurb
   sources?: { label: string; url: string }[];
+  takeaways?: string[]; // answer-first summary shown under the title
 }
 
 export const thoughts: Thought[] = [
   {
     slug: "lifecycle-marketing-strategy",
+    takeaways: [
+      "Lifecycle marketing gives each funnel stage — acquire, activate, engage, retain, monetize — one question, one owner and one success event.",
+      "Activation is usually an operations problem as much as a messaging problem.",
+      "Fix event data before adding more messages or channels.",
+      "Judge retention against each customer's own buying rhythm, not a fixed number of days.",
+      "Use holdout groups so you know whether a campaign caused the change.",
+    ],
     ogTitle: "Lifecycle marketing: one question per funnel stage",
     ogDescription: "Acquire, activate, engage, retain, monetize — the single question each stage must answer, with real examples from five growth roles.",
     title: "Lifecycle marketing strategy: one question per stage of the funnel",
@@ -70,6 +78,13 @@ For the Retain stage in practice, see [how to diagnose the gap before a win-back
   },
   {
     slug: "best-crm-for-2027",
+    takeaways: [
+      "Choose by asking who closes the deal: a salesperson (Sales CRM) or the product itself (Customer Engagement Platform).",
+      "Sales CRMs like HubSpot, Pipedrive and Salesforce manage deals and pipelines.",
+      "Customer engagement platforms like Braze, MoEngage and CleverTap trigger messages from in-app behaviour.",
+      "Product-led companies with a sales team often need both, connected by shared events.",
+      "Confirm current pricing and WhatsApp costs directly with each vendor.",
+    ],
     ogTitle: "Best CRM for 2027: Sales CRM or Customer Engagement Platform?",
     ogDescription: "Who closes the deal — a person or the product? A no-fluff guide to picking between HubSpot, Salesforce, Braze, MoEngage, CleverTap and more.",
     title: "Best CRM for startups in 2027: Sales CRM vs Customer Engagement Platform",
@@ -269,6 +284,13 @@ If your retention numbers are the reason you are shopping for software, read [cu
   },
   {
     slug: "customer-reactivation-before-win-back-campaign",
+    takeaways: [
+      "Diagnose why customers stopped before sending a win-back campaign.",
+      "Define 'lapsed' against each customer's normal buying interval, not a fixed 30/60/90 days.",
+      "Exclude customers with open service issues or no channel permission.",
+      "Measure reactivation against a holdout group; the worked example is illustrative, not real results.",
+      "A downloadable-style worksheet covers segment, reason, message, exit rules and measurement.",
+    ],
     ogTitle: "Diagnose the gap before your next win-back campaign",
     ogDescription: "Most reactivation campaigns fail because nobody asked why customers left. A practical framework for finding the gap first.",
     title: "Customer reactivation: diagnose the gap before a win-back campaign",
@@ -457,6 +479,11 @@ Reactivation is one stage of a wider plan; see [lifecycle marketing strategy: on
   },
   {
     slug: "crm-vs-product-problem",
+    takeaways: [
+      "CRM can accelerate users who already have a reason to act; it cannot create that reason.",
+      "Before briefing a campaign, check whether drop-off comes from friction, unclear value or no real need.",
+      "Unclear value and missing need are product or positioning problems, not messaging problems.",
+    ],
     ogTitle: "CRM can’t fix a product problem",
     ogDescription: "When retention dips, CRM gets the blame. Three signs the real problem is the product — and what to do instead.",
     title: "Why CRM fails: when retention is a product problem, not a campaign problem",

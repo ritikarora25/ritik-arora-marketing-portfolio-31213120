@@ -79,6 +79,7 @@ export function articleJsonLd(post: Thought) {
         url,
         headline: post.title,
         description: post.summary,
+        ...(post.takeaways?.length ? { abstract: post.takeaways.join(" ") } : {}),
         datePublished: post.date,
         keywords: post.tags.join(", "),
         inLanguage: "en",
