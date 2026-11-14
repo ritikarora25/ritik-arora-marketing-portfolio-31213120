@@ -7,7 +7,7 @@ const Thoughts = () => (
     <section className="wrap thoughts-page">
       <p className="thoughts-eyebrow">Thoughts</p>
       <h1 className="thoughts-h1">Field notes on CRM, retention & growth</h1>
-      <p className="thoughts-lead">Notes and practical frameworks from work across CRM, lifecycle and retention.</p>
+      <p className="thoughts-lead">Notes and practical frameworks from work across CRM, lifecycle and retention. Free download: <a href="/downloads/crm-vs-cep-checklist.pdf" download>Sales CRM vs CEP checklist (PDF)</a>.</p>
       <div className="thoughts-list">
         {thoughts.map((t) => (
           <Link key={t.slug} to={`/thoughts/${t.slug}`} className="thought-card">
