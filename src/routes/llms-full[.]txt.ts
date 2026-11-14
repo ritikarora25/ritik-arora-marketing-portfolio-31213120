@@ -9,7 +9,7 @@ export function llmsFullText() {
     const src = t.sources?.length ? `\nSources:\n${t.sources.map((s) => `- ${s.label}: ${s.url}`).join("\n")}\n` : "";
     return `## ${t.title}\n\nURL: ${SITE}/thoughts/${t.slug}\nPublished: ${t.date}\nAuthor: Ritik Arora\n\n${t.summary}\n${take}\n${t.body}\n${src}`;
   });
-  return `# Ritik Arora — Thoughts (full text)\n\n> Field notes by Ritik Arora, a Bengaluru-based growth and retention marketer (CRM, lifecycle, product marketing). Portfolio: ${SITE}/\n\n${parts.join("\n\n---\n\n")}\n`;
+  return `# Ritik Arora — Thoughts (full text)\n\n> Field notes by Ritik Arora, a growth and retention marketer (CRM, lifecycle, product marketing). Portfolio: ${SITE}/\n\n${parts.join("\n\n---\n\n")}\n`;
 }
 
 export const Route = createFileRoute("/llms-full.txt")({
