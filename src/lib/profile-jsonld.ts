@@ -31,6 +31,7 @@ export const profileJsonLd = {
             "https://people.bayt.com/ritikarora25"
           ],
           "hasOccupation": [
+            { "@type": "Occupation", "name": "Assistant Manager, Activation (Freo)" },
             { "@type": "Occupation", "name": "Product Marketing Specialist" },
             { "@type": "Occupation", "name": "Marketing Team Lead CRM" },
             { "@type": "Occupation", "name": "Marketing Associate" },

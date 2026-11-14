@@ -32,9 +32,9 @@ const PortfolioLayout = ({ children }: { children: React.ReactNode }) => {
             <MagneticButton className="btn btn-ghost" href="/#contact">Contact</MagneticButton>
             <MagneticButton
               className="btn btn-solid"
-              href="https://drive.google.com/uc?export=download&id=1Boeh4dRe0Rnuj6bff9joBrHITLEohmst"
+              href="/ritik-arora-resume.pdf"
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noopener"
             >
               Resume
             </MagneticButton>
