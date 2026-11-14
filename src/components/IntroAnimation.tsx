@@ -171,7 +171,6 @@ const IntroAnimation = ({ onComplete }: Props) => {
     <div
       data-intro-overlay="true"
       ref={overlayRef}
-      aria-hidden="true"
       onClick={next}
       style={{ position: "fixed", inset: 0, zIndex: 9999, overflow: "hidden", fontFamily: "Poppins, system-ui, sans-serif", color: "var(--ink, #151833)", cursor: step < 5 ? "pointer" : "default" }}
     >
@@ -278,6 +277,8 @@ const IntroAnimation = ({ onComplete }: Props) => {
       )}
 
       <button
+        type="button"
+        aria-label="Skip intro"
         onClick={(e) => { e.stopPropagation(); finish(); }}
         style={{ position: "absolute", right: 16, bottom: 10, fontSize: 12, color: "var(--slate, #8A8D9F)", background: "none", border: "none", cursor: "pointer", padding: "8px 16px", letterSpacing: "0.05em", fontFamily: "inherit" }}
       >
