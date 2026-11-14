@@ -14,7 +14,7 @@ const PortfolioLayout = ({ children }: { children: React.ReactNode }) => {
     return () => window.clearTimeout(timer);
   }, []);
   return (
-    <div className="min-h-screen relative">
+    <div className="min-h-dvh relative">
       {cursorReady && <Suspense fallback={null}><CustomCursor /></Suspense>}
       <ScrollProgress />
       <a

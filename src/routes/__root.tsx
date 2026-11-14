@@ -101,7 +101,7 @@ function RootError({ error, reset }: ErrorComponentProps) {
     reportLovableError(error, { boundary: "tanstack_root_error_component" });
   }, [error]);
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background text-foreground">
+    <div className="min-h-dvh flex items-center justify-center bg-background text-foreground">
       <div className="text-center space-y-4">
         <h1 className="text-2xl font-bold">This page didn't load</h1>
         <div className="flex gap-3 justify-center">

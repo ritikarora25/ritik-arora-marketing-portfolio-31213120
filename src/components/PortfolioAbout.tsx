@@ -58,10 +58,14 @@ const PortfolioAbout = () => {
         <p className="reveal-p" ref={p1Ref}>{PARA1}</p>
         <p className="char-para" ref={para2Ref}>
           <span className="sr-only">{PARA2}</span>
-          {Array.from(PARA2).map((ch, i) => (
-            <span key={i} className="char-unit" aria-hidden="true">
-              <span className="char-ghost">{ch}</span>
-              <span className="char-live">{ch}</span>
+          {PARA2.split(/(\s+)/).map((word, w) => (
+            <span key={w} className="char-word" aria-hidden="true">
+              {Array.from(word).map((ch, i) => (
+                <span key={i} className="char-unit">
+                  <span className="char-ghost">{ch}</span>
+                  <span className="char-live">{ch}</span>
+                </span>
+              ))}
             </span>
           ))}
         </p>

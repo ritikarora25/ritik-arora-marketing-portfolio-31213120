@@ -143,8 +143,9 @@ const PortfolioHero = ({ persona, setPersona }: Props) => {
             <button className="persona-reset" onClick={() => setPersona("default")}>Reset</button>
           </div>
 
-          <div className="proof-box" aria-live="polite">
-            <span>{proof}</span>
+          <div className="proof-box">
+            <span className="sr-only">{PROOF_TEXT}</span>
+            <span aria-hidden="true">{proof}</span>
             <span className={`cursor ${proofDone ? "blink" : ""}`} />
           </div>
 
