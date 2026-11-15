@@ -10,3 +10,4 @@
 - [x] Verify crawl files, page navigation, intro skip handoff, and mobile/desktop rendering.
 - [x] Add verified sources, cross-links and CRM vs product expansion across all articles.- [x] SEO/AEO/GEO upgrade: takeaways, llms.txt/llms-full, AI bots, author box, Person schema
 - [x] Bing readiness: IndexNow key + ping script (verification via GSC import is user step)
+- [x] Rethink plan: intro first-visit only, hero hiring buttons, visitor action tracking.
