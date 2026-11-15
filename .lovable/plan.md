@@ -7,29 +7,17 @@ Your site's foundations (pages loading fast, Google and Bing able to read them, 
 - Add a "proof strip" under the headline with 3 of the strongest numbers already on the page (for example ₹50L+), so the value shows before any scrolling.
 - Add one clear main action, "Hiring? Get my resume + a 15-min call", in place of three buttons of equal weight.
 
-## 2. Make getting in touch effortless
-- Add a short contact form (name, email, role or company, message) that saves each message and emails it to you. Today visitors have to open their own email app or LinkedIn.
-- Add a "What I'm looking for" line: role types, start date, remote or onsite. This saves recruiters a back-and-forth.
-
-## 3. Show proof, not just claims
-- Add one or two short quotes from past managers or colleagues (you supply the real quotes).
-- For each company, add an optional "How I did it" expand. It shows only tools and approach you confirm, with no invented numbers.
-
-## 4. Track what visitors actually do
+## 2. Track what visitors actually do
 - Record key actions as events: Resume opened, Email or Call clicked, LinkedIn clicked, checklist downloaded, article read to the end.
 - Without this, you can't tell whether any change works.
 
-## 5. Bring readers back
-- Add an "Get new field notes by email" signup at the end of each article and on Thoughts. Each new article then reaches people who already know you.
-
 ## Suggested order
-1, 4 and 2 first: small changes, with the biggest effect on whether a visitor becomes a conversation. Then 3, once you send real quotes. Then 5.
+Do 1 and 2 together. Both are small changes that show whether visitors get in touch.
 
 ## Technical details
 - Intro: a first-visit flag read in an effect, and a shortened chapter timeline in IntroAnimation.
-- Contact form and newsletter: Lovable Cloud tables with insert-only public access and checks on the form fields, plus a notification email to you.
 - Events: gtag custom events from the existing click handlers. No new scripts.
 - Keep the design tokens, Poppins, the 5 funnel stages and the persona system unchanged.
 
 ## Needs from you
-- Your real testimonial quotes, your preferred role types and availability, and whether you want visitors to book calls (Cal.com link) or only send messages.
+- For the main button: should it offer a Cal.com booking link, or just the resume plus email?
