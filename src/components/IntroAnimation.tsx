@@ -101,6 +101,7 @@ const IntroAnimation = ({ onComplete }: Props) => {
     if (doneRef.current) return;
     doneRef.current = true;
     window.clearTimeout(timerRef.current);
+    try { window.localStorage.setItem("introSeen", "1"); } catch { /* storage blocked */ }
     const ov = overlayRef.current;
     if (ov) {
       ov.style.transition = "opacity 300ms ease-out";
@@ -115,7 +116,9 @@ const IntroAnimation = ({ onComplete }: Props) => {
 
   // Mobile: skip entirely
   useEffect(() => {
-    if (window.innerWidth < 640) {
+    let seen = false;
+    try { seen = window.localStorage.getItem("introSeen") === "1"; } catch { /* storage blocked */ }
+    if (window.innerWidth < 640 || seen) {
       doneRef.current = true;
       setHidden(true);
       onComplete?.();

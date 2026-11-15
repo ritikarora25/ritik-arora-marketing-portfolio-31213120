@@ -138,6 +138,12 @@ const PortfolioHero = ({ persona, setPersona }: Props) => {
             <span className={`cursor ${proofDone ? "blink" : ""}`} />
           </div>
 
+          <div className="hero-cta">
+            <span className="hero-cta-label">Hiring?</span>
+            <a className="btn btn-solid" href="/ritik-arora-resume.pdf" target="_blank" rel="noopener">Get my resume</a>
+            <a className="btn btn-ghost" href="mailto:ritikchuchra1@gmail.com?subject=15-min%20chat">Book a 15-min chat</a>
+          </div>
+
           <div className="hero-meta">
             <a href="mailto:ritikchuchra1@gmail.com">ritikchuchra1@gmail.com</a>
             <a href="https://www.linkedin.com/in/ritikarora25/" target="_blank" rel="noopener noreferrer">
