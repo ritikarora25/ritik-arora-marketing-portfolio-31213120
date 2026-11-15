@@ -1,4 +1,6 @@
 # Tasks
+- [x] Keep reactivation's numbered sections at H2 and verify every article's heading outline.
+- [x] Clarify the existing Best CRM for 2027 comparison and search description; verify page preview output before publishing.
 - [x] Expand the existing reactivation article with a labelled illustrative B2B example and reusable segmentation worksheet; verify desktop/mobile and preserve evidence boundaries.
 - [x] Connect profile, website, Thoughts list and articles with structured data and verify server output.
 - [x] Validate a narrow CRM/retention keyword for India and preserve research evidence.

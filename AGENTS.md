@@ -9,5 +9,6 @@
 - Serve local Poppins as WOFF2, match responsive portrait preloads to image sources, and defer optional cursor/analytics code while keeping all article and portfolio content server-rendered.
 - Thoughts may include optional public sources rendered beside the article; preserve research evidence under .lovable/research and distinguish reported portfolio outcomes from proposed frameworks and causal results.
 - The shared article renderer supports inline emphasis, bullet lists and blockquotes from article data so long-form examples and worksheets remain semantic, server-rendered and easy to scan.
+- Numbered article sections are peer H2 headings; reserve H3 for unnumbered subsections beneath an H2 so the shared renderer preserves their hierarchy.
 - Structured data uses shared content graph helpers with stable Person, WebSite, page and article IDs; keep route head output linked to real content and never invent publication or modification dates.
 - IndexNow key lives in src/lib/indexnow.ts with a matching public/<key>.txt; ping Bing after publish with scripts/indexnow-ping.ts (URL list shares the Thoughts source with the sitemap).
