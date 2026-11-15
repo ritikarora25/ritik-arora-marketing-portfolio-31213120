@@ -1,0 +1,112 @@
+{
+  "schema_version": 1,
+  "events": {
+    "project.article_read_end": {
+      "event_schema_version": 1,
+      "description": "A reader scrolled an article down to the About the author box.",
+      "privacy": {
+        "contains_pii": false,
+        "purpose": "product_analytics"
+      },
+      "properties_schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "slug"
+        ],
+        "properties": {
+          "slug": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "project.checklist_downloaded": {
+      "event_schema_version": 1,
+      "description": "A visitor clicked the Sales CRM vs CEP checklist PDF download.",
+      "privacy": {
+        "contains_pii": false,
+        "purpose": "product_analytics"
+      },
+      "properties_schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "place"
+        ],
+        "properties": {
+          "place": {
+            "type": "string",
+            "enum": [
+              "header",
+              "hero",
+              "contact",
+              "page"
+            ]
+          }
+        }
+      }
+    },
+    "project.contact_clicked": {
+      "event_schema_version": 1,
+      "description": "A visitor clicked an email, call or LinkedIn contact link.",
+      "privacy": {
+        "contains_pii": false,
+        "purpose": "product_analytics"
+      },
+      "properties_schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "channel",
+          "place"
+        ],
+        "properties": {
+          "channel": {
+            "type": "string",
+            "enum": [
+              "email",
+              "call",
+              "linkedin"
+            ]
+          },
+          "place": {
+            "type": "string",
+            "enum": [
+              "header",
+              "hero",
+              "contact",
+              "page"
+            ]
+          }
+        }
+      }
+    },
+    "project.resume_opened": {
+      "event_schema_version": 1,
+      "description": "A visitor clicked a link that opens the resume PDF.",
+      "privacy": {
+        "contains_pii": false,
+        "purpose": "product_analytics"
+      },
+      "properties_schema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "place"
+        ],
+        "properties": {
+          "place": {
+            "type": "string",
+            "enum": [
+              "header",
+              "hero",
+              "contact",
+              "page"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
