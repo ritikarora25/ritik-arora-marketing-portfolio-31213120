@@ -648,3 +648,5 @@ body:not([data-intro-playing]) #funnelNav {
 
 .hero-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-bottom: 16px; opacity: 0; animation: revealUp .5s ease 1.1s forwards; }
 .hero-cta-label { font-weight: 600; color: var(--ink); margin-right: 4px; }
+.thought-article-guide .thought-body p { line-height: 1.75; margin-bottom: 1.1em; }
+.thought-article-guide .thought-body blockquote { background: color-mix(in oklab, var(--coral) 7%, transparent); border-radius: 0 10px 10px 0; padding: 1em 1.2em; }

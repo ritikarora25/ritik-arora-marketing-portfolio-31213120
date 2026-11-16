@@ -25,7 +25,7 @@ const ThoughtPost = () => {
 
   return (
     <PortfolioLayout>
-      <article className={`wrap thoughts-page thought-article${t.slug === "customer-reactivation-before-win-back-campaign" ? " thought-article-guide" : ""}`}>
+      <article className={`wrap thoughts-page thought-article${["customer-reactivation-before-win-back-campaign", "retention-rate-formula"].includes(t.slug) ? " thought-article-guide" : ""}`}>
         <Link to="/thoughts" className="thought-back">← All thoughts</Link>
         <div className="thought-meta">
           <time dateTime={t.date}>{t.displayDate}</time>
