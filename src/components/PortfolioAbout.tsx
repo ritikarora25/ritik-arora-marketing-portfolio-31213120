@@ -31,7 +31,7 @@ const PortfolioAbout = () => {
     const rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const para = para2Ref.current;
     if (!para) return;
-    if (rm) { para.style.color = "#2c2f45"; return; }
+    if (rm) { para.querySelectorAll(".char-unit").forEach((c) => c.classList.add("on")); return; }
     const lives = Array.from(para.querySelectorAll<HTMLSpanElement>(".char-unit"));
     const total = lives.length;
     const update = () => {
