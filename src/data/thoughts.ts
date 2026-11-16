@@ -588,6 +588,7 @@ If the reason to return is missing, revisit product value or positioning first. 
 
 Reactivation is one stage of a wider plan; see [lifecycle marketing strategy: one question per stage](/thoughts/lifecycle-marketing-strategy).`,
     sources: [
+      { label: "How to calculate retention rate by cohort and buying rhythm", url: "/thoughts/retention-rate-formula" },
       { label: "Ritik's documented ApnaKlub retention experience and reported outcomes", url: "/#retain" },
       { label: "Bloomreach: judging inactivity against purchase rhythm", url: "https://www.bloomreach.com/en/blog/win-back-emails-guide" },
       { label: "Braze: using control groups to measure customer engagement impact", url: "https://www.braze.com/resources/articles/using-global-control-groups-to-measure-the-impact-of-customer-engagement" },
