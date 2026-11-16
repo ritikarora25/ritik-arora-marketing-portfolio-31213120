@@ -31,7 +31,7 @@ export const thoughts: Thought[] = [
     tags: ["Retention", "Analytics"],
     summary:
       "The customer retention rate formula, a worked example, and why the blended number misleads. How to define retained for subscription vs repeat-purchase businesses, set the window from buying rhythm, and read an illustrative cohort table, with a worksheet.",
-    body: `**Quick answer:** customer retention rate = ((E − N) ÷ S) × 100, where S is customers at the start of a period, E is customers at the end, and N is new customers gained during it. The formula is right, but the number only means something when "customer" is defined by a real repeat action, the period matches how often customers normally buy, and you read it by cohort.
+    body: `> **Quick answer:** customer retention rate = ((E − N) ÷ S) × 100, where S is customers at the start of a period, E is customers at the end, and N is new customers gained during it. The formula is right, but the number only means something when "customer" is defined by a real repeat action, the period matches how often customers normally buy, and you read it by cohort.
 
 ## How do you calculate customer retention rate?
 
