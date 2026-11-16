@@ -652,5 +652,6 @@ body:not([data-intro-playing]) #funnelNav {
 .thought-article-guide .thought-body blockquote { background: color-mix(in oklab, var(--coral) 7%, transparent); border-radius: 0 10px 10px 0; padding: 1em 1.2em; }
 
 /* Semantic lists keep the original look */
-ul.chip-row, ol.strip, ul.thoughts-list { list-style: none; margin: 0; padding-left: 0; }
+ul.chip-row, ol.strip, ul.thoughts-list { list-style: none; margin: 0; }
+ul.chip-row { padding: 0; }
 ol.strip { padding: 24px 26px; }
