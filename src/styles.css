@@ -469,14 +469,14 @@ body[data-persona="recruiter"] #acquire { order: 5; }
 .edu-item:hover, .cert-list li:hover, .award:hover { border-color: var(--indigo); box-shadow: 0 8px 24px -12px rgba(61,63,224,0.25); }
 
 /* Strip stat hover: subtle coral underline */
-.strip > div { position: relative; }
-.strip > div .snum { position: relative; display: inline-block; }
-.strip > div .snum::after {
+.strip > li { position: relative; }
+.strip > li .snum { position: relative; display: inline-block; }
+.strip > li .snum::after {
   content: ""; position: absolute; left: 0; bottom: -4px; height: 2px; width: 100%;
   background: var(--coral); transform: scaleX(0); transform-origin: left center;
   transition: transform .5s cubic-bezier(.2,.8,.2,1);
 }
-.strip > div:hover .snum::after { transform: scaleX(1); }
+.strip > li:hover .snum::after { transform: scaleX(1); }
 
 /* (dark-theme overrides removed — warm paper theme uses base styles above) */
 
@@ -650,3 +650,8 @@ body:not([data-intro-playing]) #funnelNav {
 .hero-cta-label { font-weight: 600; color: var(--ink); margin-right: 4px; }
 .thought-article-guide .thought-body p { line-height: 1.75; margin-bottom: 1.1em; }
 .thought-article-guide .thought-body blockquote { background: color-mix(in oklab, var(--coral) 7%, transparent); border-radius: 0 10px 10px 0; padding: 1em 1.2em; }
+
+/* Semantic lists keep the original look */
+ul.chip-row, ol.strip, ul.thoughts-list { list-style: none; margin: 0; }
+ul.chip-row { padding: 0; }
+ol.strip { padding: 24px 26px; }
