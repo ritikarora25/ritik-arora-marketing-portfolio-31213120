@@ -32,7 +32,7 @@ const PortfolioAbout = () => {
     const para = para2Ref.current;
     if (!para) return;
     if (rm) { para.style.color = "#2c2f45"; return; }
-    const lives = Array.from(para.querySelectorAll<HTMLSpanElement>(".char-live"));
+    const lives = Array.from(para.querySelectorAll<HTMLSpanElement>(".char-unit"));
     const total = lives.length;
     const update = () => {
       const r = para.getBoundingClientRect();
@@ -41,7 +41,7 @@ const PortfolioAbout = () => {
       const endY = vh * 0.2;
       const prog = Math.min(Math.max((startY - r.top) / (startY - endY + r.height * 0.3), 0), 1);
       const n = Math.floor(prog * total);
-      lives.forEach((c, i) => { c.style.opacity = i < n ? "1" : "0"; });
+      lives.forEach((c, i) => { c.classList.toggle("on", i < n); });
     };
     window.addEventListener("scroll", update, { passive: true });
     update();
@@ -57,14 +57,10 @@ const PortfolioAbout = () => {
       <div className="about-text">
         <p className="reveal-p" ref={p1Ref}>{PARA1}</p>
         <p className="char-para" ref={para2Ref}>
-          <span className="sr-only">{PARA2}</span>
           {PARA2.split(/(\s+)/).map((word, w) => (
-            <span key={w} className="char-word" aria-hidden="true">
+            <span key={w} className="char-word">
               {Array.from(word).map((ch, i) => (
-                <span key={i} className="char-unit">
-                  <span className="char-ghost">{ch}</span>
-                  <span className="char-live">{ch}</span>
-                </span>
+                <span key={i} className="char-unit">{ch}</span>
               ))}
             </span>
           ))}
