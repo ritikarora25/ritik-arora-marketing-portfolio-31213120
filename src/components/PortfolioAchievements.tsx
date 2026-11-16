@@ -14,7 +14,7 @@ const PortfolioAchievements = () => (
       <h2>Impact across the funnel</h2>
       <span className="section-tag">One metric per stage</span>
     </div>
-    <motion.div
+    <motion.ol
       className="strip"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -22,7 +22,7 @@ const PortfolioAchievements = () => (
       transition={{ type: "spring", stiffness: 120, damping: 20 }}
     >
       {items.map((i, idx) => (
-        <motion.div
+        <motion.li
           key={i.lbl}
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -32,9 +32,9 @@ const PortfolioAchievements = () => (
           <span className="slbl">{i.lbl}</span>
           <span className="snum">{i.num}</span>
           <span className="scap">{i.cap}</span>
-        </motion.div>
+        </motion.li>
       ))}
-    </motion.div>
+    </motion.ol>
   </section>
 );
 

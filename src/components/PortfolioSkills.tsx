@@ -26,7 +26,7 @@ const PortfolioSkills = () => (
       {groups.map((g) => (
         <div className="toolkit-group" key={g.title}>
           <h3>{g.title}</h3>
-          <motion.div
+          <motion.ul
             className="chip-row"
             initial="hidden"
             whileInView="show"
@@ -37,7 +37,7 @@ const PortfolioSkills = () => (
             }}
           >
             {g.chips.map((c) => (
-              <motion.span
+              <motion.li
                 className="chip"
                 key={c}
                 variants={{
@@ -48,9 +48,9 @@ const PortfolioSkills = () => (
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
                 {c}
-              </motion.span>
+              </motion.li>
             ))}
-          </motion.div>
+          </motion.ul>
         </div>
       ))}
     </section>

@@ -10,9 +10,9 @@ const LatestThoughts = () => {
         <h2 id="writing-h">Latest writing</h2>
         <span className="section-tag">Swipe ↕ · <Link to="/thoughts">All thoughts →</Link></span>
       </div>
-      <div className="thoughts-list thoughts-swipe" tabIndex={0} aria-label="Latest posts, scroll or swipe up for more">
+      <ul className="thoughts-list thoughts-swipe" tabIndex={0} aria-label="Latest posts, scroll or swipe up for more">
         {latest.map((t) => (
-          <Link key={t.slug} to={`/thoughts/${t.slug}`} className="thought-card">
+          <li key={t.slug}><Link to={`/thoughts/${t.slug}`} className="thought-card">
             <div className="thought-meta">
               <time dateTime={t.date}>{t.displayDate}</time>
               {t.tags.map((tag) => <span key={tag} className="chip">{tag}</span>)}
@@ -20,9 +20,9 @@ const LatestThoughts = () => {
             <h3 className="thought-title">{t.title}</h3>
             <p className="thought-summary">{t.summary}</p>
             <span className="thought-cta">Read full post →</span>
-          </Link>
+          </Link></li>
         ))}
-      </div>
+      </ul>
     </section>
   );
 };
