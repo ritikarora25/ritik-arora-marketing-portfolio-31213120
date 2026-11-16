@@ -19,6 +19,15 @@ Publish a practitioner guide targeting "retention rate formula", "customer reten
 ## Publish setup
 Share image, page title and description, sitemap, llms files, Latest writing, related posts and links from existing articles, IndexNow ping after publish. Check desktop and mobile and run the existing tests.
 
+## AI answer engines (AEO/GEO)
+- Open with a 40–60 word direct answer that states the formula, so AI tools and Google snippets can quote it.
+- Write question-style headings that match real searches, such as "How do you calculate customer retention rate?" and "What is the difference between churn and retention?", each answered in its first sentence.
+- Write takeaways as short, standalone facts. They also feed the article's description for search tools.
+- Write the formula as plain text as well, and give the table a clear caption, so AI tools can read both.
+- Name sources inline next to each claim, and list the author with his experience.
+- Add the article to llms.txt and llms-full.txt with a one-line summary, and keep AI crawlers allowed in robots.txt.
+- After publish, test the main questions in ChatGPT, Perplexity and Google AI answers, and note which sources they cite.
+
 ## Technical details
 - New entry in src/data/thoughts.ts (slug retention-rate-formula) using the existing renderer.
 - Cover: public/og/retention-rate-formula.jpg (1200x630) plus 640/1200 WebP.
