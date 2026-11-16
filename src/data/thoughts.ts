@@ -15,6 +15,103 @@ export interface Thought {
 
 export const thoughts: Thought[] = [
   {
+    slug: "retention-rate-formula",
+    takeaways: [
+      "Customer retention rate = ((E − N) ÷ S) × 100: end customers minus new customers, divided by start customers.",
+      "A single blended rate hides new customers leaving, because loyal customers hold the total up.",
+      "In repeat-purchase businesses, count someone as retained only if they repeat a value action, such as an order.",
+      "Set the window from customers' real repeat gap (median and 80th percentile), not a fixed 30, 60 or 90 days.",
+      "Read retention by cohort, and prove campaign effects with a holdout group.",
+    ],
+    ogTitle: "Retention rate formula: how to calculate it properly",
+    ogDescription: "The textbook retention formula, why the blended number misleads, and how to measure it by cohort and buying rhythm.",
+    title: "Retention rate formula: how to calculate customer retention properly",
+    date: "2026-11-16",
+    displayDate: "Nov 16, 2026",
+    tags: ["Retention", "Analytics"],
+    summary:
+      "The customer retention rate formula, a worked example, and why the blended number misleads. How to define retained for subscription vs repeat-purchase businesses, set the window from buying rhythm, and read an illustrative cohort table, with a worksheet.",
+    body: `**Quick answer:** customer retention rate = ((E − N) ÷ S) × 100, where S is customers at the start of a period, E is customers at the end, and N is new customers gained during it. The formula is right, but the number only means something when "customer" is defined by a real repeat action, the period matches how often customers normally buy, and you read it by cohort.
+
+## How do you calculate customer retention rate?
+Take the customers you had at the start of the period, see how many of them are still active at the end, and divide. The textbook version, used by guides such as Zendesk's, gets there by subtracting new customers from the end count: ((E − N) ÷ S) × 100.
+
+A quick worked example. You start the month with 1,000 customers (S). You gain 250 new customers (N) and end with 1,100 (E). Retention rate = ((1,100 − 250) ÷ 1,000) × 100 = 85%.
+
+That is the full calculation. The rest of this guide is about why 85% can be true and still misleading.
+
+## Why does the standard retention rate formula mislead?
+It produces one blended number for the whole base, and a blended number hides where customers are actually leaving. Three things go wrong most often.
+
+- **Loyal customers cover for new ones.** Long-standing customers rarely leave, so they hold the total up even when most of last month's new customers never came back.
+- **The period ignores how often people buy.** If customers normally reorder every 45 days, a 30-day period marks many healthy customers as lost every month.
+- **"Customer" means "has an account".** In businesses without contracts, nobody cancels. People just go quiet, and an account that logged in once without buying still counts as retained.
+
+## Subscription vs repeat-purchase: what counts as "retained"?
+In a subscription business, a customer is retained until they cancel, do not renew or fail to pay. The status is explicit, so the textbook formula works fairly well.
+
+In repeat-purchase businesses, such as ecommerce, B2B ordering, marketplaces and lending, there is no cancel button. A customer should count as retained only if they complete the action that creates value (an order, a booking, a drawdown) within their normal buying cycle. Decide this action before you calculate anything; it changes the answer more than the formula does.
+
+## How long should the retention window be?
+Set it from how often your customers actually come back, not from a round number like 30, 60 or 90 days. Amplitude's retention documentation describes this as the usage interval: the typical time between a user's repeat actions.
+
+- Measure the days between each customer's first and second purchase across your history.
+- Find the median (the typical gap) and the 80th percentile (the gap that covers most customers).
+- Use the 80th percentile as your window. A customer who goes longer than that without buying has genuinely lapsed.
+
+If different segments buy at very different speeds, give each its own window. The same idea drives the "lapsed" definition in my [customer reactivation framework](/thoughts/customer-reactivation-before-win-back-campaign).
+
+## How do you calculate cohort retention, step by step?
+Group customers by the month they first bought, then track what share of each group buys again in each later month. This is a cohort table, and it shows what the blended number hides.
+
+- Pick the cohort: month of first purchase.
+- Pick the action: a repeat purchase, not a login or email open.
+- For each cohort, count customers who repeated in month 1, month 2 and so on.
+- Divide by the cohort's starting size and read each column top to bottom.
+
+**Illustrative example cohort table (made-up numbers, not real company data).** Share of each cohort placing a repeat order:
+
+| Cohort | New customers | Month 1 | Month 2 | Month 3 | Month 4 |
+|---|---|---|---|---|---|
+| Jan | 1,200 | 34% | 27% | 24% | 23% |
+| Feb | 1,450 | 31% | 25% | 22% | — |
+| Mar | 1,600 | 28% | 21% | — | — |
+| Apr | 2,100 | 22% | — | — | — |
+
+Read the Month 1 column: 34%, 31%, 28%, 22%. Each newer group of customers comes back less, while the number of new customers keeps rising. A single blended rate could look stable or even improve because of that growth. The cohort table shows the problem is in the early experience, which is often a product or onboarding issue rather than a campaign one, as I describe in [why CRM fails](/thoughts/crm-vs-product-problem).
+
+## What is the difference between churn rate and retention rate?
+Churn rate is the share of customers lost in a period, so churn = 100% − retention, but only when both use the same customers, the same action and the same window. Comparing a 30-day churn figure with a 90-day retention figure gives a meaningless answer.
+
+## Is customer retention the same as revenue retention?
+No. Customer retention counts people. Revenue retention measures money kept from existing customers, including people who spend more or less. A business can lose customers and still grow revenue retention if the remaining customers spend more, so report both.
+
+## Common mistakes when measuring retention
+- Counting logins, visits or email opens as retention instead of a value action.
+- Using one fixed window for every segment.
+- Reporting only the blended rate and never the cohort table.
+- Giving a win-back campaign credit for returns that would have happened anyway. Compare against a holdout group that received nothing, as Braze recommends with control groups.
+
+## Retention measurement worksheet
+Answer these before you report a retention number:
+
+- **Retained action:** what exact action makes someone retained?
+- **Business type:** subscription (cancel or renew) or repeat-purchase (action within a window)?
+- **Window:** what are your median and 80th-percentile repeat gaps, and which do you use?
+- **Segments:** which groups buy at a different speed and need their own window?
+- **Cohorts:** do you read retention by month of first purchase?
+- **Pairing:** do you report churn and revenue retention with the same definitions?
+- **Proof:** is there a holdout group behind any campaign result?
+
+For how retention fits with the other funnel stages, see my [lifecycle marketing strategy](/thoughts/lifecycle-marketing-strategy).`,
+    sources: [
+      { label: "Zendesk: how to calculate customer retention rate (standard formula)", url: "https://www.zendesk.com/blog/customer-experience/retention/calculate-customer-retention-rate/" },
+      { label: "Amplitude: interpreting usage interval in retention analysis", url: "https://amplitude.com/docs/analytics/charts/retention-analysis/retention-analysis-interpret-usage" },
+      { label: "Braze: using control groups to measure customer engagement impact", url: "https://www.braze.com/resources/articles/using-global-control-groups-to-measure-the-impact-of-customer-engagement" },
+      { label: "Customer reactivation framework", url: "/thoughts/customer-reactivation-before-win-back-campaign" },
+    ],
+  },
+  {
     slug: "lifecycle-marketing-strategy",
     takeaways: [
       "Lifecycle marketing gives each funnel stage — acquire, activate, engage, retain, monetize — one question, one owner and one success event.",
@@ -491,6 +588,7 @@ If the reason to return is missing, revisit product value or positioning first. 
 
 Reactivation is one stage of a wider plan; see [lifecycle marketing strategy: one question per stage](/thoughts/lifecycle-marketing-strategy).`,
     sources: [
+      { label: "How to calculate retention rate by cohort and buying rhythm", url: "/thoughts/retention-rate-formula" },
       { label: "Ritik's documented ApnaKlub retention experience and reported outcomes", url: "/#retain" },
       { label: "Bloomreach: judging inactivity against purchase rhythm", url: "https://www.bloomreach.com/en/blog/win-back-emails-guide" },
       { label: "Braze: using control groups to measure customer engagement impact", url: "https://www.braze.com/resources/articles/using-global-control-groups-to-measure-the-impact-of-customer-engagement" },
