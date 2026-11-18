@@ -11,7 +11,7 @@ export const Route = createFileRoute("/")({
       ogTitle: "Ritik Arora | Growth, CRM & Lifecycle Marketing",
       description: "Growth marketer, 5+ years across brand, CRM, retention and product — most recently at Freo.",
       path: "/",
-      type: "profile",
+      type: "website",
     }),
     links: [
       { rel: "canonical", href: `${SITE}/` },
