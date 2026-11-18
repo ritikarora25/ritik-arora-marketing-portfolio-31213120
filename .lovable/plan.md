@@ -11,6 +11,7 @@
 - About 120–150 terms, grouped under letters A to Z (with a short note on letters that have no common terms, like X and Z, using real terms such as "Zero-party data").
 - Each term gets 1–3 lines: a plain meaning, then the formula in plain text where one exists. Examples: CAC = total acquisition spend ÷ new customers; LTV; churn rate; retention rate; ARPU; CTR; CVR; ROAS; DAU/MAU; NRR; payback period.
 - Terms cover acquisition, activation, engagement, retention and monetization, plus CRM, analytics, SEO, paid ads and email/push.
+- Where a term has its own tools (for example SEO, CRM, analytics, email, push, A/B testing, attribution), one extra line names the top 2–3 tools with links to their official sites. Example: SEO — Tools: Google Search Console, Semrush, Ahrefs. Tools are picked by wide use, not paid placement, and terms like CTR or churn rate get no tools line.
 - An A–Z jump bar at the top so readers can go straight to a letter.
 - Formulas are checked against public sources (for example Google Ads help, Amplitude, Mixpanel, HubSpot), and those sources are listed at the end.
 - Links from terms to your existing articles: retention rate, reactivation, lifecycle strategy, Best CRM for 2027, CRM vs product.
