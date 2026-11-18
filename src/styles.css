@@ -608,8 +608,9 @@ body:not([data-intro-playing]) #funnelNav {
 /* Homepage latest writing: vertical swipe, one card per stop */
 .thoughts-swipe { grid-auto-rows: 100%; height: 300px; overflow-y: auto; scroll-snap-type: y mandatory; overscroll-behavior-y: contain; scrollbar-width: none; gap: 14px; padding: 4px; }
 .thoughts-swipe::-webkit-scrollbar { display: none; }
-.thoughts-swipe > .thought-card { scroll-snap-align: start; overflow: hidden; }
-.thoughts-swipe > .thought-card:hover { transform: none; }
+.thoughts-swipe > li { scroll-snap-align: start; overflow: hidden; }
+.thoughts-swipe > li > .thought-card { height: 100%; overflow: hidden; }
+.thoughts-swipe > li > .thought-card:hover { transform: none; }
 .thought-body a { color: var(--indigo); text-decoration: underline; text-underline-offset: 3px; }
 
 .thought-cover { display:block; width:100%; height:auto; aspect-ratio:1200/630; border-radius:14px; border:1px solid var(--line); margin:20px 0 16px; }
@@ -651,6 +652,6 @@ body:not([data-intro-playing]) #funnelNav {
 .thought-article-guide .thought-body blockquote { background: color-mix(in oklab, var(--coral) 7%, transparent); border-radius: 0 10px 10px 0; padding: 1em 1.2em; }
 
 /* Semantic lists keep the original look */
-ul.chip-row, ol.strip, ul.thoughts-list { list-style: none; margin: 0; }
+ul.chip-row, ol.strip, ul.thoughts-list { list-style: none; margin: 0; padding: 0; }
 ul.chip-row { padding: 0; }
 ol.strip { padding: 24px 26px; }
