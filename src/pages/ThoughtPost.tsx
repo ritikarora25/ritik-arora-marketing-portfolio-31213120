@@ -25,7 +25,7 @@ const ThoughtPost = () => {
 
   return (
     <PortfolioLayout>
-      <article className={`wrap thoughts-page thought-article${["customer-reactivation-before-win-back-campaign", "retention-rate-formula"].includes(t.slug) ? " thought-article-guide" : ""}`}>
+      <article className={`wrap thoughts-page thought-article${["customer-reactivation-before-win-back-campaign", "retention-rate-formula", "marketing-glossary"].includes(t.slug) ? " thought-article-guide" : ""}`}>
         <Link to="/thoughts" className="thought-back">← All thoughts</Link>
         <div className="thought-meta">
           <time dateTime={t.date}>{t.displayDate}</time>
@@ -75,7 +75,7 @@ const ThoughtPost = () => {
                 ? <h3 key={i} className="thought-h3">{renderInline(p.slice(4))}</h3>
                 : <h2 key={i} className="thought-h2">{renderInline(p.slice(4))}</h2>;
             }
-            if (p.startsWith("## ")) return <h2 key={i} className="thought-h2">{renderInline(p.slice(3))}</h2>;
+            if (p.startsWith("## ")) return <h2 key={i} id={/^## [A-Z]$/.test(p) ? `letter-${p.slice(3).toLowerCase()}` : undefined} className="thought-h2">{renderInline(p.slice(3))}</h2>;
             const m = p.match(/^(\d+\.\s+[^\n]+)\n([\s\S]+)$/);
             if (m) {
               return (
@@ -172,12 +172,13 @@ function ShareButtons({ slug, title }: { slug: string; title: string }) {
 
 /** Turns [label](https://url) into outbound links; everything else stays plain text. */
 function renderInline(text: string) {
-  const parts = text.split(/(\[[^\]]+\]\((?:https?:\/\/|\/)[^)\s]*\)|\*\*[^*]+\*\*)/g);
+  const parts = text.split(/(\[[^\]]+\]\((?:https?:\/\/|\/|#)[^)\s]*\)|\*\*[^*]+\*\*)/g);
   return parts.map((part, i) => {
     if (part.startsWith("**") && part.endsWith("**")) return <strong key={i}>{part.slice(2, -2)}</strong>;
-    const m = part.match(/^\[([^\]]+)\]\(((?:https?:\/\/|\/)[^)\s]*)\)$/);
+    const m = part.match(/^\[([^\]]+)\]\(((?:https?:\/\/|\/|#)[^)\s]*)\)$/);
     const [, label = "", href = ""] = m ?? [];
     if (m && href.startsWith("/downloads/")) return <a key={i} href={href} download>{label}</a>;
+    if (m && href.startsWith("#")) return <a key={i} href={href}>{label}</a>;
     if (m && href.startsWith("/")) return <Link key={i} to={href}>{label}</Link>;
     return m ? <a key={i} href={m[2]} target="_blank" rel="noopener">{m[1]}</a> : part;
   });

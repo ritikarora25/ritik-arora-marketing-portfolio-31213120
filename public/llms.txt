@@ -11,6 +11,7 @@ Ritik's work is organised around the growth funnel: Acquire, Activate, Engage, R
 
 ## Thoughts
 
+- [Marketing glossary A–Z](https://ritik-arora-marketing-portfolio.lovable.app/thoughts/marketing-glossary): 130+ growth, CRM and lifecycle marketing terms in 1–3 lines, with formulas and top tools.
 - [Retention rate formula](https://ritik-arora-marketing-portfolio.lovable.app/thoughts/retention-rate-formula): How to calculate customer retention rate, why the blended number misleads, cohort tables and buying-rhythm windows.
 - [Customer reactivation: diagnose the gap before a win-back campaign](https://ritik-arora-marketing-portfolio.lovable.app/thoughts/customer-reactivation-before-win-back-campaign): A B2B repeat-purchase framework grounded in documented ApnaKlub experience, with transparent outcome limitations.
 - [Best CRM for 2027](https://ritik-arora-marketing-portfolio.lovable.app/thoughts/best-crm-for-2027): Sales CRM vs Customer Engagement Platform, with comparison table, stage picker, FAQ and a downloadable checklist.

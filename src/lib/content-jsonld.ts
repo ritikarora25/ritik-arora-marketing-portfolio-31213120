@@ -94,6 +94,18 @@ export function articleJsonLd(post: Thought) {
           url: new URL(source.url, `${SITE}/`).href,
         })) } : {}),
       },
+      ...(post.slug === "marketing-glossary" ? [{
+        "@type": "DefinedTermSet",
+        "@id": `${url}#glossary`,
+        name: post.title,
+        url,
+        hasDefinedTerm: [...post.body.matchAll(/^- \*\*(.+?):\*\* (.+)$/gm)].map(([, name = "", desc = ""]) => ({
+          "@type": "DefinedTerm",
+          name,
+          description: desc.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1"),
+          inDefinedTermSet: { "@id": `${url}#glossary` },
+        })),
+      }] : []),
       {
         "@type": "WebPage",
         "@id": `${url}#webpage`,

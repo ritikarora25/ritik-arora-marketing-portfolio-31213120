@@ -1,3 +1,4 @@
+import { glossaryBody, glossaryCount } from "./glossary";
 export interface Thought {
   slug: string;
   title: string;
@@ -14,6 +15,31 @@ export interface Thought {
 }
 
 export const thoughts: Thought[] = [
+  {
+    slug: "marketing-glossary",
+    takeaways: [
+      `A–Z of ${glossaryCount()} marketing terms, each explained in one to three lines.`,
+      "Metrics include their formula, such as CAC = spend ÷ new customers and ROAS = ad revenue ÷ ad spend.",
+      "Terms with their own software category list the top 2–3 tools, such as SEO: Google Search Console, Semrush, Ahrefs.",
+      "Growth, CRM, lifecycle and retention terms are covered in depth, not just SEO and ads.",
+    ],
+    ogTitle: "Marketing glossary A–Z: terms, formulas and top tools",
+    ogDescription: "130+ growth, CRM and lifecycle marketing terms explained in 1–3 lines, with formulas and the top tools for each.",
+    title: "Marketing glossary: A–Z of growth, CRM and lifecycle terms (with formulas)",
+    date: "2026-11-18",
+    displayDate: "Nov 18, 2026",
+    tags: ["Growth", "Analytics"],
+    summary:
+      "A–Z marketing glossary with 130+ terms explained in 1–3 lines: CAC, LTV, churn, retention, ROAS, CTR, NPS, NRR and more, with plain-text formulas and the top tools for terms like SEO, CRM, analytics and push.",
+    body: glossaryBody(),
+    sources: [
+      { label: "Google Ads Help: clickthrough rate (CTR)", url: "https://support.google.com/google-ads/answer/2615875" },
+      { label: "Google Ads Help: about Quality Score", url: "https://support.google.com/google-ads/answer/6167118" },
+      { label: "Google Analytics Help: engagement rate and bounce rate", url: "https://support.google.com/analytics/answer/12195621" },
+      { label: "Bain & Company: Net Promoter System", url: "https://www.netpromotersystem.com/about/measuring-your-net-promoter-score/" },
+      { label: "Amplitude: retention analysis", url: "https://amplitude.com/docs/analytics/charts/retention-analysis/retention-analysis-usage-interval" },
+    ],
+  },
   {
     slug: "retention-rate-formula",
     takeaways: [
