@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "@/lib/router-compat";
 import PortfolioLayout from "@/components/PortfolioLayout";
 import { getThought, getRelatedThoughts } from "@/data/thoughts";
+import { termSlug } from "@/data/glossary";
 import NotFound from "./NotFound";
 
 const ThoughtPost = () => {
@@ -54,7 +55,7 @@ const ThoughtPost = () => {
         <div className="thought-body">
           {paragraphs.map((p, i) => {
             if (p.startsWith("> ")) return <blockquote key={i}>{renderInline(p.slice(2))}</blockquote>;
-            if (p.startsWith("- ")) return <ul key={i} className="thought-checklist">{p.split("\n").map((line, j) => <li key={j}>{renderInline(line.replace(/^- /, ""))}</li>)}</ul>;
+            if (p.startsWith("- ")) return <ul key={i} className="thought-checklist">{p.split("\n").map((line, j) => <li key={j} id={t.slug === "marketing-glossary" ? termSlug(line.match(/^- \*\*(.+?):\*\*/)?.[1] ?? "") || undefined : undefined}>{renderInline(line.replace(/^- /, ""))}</li>)}</ul>;
             if (p.startsWith("|")) {
               const rows = p.split("\n").filter((l) => !/^\|[\s|:-]+\|$/.test(l)).map((l) => l.replace(/^\||\|$/g, "").split("|").map((c) => c.trim()));
               const [head = [], ...body] = rows;

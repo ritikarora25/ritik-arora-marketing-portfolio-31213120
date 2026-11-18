@@ -1,3 +1,4 @@
+import { allGlossaryTerms, termSlug } from "@/data/glossary";
 import type { Thought } from "@/data/thoughts";
 import { profileJsonLd } from "@/lib/profile-jsonld";
 import { SITE, articleShareImage } from "@/lib/seo";
@@ -99,11 +100,14 @@ export function articleJsonLd(post: Thought) {
         "@id": `${url}#glossary`,
         name: post.title,
         url,
-        hasDefinedTerm: [...post.body.matchAll(/^- \*\*(.+?):\*\* (.+)$/gm)].map(([, name = "", desc = ""]) => ({
+        hasDefinedTerm: allGlossaryTerms().map((t) => ({
           "@type": "DefinedTerm",
-          name,
-          description: desc.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1"),
+          "@id": `${url}#${termSlug(t.term)}`,
+          url: `${url}#${termSlug(t.term)}`,
+          name: t.term,
+          description: t.formula ? `${t.meaning} Formula: ${t.formula}.` : t.meaning,
           inDefinedTermSet: { "@id": `${url}#glossary` },
+          citation: { "@type": "CreativeWork", name: t.src[0], url: t.src[1] },
         })),
       }] : []),
       {

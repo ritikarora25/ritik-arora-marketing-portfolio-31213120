@@ -1,4 +1,4 @@
-import { glossaryBody, glossaryCount } from "./glossary";
+import { glossaryBody, glossaryCount, glossarySources } from "./glossary";
 export interface Thought {
   slug: string;
   title: string;
@@ -21,24 +21,19 @@ export const thoughts: Thought[] = [
       `A–Z of ${glossaryCount()} marketing terms, each explained in one to three lines.`,
       "Metrics include their formula, such as CAC = spend ÷ new customers and ROAS = ad revenue ÷ ad spend.",
       "Terms with their own software category list the top 2–3 tools, such as SEO: Google Search Console, Semrush, Ahrefs.",
+      "Every definition and formula links to the source it was checked against, such as Google Ads Help, Bain or Wikipedia.",
       "Growth, CRM, lifecycle and retention terms are covered in depth, not just SEO and ads.",
     ],
-    ogTitle: "Marketing glossary A–Z: terms, formulas and top tools",
-    ogDescription: "130+ growth, CRM and lifecycle marketing terms explained in 1–3 lines, with formulas and the top tools for each.",
-    title: "Marketing glossary: A–Z of growth, CRM and lifecycle terms (with formulas)",
+    ogTitle: "Marketing terms glossary A–Z: definitions, formulas and tools",
+    ogDescription: "130+ marketing terms explained in 1–3 lines, with formulas, top tools and a source link for every definition.",
+    title: "Marketing terms glossary A–Z: definitions, formulas and tools",
     date: "2026-11-18",
     displayDate: "Nov 18, 2026",
     tags: ["Growth", "Analytics"],
     summary:
-      "A–Z marketing glossary with 130+ terms explained in 1–3 lines: CAC, LTV, churn, retention, ROAS, CTR, NPS, NRR and more, with plain-text formulas and the top tools for terms like SEO, CRM, analytics and push.",
+      "Marketing terms glossary from A to Z: 130+ definitions in 1–3 lines, with formulas for CAC, LTV, churn, retention, ROAS, CTR, NPS and NRR, the top tools for terms like SEO and CRM, and a source link for every entry.",
     body: glossaryBody(),
-    sources: [
-      { label: "Google Ads Help: clickthrough rate (CTR)", url: "https://support.google.com/google-ads/answer/2615875" },
-      { label: "Google Ads Help: about Quality Score", url: "https://support.google.com/google-ads/answer/6167118" },
-      { label: "Google Analytics Help: engagement rate and bounce rate", url: "https://support.google.com/analytics/answer/12195621" },
-      { label: "Bain & Company: Net Promoter System", url: "https://www.netpromotersystem.com/about/measuring-your-net-promoter-score/" },
-      { label: "Amplitude: retention analysis", url: "https://amplitude.com/docs/analytics/charts/retention-analysis/retention-analysis-usage-interval" },
-    ],
+    sources: glossarySources(),
   },
   {
     slug: "retention-rate-formula",
@@ -138,7 +133,7 @@ Answer these before you report a retention number:
 - **Pairing:** do you report churn and revenue retention with the same definitions?
 - **Proof:** is there a holdout group behind any campaign result?
 
-For how retention fits with the other funnel stages, see my [lifecycle marketing strategy](/thoughts/lifecycle-marketing-strategy).`,
+For how retention fits with the other funnel stages, see my [lifecycle marketing strategy](/thoughts/lifecycle-marketing-strategy). For quick definitions of churn, cohort, LTV and other terms, see the [marketing terms glossary](/thoughts/marketing-glossary).`,
     sources: [
       { label: "Zendesk: how to calculate customer retention rate (standard formula)", url: "https://www.zendesk.com/blog/customer-experience/retention/calculate-customer-retention-rate/" },
       { label: "Amplitude: interpreting usage interval in retention analysis", url: "https://amplitude.com/docs/analytics/charts/retention-analysis/retention-analysis-interpret-usage" },
@@ -201,7 +196,7 @@ First, which stage is the metric actually failing in? A retention dip is often a
 
 A lifecycle marketing strategy is useful when it tells you what not to send as clearly as what to send. If every stage has one question and one success event, the campaigns tend to follow.
 
-For the Retain stage in practice, see [how to diagnose the gap before a win-back campaign](/thoughts/customer-reactivation-before-win-back-campaign); for choosing the tools each stage runs on, see [Sales CRM vs Customer Engagement Platform](/thoughts/best-crm-for-2027).`,
+For the Retain stage in practice, see [how to diagnose the gap before a win-back campaign](/thoughts/customer-reactivation-before-win-back-campaign); for choosing the tools each stage runs on, see [Sales CRM vs Customer Engagement Platform](/thoughts/best-crm-for-2027). Definitions of the terms used here are in the [marketing terms glossary](/thoughts/marketing-glossary).`,
     sources: [
       { label: "Ritik's documented experience across all five stages", url: "/#journey" },
       { label: "Dave McClure: Startup Metrics for Pirates (the AARRR funnel this five-stage model adapts)", url: "https://www.slideshare.net/dmc500hats/startup-metrics-for-pirates-long-version" },
@@ -621,7 +616,7 @@ Before approving the campaign, answer four questions: Who is inactive relative t
 
 If the reason to return is missing, revisit product value or positioning first. CRM can make an existing reason timely and relevant. It cannot manufacture a need the customer does not have.
 
-Reactivation is one stage of a wider plan; see [lifecycle marketing strategy: one question per stage](/thoughts/lifecycle-marketing-strategy).`,
+Reactivation is one stage of a wider plan; see [lifecycle marketing strategy: one question per stage](/thoughts/lifecycle-marketing-strategy). Definitions of the terms used here are in the [marketing terms glossary](/thoughts/marketing-glossary).`,
     sources: [
       { label: "How to calculate retention rate by cohort and buying rhythm", url: "/thoughts/retention-rate-formula" },
       { label: "Ritik's documented ApnaKlub retention experience and reported outcomes", url: "/#retain" },
