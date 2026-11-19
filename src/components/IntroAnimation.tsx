@@ -82,15 +82,21 @@ const CSS = `
 .intro-w { display: inline-block; opacity: 0; animation: introWordIn 420ms cubic-bezier(.2,.7,.2,1) forwards; }
 .intro-up { opacity: 0; animation: introFadeUp 420ms cubic-bezier(.2,.7,.2,1) forwards; }
 .intro-hi { color: var(--coral, #FF6B4A); }
+.intro-out { animation: introOut 260ms ease-in forwards; pointer-events: none; }
+@keyframes introOut { to { opacity: 0; transform: translate(-50%, calc(-50% - 18px)); } }
+@keyframes introFill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes introUnder { from { background-size: 0% 2px; } to { background-size: 100% 2px; } }
+.intro-key { background-image: linear-gradient(var(--coral, #FF6B4A), var(--coral, #FF6B4A)); background-repeat: no-repeat; background-position: 0 100%; background-size: 0% 2px; }
 .intro-rule { transform-origin: left; animation: introRule 700ms cubic-bezier(.2,.7,.2,1) forwards; }
 `;
 
 interface Props {
   onStart?: () => void;
+  onReveal?: () => void;
   onComplete?: () => void;
 }
 
-const IntroAnimation = ({ onStart, onComplete }: Props) => {
+const IntroAnimation = ({ onStart, onReveal, onComplete }: Props) => {
   const [step, setStep] = useState(-1);
   const [hidden, setHidden] = useState(true);
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -98,19 +104,28 @@ const IntroAnimation = ({ onStart, onComplete }: Props) => {
   const markRef = useRef<HTMLDivElement>(null);
   const doneRef = useRef(true);
   const timerRef = useRef(0);
+  const lastStepRef = useRef(-1);
+  const [prevStep, setPrevStep] = useState<number | null>(null);
+
+  const unlock = useCallback(() => {
+    document.documentElement.style.overflow = "";
+    window.scrollTo(0, 0);
+  }, []);
 
   const finish = useCallback(() => {
     if (doneRef.current) return;
     doneRef.current = true;
     window.clearTimeout(timerRef.current);
     try { window.localStorage.setItem("introSeen", "1"); } catch { /* storage blocked */ }
+    unlock();
+    onReveal?.();
     const ov = overlayRef.current;
     if (ov) {
       ov.style.transition = "opacity 300ms ease-out";
       ov.style.opacity = "0";
     }
     window.setTimeout(() => { setHidden(true); onComplete?.(); }, 300);
-  }, [onComplete]);
+  }, [onComplete, onReveal, unlock]);
 
   const next = useCallback(() => {
     setStep((s) => (s < 7 ? s + 1 : s));
@@ -120,21 +135,38 @@ const IntroAnimation = ({ onStart, onComplete }: Props) => {
   useEffect(() => {
     let seen = false;
     try { seen = window.localStorage.getItem("introSeen") === "1"; } catch { /* storage blocked */ }
-    if (window.innerWidth < 640 || seen) {
+    const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    if (window.innerWidth < 640 || seen || reduced) {
       onComplete?.();
       return;
     }
     doneRef.current = false;
     setHidden(false);
+    if (window.location.hash) history.replaceState(history.state, "", window.location.pathname + window.location.search);
+    window.scrollTo(0, 0);
+    document.documentElement.style.overflow = "hidden";
     onStart?.();
+    return () => { document.documentElement.style.overflow = ""; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Keep the previous chapter briefly for a smooth exit
+  useEffect(() => {
+    const last = lastStepRef.current;
+    lastStepRef.current = step;
+    if (last >= 0 && last <= 4 && last !== step) {
+      setPrevStep(last);
+      const t = window.setTimeout(() => setPrevStep(null), 280);
+      return () => window.clearTimeout(t);
+    }
+  }, [step]);
 
   // Timeline
   useEffect(() => {
     if (doneRef.current || hidden) return;
     window.clearTimeout(timerRef.current);
     if (step === 7) {
+      onReveal?.();
       // fly wordmark into header brand
       const m = markRef.current;
       const b = document.querySelector<HTMLElement>(".brand");
@@ -155,6 +187,7 @@ const IntroAnimation = ({ onStart, onComplete }: Props) => {
     }
     timerRef.current = window.setTimeout(() => setStep((s) => s + 1), durationFor(step));
     return () => window.clearTimeout(timerRef.current);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [step, finish, hidden]);
 
   // Controls
@@ -170,6 +203,36 @@ const IntroAnimation = ({ onStart, onComplete }: Props) => {
   }, [finish, next, hidden]);
 
   if (hidden) return null;
+
+  const renderChapter = (i: number, exiting: boolean) => {
+    const st = STAGES[i]!;
+    const words = splitWords(st.text, st.key);
+    return (
+        <div key={`${exiting ? "out" : "in"}-${i}`} className={exiting ? "intro-out" : undefined} aria-hidden={exiting || undefined} style={{ position: "absolute", left: "50%", top: "44%", transform: "translate(-50%, -50%)", width: "min(760px, 86vw)" }}>
+          <div className="intro-up" style={{ display: "flex", alignItems: "baseline", gap: 14, fontVariantNumeric: "tabular-nums" }}>
+            <span style={{ fontSize: 13, fontWeight: 600, letterSpacing: "0.16em", color: "var(--slate, #8A8D9F)" }}>
+              CHAPTER 0{i + 1} / 05
+            </span>
+            <span className="intro-rule" style={{ flex: 1, height: 1, background: "var(--line, #E4E2DB)" }} />
+          </div>
+          <div className="intro-up" style={{ animationDelay: "120ms", display: "flex", alignItems: "baseline", flexWrap: "wrap", gap: "6px 18px", marginTop: 14 }}>
+            <span style={{ fontSize: "clamp(2.6rem, 6vw, 4.4rem)", fontWeight: 700, lineHeight: 1 }}>
+              {st.name}<span className="intro-hi">.</span>
+            </span>
+            <span style={{ fontSize: 15, fontWeight: 600, color: "var(--coral, #FF6B4A)", border: "1px solid var(--coral, #FF6B4A)", borderRadius: 999, padding: "4px 12px" }}>
+              {st.tag}
+            </span>
+          </div>
+          <p style={{ fontSize: "clamp(1.15rem, 2vw, 1.5rem)", fontWeight: 500, lineHeight: 1.55, marginTop: 26, maxWidth: 720 }}>
+            {words.map((w, idx) => (
+              <span key={idx} className={`intro-w${w.hi ? " intro-hi intro-key" : ""}`} style={{ animationDelay: `${WORD_START_MS + idx * WORD_MS}ms`, fontWeight: w.hi ? 700 : 500, ...(w.hi ? { animation: `introWordIn 420ms cubic-bezier(.2,.7,.2,1) ${WORD_START_MS + idx * WORD_MS}ms forwards, introUnder 500ms ease-out ${WORD_START_MS + words.length * WORD_MS + 150}ms forwards` } : {}) }}>
+                {w.w}&nbsp;
+              </span>
+            ))}
+          </p>
+        </div>
+    );
+  };
 
   const chapter = step >= 0 && step <= 4 ? STAGES[step] : null;
   const showTracker = step >= 0 && step <= 5;
@@ -201,32 +264,9 @@ const IntroAnimation = ({ onStart, onComplete }: Props) => {
         </div>
       )}
 
-      {/* Chapter */}
-      {chapter && (
-        <div key={step} style={{ position: "absolute", left: "50%", top: "44%", transform: "translate(-50%, -50%)", width: "min(760px, 86vw)" }}>
-          <div className="intro-up" style={{ display: "flex", alignItems: "baseline", gap: 14, fontVariantNumeric: "tabular-nums" }}>
-            <span style={{ fontSize: 13, fontWeight: 600, letterSpacing: "0.16em", color: "var(--slate, #8A8D9F)" }}>
-              CHAPTER 0{step + 1} / 05
-            </span>
-            <span className="intro-rule" style={{ flex: 1, height: 1, background: "var(--line, #E4E2DB)" }} />
-          </div>
-          <div className="intro-up" style={{ animationDelay: "120ms", display: "flex", alignItems: "baseline", flexWrap: "wrap", gap: "6px 18px", marginTop: 14 }}>
-            <span style={{ fontSize: "clamp(2.6rem, 6vw, 4.4rem)", fontWeight: 700, lineHeight: 1 }}>
-              {chapter.name}<span className="intro-hi">.</span>
-            </span>
-            <span style={{ fontSize: 15, fontWeight: 600, color: "var(--coral, #FF6B4A)", border: "1px solid var(--coral, #FF6B4A)", borderRadius: 999, padding: "4px 12px" }}>
-              {chapter.tag}
-            </span>
-          </div>
-          <p style={{ fontSize: "clamp(1.15rem, 2vw, 1.5rem)", fontWeight: 500, lineHeight: 1.55, marginTop: 26, maxWidth: 720 }}>
-            {splitWords(chapter.text, chapter.key).map((w, i) => (
-              <span key={i} className={`intro-w${w.hi ? " intro-hi" : ""}`} style={{ animationDelay: `${WORD_START_MS + i * WORD_MS}ms`, fontWeight: w.hi ? 700 : 500 }}>
-                {w.w}&nbsp;
-              </span>
-            ))}
-          </p>
-        </div>
-      )}
+      {/* Chapter (outgoing + current) */}
+      {prevStep !== null && prevStep !== step && renderChapter(prevStep, true)}
+      {chapter && renderChapter(step, false)}
 
       {/* Closing line */}
       {step === 5 && (
@@ -267,8 +307,14 @@ const IntroAnimation = ({ onStart, onComplete }: Props) => {
                   borderRadius: 3,
                   background: state === "active" ? "var(--coral, #FF6B4A)" : state === "done" ? "var(--ink, #151833)" : "var(--line, #E4E2DB)",
                   transition: "background 400ms ease",
+                  overflow: "hidden",
+                  position: "relative",
                 }}
-              />
+              >
+                {state === "active" && step <= 4 && (
+                  <span key={step} style={{ position: "absolute", inset: 0, background: "var(--ink, #151833)", opacity: 0.35, transformOrigin: "left", animation: `introFill ${chapterMs(step)}ms linear forwards` }} />
+                )}
+              </div>
               <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.06em", color: state === "todo" ? "var(--slate, #8A8D9F)" : "var(--ink, #151833)", transition: "color 400ms ease" }}>
                 {s.name}
               </span>

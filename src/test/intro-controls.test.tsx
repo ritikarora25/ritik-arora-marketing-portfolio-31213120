@@ -36,6 +36,18 @@ describe("Intro keyboard controls", () => {
     expect(pressSpace()).toBe(false);
   });
 
+  it("returns to the top with scrolling unlocked after the intro", () => {
+    vi.useFakeTimers();
+    vi.stubGlobal("innerWidth", 1280);
+    window.localStorage.clear();
+    render(<IntroAnimation />);
+    expect(document.documentElement.style.overflow).toBe("hidden");
+    const scroll = vi.spyOn(window, "scrollTo");
+    for (let i = 0; i < 10; i++) act(() => { vi.advanceTimersByTime(10000); });
+    expect(document.documentElement.style.overflow).toBe("");
+    expect(scroll).toHaveBeenCalledWith(0, 0);
+  });
+
   it("does not capture Space when the intro is skipped on mobile", () => {
     vi.stubGlobal("innerWidth", 390);
     render(<IntroAnimation />);

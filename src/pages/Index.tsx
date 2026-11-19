@@ -31,7 +31,7 @@ const Index = () => {
 
   return (
     <>
-      <IntroAnimation onStart={() => setIntroPlaying(true)} onComplete={() => setIntroPlaying(false)} />
+      <IntroAnimation onStart={() => setIntroPlaying(true)} onReveal={() => setIntroPlaying(false)} onComplete={() => setIntroPlaying(false)} />
       <PortfolioLayout>
         <PortfolioHero persona={persona} setPersona={setPersona} />
         <hr className="divider" />
