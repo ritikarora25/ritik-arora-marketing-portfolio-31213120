@@ -655,3 +655,8 @@ body:not([data-intro-playing]) #funnelNav {
 ul.chip-row, ol.strip, ul.thoughts-list { list-style: none; margin: 0; padding: 0; }
 ul.chip-row { padding: 0; }
 ol.strip { padding: 24px 26px; }
+
+/* Glossary term deep-link copy control */
+.term-copy-link { display: inline-block; margin-left: 4px; padding: 0 6px; border-radius: 6px; font-size: 0.85em; font-weight: 600; color: var(--indigo); text-decoration: none; border: 1px solid var(--line); line-height: 1.5; font-variant-numeric: tabular-nums; }
+.term-copy-link:hover, .term-copy-link:focus-visible { background: var(--indigo); color: var(--paper); border-color: var(--indigo); }
+li:target { scroll-margin-top: 96px; background: color-mix(in srgb, var(--indigo) 8%, transparent); border-radius: 8px; }
