@@ -3,6 +3,7 @@ import { Link, useParams } from "@/lib/router-compat";
 import PortfolioLayout from "@/components/PortfolioLayout";
 import { getThought, getRelatedThoughts } from "@/data/thoughts";
 import { termSlug } from "@/data/glossary";
+import { thoughtHeadingTag } from "@/lib/thought-headings";
 import { TermCopyLink } from "@/components/TermCopyLink";
 import NotFound from "./NotFound";
 
@@ -74,10 +75,9 @@ const ThoughtPost = () => {
               );
             }
             if (p.startsWith("### ")) {
-              // Numbered sections are peers, never children of a previous section.
-              if (/^### \d+\.\s/.test(p)) return <h2 key={i} className="thought-h2">{renderInline(p.slice(4))}</h2>;
-              const hasH2Before = paragraphs.slice(0, i).some((q) => q.startsWith("## ") || /^\d+\.\s+[^\n]+\n/.test(q));
-              return hasH2Before
+              // Numbered sections are peers, never children of a previous section;
+              // a "### " heading with no earlier h2 renders as h2 so levels never skip.
+              return thoughtHeadingTag(paragraphs, i) === "h3"
                 ? <h3 key={i} className="thought-h3">{renderInline(p.slice(4))}</h3>
                 : <h2 key={i} className="thought-h2">{renderInline(p.slice(4))}</h2>;
             }
