@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useParams } from "@/lib/router-compat";
 import PortfolioLayout from "@/components/PortfolioLayout";
 import { getThought, getRelatedThoughts } from "@/data/thoughts";
@@ -10,18 +10,6 @@ import NotFound from "./NotFound";
 const ThoughtPost = () => {
   const { slug = "" } = useParams();
   const t = getThought(slug);
-  useEffect(() => {
-    const el = document.querySelector(".thought-author");
-    if (!el || !t) return;
-    const obs = new IntersectionObserver((entries) => {
-      if (entries.some((e) => e.isIntersecting)) {
-        window.__lovableEvents?.track?.("project.article_read_end", { slug: t.slug });
-        obs.disconnect();
-      }
-    });
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [t]);
   if (!t) return <NotFound />;
   const related = getRelatedThoughts(t.slug);
   const paragraphs = t.body.split(/\n\s*\n/);
