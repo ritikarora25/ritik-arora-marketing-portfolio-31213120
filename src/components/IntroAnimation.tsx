@@ -76,6 +76,9 @@ const splitWords = (text: string, key: string) => {
 };
 
 const CSS = `
+.intro-skip { position: absolute; top: 20px; right: 20px; z-index: 2; display: inline-flex; align-items: center; gap: 8px; font: 600 14px/1 Poppins, system-ui, sans-serif; letter-spacing: 0.02em; color: var(--ink, #151833); background: var(--paper, #F5F4F0); border: 1.5px solid var(--ink, #151833); border-radius: 999px; padding: 12px 20px; min-height: 44px; cursor: pointer; transition: background 200ms ease, color 200ms ease; }
+.intro-skip:hover { background: var(--ink, #151833); color: var(--paper, #F5F4F0); }
+[data-intro-overlay] button:focus-visible { outline: 3px solid var(--indigo, #3D3FE0); outline-offset: 3px; }
 @keyframes introWordIn { from { opacity: 0; transform: translateY(0.45em); filter: blur(4px); } to { opacity: 1; transform: none; filter: none; } }
 @keyframes introFadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 @keyframes introRule { from { transform: scaleX(0); } to { transform: scaleX(1); } }
@@ -94,9 +97,16 @@ interface Props {
   onStart?: () => void;
   onReveal?: () => void;
   onComplete?: () => void;
+  /** Play even if already seen (homepage "Replay intro"). */
+  force?: boolean;
 }
 
-const IntroAnimation = ({ onStart, onReveal, onComplete }: Props) => {
+export const MOTION_KEY = "introMotion";
+export const introMotionOff = () => {
+  try { return window.localStorage.getItem(MOTION_KEY) === "off"; } catch { return false; }
+};
+
+const IntroAnimation = ({ onStart, onReveal, onComplete, force = false }: Props) => {
   const [step, setStep] = useState(-1);
   const [hidden, setHidden] = useState(true);
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -106,6 +116,8 @@ const IntroAnimation = ({ onStart, onReveal, onComplete }: Props) => {
   const timerRef = useRef(0);
   const lastStepRef = useRef(-1);
   const [prevStep, setPrevStep] = useState<number | null>(null);
+  const skipRef = useRef<HTMLButtonElement>(null);
+  const returnFocusRef = useRef<HTMLElement | null>(null);
 
   const unlock = useCallback(() => {
     document.documentElement.style.overflow = "";
@@ -124,7 +136,13 @@ const IntroAnimation = ({ onStart, onReveal, onComplete }: Props) => {
       ov.style.transition = "opacity 300ms ease-out";
       ov.style.opacity = "0";
     }
-    window.setTimeout(() => { setHidden(true); onComplete?.(); }, 300);
+    window.setTimeout(() => {
+      setHidden(true);
+      onComplete?.();
+      const back = returnFocusRef.current;
+      if (back && document.contains(back)) back.focus();
+      else document.getElementById("main")?.focus?.();
+    }, 300);
   }, [onComplete, onReveal, unlock]);
 
   const next = useCallback(() => {
@@ -136,7 +154,7 @@ const IntroAnimation = ({ onStart, onReveal, onComplete }: Props) => {
     let seen = false;
     try { seen = window.localStorage.getItem("introSeen") === "1"; } catch { /* storage blocked */ }
     const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
-    if (window.innerWidth < 640 || seen || reduced) {
+    if (!force && (window.innerWidth < 640 || seen || reduced || introMotionOff())) {
       onComplete?.();
       return undefined;
     }
@@ -146,9 +164,12 @@ const IntroAnimation = ({ onStart, onReveal, onComplete }: Props) => {
     window.scrollTo(0, 0);
     document.documentElement.style.overflow = "hidden";
     onStart?.();
+    returnFocusRef.current = document.activeElement as HTMLElement | null;
     return () => { document.documentElement.style.overflow = ""; };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => { if (!hidden) skipRef.current?.focus({ preventScroll: true }); }, [hidden]);
 
   // Keep the previous chapter briefly for a smooth exit
   useEffect(() => {
@@ -196,8 +217,19 @@ const IntroAnimation = ({ onStart, onReveal, onComplete }: Props) => {
     if (hidden || doneRef.current) return;
     const onKey = (e: KeyboardEvent) => {
       if (doneRef.current) return;
-      if (e.key === "Escape" || e.key === "Enter") finish();
-      else if (e.key === "ArrowRight" || e.key === " ") { e.preventDefault(); next(); }
+      const onButton = (e.target as HTMLElement | null)?.tagName === "BUTTON";
+      if (e.key === "Escape") finish();
+      else if (e.key === "Enter" && !onButton) finish();
+      else if (e.key === "ArrowRight" || (e.key === " " && !onButton)) { e.preventDefault(); next(); }
+      else if (e.key === "ArrowLeft") { e.preventDefault(); setStep((s) => (s > -1 && s <= 5 ? s - 1 : s)); }
+      else if (e.key === "Tab") {
+        // keep focus inside the intro while it plays
+        const f = overlayRef.current?.querySelectorAll<HTMLElement>("button");
+        if (!f || !f.length) return;
+        const first = f[0]!, last = f[f.length - 1]!;
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -237,16 +269,27 @@ const IntroAnimation = ({ onStart, onReveal, onComplete }: Props) => {
 
   const chapter = step >= 0 && step <= 4 ? STAGES[step] : null;
   const showTracker = step >= 0 && step <= 5;
+  const srText = step === -1 ? "Growth isn't one thing. It happens in five stages."
+    : chapter ? `Chapter ${step + 1} of 5: ${chapter.name}. ${chapter.tag}. ${chapter.text}`
+    : step === 5 ? "Five stages. One growth marketer who has worked across all of them."
+    : "Ritik Arora.";
 
   return (
     <div
       data-intro-overlay="true"
       ref={overlayRef}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Intro animation: a short story about growth"
+      aria-describedby="intro-help"
       onClick={next}
       style={{ position: "fixed", inset: 0, zIndex: 9999, overflow: "hidden", fontFamily: "Poppins, system-ui, sans-serif", color: "var(--ink, #151833)", cursor: step < 7 ? "pointer" : "default" }}
     >
       <style>{CSS}</style>
       <div ref={bgRef} style={{ position: "absolute", inset: 0, background: "var(--paper, #F5F4F0)" }} />
+      <p className="sr-only" aria-live="polite" aria-atomic="true">{srText}</p>
+      <p id="intro-help" className="sr-only">Press Escape to skip the intro. Right arrow or Space goes to the next chapter, left arrow goes back.</p>
+      <div aria-hidden="true">
 
       {/* Prologue */}
       {step === -1 && (
@@ -293,6 +336,8 @@ const IntroAnimation = ({ onStart, onReveal, onComplete }: Props) => {
         </div>
       )}
 
+      </div>
+
       {/* Funnel tracker */}
       <div
         style={{ position: "absolute", left: "50%", bottom: 56, transform: "translateX(-50%)", display: "flex", alignItems: "flex-end", gap: 10, opacity: showTracker ? 1 : 0, transition: "opacity 500ms ease" }}
@@ -325,18 +370,19 @@ const IntroAnimation = ({ onStart, onReveal, onComplete }: Props) => {
       </div>
 
       {step < 5 && (
-        <div style={{ position: "absolute", left: 20, bottom: 18, fontSize: 12, color: "var(--slate, #8A8D9F)", letterSpacing: "0.04em" }}>
-          Click or press → to move on · pick any stage below
+        <div aria-hidden="true" style={{ position: "absolute", left: 20, bottom: 18, fontSize: 12, color: "var(--slate, #8A8D9F)", letterSpacing: "0.04em" }}>
+          Click or press → to move on · ← to go back · Esc to skip
         </div>
       )}
 
       <button
+        ref={skipRef}
         type="button"
         aria-label="Skip intro"
+        className="intro-skip"
         onClick={(e) => { e.stopPropagation(); finish(); }}
-        style={{ position: "absolute", right: 16, bottom: 10, fontSize: 12, color: "var(--slate, #8A8D9F)", background: "none", border: "none", cursor: "pointer", padding: "8px 16px", letterSpacing: "0.05em", fontFamily: "inherit" }}
       >
-        Skip intro ↵
+        Skip intro <span aria-hidden="true">→</span>
       </button>
     </div>
   );

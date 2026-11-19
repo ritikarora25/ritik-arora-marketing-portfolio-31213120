@@ -54,3 +54,19 @@ describe("Intro keyboard controls", () => {
     expect(pressSpace()).toBe(false);
   });
 });
+describe("Intro preferences", () => {
+  it("does not autoplay when the visitor turned the intro off", () => {
+    vi.stubGlobal("innerWidth", 1280);
+    window.localStorage.clear();
+    window.localStorage.setItem("introMotion", "off");
+    const { queryByRole } = render(<IntroAnimation />);
+    expect(queryByRole("button", { name: "Skip intro" })).toBeNull();
+  });
+
+  it("replays on request even after it was seen", () => {
+    vi.stubGlobal("innerWidth", 1280);
+    window.localStorage.setItem("introSeen", "1");
+    const { getByRole } = render(<IntroAnimation force />);
+    expect(getByRole("button", { name: "Skip intro" })).toBeTruthy();
+  });
+});

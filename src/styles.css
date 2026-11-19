@@ -660,3 +660,7 @@ ol.strip { padding: 24px 26px; }
 .term-copy-link { display: inline-block; margin-left: 4px; padding: 0 6px; border-radius: 6px; font-size: 0.85em; font-weight: 600; color: var(--indigo); text-decoration: none; border: 1px solid var(--line); line-height: 1.5; font-variant-numeric: tabular-nums; }
 .term-copy-link:hover, .term-copy-link:focus-visible { background: var(--indigo); color: var(--paper); border-color: var(--indigo); }
 li:target { scroll-margin-top: 96px; background: color-mix(in srgb, var(--indigo) 8%, transparent); border-radius: 8px; }
+
+/* Homepage intro controls */
+.intro-controls { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding-top: 8px; padding-bottom: 8px; font-size: 0.85rem; color: var(--slate); }
+.intro-controls .btn { font-size: 0.85rem; }
