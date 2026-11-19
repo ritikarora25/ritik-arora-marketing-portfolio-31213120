@@ -138,7 +138,7 @@ const IntroAnimation = ({ onStart, onReveal, onComplete }: Props) => {
     const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
     if (window.innerWidth < 640 || seen || reduced) {
       onComplete?.();
-      return;
+      return undefined;
     }
     doneRef.current = false;
     setHidden(false);
@@ -159,6 +159,7 @@ const IntroAnimation = ({ onStart, onReveal, onComplete }: Props) => {
       const t = window.setTimeout(() => setPrevStep(null), 280);
       return () => window.clearTimeout(t);
     }
+    return undefined;
   }, [step]);
 
   // Timeline
