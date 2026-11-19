@@ -8,6 +8,8 @@ export interface Thought {
   summary: string;
   body: string; // blank lines separate paragraphs; numbered topic titles become H2s
   linkedinUrl?: string;
+  seoTitle?: string; // search result title, max 60 chars
+  seoDescription?: string; // search result description, 120-160 chars
   ogTitle?: string; // social share headline
   ogDescription?: string; // short social share blurb
   sources?: { label: string; url: string }[];
@@ -24,6 +26,8 @@ export const thoughts: Thought[] = [
       "Every definition and formula links to the source it was checked against, such as Google Ads Help, Bain or Wikipedia.",
       "Growth, CRM, lifecycle and retention terms are covered in depth, not just SEO and ads.",
     ],
+    seoTitle: "Marketing Terms Glossary A–Z: Definitions & Formulas",
+    seoDescription: "130+ marketing terms A–Z explained in 1–3 lines, with formulas, top tools and a trusted source link for every definition. Free and easy to scan.",
     ogTitle: "Marketing terms glossary A–Z: definitions, formulas and tools",
     ogDescription: "130+ marketing terms explained in 1–3 lines, with formulas, top tools and a source link for every definition.",
     title: "Marketing terms glossary A–Z: definitions, formulas and tools",
@@ -44,6 +48,8 @@ export const thoughts: Thought[] = [
       "Set the window from customers' real repeat gap (median and 80th percentile), not a fixed 30, 60 or 90 days.",
       "Read retention by cohort, and prove campaign effects with a holdout group.",
     ],
+    seoTitle: "Retention Rate Formula: How to Calculate It Properly",
+    seoDescription: "Learn the customer retention rate formula, how to calculate retention rate by cohort, and why the blended number misleads. Worked example inside.",
     ogTitle: "Retention rate formula: how to calculate it properly",
     ogDescription: "The textbook retention formula, why the blended number misleads, and how to measure it by cohort and buying rhythm.",
     title: "Retention rate formula: how to calculate customer retention properly",
@@ -150,6 +156,8 @@ For how retention fits with the other funnel stages, see my [lifecycle marketing
       "Judge retention against each customer's own buying rhythm, not a fixed number of days.",
       "Use holdout groups so you know whether a campaign caused the change.",
     ],
+    seoTitle: "Lifecycle Marketing Strategy: One Question per Stage",
+    seoDescription: "A lifecycle marketing strategy built on one question, owner and success event per funnel stage — acquire to monetize — with examples from five roles.",
     ogTitle: "Lifecycle marketing: one question per funnel stage",
     ogDescription: "Acquire, activate, engage, retain, monetize — the single question each stage must answer, with real examples from five growth roles.",
     title: "Lifecycle marketing strategy: one question per stage of the funnel",
@@ -212,6 +220,8 @@ For the Retain stage in practice, see [how to diagnose the gap before a win-back
       "Product-led companies with a sales team often need both, connected by shared events.",
       "Confirm current pricing and WhatsApp costs directly with each vendor.",
     ],
+    seoTitle: "Best CRM for 2027: Sales CRM vs Engagement Platform",
+    seoDescription: "Best CRM for 2027? Compare Sales CRM and Customer Engagement Platforms by sales motion, channels and data, with a free downloadable checklist.",
     ogTitle: "Best CRM for 2027: Sales CRM or Customer Engagement Platform?",
     ogDescription: "Choosing the best CRM for 2027? Compare Sales CRM and Customer Engagement Platforms by sales motion, channels, data and team capacity, with a downloadable checklist.",
     title: "Best CRM for 2027: Sales CRM vs Customer Engagement Platform",
@@ -418,6 +428,8 @@ If your retention numbers are the reason you are shopping for software, read [cu
       "Measure reactivation against a holdout group; the worked example is illustrative, not real results.",
       "A fill-in worksheet covers segment, reason, message, exit rules and measurement.",
     ],
+    seoTitle: "Win-Back Campaign: Diagnose Why Customers Left First",
+    seoDescription: "Before your next win-back campaign, find why customers stopped buying. A practical customer reactivation framework for B2B repeat-purchase brands.",
     ogTitle: "Diagnose the gap before your next win-back campaign",
     ogDescription: "Most reactivation campaigns fail because nobody asked why customers left. A practical framework for finding the gap first.",
     title: "Customer reactivation: diagnose the gap before a win-back campaign",
@@ -631,6 +643,8 @@ Reactivation is one stage of a wider plan; see [lifecycle marketing strategy: on
       "Before briefing a campaign, check whether drop-off comes from friction, unclear value or no real need.",
       "Unclear value and missing need are product or positioning problems, not messaging problems.",
     ],
+    seoTitle: "Why CRM Fails: When Retention Is a Product Problem",
+    seoDescription: "When retention drops, CRM gets blamed. Learn to tell drop-off, unclear value and no real need apart before you brief your next CRM campaign.",
     ogTitle: "CRM can’t fix a product problem",
     ogDescription: "When retention dips, CRM gets the blame. Three signs the real problem is the product — and what to do instead.",
     title: "Why CRM fails: when retention is a product problem, not a campaign problem",

@@ -16,7 +16,7 @@ export const Route = createFileRoute("/thoughts/$slug")({
     const url = `${SITE}/thoughts/${t.slug}`;
     return {
       meta: [
-        ...pageMeta({ title: `${t.title} — Ritik Arora`, ogTitle: t.ogTitle ?? t.title, ogDescription: t.ogDescription, description: t.summary, path: `/thoughts/${t.slug}`, type: "article", image: articleShareImage(t.slug), imageAlt: t.title }),
+        ...pageMeta({ title: t.seoTitle ?? `${t.title} — Ritik Arora`, ogTitle: t.ogTitle ?? t.title, ogDescription: t.ogDescription, description: t.seoDescription ?? t.summary, path: `/thoughts/${t.slug}`, type: "article", image: articleShareImage(t.slug), imageAlt: t.title }),
         { property: "article:published_time", content: t.date },
         { property: "article:author", content: "Ritik Arora" },
         ...t.tags.map((tag) => ({ property: "article:tag", content: tag })),

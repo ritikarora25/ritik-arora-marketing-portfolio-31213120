@@ -7,9 +7,9 @@ import { websiteJsonLd } from "@/lib/content-jsonld";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: pageMeta({
-      title: "Ritik Arora — Growth & Marketing",
+      title: "Ritik Arora — Growth, CRM & Lifecycle Marketer",
       ogTitle: "Ritik Arora | Growth, CRM & Lifecycle Marketing",
-      description: "Growth marketer, 5+ years across brand, CRM, retention and product — most recently at Freo.",
+      description: "Ritik Arora is a growth marketer with 5+ years in CRM, lifecycle and retention marketing across fintech, auto and B2B commerce, most recently at Freo.",
       path: "/",
       type: "website",
     }),

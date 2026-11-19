@@ -8,7 +8,7 @@ export const Route = createFileRoute("/thoughts/")({
   head: () => ({
     meta: pageMeta({
       title: "Thoughts on CRM & Retention — Ritik Arora",
-      description: "Field notes by Ritik Arora on CRM, lifecycle, retention and product marketing.",
+      description: "Practical field notes by Ritik Arora on CRM, lifecycle marketing, customer retention and product marketing, with formulas, frameworks and checklists.",
       path: "/thoughts",
     }),
     links: [{ rel: "canonical", href: `${SITE}/thoughts` }],
