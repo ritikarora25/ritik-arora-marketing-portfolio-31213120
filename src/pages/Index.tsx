@@ -13,7 +13,7 @@ import type { Persona } from "@/data/journey";
 
 const Index = () => {
   const [persona, setPersona] = useState<Persona>("default");
-  const [introPlaying, setIntroPlaying] = useState(true);
+  const [introPlaying, setIntroPlaying] = useState(false);
 
   useEffect(() => {
     document.body.dataset.persona = persona;
@@ -31,7 +31,7 @@ const Index = () => {
 
   return (
     <>
-      <IntroAnimation onComplete={() => setIntroPlaying(false)} />
+      <IntroAnimation onStart={() => setIntroPlaying(true)} onComplete={() => setIntroPlaying(false)} />
       <PortfolioLayout>
         <PortfolioHero persona={persona} setPersona={setPersona} />
         <hr className="divider" />

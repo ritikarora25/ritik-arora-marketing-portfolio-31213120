@@ -43,14 +43,15 @@ const STAGES = [
 ];
 
 // steps: -1 prologue, 0..4 chapters, 5 closing line, 6 wordmark, 7 fly
-const PROLOGUE_MS = 3400;
-const WORD_MS = 100;
-const HOLD_MS = 2600;
-const CLOSING_MS = 3200;
-const MARK_MS = 1900;
-const FLY_MS = 1200;
+const PROLOGUE_MS = 1700;
+const WORD_MS = 22;
+const WORD_START_MS = 250;
+const HOLD_MS = 1200;
+const CLOSING_MS = 1700;
+const MARK_MS = 900;
+const FLY_MS = 900;
 
-const chapterMs = (i: number) => 900 + (STAGES[i]?.text ?? "").split(" ").length * WORD_MS + HOLD_MS;
+const chapterMs = (i: number) => WORD_START_MS + (STAGES[i]?.text ?? "").split(" ").length * WORD_MS + HOLD_MS;
 
 const durationFor = (step: number) => {
   if (step === -1) return PROLOGUE_MS;
@@ -78,23 +79,24 @@ const CSS = `
 @keyframes introWordIn { from { opacity: 0; transform: translateY(0.45em); filter: blur(4px); } to { opacity: 1; transform: none; filter: none; } }
 @keyframes introFadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 @keyframes introRule { from { transform: scaleX(0); } to { transform: scaleX(1); } }
-.intro-w { display: inline-block; opacity: 0; animation: introWordIn 640ms cubic-bezier(.2,.7,.2,1) forwards; }
-.intro-up { opacity: 0; animation: introFadeUp 600ms cubic-bezier(.2,.7,.2,1) forwards; }
+.intro-w { display: inline-block; opacity: 0; animation: introWordIn 420ms cubic-bezier(.2,.7,.2,1) forwards; }
+.intro-up { opacity: 0; animation: introFadeUp 420ms cubic-bezier(.2,.7,.2,1) forwards; }
 .intro-hi { color: var(--coral, #FF6B4A); }
 .intro-rule { transform-origin: left; animation: introRule 700ms cubic-bezier(.2,.7,.2,1) forwards; }
 `;
 
 interface Props {
+  onStart?: () => void;
   onComplete?: () => void;
 }
 
-const IntroAnimation = ({ onComplete }: Props) => {
+const IntroAnimation = ({ onStart, onComplete }: Props) => {
   const [step, setStep] = useState(-1);
-  const [hidden, setHidden] = useState(false);
+  const [hidden, setHidden] = useState(true);
   const overlayRef = useRef<HTMLDivElement>(null);
   const bgRef = useRef<HTMLDivElement>(null);
   const markRef = useRef<HTMLDivElement>(null);
-  const doneRef = useRef(false);
+  const doneRef = useRef(true);
   const timerRef = useRef(0);
 
   const finish = useCallback(() => {
@@ -111,7 +113,7 @@ const IntroAnimation = ({ onComplete }: Props) => {
   }, [onComplete]);
 
   const next = useCallback(() => {
-    setStep((s) => (s < 5 ? s + 1 : s));
+    setStep((s) => (s < 7 ? s + 1 : s));
   }, []);
 
   // Mobile: skip entirely
@@ -119,16 +121,18 @@ const IntroAnimation = ({ onComplete }: Props) => {
     let seen = false;
     try { seen = window.localStorage.getItem("introSeen") === "1"; } catch { /* storage blocked */ }
     if (window.innerWidth < 640 || seen) {
-      doneRef.current = true;
-      setHidden(true);
       onComplete?.();
+      return;
     }
+    doneRef.current = false;
+    setHidden(false);
+    onStart?.();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Timeline
   useEffect(() => {
-    if (doneRef.current) return;
+    if (doneRef.current || hidden) return;
     window.clearTimeout(timerRef.current);
     if (step === 7) {
       // fly wordmark into header brand
@@ -151,7 +155,7 @@ const IntroAnimation = ({ onComplete }: Props) => {
     }
     timerRef.current = window.setTimeout(() => setStep((s) => s + 1), durationFor(step));
     return () => window.clearTimeout(timerRef.current);
-  }, [step, finish]);
+  }, [step, finish, hidden]);
 
   // Controls
   useEffect(() => {
@@ -175,7 +179,7 @@ const IntroAnimation = ({ onComplete }: Props) => {
       data-intro-overlay="true"
       ref={overlayRef}
       onClick={next}
-      style={{ position: "fixed", inset: 0, zIndex: 9999, overflow: "hidden", fontFamily: "Poppins, system-ui, sans-serif", color: "var(--ink, #151833)", cursor: step < 5 ? "pointer" : "default" }}
+      style={{ position: "fixed", inset: 0, zIndex: 9999, overflow: "hidden", fontFamily: "Poppins, system-ui, sans-serif", color: "var(--ink, #151833)", cursor: step < 7 ? "pointer" : "default" }}
     >
       <style>{CSS}</style>
       <div ref={bgRef} style={{ position: "absolute", inset: 0, background: "var(--paper, #F5F4F0)" }} />
@@ -187,9 +191,9 @@ const IntroAnimation = ({ onComplete }: Props) => {
             <div className="intro-up" style={{ fontSize: 13, fontWeight: 600, letterSpacing: "0.18em", color: "var(--slate, #8A8D9F)", textTransform: "uppercase" }}>
               A short story about growth
             </div>
-            <div className="intro-up" style={{ animationDelay: "420ms", fontSize: "clamp(2rem, 4.6vw, 3.4rem)", fontWeight: 700, lineHeight: 1.15, marginTop: 14 }}>
+            <div className="intro-up" style={{ animationDelay: "200ms", fontSize: "clamp(2rem, 4.6vw, 3.4rem)", fontWeight: 700, lineHeight: 1.15, marginTop: 14 }}>
               Growth isn't one thing.<br />
-              <span className="intro-up" style={{ animationDelay: "1400ms", display: "inline-block" }}>
+              <span className="intro-up" style={{ animationDelay: "650ms", display: "inline-block" }}>
                 It happens in <span className="intro-hi">five stages.</span>
               </span>
             </div>
@@ -216,7 +220,7 @@ const IntroAnimation = ({ onComplete }: Props) => {
           </div>
           <p style={{ fontSize: "clamp(1.15rem, 2vw, 1.5rem)", fontWeight: 500, lineHeight: 1.55, marginTop: 26, maxWidth: 720 }}>
             {splitWords(chapter.text, chapter.key).map((w, i) => (
-              <span key={i} className={`intro-w${w.hi ? " intro-hi" : ""}`} style={{ animationDelay: `${600 + i * WORD_MS}ms`, fontWeight: w.hi ? 700 : 500 }}>
+              <span key={i} className={`intro-w${w.hi ? " intro-hi" : ""}`} style={{ animationDelay: `${WORD_START_MS + i * WORD_MS}ms`, fontWeight: w.hi ? 700 : 500 }}>
                 {w.w}&nbsp;
               </span>
             ))}
@@ -229,9 +233,9 @@ const IntroAnimation = ({ onComplete }: Props) => {
         <div style={{ position: "absolute", inset: 0, display: "grid", placeItems: "center", textAlign: "center", padding: 24 }}>
           <div style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)", fontWeight: 700, lineHeight: 1.2 }}>
             <span className="intro-up" style={{ display: "inline-block" }}>Five stages.</span>{" "}
-            <span className="intro-up intro-hi" style={{ display: "inline-block", animationDelay: "700ms" }}>One growth marketer</span>
+            <span className="intro-up intro-hi" style={{ display: "inline-block", animationDelay: "300ms" }}>One growth marketer</span>
             <br />
-            <span className="intro-up" style={{ display: "inline-block", animationDelay: "1400ms", fontSize: "0.55em", fontWeight: 500, color: "var(--slate, #8A8D9F)", marginTop: 10 }}>
+            <span className="intro-up" style={{ display: "inline-block", animationDelay: "600ms", fontSize: "0.55em", fontWeight: 500, color: "var(--slate, #8A8D9F)", marginTop: 10 }}>
               who has worked across all of them.
             </span>
           </div>
@@ -255,7 +259,7 @@ const IntroAnimation = ({ onComplete }: Props) => {
         {STAGES.map((s, i) => {
           const state = step > 4 || i < step ? "done" : i === step ? "active" : "todo";
           return (
-            <div key={s.name} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, width: 78 }}>
+            <button type="button" key={s.name} aria-label={`Go to chapter ${i + 1}: ${s.name}`} onClick={(e) => { e.stopPropagation(); setStep(i); }} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, width: 78, background: "none", border: "none", padding: "6px 0", cursor: "pointer", fontFamily: "inherit" }}>
               <div
                 style={{
                   width: 78 - i * 10,
@@ -268,14 +272,14 @@ const IntroAnimation = ({ onComplete }: Props) => {
               <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: "0.06em", color: state === "todo" ? "var(--slate, #8A8D9F)" : "var(--ink, #151833)", transition: "color 400ms ease" }}>
                 {s.name}
               </span>
-            </div>
+            </button>
           );
         })}
       </div>
 
       {step < 5 && (
         <div style={{ position: "absolute", left: 20, bottom: 18, fontSize: 12, color: "var(--slate, #8A8D9F)", letterSpacing: "0.04em" }}>
-          Click or press → for the next chapter
+          Click or press → to move on · pick any stage below
         </div>
       )}
 
