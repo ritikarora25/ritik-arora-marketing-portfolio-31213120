@@ -21,7 +21,10 @@ export const Route = createFileRoute("/thoughts/$slug")({
         { property: "article:author", content: "Ritik Arora" },
         ...t.tags.map((tag) => ({ property: "article:tag", content: tag })),
       ],
-      links: [{ rel: "canonical", href: url }],
+      links: [
+        { rel: "canonical", href: url },
+        { rel: "preload", as: "image", type: "image/webp", href: `/og/${t.slug}-1200.webp`, imageSrcSet: `/og/${t.slug}-640.webp 640w, /og/${t.slug}-1200.webp 1200w`, imageSizes: "(max-width: 760px) 100vw, 720px", fetchPriority: "high" },
+      ],
       scripts: [
         {
           type: "application/ld+json",
