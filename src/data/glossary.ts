@@ -8,6 +8,9 @@ export const termSlug = (term: string) => term.toLowerCase().replace(/[^a-z0-9]+
 
 export const glossary: Record<string, GlossaryTerm[]> = {
   A: [
+    T("AIDA model", "A four-step model of how buyers move: Attention, Interest, Desire, Action. Used to structure ads, emails and landing pages.", { src: ["HubSpot: the AIDA model", "https://blog.hubspot.com/marketing/aida-model"] }),
+    T("AI marketing", "Using artificial intelligence, such as machine learning and generative AI, to analyse data, personalise messages and automate marketing decisions.", { src: ["HubSpot: AI marketing", "https://blog.hubspot.com/marketing/ai-marketing"] }),
+    T("AEO (answer engine optimization)", "Structuring content so AI answer engines and voice assistants can lift it as a direct answer: clear questions, short answers, schema.", { src: ["Search Engine Journal: answer engine optimization", "https://www.searchenginejournal.com/answer-engine-optimization-aeo/518451/"] }),
     T("A/B testing", "Showing two versions of a page, message or offer to random groups to see which performs better on one metric.", { tools: [["Optimizely", "https://www.optimizely.com"], ["VWO", "https://vwo.com"], ["AB Tasty", "https://www.abtasty.com"]] , src: ["Wikipedia: A/B testing", "https://en.wikipedia.org/wiki/A/B_testing"] }),
     T("Acquisition", "The first funnel stage: getting new people to discover your product and sign up or buy.", { src: ["Wikipedia: Customer acquisition management", "https://en.wikipedia.org/wiki/Customer_acquisition_management"] }),
     T("Activation", "The moment a new user first gets real value, such as a first order or a completed setup. Activation rate = activated users ÷ new sign-ups × 100.", { src: ["Amplitude: product activation", "https://amplitude.com/blog/product-activation"] }),
@@ -46,6 +49,8 @@ export const glossary: Record<string, GlossaryTerm[]> = {
     T("Customer retention rate", "The share of existing customers still active at the end of a period.", { formula: "Retention rate = ((E − N) ÷ S) × 100", see: ["Retention rate formula", "/thoughts/retention-rate-formula"] , src: ["Zendesk: customer retention rate", "https://www.zendesk.com/blog/customer-experience/retention/calculate-customer-retention-rate/"] }),
   ],
   D: [
+    T("Direct marketing", "Reaching customers one-to-one, without a middleman, through channels like email, SMS, mail or calls, and asking for a measurable response.", { src: ["Mailchimp: direct marketing", "https://mailchimp.com/marketing-glossary/direct-marketing/"] }),
+    T("Digital marketing", "Promoting a brand or product through online channels such as search, email, social media, websites and apps.", { src: ["Mailchimp: digital marketing", "https://mailchimp.com/marketing-glossary/digital-marketing/"] }),
     T("DAU / MAU", "Daily active users divided by monthly active users; shows how habit-forming a product is.", { formula: "Stickiness = DAU ÷ MAU × 100" , src: ["Wikipedia: Active users", "https://en.wikipedia.org/wiki/Active_users"] }),
     T("Deep link", "A link that opens a specific screen inside an app instead of the home screen.", { tools: [["Branch", "https://www.branch.io"], ["AppsFlyer OneLink", "https://www.appsflyer.com"], ["Adjust", "https://www.adjust.com"]] , src: ["Wikipedia: Mobile deep linking", "https://en.wikipedia.org/wiki/Mobile_deep_linking"] }),
     T("Demand generation", "Marketing that builds interest in a problem and your solution before people are ready to buy.", { src: ["Wikipedia: Demand generation", "https://en.wikipedia.org/wiki/Demand_generation"] }),
@@ -53,6 +58,7 @@ export const glossary: Record<string, GlossaryTerm[]> = {
     T("Dynamic content", "Message or page content that changes per user, such as their name or recommended items.", { src: ["Wikipedia: Dynamic web page", "https://en.wikipedia.org/wiki/Dynamic_web_page"] }),
   ],
   E: [
+    T("Experiential marketing", "Marketing that invites people to experience the brand in person or live, such as pop-ups, events or interactive installations.", { src: ["Shopify: experiential marketing", "https://www.shopify.com/blog/experiential-marketing"] }),
     T("Email marketing", "Sending planned or automated emails to subscribers to inform, sell or retain.", { tools: [["Mailchimp", "https://mailchimp.com"], ["Klaviyo", "https://www.klaviyo.com"], ["Brevo", "https://www.brevo.com"]] , src: ["Wikipedia: Email marketing", "https://en.wikipedia.org/wiki/Email_marketing"] }),
     T("Engagement", "The funnel stage where users return and use the product repeatedly; also any measurable interaction.", { src: ["Wikipedia: Customer engagement", "https://en.wikipedia.org/wiki/Customer_engagement"] }),
     T("Engagement rate (social)", "Interactions relative to reach.", { formula: "Engagement rate = (likes + comments + shares + saves) ÷ reach × 100" , src: ["Hootsuite: engagement rate", "https://blog.hootsuite.com/calculate-engagement-rate/"] }),
@@ -67,6 +73,8 @@ export const glossary: Record<string, GlossaryTerm[]> = {
     T("Freemium", "A pricing model where the basic product is free and advanced features are paid.", { src: ["Wikipedia: Freemium", "https://en.wikipedia.org/wiki/Freemium"] }),
   ],
   G: [
+    T("Guerrilla marketing", "Low-cost, unconventional and surprising tactics, often in public spaces, designed to grab attention and get people talking.", { src: ["HubSpot: guerrilla marketing", "https://blog.hubspot.com/marketing/guerilla-marketing-examples"] }),
+    T("GEO (generative engine optimization)", "Optimizing content so generative AI tools like ChatGPT, Perplexity and Google AI Overviews mention and cite your brand in their answers.", { src: ["Ahrefs: generative engine optimization", "https://ahrefs.com/blog/generative-engine-optimization/"] }),
     T("Go-to-market (GTM)", "The plan for launching a product: target customer, positioning, pricing, channels and sales motion.", { src: ["Wikipedia: Go-to-market strategy", "https://en.wikipedia.org/wiki/Go-to-market_strategy"] }),
     T("Gross margin", "Share of revenue left after direct costs.", { formula: "Gross margin = (revenue − cost of goods sold) ÷ revenue × 100" , src: ["Wikipedia: Gross margin", "https://en.wikipedia.org/wiki/Gross_margin"] }),
     T("Growth loop", "A system where one user's action brings in more users, such as referrals or shared content.", { src: ["Reforge: growth loops", "https://www.reforge.com/blog/growth-loops"] }),
@@ -78,6 +86,7 @@ export const glossary: Record<string, GlossaryTerm[]> = {
     T("Hyper-personalisation", "Tailoring messages using real-time behaviour, not just name or segment.", { src: ["Wikipedia: Personalized marketing", "https://en.wikipedia.org/wiki/Personalized_marketing"] }),
   ],
   I: [
+    T("Integrated marketing communications (IMC)", "Coordinating advertising, PR, social, email, sales and other channels so every message tells one consistent brand story.", { src: ["Purdue University: integrated marketing communication", "https://online.purdue.edu/blog/communication/what-is-integrated-marketing-communication"] }),
     T("Impressions", "The number of times content or an ad was displayed.", { src: ["Google Ads Help: impressions", "https://support.google.com/google-ads/answer/6320"] }),
     T("Inbound marketing", "Bringing people to you through content, search and social rather than outbound outreach.", { src: ["Wikipedia: Content marketing", "https://en.wikipedia.org/wiki/Content_marketing"] }),
     T("Incrementality", "The extra result caused by a campaign, measured against a control group.", { formula: "Lift = (test conversion rate − control conversion rate) ÷ control conversion rate × 100" , src: ["Think with Google: incrementality", "https://www.thinkwithgoogle.com/intl/en-gb/marketing-strategies/data-and-measurement/incrementality-testing/"] }),
@@ -102,6 +111,10 @@ export const glossary: Record<string, GlossaryTerm[]> = {
     T("LTV:CAC ratio", "How much value a customer brings compared with what they cost to win; 3:1 is a common rule of thumb.", { formula: "LTV:CAC = LTV ÷ CAC" , src: ["Wikipedia: Customer lifetime value", "https://en.wikipedia.org/wiki/Customer_lifetime_value"] }),
   ],
   M: [
+    T("Marketing strategy", "A business's long-term plan for reaching target customers and turning them into buyers, based on its value proposition and competitive position.", { src: ["Coursera: marketing strategy", "https://www.coursera.org/articles/marketing-strategy"] }),
+    T("Marketing psychology", "Applying how people actually think and decide (biases, social proof, scarcity, framing) to marketing; rooted in behavioural economics.", { src: ["APA: behavioral economics", "https://www.apa.org/topics/behavioral-economics"] }),
+    T("Marketing plan", "A written document setting out marketing goals, target audience, budget, channels, tactics and timelines for a set period.", { src: ["HubSpot: marketing plan", "https://blog.hubspot.com/marketing/marketing-plan-template-generator"] }),
+    T("Marketing", "The activity and processes for creating, communicating, delivering and exchanging offerings that have value for customers, clients, partners and society.", { src: ["American Marketing Association: definition of marketing", "https://www.ama.org/the-definition-of-marketing-what-is-marketing/"] }),
     T("Marketing automation", "Software that sends messages and updates data automatically based on rules and triggers.", { tools: [["HubSpot Marketing Hub", "https://www.hubspot.com"], ["Marketo", "https://business.adobe.com/products/marketo.html"], ["ActiveCampaign", "https://www.activecampaign.com"]] , src: ["Wikipedia: Marketing automation", "https://en.wikipedia.org/wiki/Marketing_automation"] }),
     T("Marketing mix (4Ps)", "Product, price, place and promotion: the levers a marketer controls.", { src: ["Wikipedia: Marketing mix", "https://en.wikipedia.org/wiki/Marketing_mix"] }),
     T("Marketing qualified lead (MQL)", "A lead that meets marketing's criteria for being ready for sales follow-up.", { src: ["Wikipedia: Lead scoring", "https://en.wikipedia.org/wiki/Lead_scoring"] }),
@@ -122,6 +135,7 @@ export const glossary: Record<string, GlossaryTerm[]> = {
     T("Opt-in", "A user's explicit permission to receive messages.", { src: ["Wikipedia: Opt-in email", "https://en.wikipedia.org/wiki/Opt-in_email"] }),
   ],
   P: [
+    T("Performance marketing", "Online marketing where you pay for, and judge by, measurable results such as clicks, leads, installs or sales.", { src: ["Amplitude: performance marketing", "https://amplitude.com/blog/performance-marketing"] }),
     T("Paid media", "Any channel where you pay for placement, such as search, social or display ads.", { tools: [["Google Ads", "https://ads.google.com"], ["Meta Ads Manager", "https://www.facebook.com/business/ads"], ["LinkedIn Ads", "https://business.linkedin.com/marketing-solutions/ads"]] , src: ["Wikipedia: Online advertising", "https://en.wikipedia.org/wiki/Online_advertising"] }),
     T("Payback period", "Months it takes for a customer's gross profit to cover their acquisition cost.", { formula: "Payback = CAC ÷ (monthly ARPU × gross margin)" , src: ["Wikipedia: Payback period", "https://en.wikipedia.org/wiki/Payback_period"] }),
     T("Personalisation", "Changing content or offers based on who the user is and what they did.", { src: ["Wikipedia: Personalized marketing", "https://en.wikipedia.org/wiki/Personalized_marketing"] }),
@@ -135,6 +149,7 @@ export const glossary: Record<string, GlossaryTerm[]> = {
     T("Quality Score", "Google Ads' 1–10 rating of ad relevance, expected CTR and landing page experience.", { src: ["Google Ads Help: about Quality Score", "https://support.google.com/google-ads/answer/6167118"] }),
   ],
   R: [
+    T("Retail media", "Ads sold by retailers on their own sites, apps and stores (like Amazon or Flipkart ads), using their shopper data to target buyers near purchase.", { src: ["HubSpot: retail media networks", "https://blog.hubspot.com/marketing/retail-media-networks"] }),
     T("Reach", "The number of unique people who saw your content or ad.", { src: ["Wikipedia: Reach (advertising)", "https://en.wikipedia.org/wiki/Reach_(advertising)"] }),
     T("Reactivation", "Bringing lapsed customers back by fixing the reason they stopped, before offering discounts.", { see: ["Customer reactivation", "/thoughts/customer-reactivation-before-win-back-campaign"] , src: ["Wikipedia: Customer retention", "https://en.wikipedia.org/wiki/Customer_retention"] }),
     T("Referral programme", "Rewarding customers for bringing in new customers.", { src: ["Wikipedia: Referral marketing", "https://en.wikipedia.org/wiki/Referral_marketing"] }),
@@ -146,6 +161,7 @@ export const glossary: Record<string, GlossaryTerm[]> = {
     T("RFM segmentation", "Grouping customers by Recency, Frequency and Monetary value of purchases.", { src: ["Wikipedia: RFM (market research)", "https://en.wikipedia.org/wiki/RFM_(market_research)"] }),
   ],
   S: [
+    T("Social commerce", "Selling products directly inside social media platforms, so people can discover and buy without leaving the app.", { src: ["Shopify: social commerce", "https://www.shopify.com/blog/social-commerce"] }),
     T("Search engine marketing (SEM)", "Buying ads on search engines; sometimes used to include SEO.", { src: ["Wikipedia: Search engine marketing", "https://en.wikipedia.org/wiki/Search_engine_marketing"] }),
     T("SEO", "Search engine optimisation: improving pages so they rank higher in unpaid search results.", { tools: [["Google Search Console", "https://search.google.com/search-console"], ["Semrush", "https://www.semrush.com"], ["Ahrefs", "https://ahrefs.com"]] , src: ["Google Search Central: SEO starter guide", "https://developers.google.com/search/docs/fundamentals/seo-starter-guide"] }),
     T("Segmentation", "Dividing users into groups by traits or behaviour to send relevant messages.", { src: ["Wikipedia: Market segmentation", "https://en.wikipedia.org/wiki/Market_segmentation"] }),
@@ -155,6 +171,7 @@ export const glossary: Record<string, GlossaryTerm[]> = {
     T("Stickiness", "How often users return; usually DAU ÷ MAU.", { src: ["Wikipedia: Active users", "https://en.wikipedia.org/wiki/Active_users"] }),
   ],
   T: [
+    T("Trade marketing", "Marketing aimed at retailers, distributors and wholesalers (not end customers) to get them to stock, display and push your product.", { src: ["Shopify: trade marketing", "https://www.shopify.com/blog/trade-marketing"] }),
     T("Target audience", "The specific group of people a product or campaign is meant for.", { src: ["Wikipedia: Target audience", "https://en.wikipedia.org/wiki/Target_audience"] }),
     T("Time to value", "How long a new user takes to reach their first meaningful result.", { src: ["Amplitude: time to value", "https://amplitude.com/blog/time-to-value"] }),
     T("Touchpoint", "Any point where a customer interacts with your brand.", { src: ["Wikipedia: Touchpoint", "https://en.wikipedia.org/wiki/Touchpoint"] }),
@@ -193,6 +210,8 @@ export const glossary: Record<string, GlossaryTerm[]> = {
 };
 
 const TOP_FORMULAS = ["Customer acquisition cost (CAC)", "Customer lifetime value (CLV / LTV)", "Churn rate", "Customer retention rate", "Return on ad spend (ROAS)", "Click-through rate (CTR)", "Net Promoter Score (NPS)", "Net revenue retention (NRR)"];
+
+for (const list of Object.values(glossary)) list.sort((a, b) => a.term.localeCompare(b.term));
 
 export const allGlossaryTerms = () => Object.values(glossary).flat();
 
