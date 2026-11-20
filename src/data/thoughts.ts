@@ -18,6 +18,144 @@ export interface Thought {
 
 export const thoughts: Thought[] = [
   {
+    slug: "how-to-choose-freelance-growth-marketer",
+    takeaways: [
+      "Define the funnel stage that needs fixing before evaluating anyone.",
+      "The right hire for early traction looks different from the right hire for a retention or monetisation problem.",
+      "Ask candidates to walk through a funnel problem end-to-end, not just name the channels they know.",
+      "In-house results and freelance client results are different things; evaluate both honestly when they appear in a profile.",
+    ],
+    seoTitle: "How to Choose a Freelance Growth Marketer for a Startup",
+    seoDescription: "A guide for Indian startups hiring a freelance growth marketer: match the hire to your funnel stage, five questions to ask, and how to read results.",
+    ogTitle: "How should Indian startups choose a freelance growth marketer?",
+    ogDescription: "Match the hire to the funnel stage that is failing, ask five practical questions, and read a candidate's results honestly.",
+    title: "How should Indian startups choose a freelance growth marketer? Skills, experience and questions to ask",
+    date: "2026-11-20",
+    displayDate: "Nov 20, 2026",
+    tags: ["Growth", "Lifecycle", "CRM"],
+    summary:
+      "A decision guide for Indian startups hiring a freelance growth marketer: name the failing funnel stage first, what each stage requires, generalist vs specialist, five questions to ask, and how to read in-house vs freelance results.",
+    body: `> **Quick answer:** choose a freelance growth marketer by naming the one funnel stage that is failing first. Hire for acquisition if demand is missing, for activation if sign-ups drop before first value, and for lifecycle and retention if customers stop coming back. Then test candidates on a real funnel problem, end to end.
+
+Hiring a growth marketer is easier to get wrong than it looks.
+
+The job title covers too much. A performance marketer who grows acquisition efficiently and a CRM specialist who builds retention systems are both called growth marketers. For a startup, using the wrong one for the wrong stage is expensive.
+
+This article is a decision guide. It covers what to look for at each funnel stage, what questions to ask before hiring, and how to read a candidate’s experience honestly.
+
+## 1. Start with the funnel stage that actually needs work
+
+Before evaluating candidates, name the specific stage of your growth funnel that is failing.
+
+The five stages that matter for most consumer and B2B startups are acquire, activate, engage, retain and monetise. Each one requires different skills and a different kind of hire. The idea builds on Dave McClure’s AARRR “pirate metrics” funnel, which splits growth into acquisition, activation, retention, referral and revenue.
+
+A startup that needs to build audience and inbound demand from scratch has an acquisition problem. A business that is signing up users but losing them before they complete a first meaningful action has an activation problem. A product with reasonable activation but low repeat usage has an engagement or retention problem.
+
+Hiring a generalist when you have one critical bottleneck usually produces unfocused work. Hiring a retention specialist when your acquisition funnel is broken solves the wrong thing.
+
+The clearest signal that you are evaluating this correctly: you can name the stage and the metric before you post the role.
+
+## 2. What each stage actually requires
+
+**Acquire.** Experience in understanding customer segments, channel selection, campaign performance and acquisition cost management. The useful skill is not just knowing how to run campaigns — it is finding where demand actually exists before scaling spend.
+
+At Stupa Sports Analytics, a niche sports-analytics brand with no existing presence, I built social channels from zero, ran Google and Facebook campaigns across India, the USA and Germany, and used off-page SEO and market research to find where demand actually existed. The portfolio reports 13K+ followers within a year and presence in three international markets.
+
+**Activate.** Understanding what happens between registration and first value. This includes onboarding journeys, communication triggers, friction diagnostics and cross-functional coordination with product and engineering.
+
+At Freo, the activation gap between loan approval and disbursal was as much an operations problem as a messaging one — the fix required process documentation, team coordination and an AI-led outreach partnership with product and engineering, not a new campaign.
+
+**Engage.** CRM channel management, event data integrity and cost discipline across channels. At Cars24, seller-side CRM spend was fragmented across five channels. A combination of event schema consolidation, continuous A/B testing on creatives and segmentation, and a WhatsApp chatbot integration produced roughly ₹8L/month in savings and 10% higher chatbot click-through. No single initiative produced that outcome on its own.
+
+**Retain.** Behaviour-based segmentation, cohort analysis and communication that connects to observed buying patterns rather than generic reminders. At ApnaKlub, personalised multilingual WhatsApp campaigns built from each user’s top SKUs produced a reported 5–7% improvement in order rate across 200K+ B2B users. The useful lesson is the operating approach: segment by behaviour and buying rhythm, not by days since last login.
+
+**Monetise.** Understanding LTV, AOV, repeat purchase rate and how to build revenue lines on top of a retained base without damaging the experience. At 1K Kirana Bazaar, building the company’s first monetisation charter with FMCG brands generated ₹50L+ in revenue over six months. That initiative was built on an existing base of 150K+ retained kirana users.
+
+> **Evidence note.** The outcomes above come from my in-house professional roles. They describe what moved in those roles, not controlled experiments or freelance client results.
+
+### Which growth marketer fits which stage?
+
+| Funnel stage | Signal it is the bottleneck | Hire for | Red flag in a candidate |
+| --- | --- | --- | --- |
+| Acquire | Little traffic or rising CAC | Segments, channels, acquisition cost | Scales spend before finding demand |
+| Activate | Sign-ups drop before first value | Onboarding, triggers, product coordination | Proposes ads for a product gap |
+| Engage | Fragmented channel spend, weak event data | CRM channels, event data, testing | Sends generic blasts with no triggers |
+| Retain | Low repeat rate by cohort | Behaviour segments, cohort analysis | Segments only by days since last login |
+| Monetise | Flat AOV or LTV | LTV, AOV, revenue lines on a retained base | Monetises at the cost of retention |
+
+This table summarises the section above; it is a framework, not measured data. For definitions of CAC, LTV, AOV and cohort, see the [marketing terms glossary](/thoughts/marketing-glossary).
+
+## 3. Generalist or specialist?
+
+This depends on stage.
+
+An early-stage startup that needs to build acquisition and onboarding simultaneously may need someone who can work across both. A business with a functioning acquisition engine but poor repeat rates needs a specialist in lifecycle and retention. Hiring across all five stages when only one is broken usually produces unfocused output and unnecessary cost.
+
+One useful check: can the candidate you are evaluating explain which stage of your funnel they would not be the strongest fit for? The ones who answer this honestly tend to be more reliable than the ones who say they cover everything.
+
+## 4. Five questions worth asking before hiring
+
+### How would you identify the biggest growth bottleneck in this business?
+
+Look for someone who starts with funnel data and customer behaviour, not channel recommendations.
+
+### Walk me through a campaign or project where your work improved a business metric.
+
+Ask for the specific problem, what was built, how it was measured and what the actual outcome was. Vague answers about being “part of the team that” are not the same as owning a result.
+
+### How do you use customer data to make marketing decisions?
+
+Understanding dashboards is not enough. The useful answer describes how behaviour gets translated into segments, experiments and communication strategy.
+
+### What would your first 30 days look like?
+
+A practical answer includes understanding the business, auditing what is already running, identifying one or two priorities and agreeing on how success will be measured. A strategy deck in week one is a warning sign, not a strength.
+
+### What would you need from our internal team to execute well?
+
+Growth marketing usually requires coordination with product, design, engineering and data. Someone who understands these dependencies before they start will execute faster than someone who discovers them mid-project.
+
+## 5. How to read a candidate’s results honestly
+
+There is a meaningful difference between results from an in-house role and results from independent freelance client work. Both are worth evaluating, but they are different things.
+
+In-house results sit inside a company infrastructure — platform access, data teams, product partnerships, existing tooling. Freelance results are built with what the client has and what the consultant brings independently.
+
+When evaluating either, the questions that matter are the same:
+
+- What problem were they solving?
+- What did they own versus contribute to?
+- What resources were available?
+- What is the actual evidence for the outcome?
+
+A strong answer to those questions is more useful than the label on the engagement.
+
+## 6. How I can help
+
+I am Ritik Arora, a growth and lifecycle marketing professional with 5+ years of experience across fintech, auto, B2B commerce and sports analytics, most recently at Freo.
+
+I’m now taking on freelance and consulting projects with startups that need hands-on support with:
+
+- Growth funnel analysis and identifying conversion bottlenecks
+- Customer onboarding and activation journeys
+- CRM strategy, segmentation and campaign automation
+- Lifecycle marketing and retention programmes
+- Customer behaviour analysis and marketing experimentation
+
+The starting point is usually understanding the existing funnel, identifying the most important stage to work on and agreeing on a measurable outcome before execution begins.
+
+If this matches a problem your startup is working on, [book a 15-minute conversation](mailto:ritikchuchra1@gmail.com?subject=15-min%20chat) or [connect on LinkedIn](https://www.linkedin.com/in/ritikarora25/).`,
+    sources: [
+      { label: "Dave McClure: Startup Metrics for Pirates (AARRR funnel)", url: "https://www.slideshare.net/slideshow/startup-metrics-for-pirates-long-version/89026" },
+      { label: "Reforge: the real definition of growth marketing", url: "https://www.reforge.com/blog/the-real-definition-of-growth-marketing" },
+      { label: "Lenny's Newsletter: how to hire your first growth team (Elena Verna, Andrea Wang)", url: "https://www.lennysnewsletter.com/t/hiring" },
+      { label: "Ritik’s documented experience across all five funnel stages", url: "/" },
+      { label: "Lifecycle marketing strategy: one question per stage of the funnel", url: "/thoughts/lifecycle-marketing-strategy" },
+      { label: "Why CRM fails: when retention is a product problem, not a campaign problem", url: "/thoughts/crm-vs-product-problem" },
+      { label: "Customer reactivation: diagnose the gap before a win-back campaign", url: "/thoughts/customer-reactivation-before-win-back-campaign" },
+    ],
+  },
+  {
     slug: "marketing-glossary",
     takeaways: [
       `A–Z of ${glossaryCount()} marketing terms, each explained in one to three lines.`,
@@ -730,13 +868,16 @@ For how this fits into each funnel stage, see [lifecycle marketing strategy: one
 export const getThought = (slug: string) => thoughts.find((t) => t.slug === slug);
 
 /** Other posts ranked by shared tags, then newest first. */
+const linksTo = (a: Thought, slug: string) =>
+  a.body.includes(`/thoughts/${slug}`) || (a.sources ?? []).some((s) => s.url === `/thoughts/${slug}`);
+
 export const getRelatedThoughts = (slug: string, limit = 3) => {
   const current = getThought(slug);
   if (!current) return [];
   return thoughts
     .filter((t) => t.slug !== slug)
-    .map((t) => ({ t, score: t.tags.filter((tag) => current.tags.includes(tag)).length }))
-    .sort((a, b) => b.score - a.score || b.t.date.localeCompare(a.t.date))
+    .map((t) => ({ t, score: t.tags.filter((tag) => current.tags.includes(tag)).length + (linksTo(current, t.slug) ? 1 : 0), inbound: thoughts.filter((o) => linksTo(o, t.slug)).length }))
+    .sort((a, b) => b.score - a.score || b.inbound - a.inbound || b.t.date.localeCompare(a.t.date))
     .slice(0, limit)
     .map(({ t }) => t);
 };

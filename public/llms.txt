@@ -11,6 +11,7 @@ Ritik's work is organised around the growth funnel: Acquire, Activate, Engage, R
 
 ## Thoughts
 
+- [How to choose a freelance growth marketer](https://ritik-arora-marketing-portfolio.lovable.app/thoughts/how-to-choose-freelance-growth-marketer): Decision guide for Indian startups: match the hire to the failing funnel stage, a stage-by-stage hiring table, five questions to ask, and how to read in-house vs freelance results.
 - [Marketing terms glossary A–Z](https://ritik-arora-marketing-portfolio.lovable.app/thoughts/marketing-glossary): 140+ marketing terms in 1–3 lines, with formulas, top tools and a source link for every definition. Each term has its own anchor, e.g. #customer-acquisition-cost-cac.
 - [Retention rate formula](https://ritik-arora-marketing-portfolio.lovable.app/thoughts/retention-rate-formula): How to calculate customer retention rate, why the blended number misleads, cohort tables and buying-rhythm windows.
 - [Customer reactivation: diagnose the gap before a win-back campaign](https://ritik-arora-marketing-portfolio.lovable.app/thoughts/customer-reactivation-before-win-back-campaign): A B2B repeat-purchase framework grounded in documented ApnaKlub experience, with transparent outcome limitations.

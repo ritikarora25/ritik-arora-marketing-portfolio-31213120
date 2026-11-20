@@ -16,7 +16,7 @@ const ThoughtPost = () => {
 
   return (
     <PortfolioLayout>
-      <article className={`wrap thoughts-page thought-article${["customer-reactivation-before-win-back-campaign", "retention-rate-formula", "marketing-glossary"].includes(t.slug) ? " thought-article-guide" : ""}`}>
+      <article className={`wrap thoughts-page thought-article${["customer-reactivation-before-win-back-campaign", "retention-rate-formula", "marketing-glossary", "how-to-choose-freelance-growth-marketer"].includes(t.slug) ? " thought-article-guide" : ""}`}>
         <Link to="/thoughts" className="thought-back">← All thoughts</Link>
         <div className="thought-meta">
           <time dateTime={t.date}>{t.displayDate}</time>
@@ -166,10 +166,10 @@ function ShareButtons({ slug, title }: { slug: string; title: string }) {
 
 /** Turns [label](https://url) into outbound links; everything else stays plain text. */
 function renderInline(text: string) {
-  const parts = text.split(/(\[[^\]]+\]\((?:https?:\/\/|\/|#)[^)\s]*\)|\*\*[^*]+\*\*)/g);
+  const parts = text.split(/(\[[^\]]+\]\((?:https?:\/\/|mailto:|\/|#)[^)\s]*\)|\*\*[^*]+\*\*)/g);
   return parts.map((part, i) => {
     if (part.startsWith("**") && part.endsWith("**")) return <strong key={i}>{part.slice(2, -2)}</strong>;
-    const m = part.match(/^\[([^\]]+)\]\(((?:https?:\/\/|\/|#)[^)\s]*)\)$/);
+    const m = part.match(/^\[([^\]]+)\]\(((?:https?:\/\/|mailto:|\/|#)[^)\s]*)\)$/);
     const [, label = "", href = ""] = m ?? [];
     if (m && href.startsWith("/downloads/")) return <a key={i} href={href} download>{label}</a>;
     if (m && href.startsWith("#")) return <a key={i} href={href}>{label}</a>;
