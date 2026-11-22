@@ -9,13 +9,21 @@ const CustomCursor = lazy(() => import("./CustomCursor"));
 const PortfolioLayout = ({ children }: { children: React.ReactNode }) => {
   const [cursorReady, setCursorReady] = useState(false);
   useEffect(() => {
-    if (!window.matchMedia("(pointer: fine)").matches || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (
+      !window.matchMedia("(pointer: fine)").matches ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    )
+      return;
     const timer = window.setTimeout(() => setCursorReady(true), 1000);
     return () => window.clearTimeout(timer);
   }, []);
   return (
     <div className="min-h-dvh relative">
-      {cursorReady && <Suspense fallback={null}><CustomCursor /></Suspense>}
+      {cursorReady && (
+        <Suspense fallback={null}>
+          <CustomCursor />
+        </Suspense>
+      )}
       <ScrollProgress />
       <a
         href="#main"
@@ -26,10 +34,16 @@ const PortfolioLayout = ({ children }: { children: React.ReactNode }) => {
 
       <header className="topbar">
         <div className="wrap topbar-inner">
-          <Link to="/" className="brand" aria-label="Ritik Arora — home">Ritik Arora<span>.</span></Link>
+          <Link to="/" className="brand" aria-label="Ritik Arora — home">
+            Ritik Arora<span>.</span>
+          </Link>
           <div className="top-btns">
-            <Link className="btn btn-ghost" to="/thoughts">Thoughts</Link>
-            <MagneticButton className="btn btn-ghost" href="/#contact">Contact</MagneticButton>
+            <Link className="btn btn-ghost" to="/thoughts">
+              Thoughts
+            </Link>
+            <MagneticButton className="btn btn-ghost" href="/#contact">
+              Contact
+            </MagneticButton>
             <MagneticButton
               className="btn btn-solid"
               href="/ritik-arora-resume.pdf"
@@ -42,7 +56,9 @@ const PortfolioLayout = ({ children }: { children: React.ReactNode }) => {
         </div>
       </header>
 
-      <main id="main" style={{ position: "relative", zIndex: 1 }}>{children}</main>
+      <main id="main" style={{ position: "relative", zIndex: 1 }}>
+        {children}
+      </main>
 
       <footer className="pfooter wrap" style={{ position: "relative", zIndex: 1 }}>
         © 2026 Ritik Arora — built stage by stage, narrowing on purpose.

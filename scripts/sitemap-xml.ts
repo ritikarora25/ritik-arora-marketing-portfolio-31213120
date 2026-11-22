@@ -1,8 +1,17 @@
 const ORIGIN = "https://ritik-arora-marketing-portfolio.lovable.app";
 
-const escapeXml = (value: string) => value.replace(/[&<>"']/g, (character) => ({
-  "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&apos;",
-})[character] ?? character);
+const escapeXml = (value: string) =>
+  value.replace(
+    /[&<>"']/g,
+    (character) =>
+      ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&apos;",
+      })[character] ?? character,
+  );
 
 /** Retain existing page-specific dates; never invent dates for new URLs. */
 export function sitemapXml(slugs: string[], existingXml: string) {

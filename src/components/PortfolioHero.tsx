@@ -11,7 +11,8 @@ const STAGES = [
   { id: "monetize", num: "05", label: "Monetize" },
 ];
 
-const PROOF_TEXT = "₹8L/mo saved · 20% CRM cost cut · 5–7% order-rate lift · ₹50L+ revenue unlocked";
+const PROOF_TEXT =
+  "₹8L/mo saved · 20% CRM cost cut · 5–7% order-rate lift · ₹50L+ revenue unlocked";
 
 interface Props {
   persona: Persona;
@@ -27,13 +28,20 @@ const PortfolioHero = ({ persona, setPersona }: Props) => {
   // Typewriter proof line
   useEffect(() => {
     const rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (rm) { setProof(PROOF_TEXT); setProofDone(true); return; }
+    if (rm) {
+      setProof(PROOF_TEXT);
+      setProofDone(true);
+      return;
+    }
     let i = 0;
     const start = Date.now();
     let raf = 0;
     const tick = () => {
       const elapsed = Date.now() - start;
-      if (elapsed < 1000) { raf = requestAnimationFrame(tick); return; }
+      if (elapsed < 1000) {
+        raf = requestAnimationFrame(tick);
+        return;
+      }
       setProof(PROOF_TEXT.slice(0, i));
       i++;
       if (i <= PROOF_TEXT.length) raf = requestAnimationFrame(tick);
@@ -45,9 +53,9 @@ const PortfolioHero = ({ persona, setPersona }: Props) => {
 
   // Scroll-spy for funnel nav
   useEffect(() => {
-    const els = STAGES
-      .map((s) => document.getElementById(s.id))
-      .filter((el): el is HTMLElement => !!el);
+    const els = STAGES.map((s) => document.getElementById(s.id)).filter(
+      (el): el is HTMLElement => !!el,
+    );
     if (!els.length) return;
     const obs = new IntersectionObserver(
       (entries) => {
@@ -55,7 +63,7 @@ const PortfolioHero = ({ persona, setPersona }: Props) => {
           if (e.isIntersecting) setActiveStage(e.target.id);
         });
       },
-      { rootMargin: "-38% 0px -50% 0px" }
+      { rootMargin: "-38% 0px -50% 0px" },
     );
     els.forEach((el) => obs.observe(el));
     return () => obs.disconnect();
@@ -95,15 +103,28 @@ const PortfolioHero = ({ persona, setPersona }: Props) => {
             <span className="word">and </span>
             <span className="word">product </span>
             <span className="word">journeys </span>
-            <span className="word"><em>that </em></span>
-            <span className="word"><em>turn </em></span>
-            <span className="word"><em>users </em></span>
-            <span className="word"><em>into </em></span>
-            <span className="word"><em>repeat </em></span>
-            <span className="word"><em>customers.</em></span>
+            <span className="word">
+              <em>that </em>
+            </span>
+            <span className="word">
+              <em>turn </em>
+            </span>
+            <span className="word">
+              <em>users </em>
+            </span>
+            <span className="word">
+              <em>into </em>
+            </span>
+            <span className="word">
+              <em>repeat </em>
+            </span>
+            <span className="word">
+              <em>customers.</em>
+            </span>
           </h1>
           <p className="hero-sub">
-            Growth marketer, 5+ years across brand, CRM, retention and product — from Stupa to Freo, building the journeys that move people from first click to habit.
+            Growth marketer, 5+ years across brand, CRM, retention and product — from Stupa to Freo,
+            building the journeys that move people from first click to habit.
           </p>
 
           <div className="persona-row" role="group" aria-label="Personalize this page">
@@ -129,7 +150,9 @@ const PortfolioHero = ({ persona, setPersona }: Props) => {
             hidden={persona === "default"}
           >
             <span>{banner}</span>
-            <button className="persona-reset" onClick={() => setPersona("default")}>Reset</button>
+            <button className="persona-reset" onClick={() => setPersona("default")}>
+              Reset
+            </button>
           </div>
 
           <div className="proof-box">
@@ -140,13 +163,29 @@ const PortfolioHero = ({ persona, setPersona }: Props) => {
 
           <div className="hero-cta">
             <span className="hero-cta-label">Hiring?</span>
-            <a className="btn btn-solid" href="/ritik-arora-resume.pdf" target="_blank" rel="noopener">Get my resume</a>
-            <a className="btn btn-ghost" href="mailto:ritikchuchra1@gmail.com?subject=15-min%20chat">Book a 15-min chat</a>
+            <a
+              className="btn btn-solid"
+              href="/ritik-arora-resume.pdf"
+              target="_blank"
+              rel="noopener"
+            >
+              Get my resume
+            </a>
+            <a
+              className="btn btn-ghost"
+              href="mailto:ritikchuchra1@gmail.com?subject=15-min%20chat"
+            >
+              Book a 15-min chat
+            </a>
           </div>
 
           <div className="hero-meta">
             <a href="mailto:ritikchuchra1@gmail.com">ritikchuchra1@gmail.com</a>
-            <a href="https://www.linkedin.com/in/ritikarora25/" target="_blank" rel="noopener noreferrer">
+            <a
+              href="https://www.linkedin.com/in/ritikarora25/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               LinkedIn ↗
             </a>
           </div>
@@ -164,7 +203,11 @@ const PortfolioHero = ({ persona, setPersona }: Props) => {
           }}
         >
           <picture>
-            <source type="image/webp" srcSet="/lovable-uploads/b900e373-588f-4459-b950-6d8f999f7d94-224.webp 224w, /lovable-uploads/b900e373-588f-4459-b950-6d8f999f7d94-448.webp 448w" sizes="(max-width: 800px) 110px, 220px" />
+            <source
+              type="image/webp"
+              srcSet="/lovable-uploads/b900e373-588f-4459-b950-6d8f999f7d94-224.webp 224w, /lovable-uploads/b900e373-588f-4459-b950-6d8f999f7d94-448.webp 448w"
+              sizes="(max-width: 800px) 110px, 220px"
+            />
             <img
               alt="Ritik Arora"
               src="/lovable-uploads/b900e373-588f-4459-b950-6d8f999f7d94-448.jpg"

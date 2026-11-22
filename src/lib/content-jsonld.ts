@@ -62,7 +62,13 @@ export function thoughtsJsonLd(posts: Thought[]) {
           })),
         },
       },
-      breadcrumbs([{ name: "Home", url: `${SITE}/` }, { name: "Thoughts", url }], `${url}#breadcrumbs`),
+      breadcrumbs(
+        [
+          { name: "Home", url: `${SITE}/` },
+          { name: "Thoughts", url },
+        ],
+        `${url}#breadcrumbs`,
+      ),
     ],
   };
 }
@@ -88,28 +94,41 @@ export function articleJsonLd(post: Thought) {
         publisher: { "@id": person["@id"] },
         mainEntityOfPage: { "@id": `${url}#webpage` },
         image: articleShareImage(post.slug),
-        isPartOf: { "@type": "Blog", "@id": blogId, url: `${SITE}/thoughts`, name: "Thoughts on CRM & Retention" },
-        ...(post.sources?.length ? { citation: post.sources.map((source) => ({
-          "@type": "CreativeWork",
-          name: source.label,
-          url: new URL(source.url, `${SITE}/`).href,
-        })) } : {}),
+        isPartOf: {
+          "@type": "Blog",
+          "@id": blogId,
+          url: `${SITE}/thoughts`,
+          name: "Thoughts on CRM & Retention",
+        },
+        ...(post.sources?.length
+          ? {
+              citation: post.sources.map((source) => ({
+                "@type": "CreativeWork",
+                name: source.label,
+                url: new URL(source.url, `${SITE}/`).href,
+              })),
+            }
+          : {}),
       },
-      ...(post.slug === "marketing-glossary" ? [{
-        "@type": "DefinedTermSet",
-        "@id": `${url}#glossary`,
-        name: post.title,
-        url,
-        hasDefinedTerm: allGlossaryTerms().map((t) => ({
-          "@type": "DefinedTerm",
-          "@id": `${url}#${termSlug(t.term)}`,
-          url: `${url}#${termSlug(t.term)}`,
-          name: t.term,
-          description: t.formula ? `${t.meaning} Formula: ${t.formula}.` : t.meaning,
-          inDefinedTermSet: { "@id": `${url}#glossary` },
-          citation: { "@type": "CreativeWork", name: t.src[0], url: t.src[1] },
-        })),
-      }] : []),
+      ...(post.slug === "marketing-glossary"
+        ? [
+            {
+              "@type": "DefinedTermSet",
+              "@id": `${url}#glossary`,
+              name: post.title,
+              url,
+              hasDefinedTerm: allGlossaryTerms().map((t) => ({
+                "@type": "DefinedTerm",
+                "@id": `${url}#${termSlug(t.term)}`,
+                url: `${url}#${termSlug(t.term)}`,
+                name: t.term,
+                description: t.formula ? `${t.meaning} Formula: ${t.formula}.` : t.meaning,
+                inDefinedTermSet: { "@id": `${url}#glossary` },
+                citation: { "@type": "CreativeWork", name: t.src[0], url: t.src[1] },
+              })),
+            },
+          ]
+        : []),
       {
         "@type": "WebPage",
         "@id": `${url}#webpage`,
@@ -119,11 +138,14 @@ export function articleJsonLd(post: Thought) {
         mainEntity: { "@id": `${url}#article` },
         breadcrumb: { "@id": `${url}#breadcrumbs` },
       },
-      breadcrumbs([
-        { name: "Home", url: `${SITE}/` },
-        { name: "Thoughts", url: `${SITE}/thoughts` },
-        { name: post.title, url },
-      ], `${url}#breadcrumbs`),
+      breadcrumbs(
+        [
+          { name: "Home", url: `${SITE}/` },
+          { name: "Thoughts", url: `${SITE}/thoughts` },
+          { name: post.title, url },
+        ],
+        `${url}#breadcrumbs`,
+      ),
     ],
   };
 }

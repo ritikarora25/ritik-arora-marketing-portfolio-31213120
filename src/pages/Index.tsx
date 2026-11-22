@@ -16,16 +16,24 @@ const Index = () => {
   const [introPlaying, setIntroPlaying] = useState(false);
   const [replayKey, setReplayKey] = useState(0);
   const [motionOff, setMotionOff] = useState(false);
-  useEffect(() => { setMotionOff(introMotionOff()); }, []);
+  useEffect(() => {
+    setMotionOff(introMotionOff());
+  }, []);
   const toggleMotion = () => {
     const off = !motionOff;
     setMotionOff(off);
-    try { window.localStorage.setItem(MOTION_KEY, off ? "off" : "on"); } catch { /* storage blocked */ }
+    try {
+      window.localStorage.setItem(MOTION_KEY, off ? "off" : "on");
+    } catch {
+      /* storage blocked */
+    }
   };
 
   useEffect(() => {
     document.body.dataset.persona = persona;
-    return () => { delete document.body.dataset.persona; };
+    return () => {
+      delete document.body.dataset.persona;
+    };
   }, [persona]);
 
   useEffect(() => {
@@ -34,12 +42,20 @@ const Index = () => {
     } else {
       delete document.body.dataset.introPlaying;
     }
-    return () => { delete document.body.dataset.introPlaying; };
+    return () => {
+      delete document.body.dataset.introPlaying;
+    };
   }, [introPlaying]);
 
   return (
     <>
-      <IntroAnimation key={replayKey} force={replayKey > 0} onStart={() => setIntroPlaying(true)} onReveal={() => setIntroPlaying(false)} onComplete={() => setIntroPlaying(false)} />
+      <IntroAnimation
+        key={replayKey}
+        force={replayKey > 0}
+        onStart={() => setIntroPlaying(true)}
+        onReveal={() => setIntroPlaying(false)}
+        onComplete={() => setIntroPlaying(false)}
+      />
       <PortfolioLayout>
         <PortfolioHero persona={persona} setPersona={setPersona} />
         <hr className="divider" />
@@ -53,8 +69,19 @@ const Index = () => {
         <PortfolioContact />
         <div className="wrap intro-controls" role="group" aria-label="Intro animation settings">
           <span>Intro animation</span>
-          <button type="button" className="btn btn-ghost" onClick={() => setReplayKey((k) => k + 1)}>Replay intro</button>
-          <button type="button" className="btn btn-ghost" aria-pressed={!motionOff} onClick={toggleMotion}>
+          <button
+            type="button"
+            className="btn btn-ghost"
+            onClick={() => setReplayKey((k) => k + 1)}
+          >
+            Replay intro
+          </button>
+          <button
+            type="button"
+            className="btn btn-ghost"
+            aria-pressed={!motionOff}
+            onClick={toggleMotion}
+          >
             {motionOff ? "Autoplay: off" : "Autoplay: on"}
           </button>
         </div>

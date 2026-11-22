@@ -1,0 +1,10 @@
+dist
+.output
+.vinxi
+node_modules
+bun.lock*
+src/routeTree.gen.ts
+src/integrations/supabase/
+public/
+.lovable/
+.oj-cache/

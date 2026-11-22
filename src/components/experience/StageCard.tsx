@@ -1,11 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import type { Persona, StageId } from "@/data/journey";
-import {
-  stageCompanies,
-  stageCopy,
-  stageMeta,
-  mostRelevantStage,
-} from "@/data/journey";
+import { stageCompanies, stageCopy, stageMeta, mostRelevantStage } from "@/data/journey";
 
 interface Props {
   stage: StageId;
@@ -21,8 +16,7 @@ const StageCard = ({ stage, persona }: Props) => {
   const ran = stageCopy[stage].ran[copyKey];
   const moved = stageCopy[stage].moved[copyKey];
 
-  const showRelevant =
-    persona !== "default" && mostRelevantStage[persona] === stage;
+  const showRelevant = persona !== "default" && mostRelevantStage[persona] === stage;
 
   const blockRef = useRef<HTMLDivElement>(null);
   const [revealed, setRevealed] = useState(false);
@@ -66,40 +60,41 @@ const StageCard = ({ stage, persona }: Props) => {
           o.unobserve(e.target);
         });
       },
-      { threshold: 0.22 }
+      { threshold: 0.22 },
     );
     obs.observe(el);
     return () => obs.disconnect();
   }, [info.metrics]);
 
   return (
-    <div
-      className={`stage-block ${revealed ? "node-active" : ""}`}
-      id={stage}
-      ref={blockRef}
-    >
+    <div className={`stage-block ${revealed ? "node-active" : ""}`} id={stage} ref={blockRef}>
       <div className="stage-node">{meta.num}</div>
       <div className="stage-head">
         <span className="stage-eyebrow">
           <b>{meta.num}</b> · {meta.label}
         </span>
         <div className="stage-bar">
-          <div
-            className="stage-bar-fill"
-            style={{ width: revealed ? meta.barWidth : "0%" }}
-          />
+          <div className="stage-bar-fill" style={{ width: revealed ? meta.barWidth : "0%" }} />
         </div>
-        <span className={`relevant-tag ${showRelevant ? "show" : ""}`}>
-          Most relevant
-        </span>
+        <span className={`relevant-tag ${showRelevant ? "show" : ""}`}>Most relevant</span>
       </div>
 
       <article className={`exp-card ${revealed ? "in" : ""}`}>
         <div className="exp-top">
           {info.logo ? (
-            <img className="exp-logo" src={info.logo} alt={`${info.co} logo`} loading="lazy" decoding="async" width={42} height={42} />
+            <img
+              className="exp-logo"
+              src={info.logo}
+              alt={`${info.co} logo`}
+              loading="lazy"
+              decoding="async"
+              width={42}
+              height={42}
+            />
           ) : (
-            <div className="exp-logo-mono" aria-hidden="true">{info.monogram}</div>
+            <div className="exp-logo-mono" aria-hidden="true">
+              {info.monogram}
+            </div>
           )}
           <div>
             <h3 className="exp-co">{info.co}</h3>
@@ -114,7 +109,9 @@ const StageCard = ({ stage, persona }: Props) => {
             <div className="metric" key={i}>
               <span
                 className="num"
-                style={!m.count ? { fontSize: "0.9rem", lineHeight: 1.3, display: "block" } : undefined}
+                style={
+                  !m.count ? { fontSize: "0.9rem", lineHeight: 1.3, display: "block" } : undefined
+                }
               >
                 {m.count ? (counts[i] ?? m.num) : m.num}
               </span>
@@ -131,11 +128,7 @@ const StageCard = ({ stage, persona }: Props) => {
                 <stop offset="100%" stopColor="#3D3FE0" stopOpacity="0" />
               </linearGradient>
             </defs>
-            <path
-              className="sarea"
-              d={info.sparkline.area}
-              style={{ fill: `url(#sg-${stage})` }}
-            />
+            <path className="sarea" d={info.sparkline.area} style={{ fill: `url(#sg-${stage})` }} />
             <path className="sline" d={info.sparkline.line} pathLength={1} />
           </svg>
         )}
@@ -143,9 +136,18 @@ const StageCard = ({ stage, persona }: Props) => {
         <details className="exp-details">
           <summary>The problem, what I ran, what moved</summary>
           <div className="cai">
-            <div><b>The problem</b><span>{problem}</span></div>
-            <div><b>What I ran</b><span>{ran}</span></div>
-            <div><b>What moved</b><span>{moved}</span></div>
+            <div>
+              <b>The problem</b>
+              <span>{problem}</span>
+            </div>
+            <div>
+              <b>What I ran</b>
+              <span>{ran}</span>
+            </div>
+            <div>
+              <b>What moved</b>
+              <span>{moved}</span>
+            </div>
           </div>
         </details>
       </article>

@@ -28,7 +28,9 @@ const CustomCursor = () => {
     const onOver = (e: MouseEvent) => {
       const el = e.target as HTMLElement | null;
       if (!el) return;
-      const hit = el.closest("a, button, summary, [data-cursor='hover'], input, textarea, .persona-chip");
+      const hit = el.closest(
+        "a, button, summary, [data-cursor='hover'], input, textarea, .persona-chip",
+      );
       setHovering(!!hit);
     };
     window.addEventListener("mousemove", onMove, { passive: true });
@@ -40,8 +42,10 @@ const CustomCursor = () => {
       dot.y += (target.y - dot.y) * 0.35;
       ring.x += (target.x - ring.x) * 0.12;
       ring.y += (target.y - ring.y) * 0.12;
-      if (dotRef.current) dotRef.current.style.transform = `translate3d(${dot.x}px,${dot.y}px,0) translate(-50%,-50%)`;
-      if (ringRef.current) ringRef.current.style.transform = `translate3d(${ring.x}px,${ring.y}px,0) translate(-50%,-50%)`;
+      if (dotRef.current)
+        dotRef.current.style.transform = `translate3d(${dot.x}px,${dot.y}px,0) translate(-50%,-50%)`;
+      if (ringRef.current)
+        ringRef.current.style.transform = `translate3d(${ring.x}px,${ring.y}px,0) translate(-50%,-50%)`;
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
@@ -57,16 +61,8 @@ const CustomCursor = () => {
   if (!enabled) return null;
   return (
     <>
-      <div
-        ref={ringRef}
-        aria-hidden="true"
-        className={`cc-ring ${hovering ? "cc-hover" : ""}`}
-      />
-      <div
-        ref={dotRef}
-        aria-hidden="true"
-        className={`cc-dot ${hovering ? "cc-hover" : ""}`}
-      />
+      <div ref={ringRef} aria-hidden="true" className={`cc-ring ${hovering ? "cc-hover" : ""}`} />
+      <div ref={dotRef} aria-hidden="true" className={`cc-dot ${hovering ? "cc-hover" : ""}`} />
     </>
   );
 };

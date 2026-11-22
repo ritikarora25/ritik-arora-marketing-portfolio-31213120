@@ -26,10 +26,13 @@ export const thoughts: Thought[] = [
       "In-house results and freelance client results are different things; evaluate both honestly when they appear in a profile.",
     ],
     seoTitle: "How to Choose a Freelance Growth Marketer for a Startup",
-    seoDescription: "A guide for Indian startups hiring a freelance growth marketer: match the hire to your funnel stage, five questions to ask, and how to read results.",
+    seoDescription:
+      "A guide for Indian startups hiring a freelance growth marketer: match the hire to your funnel stage, five questions to ask, and how to read results.",
     ogTitle: "How should Indian startups choose a freelance growth marketer?",
-    ogDescription: "Match the hire to the funnel stage that is failing, ask five practical questions, and read a candidate's results honestly.",
-    title: "How should Indian startups choose a freelance growth marketer? Skills, experience and questions to ask",
+    ogDescription:
+      "Match the hire to the funnel stage that is failing, ask five practical questions, and read a candidate's results honestly.",
+    title:
+      "How should Indian startups choose a freelance growth marketer? Skills, experience and questions to ask",
     date: "2026-11-20",
     displayDate: "Nov 20, 2026",
     tags: ["Growth", "Lifecycle", "CRM"],
@@ -146,13 +149,31 @@ The starting point is usually understanding the existing funnel, identifying the
 
 If this matches a problem your startup is working on, [book a 15-minute conversation](mailto:ritikchuchra1@gmail.com?subject=15-min%20chat) or [connect on LinkedIn](https://www.linkedin.com/in/ritikarora25/).`,
     sources: [
-      { label: "Dave McClure: Startup Metrics for Pirates (AARRR funnel)", url: "https://www.slideshare.net/slideshow/startup-metrics-for-pirates-long-version/89026" },
-      { label: "Reforge: the real definition of growth marketing", url: "https://www.reforge.com/blog/the-real-definition-of-growth-marketing" },
-      { label: "Lenny's Newsletter: how to hire your first growth team (Elena Verna, Andrea Wang)", url: "https://www.lennysnewsletter.com/t/hiring" },
+      {
+        label: "Dave McClure: Startup Metrics for Pirates (AARRR funnel)",
+        url: "https://www.slideshare.net/slideshow/startup-metrics-for-pirates-long-version/89026",
+      },
+      {
+        label: "Reforge: the real definition of growth marketing",
+        url: "https://www.reforge.com/blog/the-real-definition-of-growth-marketing",
+      },
+      {
+        label: "Lenny's Newsletter: how to hire your first growth team (Elena Verna, Andrea Wang)",
+        url: "https://www.lennysnewsletter.com/t/hiring",
+      },
       { label: "Ritik’s documented experience across all five funnel stages", url: "/" },
-      { label: "Lifecycle marketing strategy: one question per stage of the funnel", url: "/thoughts/lifecycle-marketing-strategy" },
-      { label: "Why CRM fails: when retention is a product problem, not a campaign problem", url: "/thoughts/crm-vs-product-problem" },
-      { label: "Customer reactivation: diagnose the gap before a win-back campaign", url: "/thoughts/customer-reactivation-before-win-back-campaign" },
+      {
+        label: "Lifecycle marketing strategy: one question per stage of the funnel",
+        url: "/thoughts/lifecycle-marketing-strategy",
+      },
+      {
+        label: "Why CRM fails: when retention is a product problem, not a campaign problem",
+        url: "/thoughts/crm-vs-product-problem",
+      },
+      {
+        label: "Customer reactivation: diagnose the gap before a win-back campaign",
+        url: "/thoughts/customer-reactivation-before-win-back-campaign",
+      },
     ],
   },
   {
@@ -165,9 +186,11 @@ If this matches a problem your startup is working on, [book a 15-minute conversa
       "Growth, CRM, lifecycle and retention terms are covered in depth, not just SEO and ads.",
     ],
     seoTitle: "Marketing Terms Glossary A–Z: Definitions & Formulas",
-    seoDescription: "140+ marketing terms A–Z explained in 1–3 lines, with formulas, top tools and a trusted source link for every definition. Free and easy to scan.",
+    seoDescription:
+      "140+ marketing terms A–Z explained in 1–3 lines, with formulas, top tools and a trusted source link for every definition. Free and easy to scan.",
     ogTitle: "Marketing terms glossary A–Z: definitions, formulas and tools",
-    ogDescription: "140+ marketing terms explained in 1–3 lines, with formulas, top tools and a source link for every definition.",
+    ogDescription:
+      "140+ marketing terms explained in 1–3 lines, with formulas, top tools and a source link for every definition.",
     title: "Marketing terms glossary A–Z: definitions, formulas and tools",
     date: "2026-11-18",
     displayDate: "Nov 18, 2026",
@@ -187,9 +210,11 @@ If this matches a problem your startup is working on, [book a 15-minute conversa
       "Read retention by cohort, and prove campaign effects with a holdout group.",
     ],
     seoTitle: "Retention Rate Formula: How to Calculate It Properly",
-    seoDescription: "Learn the customer retention rate formula, how to calculate retention rate by cohort, and why the blended number misleads. Worked example inside.",
+    seoDescription:
+      "Learn the customer retention rate formula, how to calculate retention rate by cohort, and why the blended number misleads. Worked example inside.",
     ogTitle: "Retention rate formula: how to calculate it properly",
-    ogDescription: "The textbook retention formula, why the blended number misleads, and how to measure it by cohort and buying rhythm.",
+    ogDescription:
+      "The textbook retention formula, why the blended number misleads, and how to measure it by cohort and buying rhythm.",
     title: "Retention rate formula: how to calculate customer retention properly",
     date: "2026-11-16",
     displayDate: "Nov 16, 2026",
@@ -279,10 +304,22 @@ Answer these before you report a retention number:
 
 For how retention fits with the other funnel stages, see my [lifecycle marketing strategy](/thoughts/lifecycle-marketing-strategy). For quick definitions of churn, cohort, LTV and other terms, see the [marketing terms glossary](/thoughts/marketing-glossary).`,
     sources: [
-      { label: "Zendesk: how to calculate customer retention rate (standard formula)", url: "https://www.zendesk.com/blog/customer-experience/retention/calculate-customer-retention-rate/" },
-      { label: "Amplitude: interpreting usage interval in retention analysis", url: "https://amplitude.com/docs/analytics/charts/retention-analysis/retention-analysis-interpret-usage" },
-      { label: "Braze: using control groups to measure customer engagement impact", url: "https://www.braze.com/resources/articles/using-global-control-groups-to-measure-the-impact-of-customer-engagement" },
-      { label: "Customer reactivation framework", url: "/thoughts/customer-reactivation-before-win-back-campaign" },
+      {
+        label: "Zendesk: how to calculate customer retention rate (standard formula)",
+        url: "https://www.zendesk.com/blog/customer-experience/retention/calculate-customer-retention-rate/",
+      },
+      {
+        label: "Amplitude: interpreting usage interval in retention analysis",
+        url: "https://amplitude.com/docs/analytics/charts/retention-analysis/retention-analysis-interpret-usage",
+      },
+      {
+        label: "Braze: using control groups to measure customer engagement impact",
+        url: "https://www.braze.com/resources/articles/using-global-control-groups-to-measure-the-impact-of-customer-engagement",
+      },
+      {
+        label: "Customer reactivation framework",
+        url: "/thoughts/customer-reactivation-before-win-back-campaign",
+      },
     ],
   },
   {
@@ -295,9 +332,11 @@ For how retention fits with the other funnel stages, see my [lifecycle marketing
       "Use holdout groups so you know whether a campaign caused the change.",
     ],
     seoTitle: "Lifecycle Marketing Strategy: One Question per Stage",
-    seoDescription: "A lifecycle marketing strategy built on one question, owner and success event per funnel stage — acquire to monetize — with examples from five roles.",
+    seoDescription:
+      "A lifecycle marketing strategy built on one question, owner and success event per funnel stage — acquire to monetize — with examples from five roles.",
     ogTitle: "Lifecycle marketing: one question per funnel stage",
-    ogDescription: "Acquire, activate, engage, retain, monetize — the single question each stage must answer, with real examples from five growth roles.",
+    ogDescription:
+      "Acquire, activate, engage, retain, monetize — the single question each stage must answer, with real examples from five growth roles.",
     title: "Lifecycle marketing strategy: one question per stage of the funnel",
     date: "2026-11-09",
     displayDate: "Nov 9, 2026",
@@ -345,8 +384,15 @@ A lifecycle marketing strategy is useful when it tells you what not to send as c
 For the Retain stage in practice, see [how to diagnose the gap before a win-back campaign](/thoughts/customer-reactivation-before-win-back-campaign); for choosing the tools each stage runs on, see [Sales CRM vs Customer Engagement Platform](/thoughts/best-crm-for-2027). Definitions of the terms used here are in the [marketing terms glossary](/thoughts/marketing-glossary).`,
     sources: [
       { label: "Ritik's documented experience across all five stages", url: "/#journey" },
-      { label: "Dave McClure: Startup Metrics for Pirates (the AARRR funnel this five-stage model adapts)", url: "https://www.slideshare.net/dmc500hats/startup-metrics-for-pirates-long-version" },
-      { label: "Braze: using control groups to measure customer engagement impact", url: "https://www.braze.com/resources/articles/using-global-control-groups-to-measure-the-impact-of-customer-engagement" },
+      {
+        label:
+          "Dave McClure: Startup Metrics for Pirates (the AARRR funnel this five-stage model adapts)",
+        url: "https://www.slideshare.net/dmc500hats/startup-metrics-for-pirates-long-version",
+      },
+      {
+        label: "Braze: using control groups to measure customer engagement impact",
+        url: "https://www.braze.com/resources/articles/using-global-control-groups-to-measure-the-impact-of-customer-engagement",
+      },
     ],
   },
   {
@@ -359,9 +405,11 @@ For the Retain stage in practice, see [how to diagnose the gap before a win-back
       "Confirm current pricing and WhatsApp costs directly with each vendor.",
     ],
     seoTitle: "Best CRM for 2027: Sales CRM vs Engagement Platform",
-    seoDescription: "Best CRM for 2027? Compare Sales CRM and Customer Engagement Platforms by sales motion, channels and data, with a free downloadable checklist.",
+    seoDescription:
+      "Best CRM for 2027? Compare Sales CRM and Customer Engagement Platforms by sales motion, channels and data, with a free downloadable checklist.",
     ogTitle: "Best CRM for 2027: Sales CRM or Customer Engagement Platform?",
-    ogDescription: "Choosing the best CRM for 2027? Compare Sales CRM and Customer Engagement Platforms by sales motion, channels, data and team capacity, with a downloadable checklist.",
+    ogDescription:
+      "Choosing the best CRM for 2027? Compare Sales CRM and Customer Engagement Platforms by sales motion, channels, data and team capacity, with a downloadable checklist.",
     title: "Best CRM for 2027: Sales CRM vs Customer Engagement Platform",
     date: "2026-11-09",
     displayDate: "Nov 9, 2026",
@@ -552,9 +600,18 @@ There is no single best CRM for 2027 — start from who closes the deal. Founder
 
 If your retention numbers are the reason you are shopping for software, read [customer reactivation: diagnose the gap before a win-back campaign](/thoughts/customer-reactivation-before-win-back-campaign) first — the tool rarely fixes a missing segmentation rule.`,
     sources: [
-      { label: "Braze: what a customer engagement platform is", url: "https://www.braze.com/resources/articles/what-is-a-customer-engagement-platform" },
-      { label: "HubSpot: CRM pricing by seat and tier", url: "https://www.hubspot.com/pricing/crm" },
-      { label: "Meta: WhatsApp Business Platform message pricing", url: "https://developers.facebook.com/docs/whatsapp/pricing" },
+      {
+        label: "Braze: what a customer engagement platform is",
+        url: "https://www.braze.com/resources/articles/what-is-a-customer-engagement-platform",
+      },
+      {
+        label: "HubSpot: CRM pricing by seat and tier",
+        url: "https://www.hubspot.com/pricing/crm",
+      },
+      {
+        label: "Meta: WhatsApp Business Platform message pricing",
+        url: "https://developers.facebook.com/docs/whatsapp/pricing",
+      },
     ],
   },
   {
@@ -567,9 +624,11 @@ If your retention numbers are the reason you are shopping for software, read [cu
       "A fill-in worksheet covers segment, reason, message, exit rules and measurement.",
     ],
     seoTitle: "Win-Back Campaign: Diagnose Why Customers Left First",
-    seoDescription: "Before your next win-back campaign, find why customers stopped buying. A practical customer reactivation framework for B2B repeat-purchase brands.",
+    seoDescription:
+      "Before your next win-back campaign, find why customers stopped buying. A practical customer reactivation framework for B2B repeat-purchase brands.",
     ogTitle: "Diagnose the gap before your next win-back campaign",
-    ogDescription: "Most reactivation campaigns fail because nobody asked why customers left. A practical framework for finding the gap first.",
+    ogDescription:
+      "Most reactivation campaigns fail because nobody asked why customers left. A practical framework for finding the gap first.",
     title: "Customer reactivation: diagnose the gap before a win-back campaign",
     date: "2026-11-01",
     displayDate: "Nov 1, 2026",
@@ -768,10 +827,22 @@ If the reason to return is missing, revisit product value or positioning first. 
 
 Reactivation is one stage of a wider plan; see [lifecycle marketing strategy: one question per stage](/thoughts/lifecycle-marketing-strategy). Definitions of the terms used here are in the [marketing terms glossary](/thoughts/marketing-glossary).`,
     sources: [
-      { label: "How to calculate retention rate by cohort and buying rhythm", url: "/thoughts/retention-rate-formula" },
-      { label: "Ritik's documented ApnaKlub retention experience and reported outcomes", url: "/#retain" },
-      { label: "Bloomreach: judging inactivity against purchase rhythm", url: "https://www.bloomreach.com/en/blog/win-back-emails-guide" },
-      { label: "Braze: using control groups to measure customer engagement impact", url: "https://www.braze.com/resources/articles/using-global-control-groups-to-measure-the-impact-of-customer-engagement" },
+      {
+        label: "How to calculate retention rate by cohort and buying rhythm",
+        url: "/thoughts/retention-rate-formula",
+      },
+      {
+        label: "Ritik's documented ApnaKlub retention experience and reported outcomes",
+        url: "/#retain",
+      },
+      {
+        label: "Bloomreach: judging inactivity against purchase rhythm",
+        url: "https://www.bloomreach.com/en/blog/win-back-emails-guide",
+      },
+      {
+        label: "Braze: using control groups to measure customer engagement impact",
+        url: "https://www.braze.com/resources/articles/using-global-control-groups-to-measure-the-impact-of-customer-engagement",
+      },
     ],
   },
   {
@@ -782,9 +853,11 @@ Reactivation is one stage of a wider plan; see [lifecycle marketing strategy: on
       "Unclear value and missing need are product or positioning problems, not messaging problems.",
     ],
     seoTitle: "Why CRM Fails: When Retention Is a Product Problem",
-    seoDescription: "When retention drops, CRM gets blamed. Learn to tell drop-off, unclear value and no real need apart before you brief your next CRM campaign.",
+    seoDescription:
+      "When retention drops, CRM gets blamed. Learn to tell drop-off, unclear value and no real need apart before you brief your next CRM campaign.",
     ogTitle: "CRM can’t fix a product problem",
-    ogDescription: "When retention dips, CRM gets the blame. Three signs the real problem is the product — and what to do instead.",
+    ogDescription:
+      "When retention dips, CRM gets the blame. Three signs the real problem is the product — and what to do instead.",
     title: "Why CRM fails: when retention is a product problem, not a campaign problem",
     date: "2026-10-07",
     displayDate: "Oct 7, 2026",
@@ -857,9 +930,18 @@ If the answers point to drop-off, CRM is the right fix. If they point to clarity
 
 For how this fits into each funnel stage, see [lifecycle marketing strategy: one question per stage](/thoughts/lifecycle-marketing-strategy). For a worked retention example, see [customer reactivation: diagnose the gap before a win-back campaign](/thoughts/customer-reactivation-before-win-back-campaign).`,
     sources: [
-      { label: "Marc Andreessen: the only thing that matters (product–market fit)", url: "https://pmarchive.com/guide_to_startups_part4.html" },
-      { label: "Lenny Rachitsky: how to know if you’ve got product–market fit", url: "https://www.lennysnewsletter.com/p/how-to-know-if-youve-got-productmarket" },
-      { label: "Ritik's documented onboarding, reactivation and conversion work", url: "/#journey" },
+      {
+        label: "Marc Andreessen: the only thing that matters (product–market fit)",
+        url: "https://pmarchive.com/guide_to_startups_part4.html",
+      },
+      {
+        label: "Lenny Rachitsky: how to know if you’ve got product–market fit",
+        url: "https://www.lennysnewsletter.com/p/how-to-know-if-youve-got-productmarket",
+      },
+      {
+        label: "Ritik's documented onboarding, reactivation and conversion work",
+        url: "/#journey",
+      },
     ],
     linkedinUrl: "https://lnkd.in/p/dpcZXJ-N",
   },
@@ -869,14 +951,21 @@ export const getThought = (slug: string) => thoughts.find((t) => t.slug === slug
 
 /** Other posts ranked by shared tags, then newest first. */
 const linksTo = (a: Thought, slug: string) =>
-  a.body.includes(`/thoughts/${slug}`) || (a.sources ?? []).some((s) => s.url === `/thoughts/${slug}`);
+  a.body.includes(`/thoughts/${slug}`) ||
+  (a.sources ?? []).some((s) => s.url === `/thoughts/${slug}`);
 
 export const getRelatedThoughts = (slug: string, limit = 3) => {
   const current = getThought(slug);
   if (!current) return [];
   return thoughts
     .filter((t) => t.slug !== slug)
-    .map((t) => ({ t, score: t.tags.filter((tag) => current.tags.includes(tag)).length + (linksTo(current, t.slug) ? 1 : 0), inbound: thoughts.filter((o) => linksTo(o, t.slug)).length }))
+    .map((t) => ({
+      t,
+      score:
+        t.tags.filter((tag) => current.tags.includes(tag)).length +
+        (linksTo(current, t.slug) ? 1 : 0),
+      inbound: thoughts.filter((o) => linksTo(o, t.slug)).length,
+    }))
     .sort((a, b) => b.score - a.score || b.inbound - a.inbound || b.t.date.localeCompare(a.t.date))
     .slice(0, limit)
     .map(({ t }) => t);

@@ -16,48 +16,115 @@ const ThoughtPost = () => {
 
   return (
     <PortfolioLayout>
-      <article className={`wrap thoughts-page thought-article${["customer-reactivation-before-win-back-campaign", "retention-rate-formula", "marketing-glossary", "how-to-choose-freelance-growth-marketer"].includes(t.slug) ? " thought-article-guide" : ""}`}>
-        <Link to="/thoughts" className="thought-back">← All thoughts</Link>
+      <article
+        className={`wrap thoughts-page thought-article${["customer-reactivation-before-win-back-campaign", "retention-rate-formula", "marketing-glossary", "how-to-choose-freelance-growth-marketer"].includes(t.slug) ? " thought-article-guide" : ""}`}
+      >
+        <Link to="/thoughts" className="thought-back">
+          ← All thoughts
+        </Link>
         <div className="thought-meta">
           <time dateTime={t.date}>{t.displayDate}</time>
-          {t.tags.map((tag) => <span key={tag} className="chip">{tag}</span>)}
+          {t.tags.map((tag) => (
+            <span key={tag} className="chip">
+              {tag}
+            </span>
+          ))}
         </div>
         <h1 className="thoughts-h1">{t.title}</h1>
         <picture>
-          <source type="image/webp" srcSet={`/og/${t.slug}-640.webp 640w, /og/${t.slug}-1200.webp 1200w`} sizes="(max-width: 760px) 100vw, 720px" />
-        <img
-          className="thought-cover"
-          src={`/og/${t.slug}.jpg`}
-          alt={t.title}
-          width={1200}
-          height={630}
-          decoding="async"
-          fetchPriority="high"
-        />
+          <source
+            type="image/webp"
+            srcSet={`/og/${t.slug}-640.webp 640w, /og/${t.slug}-1200.webp 1200w`}
+            sizes="(max-width: 760px) 100vw, 720px"
+          />
+          <img
+            className="thought-cover"
+            src={`/og/${t.slug}.jpg`}
+            alt={t.title}
+            width={1200}
+            height={630}
+            decoding="async"
+            fetchPriority="high"
+          />
         </picture>
         <ShareButtons slug={t.slug} title={t.ogTitle ?? t.title} />
         {t.takeaways && t.takeaways.length > 0 && (
           <aside className="thought-takeaways" aria-labelledby="takeaways-h">
-            <h2 id="takeaways-h" className="thought-takeaways-h">Key takeaways</h2>
-            <ul>{t.takeaways.map((k, i) => <li key={i}>{k}</li>)}</ul>
+            <h2 id="takeaways-h" className="thought-takeaways-h">
+              Key takeaways
+            </h2>
+            <ul>
+              {t.takeaways.map((k, i) => (
+                <li key={i}>{k}</li>
+              ))}
+            </ul>
           </aside>
         )}
         <div className="thought-body">
           {paragraphs.map((p, i) => {
-            if (p.startsWith("> ")) return <blockquote key={i}>{renderInline(p.slice(2))}</blockquote>;
-            if (p.startsWith("- ")) return <ul key={i} className="thought-checklist">{p.split("\n").map((line, j) => {
-              const name = t.slug === "marketing-glossary" ? line.match(/^- \*\*(.+?):\*\*/)?.[1] : undefined;
-              const slug = name ? termSlug(name) : undefined;
-              return <li key={j} id={slug}>{renderInline(line.replace(/^- /, ""))}{slug && name && <> <TermCopyLink slug={slug} term={name} /></>}</li>;
-            })}</ul>;
+            if (p.startsWith("> "))
+              return <blockquote key={i}>{renderInline(p.slice(2))}</blockquote>;
+            if (p.startsWith("- "))
+              return (
+                <ul key={i} className="thought-checklist">
+                  {p.split("\n").map((line, j) => {
+                    const name =
+                      t.slug === "marketing-glossary"
+                        ? line.match(/^- \*\*(.+?):\*\*/)?.[1]
+                        : undefined;
+                    const slug = name ? termSlug(name) : undefined;
+                    return (
+                      <li key={j} id={slug}>
+                        {renderInline(line.replace(/^- /, ""))}
+                        {slug && name && (
+                          <>
+                            {" "}
+                            <TermCopyLink slug={slug} term={name} />
+                          </>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              );
             if (p.startsWith("|")) {
-              const rows = p.split("\n").filter((l) => !/^\|[\s|:-]+\|$/.test(l)).map((l) => l.replace(/^\||\|$/g, "").split("|").map((c) => c.trim()));
+              const rows = p
+                .split("\n")
+                .filter((l) => !/^\|[\s|:-]+\|$/.test(l))
+                .map((l) =>
+                  l
+                    .replace(/^\||\|$/g, "")
+                    .split("|")
+                    .map((c) => c.trim()),
+                );
               const [head = [], ...body] = rows;
               return (
                 <div key={i} className="thought-table-wrap">
                   <table className="thought-table">
-                    <thead><tr>{head.map((c, j) => <th key={j} scope="col">{renderInline(c)}</th>)}</tr></thead>
-                    <tbody>{body.map((r, k) => <tr key={k}>{r.map((c, j) => j === 0 ? <th key={j} scope="row">{renderInline(c)}</th> : <td key={j}>{renderInline(c)}</td>)}</tr>)}</tbody>
+                    <thead>
+                      <tr>
+                        {head.map((c, j) => (
+                          <th key={j} scope="col">
+                            {renderInline(c)}
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {body.map((r, k) => (
+                        <tr key={k}>
+                          {r.map((c, j) =>
+                            j === 0 ? (
+                              <th key={j} scope="row">
+                                {renderInline(c)}
+                              </th>
+                            ) : (
+                              <td key={j}>{renderInline(c)}</td>
+                            ),
+                          )}
+                        </tr>
+                      ))}
+                    </tbody>
                   </table>
                 </div>
               );
@@ -65,11 +132,26 @@ const ThoughtPost = () => {
             if (p.startsWith("### ")) {
               // Numbered sections are peers, never children of a previous section;
               // a "### " heading with no earlier h2 renders as h2 so levels never skip.
-              return thoughtHeadingTag(paragraphs, i) === "h3"
-                ? <h3 key={i} className="thought-h3">{renderInline(p.slice(4))}</h3>
-                : <h2 key={i} className="thought-h2">{renderInline(p.slice(4))}</h2>;
+              return thoughtHeadingTag(paragraphs, i) === "h3" ? (
+                <h3 key={i} className="thought-h3">
+                  {renderInline(p.slice(4))}
+                </h3>
+              ) : (
+                <h2 key={i} className="thought-h2">
+                  {renderInline(p.slice(4))}
+                </h2>
+              );
             }
-            if (p.startsWith("## ")) return <h2 key={i} id={/^## [A-Z]$/.test(p) ? `letter-${p.slice(3).toLowerCase()}` : undefined} className="thought-h2">{renderInline(p.slice(3))}</h2>;
+            if (p.startsWith("## "))
+              return (
+                <h2
+                  key={i}
+                  id={/^## [A-Z]$/.test(p) ? `letter-${p.slice(3).toLowerCase()}` : undefined}
+                  className="thought-h2"
+                >
+                  {renderInline(p.slice(3))}
+                </h2>
+              );
             const m = p.match(/^(\d+\.\s+[^\n]+)\n([\s\S]+)$/);
             if (m) {
               return (
@@ -84,14 +166,18 @@ const ThoughtPost = () => {
         </div>
         {t.sources && t.sources.length > 0 && (
           <section className="thought-body" aria-labelledby="sources-h">
-            <h2 id="sources-h" className="thought-h2">Sources and evidence</h2>
+            <h2 id="sources-h" className="thought-h2">
+              Sources and evidence
+            </h2>
             <ul>
               {t.sources.map((source) => (
                 <li key={source.url}>
                   {source.url.startsWith("/") ? (
                     <Link to={source.url}>{source.label}</Link>
                   ) : (
-                    <a href={source.url} target="_blank" rel="noopener noreferrer">{source.label} ↗</a>
+                    <a href={source.url} target="_blank" rel="noopener noreferrer">
+                      {source.label} ↗
+                    </a>
                   )}
                 </li>
               ))}
@@ -99,27 +185,48 @@ const ThoughtPost = () => {
           </section>
         )}
         {t.linkedinUrl && (
-          <a className="btn btn-ghost" href={t.linkedinUrl} target="_blank" rel="noopener noreferrer">
+          <a
+            className="btn btn-ghost"
+            href={t.linkedinUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             Originally on LinkedIn ↗
           </a>
         )}
         <section className="thought-author" aria-labelledby="author-h">
-          <h2 id="author-h" className="thought-takeaways-h">About the author</h2>
+          <h2 id="author-h" className="thought-takeaways-h">
+            About the author
+          </h2>
           <p>
-            <strong>Ritik Arora</strong> is a growth and retention marketer with 5+ years in CRM, lifecycle marketing and product marketing across fintech, auto, B2B commerce and sports analytics — most recently at Freo.{" "}
-            <Link to="/">See his experience</Link> or{" "}
-            <a href="https://www.linkedin.com/in/ritikarora25/" target="_blank" rel="noopener noreferrer author">connect on LinkedIn</a>.
+            <strong>Ritik Arora</strong> is a growth and retention marketer with 5+ years in CRM,
+            lifecycle marketing and product marketing across fintech, auto, B2B commerce and sports
+            analytics — most recently at Freo. <Link to="/">See his experience</Link> or{" "}
+            <a
+              href="https://www.linkedin.com/in/ritikarora25/"
+              target="_blank"
+              rel="noopener noreferrer author"
+            >
+              connect on LinkedIn
+            </a>
+            .
           </p>
         </section>
         <nav className="thought-related" aria-labelledby="related-h">
-          <h2 id="related-h" className="thought-h2">More thoughts</h2>
+          <h2 id="related-h" className="thought-h2">
+            More thoughts
+          </h2>
           {related.length > 0 && (
             <div className="thoughts-list">
               {related.map((r) => (
                 <Link key={r.slug} to={`/thoughts/${r.slug}`} className="thought-card">
                   <div className="thought-meta">
                     <time dateTime={r.date}>{r.displayDate}</time>
-                    {r.tags.map((tag) => <span key={tag} className="chip">{tag}</span>)}
+                    {r.tags.map((tag) => (
+                      <span key={tag} className="chip">
+                        {tag}
+                      </span>
+                    ))}
                   </div>
                   <h2 className="thought-title">{r.title}</h2>
                   <p className="thought-summary">{r.summary}</p>
@@ -147,19 +254,47 @@ function ShareButtons({ slug, title }: { slug: string; title: string }) {
   const [copied, setCopied] = useState(false);
   const copy = async () => {
     try {
-      if (navigator.share) { await navigator.share({ title, url }); return; }
+      if (navigator.share) {
+        await navigator.share({ title, url });
+        return;
+      }
       await navigator.clipboard.writeText(url);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-    } catch { /* cancelled */ }
+    } catch {
+      /* cancelled */
+    }
   };
   return (
     <div className="thought-share" aria-label="Share this article">
       <span className="thought-share-label">Share</span>
-      <a className="chip" href={`https://www.linkedin.com/sharing/share-offsite/?url=${u}`} target="_blank" rel="noopener noreferrer">LinkedIn</a>
-      <a className="chip" href={`https://x.com/intent/tweet?url=${u}&text=${tx}`} target="_blank" rel="noopener noreferrer">X</a>
-      <a className="chip" href={`https://wa.me/?text=${tx}%20${u}`} target="_blank" rel="noopener noreferrer">WhatsApp</a>
-      <button type="button" className="chip" onClick={copy}>{copied ? "Link copied" : "Copy link"}</button>
+      <a
+        className="chip"
+        href={`https://www.linkedin.com/sharing/share-offsite/?url=${u}`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        LinkedIn
+      </a>
+      <a
+        className="chip"
+        href={`https://x.com/intent/tweet?url=${u}&text=${tx}`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        X
+      </a>
+      <a
+        className="chip"
+        href={`https://wa.me/?text=${tx}%20${u}`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        WhatsApp
+      </a>
+      <button type="button" className="chip" onClick={copy}>
+        {copied ? "Link copied" : "Copy link"}
+      </button>
     </div>
   );
 }
@@ -168,12 +303,34 @@ function ShareButtons({ slug, title }: { slug: string; title: string }) {
 function renderInline(text: string) {
   const parts = text.split(/(\[[^\]]+\]\((?:https?:\/\/|mailto:|\/|#)[^)\s]*\)|\*\*[^*]+\*\*)/g);
   return parts.map((part, i) => {
-    if (part.startsWith("**") && part.endsWith("**")) return <strong key={i}>{part.slice(2, -2)}</strong>;
+    if (part.startsWith("**") && part.endsWith("**"))
+      return <strong key={i}>{part.slice(2, -2)}</strong>;
     const m = part.match(/^\[([^\]]+)\]\(((?:https?:\/\/|mailto:|\/|#)[^)\s]*)\)$/);
     const [, label = "", href = ""] = m ?? [];
-    if (m && href.startsWith("/downloads/")) return <a key={i} href={href} download>{label}</a>;
-    if (m && href.startsWith("#")) return <a key={i} href={href}>{label}</a>;
-    if (m && href.startsWith("/")) return <Link key={i} to={href}>{label}</Link>;
-    return m ? <a key={i} href={m[2]} target="_blank" rel="noopener">{m[1]}</a> : part;
+    if (m && href.startsWith("/downloads/"))
+      return (
+        <a key={i} href={href} download>
+          {label}
+        </a>
+      );
+    if (m && href.startsWith("#"))
+      return (
+        <a key={i} href={href}>
+          {label}
+        </a>
+      );
+    if (m && href.startsWith("/"))
+      return (
+        <Link key={i} to={href}>
+          {label}
+        </Link>
+      );
+    return m ? (
+      <a key={i} href={m[2]} target="_blank" rel="noopener">
+        {m[1]}
+      </a>
+    ) : (
+      part
+    );
   });
 }

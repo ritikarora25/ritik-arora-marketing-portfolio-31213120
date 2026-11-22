@@ -10,9 +10,18 @@ export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: async () =>
-        new Response(sitemapXml(thoughts.map((t) => t.slug), KNOWN_LASTMOD), {
-          headers: { "Content-Type": "application/xml; charset=utf-8", "Cache-Control": "public, max-age=3600" },
-        }),
+        new Response(
+          sitemapXml(
+            thoughts.map((t) => t.slug),
+            KNOWN_LASTMOD,
+          ),
+          {
+            headers: {
+              "Content-Type": "application/xml; charset=utf-8",
+              "Cache-Control": "public, max-age=3600",
+            },
+          },
+        ),
     },
   },
 });

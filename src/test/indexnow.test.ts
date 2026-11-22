@@ -8,7 +8,10 @@ describe("IndexNow", () => {
     const urls = indexNowPayload().urlList;
     expect(urls).toContain("https://ritik-arora-marketing-portfolio.lovable.app/");
     expect(urls).toContain("https://ritik-arora-marketing-portfolio.lovable.app/thoughts");
-    for (const t of thoughts) expect(urls).toContain(`https://ritik-arora-marketing-portfolio.lovable.app/thoughts/${t.slug}`);
+    for (const t of thoughts)
+      expect(urls).toContain(
+        `https://ritik-arora-marketing-portfolio.lovable.app/thoughts/${t.slug}`,
+      );
   });
   it("publishes a key file matching the key", () => {
     const file = `public/${INDEXNOW_KEY}.txt`;

@@ -13,10 +13,13 @@ export function TermCopyLink({ slug, term }: { slug: string; term: string }) {
         e.preventDefault();
         const url = `${window.location.origin}${window.location.pathname}#${slug}`;
         window.history.replaceState(null, "", `#${slug}`);
-        navigator.clipboard?.writeText(url).then(() => {
-          setCopied(true);
-          window.setTimeout(() => setCopied(false), 1600);
-        }).catch(() => {});
+        navigator.clipboard
+          ?.writeText(url)
+          .then(() => {
+            setCopied(true);
+            window.setTimeout(() => setCopied(false), 1600);
+          })
+          .catch(() => {});
       }}
     >
       {copied ? "Copied!" : "#"}

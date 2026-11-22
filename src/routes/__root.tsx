@@ -28,9 +28,27 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "icon", href: "/favicon.ico" },
-      { rel: "preload", as: "font", type: "font/woff2", href: "/fonts/poppins-400.woff2", crossOrigin: "anonymous" },
-      { rel: "preload", as: "font", type: "font/woff2", href: "/fonts/poppins-700.woff2", crossOrigin: "anonymous" },
-      { rel: "preload", as: "font", type: "font/woff2", href: "/fonts/poppins-600.woff2", crossOrigin: "anonymous" },
+      {
+        rel: "preload",
+        as: "font",
+        type: "font/woff2",
+        href: "/fonts/poppins-400.woff2",
+        crossOrigin: "anonymous",
+      },
+      {
+        rel: "preload",
+        as: "font",
+        type: "font/woff2",
+        href: "/fonts/poppins-700.woff2",
+        crossOrigin: "anonymous",
+      },
+      {
+        rel: "preload",
+        as: "font",
+        type: "font/woff2",
+        href: "/fonts/poppins-600.woff2",
+        crossOrigin: "anonymous",
+      },
     ],
     scripts: [
       {
@@ -114,7 +132,9 @@ function RootError({ error, reset }: ErrorComponentProps) {
           >
             Try again
           </button>
-          <Link to="/" className="btn btn-ghost">Go home</Link>
+          <Link to="/" className="btn btn-ghost">
+            Go home
+          </Link>
         </div>
       </div>
     </div>

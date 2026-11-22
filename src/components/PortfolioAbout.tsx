@@ -1,8 +1,11 @@
 import { useEffect, useRef } from "react";
 
-const PARA1 = "I build the messages and journeys that make people stick around — whether that's called CRM, retention, growth, or brand.";
-const PARA2 = "What I've learned across every role is that people don't respond to messages — they respond to being understood. Get the understanding right first, and the message almost writes itself. Get it wrong, and no amount of creative or budget fixes it.";
-const PARA3 = "Outside the work, I'm usually in the middle of a learning loop — a cohort, a community, a conversation that shifts how I think. I believe you grow faster through experiences than through time, which is why I'm always up for swapping ideas or brainstorming a journey — ideally over chai.";
+const PARA1 =
+  "I build the messages and journeys that make people stick around — whether that's called CRM, retention, growth, or brand.";
+const PARA2 =
+  "What I've learned across every role is that people don't respond to messages — they respond to being understood. Get the understanding right first, and the message almost writes itself. Get it wrong, and no amount of creative or budget fixes it.";
+const PARA3 =
+  "Outside the work, I'm usually in the middle of a learning loop — a cohort, a community, a conversation that shifts how I think. I believe you grow faster through experiences than through time, which is why I'm always up for swapping ideas or brainstorming a journey — ideally over chai.";
 
 const PortfolioAbout = () => {
   const p1Ref = useRef<HTMLParagraphElement>(null);
@@ -13,14 +16,20 @@ const PortfolioAbout = () => {
   useEffect(() => {
     const rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const nodes = [p1Ref.current, p3Ref.current].filter((n): n is HTMLParagraphElement => !!n);
-    if (rm) { nodes.forEach((n) => n.classList.add("in")); return; }
+    if (rm) {
+      nodes.forEach((n) => n.classList.add("in"));
+      return;
+    }
     const obs = new IntersectionObserver(
       (entries, o) => {
         entries.forEach((e) => {
-          if (e.isIntersecting) { e.target.classList.add("in"); o.unobserve(e.target); }
+          if (e.isIntersecting) {
+            e.target.classList.add("in");
+            o.unobserve(e.target);
+          }
         });
       },
-      { threshold: 0.3 }
+      { threshold: 0.3 },
     );
     nodes.forEach((n) => obs.observe(n));
     return () => obs.disconnect();
@@ -31,7 +40,10 @@ const PortfolioAbout = () => {
     const rm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const para = para2Ref.current;
     if (!para) return;
-    if (rm) { para.querySelectorAll(".char-unit").forEach((c) => c.classList.add("on")); return; }
+    if (rm) {
+      para.querySelectorAll(".char-unit").forEach((c) => c.classList.add("on"));
+      return;
+    }
     const lives = Array.from(para.querySelectorAll<HTMLSpanElement>(".char-unit"));
     const total = lives.length;
     const update = () => {
@@ -41,7 +53,9 @@ const PortfolioAbout = () => {
       const endY = vh * 0.2;
       const prog = Math.min(Math.max((startY - r.top) / (startY - endY + r.height * 0.3), 0), 1);
       const n = Math.floor(prog * total);
-      lives.forEach((c, i) => { c.classList.toggle("on", i < n); });
+      lives.forEach((c, i) => {
+        c.classList.toggle("on", i < n);
+      });
     };
     window.addEventListener("scroll", update, { passive: true });
     update();
@@ -55,17 +69,23 @@ const PortfolioAbout = () => {
         <span className="section-tag">Who's behind the numbers</span>
       </div>
       <div className="about-text">
-        <p className="reveal-p" ref={p1Ref}>{PARA1}</p>
+        <p className="reveal-p" ref={p1Ref}>
+          {PARA1}
+        </p>
         <p className="char-para" ref={para2Ref}>
           {PARA2.split(/(\s+)/).map((word, w) => (
             <span key={w} className="char-word">
               {Array.from(word).map((ch, i) => (
-                <span key={i} className="char-unit">{ch}</span>
+                <span key={i} className="char-unit">
+                  {ch}
+                </span>
               ))}
             </span>
           ))}
         </p>
-        <p className="reveal-p" ref={p3Ref}>{PARA3}</p>
+        <p className="reveal-p" ref={p3Ref}>
+          {PARA3}
+        </p>
       </div>
     </section>
   );

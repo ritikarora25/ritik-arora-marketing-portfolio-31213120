@@ -31,7 +31,10 @@ describe("Article heading levels", () => {
         }
         if (p.startsWith("### ")) {
           const tag = thoughtHeadingTag(paragraphs, i);
-          expect(tag === "h3" ? seenH2 : true, `${t.slug} paragraph ${i} skips a heading level`).toBe(true);
+          expect(
+            tag === "h3" ? seenH2 : true,
+            `${t.slug} paragraph ${i} skips a heading level`,
+          ).toBe(true);
         }
       });
     }

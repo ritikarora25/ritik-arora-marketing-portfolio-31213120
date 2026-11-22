@@ -3,7 +3,16 @@ import { motion } from "motion/react";
 const groups = [
   {
     title: "CRM & Analytics",
-    chips: ["CleverTap", "WebEngage", "Netcore", "MoEngage", "Mixpanel", "Tableau", "Google Analytics", "SQL (Basic)"],
+    chips: [
+      "CleverTap",
+      "WebEngage",
+      "Netcore",
+      "MoEngage",
+      "Mixpanel",
+      "Tableau",
+      "Google Analytics",
+      "SQL (Basic)",
+    ],
   },
   {
     title: "Channels",

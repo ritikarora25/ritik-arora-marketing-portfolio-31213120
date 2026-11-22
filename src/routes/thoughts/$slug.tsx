@@ -12,18 +12,38 @@ export const Route = createFileRoute("/thoughts/$slug")({
   },
   head: ({ loaderData }) => {
     const t = loaderData?.thought;
-    if (!t) return { meta: [{ title: "Not found — Ritik Arora" }, { name: "robots", content: "noindex" }] };
+    if (!t)
+      return {
+        meta: [{ title: "Not found — Ritik Arora" }, { name: "robots", content: "noindex" }],
+      };
     const url = `${SITE}/thoughts/${t.slug}`;
     return {
       meta: [
-        ...pageMeta({ title: t.seoTitle ?? `${t.title} — Ritik Arora`, ogTitle: t.ogTitle ?? t.title, ogDescription: t.ogDescription, description: t.seoDescription ?? t.summary, path: `/thoughts/${t.slug}`, type: "article", image: articleShareImage(t.slug), imageAlt: t.title }),
+        ...pageMeta({
+          title: t.seoTitle ?? `${t.title} — Ritik Arora`,
+          ogTitle: t.ogTitle ?? t.title,
+          ogDescription: t.ogDescription,
+          description: t.seoDescription ?? t.summary,
+          path: `/thoughts/${t.slug}`,
+          type: "article",
+          image: articleShareImage(t.slug),
+          imageAlt: t.title,
+        }),
         { property: "article:published_time", content: t.date },
         { property: "article:author", content: "Ritik Arora" },
         ...t.tags.map((tag) => ({ property: "article:tag", content: tag })),
       ],
       links: [
         { rel: "canonical", href: url },
-        { rel: "preload", as: "image", type: "image/webp", href: `/og/${t.slug}-1200.webp`, imageSrcSet: `/og/${t.slug}-640.webp 640w, /og/${t.slug}-1200.webp 1200w`, imageSizes: "(max-width: 760px) 100vw, 720px", fetchPriority: "high" },
+        {
+          rel: "preload",
+          as: "image",
+          type: "image/webp",
+          href: `/og/${t.slug}-1200.webp`,
+          imageSrcSet: `/og/${t.slug}-640.webp 640w, /og/${t.slug}-1200.webp 1200w`,
+          imageSizes: "(max-width: 760px) 100vw, 720px",
+          fetchPriority: "high",
+        },
       ],
       scripts: [
         {

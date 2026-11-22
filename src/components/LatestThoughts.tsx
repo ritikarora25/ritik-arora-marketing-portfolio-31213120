@@ -5,22 +5,39 @@ const LatestThoughts = () => {
   const latest = [...thoughts].sort((a, b) => b.date.localeCompare(a.date)).slice(0, 3);
   if (!latest.length) return null;
   return (
-    <section className="wrap" id="writing" aria-labelledby="writing-h" style={{ padding: "40px 28px" }}>
+    <section
+      className="wrap"
+      id="writing"
+      aria-labelledby="writing-h"
+      style={{ padding: "40px 28px" }}
+    >
       <div className="section-head">
         <h2 id="writing-h">Latest writing</h2>
-        <span className="section-tag">Swipe ↕ · <Link to="/thoughts">All thoughts →</Link></span>
+        <span className="section-tag">
+          Swipe ↕ · <Link to="/thoughts">All thoughts →</Link>
+        </span>
       </div>
-      <ul className="thoughts-list thoughts-swipe" tabIndex={0} aria-label="Latest posts, scroll or swipe up for more">
+      <ul
+        className="thoughts-list thoughts-swipe"
+        tabIndex={0}
+        aria-label="Latest posts, scroll or swipe up for more"
+      >
         {latest.map((t) => (
-          <li key={t.slug}><Link to={`/thoughts/${t.slug}`} className="thought-card">
-            <div className="thought-meta">
-              <time dateTime={t.date}>{t.displayDate}</time>
-              {t.tags.map((tag) => <span key={tag} className="chip">{tag}</span>)}
-            </div>
-            <h3 className="thought-title">{t.title}</h3>
-            <p className="thought-summary">{t.summary}</p>
-            <span className="thought-cta">Read full post →</span>
-          </Link></li>
+          <li key={t.slug}>
+            <Link to={`/thoughts/${t.slug}`} className="thought-card">
+              <div className="thought-meta">
+                <time dateTime={t.date}>{t.displayDate}</time>
+                {t.tags.map((tag) => (
+                  <span key={tag} className="chip">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+              <h3 className="thought-title">{t.title}</h3>
+              <p className="thought-summary">{t.summary}</p>
+              <span className="thought-cta">Read full post →</span>
+            </Link>
+          </li>
         ))}
       </ul>
     </section>

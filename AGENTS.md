@@ -12,3 +12,4 @@
 - Numbered article sections are peer H2 headings; reserve H3 for unnumbered subsections beneath an H2 so the shared renderer preserves their hierarchy.
 - Structured data uses shared content graph helpers with stable Person, WebSite, page and article IDs; keep route head output linked to real content and never invent publication or modification dates.
 - IndexNow key lives in src/lib/indexnow.ts with a matching public/<key>.txt; ping Bing after publish with scripts/indexnow-ping.ts (URL list shares the Thoughts source with the sitemap).
+- Formatting is Prettier with `.prettierrc` (printWidth 100) and `.prettierignore` excluding generated files; ESLint ignores the same generated files. Run `bun run format` before committing so lint shows only real issues.

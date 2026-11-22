@@ -7,13 +7,23 @@ const Thoughts = () => (
     <section className="wrap thoughts-page">
       <p className="thoughts-eyebrow">Thoughts</p>
       <h1 className="thoughts-h1">Field notes on CRM, retention & growth</h1>
-      <p className="thoughts-lead">Notes and practical frameworks from work across CRM, lifecycle and retention. Free download: <a href="/downloads/crm-vs-cep-checklist.pdf" download>Sales CRM vs CEP checklist (PDF)</a>.</p>
+      <p className="thoughts-lead">
+        Notes and practical frameworks from work across CRM, lifecycle and retention. Free download:{" "}
+        <a href="/downloads/crm-vs-cep-checklist.pdf" download>
+          Sales CRM vs CEP checklist (PDF)
+        </a>
+        .
+      </p>
       <div className="thoughts-list">
         {thoughts.map((t) => (
           <Link key={t.slug} to={`/thoughts/${t.slug}`} className="thought-card">
             <div className="thought-meta">
               <time dateTime={t.date}>{t.displayDate}</time>
-              {t.tags.map((tag) => <span key={tag} className="chip">{tag}</span>)}
+              {t.tags.map((tag) => (
+                <span key={tag} className="chip">
+                  {tag}
+                </span>
+              ))}
             </div>
             <h2 className="thought-title">{t.title}</h2>
             <p className="thought-summary">{t.summary}</p>

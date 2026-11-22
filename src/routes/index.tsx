@@ -9,18 +9,33 @@ export const Route = createFileRoute("/")({
     meta: pageMeta({
       title: "Ritik Arora — Growth, CRM & Lifecycle Marketer",
       ogTitle: "Ritik Arora | Growth, CRM & Lifecycle Marketing",
-      description: "Ritik Arora is a growth marketer with 5+ years in CRM, lifecycle and retention marketing across fintech, auto and B2B commerce, most recently at Freo.",
+      description:
+        "Ritik Arora is a growth marketer with 5+ years in CRM, lifecycle and retention marketing across fintech, auto and B2B commerce, most recently at Freo.",
       path: "/",
       type: "website",
     }),
     links: [
       { rel: "canonical", href: `${SITE}/` },
-      { rel: "preload", as: "image", type: "image/webp", href: "/lovable-uploads/b900e373-588f-4459-b950-6d8f999f7d94-448.webp", imageSrcSet: "/lovable-uploads/b900e373-588f-4459-b950-6d8f999f7d94-224.webp 224w, /lovable-uploads/b900e373-588f-4459-b950-6d8f999f7d94-448.webp 448w", imageSizes: "(max-width: 800px) 110px, 220px", fetchPriority: "high" },
+      {
+        rel: "preload",
+        as: "image",
+        type: "image/webp",
+        href: "/lovable-uploads/b900e373-588f-4459-b950-6d8f999f7d94-448.webp",
+        imageSrcSet:
+          "/lovable-uploads/b900e373-588f-4459-b950-6d8f999f7d94-224.webp 224w, /lovable-uploads/b900e373-588f-4459-b950-6d8f999f7d94-448.webp 448w",
+        imageSizes: "(max-width: 800px) 110px, 220px",
+        fetchPriority: "high",
+      },
     ],
-    scripts: [{ type: "application/ld+json", children: JSON.stringify({
-      "@context": "https://schema.org",
-      "@graph": [profileJsonLd, websiteJsonLd],
-    }) }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@graph": [profileJsonLd, websiteJsonLd],
+        }),
+      },
+    ],
   }),
   component: Index,
 });

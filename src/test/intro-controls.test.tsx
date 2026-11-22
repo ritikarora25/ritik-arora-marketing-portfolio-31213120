@@ -10,7 +10,9 @@ afterEach(() => {
 
 const pressSpace = () => {
   const event = new KeyboardEvent("keydown", { key: " ", cancelable: true });
-  act(() => { window.dispatchEvent(event); });
+  act(() => {
+    window.dispatchEvent(event);
+  });
   return event.defaultPrevented;
 };
 
@@ -22,7 +24,9 @@ describe("Intro keyboard controls", () => {
     expect(pressSpace()).toBe(true);
     fireEvent.click(getByRole("button", { name: "Skip intro" }));
     expect(pressSpace()).toBe(false);
-    act(() => { vi.advanceTimersByTime(300); });
+    act(() => {
+      vi.advanceTimersByTime(300);
+    });
     expect(pressSpace()).toBe(false);
   });
 
@@ -31,7 +35,9 @@ describe("Intro keyboard controls", () => {
     vi.stubGlobal("innerWidth", 1280);
     render(<IntroAnimation />);
     for (let i = 0; i < 10; i++) {
-      act(() => { vi.advanceTimersByTime(10000); });
+      act(() => {
+        vi.advanceTimersByTime(10000);
+      });
     }
     expect(pressSpace()).toBe(false);
   });
@@ -43,7 +49,10 @@ describe("Intro keyboard controls", () => {
     render(<IntroAnimation />);
     expect(document.documentElement.style.overflow).toBe("hidden");
     const scroll = vi.spyOn(window, "scrollTo");
-    for (let i = 0; i < 10; i++) act(() => { vi.advanceTimersByTime(10000); });
+    for (let i = 0; i < 10; i++)
+      act(() => {
+        vi.advanceTimersByTime(10000);
+      });
     expect(document.documentElement.style.overflow).toBe("");
     expect(scroll).toHaveBeenCalledWith(0, 0);
   });

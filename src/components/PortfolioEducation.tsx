@@ -35,11 +35,19 @@ const PortfolioEducation = () => (
       >
         <motion.div className="edu-col" variants={rise}>
           <h3>Education</h3>
-          <motion.div className="edu-item" whileHover={{ y: -3 }} transition={{ type: "spring", stiffness: 300, damping: 20 }}>
+          <motion.div
+            className="edu-item"
+            whileHover={{ y: -3 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          >
             <div className="t">MBA, Marketing Management</div>
             <div className="s">Chaudhary Devi Lal University · 2018–2020</div>
           </motion.div>
-          <motion.div className="edu-item" whileHover={{ y: -3 }} transition={{ type: "spring", stiffness: 300, damping: 20 }}>
+          <motion.div
+            className="edu-item"
+            whileHover={{ y: -3 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          >
             <div className="t">Bachelor of Commerce</div>
             <div className="s">Chaudhary Devi Lal University · 2014–2017</div>
           </motion.div>
@@ -70,9 +78,16 @@ const PortfolioEducation = () => (
 
         <motion.div className="edu-col" variants={rise}>
           <h3>Recognition & Languages</h3>
-          <motion.div className="award" whileHover={{ y: -3 }} transition={{ type: "spring", stiffness: 300, damping: 20 }}>
+          <motion.div
+            className="award"
+            whileHover={{ y: -3 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          >
             <div className="t">🏆 Top Gun Award — 1K Kirana Bazaar</div>
-            <div className="d">Jan 2023 · Awarded for launching the monetization charter and driving ₹50L+ revenue in the first 6 months.</div>
+            <div className="d">
+              Jan 2023 · Awarded for launching the monetization charter and driving ₹50L+ revenue in
+              the first 6 months.
+            </div>
           </motion.div>
           {langs.map((l) => (
             <div className="lang-row" key={l.name}>
