@@ -209,7 +209,7 @@ const PortfolioHero = ({ persona, setPersona }: Props) => {
               sizes="(max-width: 800px) 110px, 220px"
             />
             <img
-              alt="Ritik Arora"
+              alt="Portrait photo of Ritik Arora, growth and lifecycle marketer"
               src="/lovable-uploads/b900e373-588f-4459-b950-6d8f999f7d94-448.jpg"
               width={220}
               height={220}

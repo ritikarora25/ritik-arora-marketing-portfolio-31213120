@@ -45,7 +45,7 @@ const ThoughtPost = () => {
           <img
             className="thought-cover"
             src={`/og/${t.slug}.jpg`}
-            alt={t.title}
+            alt={`Cover graphic for the article: ${t.title}`}
             width={1200}
             height={630}
             decoding="async"
