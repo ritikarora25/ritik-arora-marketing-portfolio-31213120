@@ -14,6 +14,9 @@ export const Route = createFileRoute("/sitemap.xml")({
           sitemapXml(
             thoughts.map((t) => t.slug),
             KNOWN_LASTMOD,
+            Object.fromEntries(
+              thoughts.flatMap((t) => (t.updated ? [[t.slug, t.updated] as const] : [])),
+            ),
           ),
           {
             headers: {

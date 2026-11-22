@@ -24,6 +24,11 @@ const ThoughtPost = () => {
         </Link>
         <div className="thought-meta">
           <time dateTime={t.date}>{t.displayDate}</time>
+          {t.updated && (
+            <span className="thought-updated">
+              Updated <time dateTime={t.updated}>{t.updatedDisplayDate ?? t.updated}</time>
+            </span>
+          )}
           {t.tags.map((tag) => (
             <span key={tag} className="chip">
               {tag}

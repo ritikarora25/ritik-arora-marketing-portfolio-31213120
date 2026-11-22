@@ -2000,3 +2000,8 @@ li:target {
 .thought-body table {
   font-size: 0.95rem;
 }
+
+.thought-updated {
+  color: var(--slate, #8a8d9f);
+  font-size: 0.85em;
+}

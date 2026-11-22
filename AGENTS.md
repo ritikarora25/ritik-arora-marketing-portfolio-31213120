@@ -10,6 +10,7 @@
 - Thoughts may include optional public sources rendered beside the article; distinguish reported portfolio outcomes from proposed frameworks and causal results.
 - The shared article renderer supports inline emphasis, bullet lists and blockquotes from article data so long-form examples and worksheets remain semantic, server-rendered and easy to scan.
 - Numbered article sections are peer H2 headings; reserve H3 for unnumbered subsections beneath an H2 so the shared renderer preserves their hierarchy.
-- Structured data uses shared content graph helpers with stable Person, WebSite, page and article IDs; keep route head output linked to real content and never invent publication or modification dates.
+- Structured data uses shared content graph helpers with stable Person, WebSite, page and article IDs; keep route head output linked to real content and never invent publication or modification dates. JSON-LD `dateModified`, sitemap lastmod overrides and the visible "Updated" line come only from a real `Thought.updated` value set after a substantive edit — never today's date or a copy of `date`.
+- /rss.xml is RSS 2.0 served by `src/routes/rss[.]xml.ts` via `scripts/rss-xml.ts` from Thoughts; pubDate is the original `date` in RFC 822.
 - IndexNow key lives in src/lib/indexnow.ts with a matching public/<key>.txt; ping Bing after publish with scripts/indexnow-ping.ts (URL list shares the Thoughts source with the sitemap).
 - Formatting is Prettier with `.prettierrc` (printWidth 100) and `.prettierignore` excluding generated files; ESLint ignores the same generated files. Run `bun run format` before committing so lint shows only real issues.

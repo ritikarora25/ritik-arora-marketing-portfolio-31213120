@@ -1,16 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import Index from "@/pages/Index";
-import { SITE, pageMeta } from "@/lib/seo";
+import { HOME_SEO_DESCRIPTION, HOME_SEO_TITLE, SITE, pageMeta } from "@/lib/seo";
 import { profileJsonLd } from "@/lib/profile-jsonld";
 import { websiteJsonLd } from "@/lib/content-jsonld";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: pageMeta({
-      title: "Ritik Arora — Growth, CRM & Lifecycle Marketer",
+      title: HOME_SEO_TITLE,
       ogTitle: "Ritik Arora | Growth, CRM & Lifecycle Marketing",
-      description:
-        "Ritik Arora is a growth marketer with 5+ years in CRM, lifecycle and retention marketing across fintech, auto and B2B commerce, most recently at Freo.",
+      description: HOME_SEO_DESCRIPTION,
       path: "/",
       type: "website",
     }),

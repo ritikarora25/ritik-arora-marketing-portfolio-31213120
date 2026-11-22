@@ -1,15 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import Thoughts from "@/pages/Thoughts";
-import { SITE, pageMeta } from "@/lib/seo";
+import { SITE, THOUGHTS_SEO_DESCRIPTION, THOUGHTS_SEO_TITLE, pageMeta } from "@/lib/seo";
 import { thoughts } from "@/data/thoughts";
 import { thoughtsJsonLd } from "@/lib/content-jsonld";
 
 export const Route = createFileRoute("/thoughts/")({
   head: () => ({
     meta: pageMeta({
-      title: "Thoughts on CRM & Retention — Ritik Arora",
-      description:
-        "Practical field notes by Ritik Arora on CRM, lifecycle marketing, customer retention and product marketing, with formulas, frameworks and checklists.",
+      title: THOUGHTS_SEO_TITLE,
+      description: THOUGHTS_SEO_DESCRIPTION,
       path: "/thoughts",
     }),
     links: [{ rel: "canonical", href: `${SITE}/thoughts` }],

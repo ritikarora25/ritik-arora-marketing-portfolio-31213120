@@ -29,6 +29,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "stylesheet", href: appCss },
       { rel: "icon", href: "/favicon.ico" },
       {
+        rel: "alternate",
+        type: "application/rss+xml",
+        title: "Ritik Arora — Thoughts",
+        href: "https://ritik-arora-marketing-portfolio.lovable.app/rss.xml",
+      },
+      {
         rel: "preload",
         as: "font",
         type: "font/woff2",

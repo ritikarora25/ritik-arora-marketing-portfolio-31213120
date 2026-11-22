@@ -3,6 +3,9 @@ export interface Thought {
   slug: string;
   title: string;
   date: string; // ISO
+  /** ISO date of the last substantive edit. Set only when an article was genuinely revised; never default to today or copy `date`. */
+  updated?: string;
+  updatedDisplayDate?: string;
   displayDate: string;
   tags: string[];
   summary: string;
@@ -70,7 +73,7 @@ At Freo, the activation gap between loan approval and disbursal was as much an o
 
 **Engage.** CRM channel management, event data integrity and cost discipline across channels. At Cars24, seller-side CRM spend was fragmented across five channels. A combination of event schema consolidation, continuous A/B testing on creatives and segmentation, and a WhatsApp chatbot integration produced roughly ₹8L/month in savings and 10% higher chatbot click-through. No single initiative produced that outcome on its own.
 
-**Retain.** Behaviour-based segmentation, cohort analysis and communication that connects to observed buying patterns rather than generic reminders. At ApnaKlub, personalised multilingual WhatsApp campaigns built from each user’s top SKUs produced a reported 5–7% improvement in order rate across 200K+ B2B users. The useful lesson is the operating approach: segment by behaviour and buying rhythm, not by days since last login.
+**Retain.** Behaviour-based segmentation, [cohort analysis](/thoughts/retention-rate-formula) and communication that connects to observed buying patterns rather than generic reminders. At ApnaKlub, personalised multilingual WhatsApp campaigns built from each user’s top SKUs produced a reported 5–7% improvement in order rate across 200K+ B2B users. The useful lesson is the operating approach: segment by behaviour and buying rhythm, not by days since last login.
 
 **Monetise.** Understanding LTV, AOV, repeat purchase rate and how to build revenue lines on top of a retained base without damaging the experience. At 1K Kirana Bazaar, building the company’s first monetisation charter with FMCG brands generated ₹50L+ in revenue over six months. That initiative was built on an existing base of 150K+ retained kirana users.
 
@@ -92,7 +95,7 @@ This table summarises the section above; it is a framework, not measured data. F
 
 This depends on stage.
 
-An early-stage startup that needs to build acquisition and onboarding simultaneously may need someone who can work across both. A business with a functioning acquisition engine but poor repeat rates needs a specialist in lifecycle and retention. Hiring across all five stages when only one is broken usually produces unfocused output and unnecessary cost.
+An early-stage startup that needs to build acquisition and onboarding simultaneously may need someone who can work across both. A business with a functioning acquisition engine but poor repeat rates needs a specialist in [lifecycle and retention](/thoughts/lifecycle-marketing-strategy). Hiring across all five stages when only one is broken usually produces unfocused output and unnecessary cost.
 
 One useful check: can the candidate you are evaluating explain which stage of your funnel they would not be the strongest fit for? The ones who answer this honestly tend to be more reliable than the ones who say they cover everything.
 

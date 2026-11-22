@@ -1,4 +1,10 @@
 export const SITE = "https://ritik-arora-marketing-portfolio.lovable.app";
+export const HOME_SEO_TITLE = "Ritik Arora — Growth, CRM & Lifecycle Marketer";
+export const HOME_SEO_DESCRIPTION =
+  "Ritik Arora is a growth marketer with 5+ years in CRM, lifecycle and retention marketing across fintech, auto and B2B commerce, most recently at Freo.";
+export const THOUGHTS_SEO_TITLE = "Thoughts on CRM & Retention — Ritik Arora";
+export const THOUGHTS_SEO_DESCRIPTION =
+  "Practical field notes by Ritik Arora on CRM, lifecycle marketing, customer retention and product marketing, with formulas, frameworks and checklists.";
 export const SHARE_IMAGE = `${SITE}/lovable-uploads/b900e373-588f-4459-b950-6d8f999f7d94.jpg`;
 
 /** Absolute URL of an article's 1200x630 share card in public/og/. */
