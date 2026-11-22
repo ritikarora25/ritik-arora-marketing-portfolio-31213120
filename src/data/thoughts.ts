@@ -21,6 +21,58 @@ export interface Thought {
 
 export const thoughts: Thought[] = [
   {
+    slug: "what-does-a-product-marketer-do",
+    title: "What do your buyers know about your product before talking to sales?",
+    seoTitle: "What Does a Product Marketer Do? The B2B Buyer View",
+    seoDescription:
+      "B2B buyers research for about 124 days before talking to sales. Here is how product marketing answers their three questions along the way.",
+    ogTitle: "What do your buyers know before talking to sales?",
+    ogDescription:
+      "B2B buyers research for about 124 days first. Product marketing helps them understand, compare and trust a product.",
+    date: "2026-11-22",
+    displayDate: "Nov 22, 2026",
+    tags: ["Product Marketing", "B2B Marketing", "SaaS Marketing"],
+    summary:
+      "B2B buyers may spend 124 days researching before they reach sales. They ask three questions, and product marketing helps answer each one.",
+    takeaways: [
+      "B2B buyers may spend about 124 days researching before they contact sales.",
+      "They ask three questions: what problem am I solving, which product should I choose, and can I trust it to deliver.",
+      "Product marketing helps the right buyers understand a product, consider it and feel confident choosing it.",
+    ],
+    body: `What do your buyers know about your product before talking to sales?
+
+In B2B, they may have spent 124 days researching, evaluating and discussing solutions even before reaching out to you. That's almost four months of comparing options and forming opinions. I came across this finding in an article by [LinkedIn for Marketing](https://www.linkedin.com/business/marketing/blog/research-and-insights/the-b2b-marketing-mistake-thats-costing-you-the-deal-outcomes).
+
+And during this time, they're trying to figure out three things.
+
+## 1. What problem am I trying to solve?
+
+This is where market research, customer insights and category education come in. They help buyers understand their problems and the solutions available.
+
+## 2. Which product should I choose?
+
+This is where positioning, messaging, use-case pages and competitor comparisons come in. They help buyers understand what makes one product different from another.
+
+## 3. Can I trust this product to deliver?
+
+This is where case studies, customer stories, ROI calculations and product demos help buyers evaluate the product and justify the investment.
+
+And that's not all.
+
+Product marketers also spend time understanding competitors, collecting customer feedback, working with product teams on launches and helping sales teams communicate the product's value.
+
+Put all of this together, and you get a better sense of what a product marketer actually does.
+
+Their job is to help the right buyers understand a product, consider it and feel confident choosing it. And that work starts long before the first sales conversation.`,
+    sources: [
+      {
+        label: "LinkedIn for Marketing: The B2B marketing mistake that's costing you the deal",
+        url: "https://www.linkedin.com/business/marketing/blog/research-and-insights/the-b2b-marketing-mistake-thats-costing-you-the-deal-outcomes",
+      },
+    ],
+    linkedinUrl: "https://lnkd.in/p/gc7QbAKh",
+  },
+  {
     slug: "how-to-choose-freelance-growth-marketer",
     takeaways: [
       "Define the funnel stage that needs fixing before evaluating anyone.",
