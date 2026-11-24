@@ -2005,3 +2005,48 @@ li:target {
   color: var(--slate, #8a8d9f);
   font-size: 0.85em;
 }
+
+/* Glossary live filter */
+.glossary-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+  margin: 0 0 1.5rem;
+  min-height: 44px;
+}
+.glossary-filter input {
+  flex: 1 1 240px;
+  min-height: 44px;
+  padding: 0 0.9rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+}
+.glossary-filter input:focus-visible {
+  outline: 2px solid var(--indigo);
+  outline-offset: 2px;
+}
+.glossary-filter button {
+  min-height: 44px;
+  padding: 0 1rem;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  cursor: pointer;
+}
+.glossary-filter button[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--paper);
+}
+.glossary-filter-count {
+  flex-basis: 100%;
+  margin: 0;
+  min-height: 1.4em;
+  font-size: 0.9rem;
+  color: var(--slate);
+}

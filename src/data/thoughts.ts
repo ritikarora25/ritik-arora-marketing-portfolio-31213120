@@ -21,6 +21,114 @@ export interface Thought {
 
 export const thoughts: Thought[] = [
   {
+    slug: "growth-marketing-audit-checklist",
+    takeaways: [
+      "Audit one funnel stage at a time: Acquire, Activate, Engage, Retain, Monetize.",
+      "Each stage gets one number to check and one red flag to look for.",
+      "Fix the leakiest stage first; more acquisition rarely fixes weak activation or retention.",
+      "Turn the audit into one measurable 4–6 week test, then re-run the checklist.",
+    ],
+    seoTitle: "Growth Marketing Audit Checklist for Startups",
+    seoDescription:
+      "A stage-by-stage growth marketing audit checklist for early-stage startups: what to check in acquisition, activation, engagement, retention and revenue.",
+    ogTitle: "Growth marketing audit checklist for early-stage startups",
+    ogDescription:
+      "Check each funnel stage against one number and one red flag, then fix the leakiest stage first.",
+    title: "Growth marketing audit checklist for early-stage startups",
+    date: "2026-11-24",
+    displayDate: "Nov 24, 2026",
+    tags: ["Growth", "Analytics"],
+    summary:
+      "A practical growth marketing audit checklist for early-stage startups: tracking basics, then one number, key questions and a red flag for each funnel stage, and how to turn the audit into a plan.",
+    body: `> **Quick answer:** a growth marketing audit checks each stage of your funnel, Acquire, Activate, Engage, Retain and Monetize, against one number and one question. Find the stage where the most customers drop out, fix that first, and leave the others alone until it improves.
+
+Most early-stage startups don't need more campaigns. They need to know which part of the funnel is leaking. This checklist is the order I work through when I look at a startup's growth for the first time.
+
+It is a framework, not a benchmark study. The checks are questions to answer with your own data.
+
+### 1. Before you start: get the basics right
+
+- **One tracking source.** Pick the tool you trust for sign-ups, first value and repeat use, such as GA4 or Amplitude, and stop comparing three dashboards.
+- **One definition of an active customer.** Write down what "active" means for your product, for example "placed an order in the last 30 days".
+- **One north star metric.** A single number that shows customers getting value, as described in Amplitude's North Star Playbook.
+
+### 2. Acquire: are the right people arriving?
+
+- Which two channels bring most sign-ups, and which bring customers who stay?
+- What does one new customer cost (CAC) per channel, not just overall?
+- Does the landing page promise match what the product does on day one?
+
+**Red flag:** cheap sign-ups from a channel whose users never reach first value.
+
+### 3. Activate: do new users reach first value?
+
+- What is the first moment a user gets value, and how many sign-ups reach it?
+- How many steps and days does it take to get there?
+- Where in onboarding do most users stop? A GA4 funnel exploration shows this step by step.
+
+**Red flag:** spending more on acquisition while most sign-ups never activate.
+
+### 4. Engage: do they come back in the first weeks?
+
+- What share of activated users return in week 2 and week 4?
+- Which messages (email, push, WhatsApp) are sent, and does anyone act on them?
+- Is there a reason to come back, built into the product, not only in campaigns?
+
+**Red flag:** high send volume with falling open or click rates.
+
+### 5. Retain: does each new group of customers stay longer?
+
+- Build a cohort view: of customers who joined in a given month, how many are still active 1, 3 and 6 months later? GA4's cohort exploration can do this.
+- Is the retention curve flattening, or still falling towards zero?
+- When customers leave, is it a product problem or a messaging problem?
+
+**Red flag:** win-back campaigns running before anyone knows why customers left. Diagnose the gap first, then decide on a campaign.
+
+### 6. Monetize: is the value turning into revenue?
+
+- What is revenue per active customer, and is it rising over time?
+- How does customer lifetime value (LTV) compare with CAC?
+- Which upgrade, repeat-purchase or pricing moment brings in the most revenue?
+
+**Red flag:** discounts used to hit monthly targets, training customers to wait for offers.
+
+### 7. Turn the audit into a plan
+
+- Score each stage red, amber or green from the answers above.
+- Pick the one red stage closest to the top of the funnel that still matters for revenue.
+- Agree one measurable outcome and a 4–6 week test, then re-run the checklist.
+
+The formulas used here (CAC, LTV, retention rate, churn) are explained in the [marketing terms glossary](/thoughts/marketing-glossary).
+
+If you'd like a second pair of eyes on your funnel, [book a 15-minute conversation](mailto:ritikchuchra1@gmail.com?subject=Growth%20audit) or [connect on LinkedIn](https://www.linkedin.com/in/ritikarora25/).`,
+    sources: [
+      {
+        label: "Dave McClure: Startup Metrics for Pirates (AARRR funnel)",
+        url: "https://www.slideshare.net/slideshow/startup-metrics-for-pirates-long-version/89026",
+      },
+      {
+        label: "Amplitude: The North Star Playbook",
+        url: "https://amplitude.com/books/north-star",
+      },
+      {
+        label: "Google Analytics Help: funnel exploration",
+        url: "https://support.google.com/analytics/answer/9327974",
+      },
+      {
+        label: "Google Analytics Help: cohort exploration",
+        url: "https://support.google.com/analytics/answer/9670133",
+      },
+      {
+        label: "Reforge: the real definition of growth marketing",
+        url: "https://www.reforge.com/blog/the-real-definition-of-growth-marketing",
+      },
+      {
+        label: "How to choose a freelance growth marketer",
+        url: "/thoughts/how-to-choose-freelance-growth-marketer",
+      },
+    ],
+  },
+  {
     slug: "what-does-a-product-marketer-do",
     title: "What do your buyers know about your product before talking to sales?",
     seoTitle: "What Does a Product Marketer Do? The B2B Buyer View",

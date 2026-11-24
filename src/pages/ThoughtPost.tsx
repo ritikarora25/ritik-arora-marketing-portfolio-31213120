@@ -5,6 +5,7 @@ import { getThought, getRelatedThoughts } from "@/data/thoughts";
 import { termSlug } from "@/data/glossary";
 import { thoughtHeadingTag } from "@/lib/thought-headings";
 import { TermCopyLink } from "@/components/TermCopyLink";
+import { GlossaryFilter } from "@/components/GlossaryFilter";
 import NotFound from "./NotFound";
 
 const ThoughtPost = () => {
@@ -17,7 +18,7 @@ const ThoughtPost = () => {
   return (
     <PortfolioLayout>
       <article
-        className={`wrap thoughts-page thought-article${["customer-reactivation-before-win-back-campaign", "retention-rate-formula", "marketing-glossary", "how-to-choose-freelance-growth-marketer"].includes(t.slug) ? " thought-article-guide" : ""}`}
+        className={`wrap thoughts-page thought-article${["customer-reactivation-before-win-back-campaign", "retention-rate-formula", "marketing-glossary", "how-to-choose-freelance-growth-marketer", "growth-marketing-audit-checklist"].includes(t.slug) ? " thought-article-guide" : ""}`}
       >
         <Link to="/thoughts" className="thought-back">
           ← All thoughts
@@ -65,6 +66,7 @@ const ThoughtPost = () => {
             </ul>
           </aside>
         )}
+        {t.slug === "marketing-glossary" && <GlossaryFilter />}
         <div className="thought-body">
           {paragraphs.map((p, i) => {
             if (p.startsWith("> "))
