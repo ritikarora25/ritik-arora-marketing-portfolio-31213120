@@ -14,7 +14,8 @@ const LatestThoughts = () => {
       <div className="section-head">
         <h2 id="writing-h">Latest writing</h2>
         <span className="section-tag">
-          Swipe ↕ · <Link to="/thoughts">All thoughts →</Link>
+          Swipe ↕ · <Link to="/thoughts/marketing-glossary">Marketing terms glossary</Link> ·{" "}
+          <Link to="/thoughts">All thoughts →</Link>
         </span>
       </div>
       <ul

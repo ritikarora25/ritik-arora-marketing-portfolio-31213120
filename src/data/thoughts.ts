@@ -690,7 +690,9 @@ If your retention numbers are the reason you are shopping for software, read [cu
     tags: ["CRM", "Retention", "Lifecycle"],
     summary:
       "A B2B customer reactivation framework with an illustrative repeat-order example and a reusable segmentation worksheet: diagnose inactivity, match the message to the barrier, and measure meaningful returns.",
-    body: `Customer reactivation means helping a previously active customer return to a meaningful product action after a period of inactivity. In a repeat-purchase business, that action is usually another completed order—not opening a message.
+    body: `> **Quick answer:** a win-back campaign is a message or offer sent to customers who stopped buying, to bring them back. Before you send one, check why they went quiet: a lost habit, a lost reason to buy, or a barrier like stock, price or service. Send a win-back campaign only when a message can fix that reason, and measure it against a holdout group.
+
+Customer reactivation means helping a previously active customer return to a meaningful product action after a period of inactivity. In a repeat-purchase business, that action is usually another completed order—not opening a message.
 
 For CRM and lifecycle marketers, the first question is not which win-back message to send. It is whether the customer has lost the habit, lost the reason to buy, or hit a barrier the campaign cannot remove.
 

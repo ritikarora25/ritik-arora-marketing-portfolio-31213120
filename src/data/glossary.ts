@@ -1235,7 +1235,7 @@ export function glossaryBody(): string {
       return `## ${l}\n\n${items}`;
     })
     .join("\n\n");
-  return `> **Quick answer:** a marketing glossary is a reference list of marketing terms with short definitions. This one covers ${glossaryCount()} terms from A to Z in one to three lines each, with the formula where a metric has one, the top tools where a term has its own software category, and a source link for every entry so you can check it.
+  return `> **Quick answer:** marketing terms are the words, acronyms and formulas marketers use to plan, run and measure campaigns, such as CAC, LTV, churn, ROAS, SEO and CTR. This marketing glossary covers ${glossaryCount()} terms from A to Z in one to three lines each, with the formula where a metric has one, the top tools where a term has its own software category, and a source link for every entry so you can check it.
 
 ## What are the most-used marketing formulas?
 
