@@ -98,7 +98,7 @@ It is a framework, not a benchmark study. The checks are questions to answer wit
 - Pick the one red stage closest to the top of the funnel that still matters for revenue.
 - Agree one measurable outcome and a 4–6 week test, then re-run the checklist.
 
-The formulas used here (CAC, LTV, retention rate, churn) are explained in the [marketing terms glossary](/thoughts/marketing-glossary).
+The formulas used here (CAC, LTV, retention rate, churn) are explained in the [marketing terms glossary](/thoughts/marketing-glossary). If the audit shows you need outside help, see [how to choose a freelance growth marketer](/thoughts/how-to-choose-freelance-growth-marketer).
 
 If you'd like a second pair of eyes on your funnel, [book a 15-minute conversation](mailto:ritikchuchra1@gmail.com?subject=Growth%20audit) or [connect on LinkedIn](https://www.linkedin.com/in/ritikarora25/).`,
     sources: [
@@ -171,7 +171,9 @@ Product marketers also spend time understanding competitors, collecting customer
 
 Put all of this together, and you get a better sense of what a product marketer actually does.
 
-Their job is to help the right buyers understand a product, consider it and feel confident choosing it. And that work starts long before the first sales conversation.`,
+Their job is to help the right buyers understand a product, consider it and feel confident choosing it. And that work starts long before the first sales conversation.
+
+Once a buyer chooses you, the work moves to onboarding and retention; see my [lifecycle marketing strategy](/thoughts/lifecycle-marketing-strategy) and [why CRM fails when retention is a product problem](/thoughts/crm-vs-product-problem).`,
     sources: [
       {
         label: "LinkedIn for Marketing: The B2B marketing mistake that's costing you the deal",
@@ -465,7 +467,7 @@ Answer these before you report a retention number:
 - **Pairing:** do you report churn and revenue retention with the same definitions?
 - **Proof:** is there a holdout group behind any campaign result?
 
-For how retention fits with the other funnel stages, see my [lifecycle marketing strategy](/thoughts/lifecycle-marketing-strategy). For quick definitions of churn, cohort, LTV and other terms, see the [marketing terms glossary](/thoughts/marketing-glossary).`,
+For how retention fits with the other funnel stages, see my [lifecycle marketing strategy](/thoughts/lifecycle-marketing-strategy). For quick definitions of churn, cohort, LTV and other terms, see the [marketing terms glossary](/thoughts/marketing-glossary). To check every stage of your own funnel, use the [growth marketing audit checklist](/thoughts/growth-marketing-audit-checklist).`,
     sources: [
       {
         label: "Zendesk: how to calculate customer retention rate (standard formula)",
@@ -544,7 +546,7 @@ First, which stage is the metric actually failing in? A retention dip is often a
 
 A lifecycle marketing strategy is useful when it tells you what not to send as clearly as what to send. If every stage has one question and one success event, the campaigns tend to follow.
 
-For the Retain stage in practice, see [how to diagnose the gap before a win-back campaign](/thoughts/customer-reactivation-before-win-back-campaign); for choosing the tools each stage runs on, see [Sales CRM vs Customer Engagement Platform](/thoughts/best-crm-for-2027). Definitions of the terms used here are in the [marketing terms glossary](/thoughts/marketing-glossary).`,
+For the Retain stage in practice, see [how to diagnose the gap before a win-back campaign](/thoughts/customer-reactivation-before-win-back-campaign); for choosing the tools each stage runs on, see [Sales CRM vs Customer Engagement Platform](/thoughts/best-crm-for-2027). Definitions of the terms used here are in the [marketing terms glossary](/thoughts/marketing-glossary). If you are hiring help for one of these stages, read [how to choose a freelance growth marketer](/thoughts/how-to-choose-freelance-growth-marketer); for B2B buyers before sales, see [what a product marketer does](/thoughts/what-does-a-product-marketer-do).`,
     sources: [
       { label: "Ritik's documented experience across all five stages", url: "/#journey" },
       {

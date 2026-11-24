@@ -235,7 +235,7 @@ const ThoughtPost = () => {
                       </span>
                     ))}
                   </div>
-                  <h2 className="thought-title">{r.title}</h2>
+                  <h3 className="thought-title">{r.title}</h3>
                   <p className="thought-summary">{r.summary}</p>
                 </Link>
               ))}
