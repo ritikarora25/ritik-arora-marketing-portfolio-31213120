@@ -98,7 +98,7 @@ It is a framework, not a benchmark study. The checks are questions to answer wit
 - Pick the one red stage closest to the top of the funnel that still matters for revenue.
 - Agree one measurable outcome and a 4–6 week test, then re-run the checklist.
 
-The formulas used here (CAC, LTV, retention rate, churn) are explained in the [marketing terms glossary](/thoughts/marketing-glossary). If the audit shows you need outside help, see [how to choose a freelance growth marketer](/thoughts/how-to-choose-freelance-growth-marketer).
+The formulas used here (CAC, LTV, retention rate, churn) are explained in the [marketing terms glossary](/thoughts/marketing-glossary). If the audit shows you need outside help, see [how to choose a freelance growth marketer](/thoughts/how-to-choose-freelance-growth-marketer). For deeper fixes, read the [retention rate formula](/thoughts/retention-rate-formula) guide for the Retain stage and [customer reactivation before a win-back campaign](/thoughts/customer-reactivation-before-win-back-campaign) for lapsed customers.
 
 If you'd like a second pair of eyes on your funnel, [book a 15-minute conversation](mailto:ritikchuchra1@gmail.com?subject=Growth%20audit) or [connect on LinkedIn](https://www.linkedin.com/in/ritikarora25/).`,
     sources: [
@@ -173,7 +173,7 @@ Put all of this together, and you get a better sense of what a product marketer 
 
 Their job is to help the right buyers understand a product, consider it and feel confident choosing it. And that work starts long before the first sales conversation.
 
-Once a buyer chooses you, the work moves to onboarding and retention; see my [lifecycle marketing strategy](/thoughts/lifecycle-marketing-strategy) and [why CRM fails when retention is a product problem](/thoughts/crm-vs-product-problem).`,
+Once a buyer chooses you, the work moves to onboarding and retention; see my [lifecycle marketing strategy](/thoughts/lifecycle-marketing-strategy) and [why CRM fails when retention is a product problem](/thoughts/crm-vs-product-problem). If you are choosing software for that stage, see [Best CRM for 2027](/thoughts/best-crm-for-2027).`,
     sources: [
       {
         label: "LinkedIn for Marketing: The B2B marketing mistake that's costing you the deal",
@@ -448,7 +448,7 @@ Churn rate is the share of customers lost in a period, so churn = 100% − reten
 
 No. Customer retention counts people. Revenue retention measures money kept from existing customers, including people who spend more or less. A business can lose customers and still grow revenue retention if the remaining customers spend more, so report both.
 
-## Common mistakes when measuring retention
+## Common mistakes when calculating customer retention rate
 
 - Counting logins, visits or email opens as retention instead of a value action.
 - Using one fixed window for every segment.
@@ -763,7 +763,7 @@ Often, yes. Self-serve users are guided by the CEP, while larger accounts that s
 
 There is no single best CRM for 2027 — start from who closes the deal. Founder-led sales teams do well with Pipedrive or Close; inbound B2B teams with HubSpot; larger sales organisations with Salesforce; consumer apps with a CEP such as MoEngage, CleverTap or Customer.io.
 
-If your retention numbers are the reason you are shopping for software, read [customer reactivation: diagnose the gap before a win-back campaign](/thoughts/customer-reactivation-before-win-back-campaign) first — the tool rarely fixes a missing segmentation rule.`,
+If your retention numbers are the reason you are shopping for software, read [customer reactivation: diagnose the gap before a win-back campaign](/thoughts/customer-reactivation-before-win-back-campaign) first — the tool rarely fixes a missing segmentation rule. To measure whether a new platform actually improves retention, use the [retention rate formula](/thoughts/retention-rate-formula); to find which funnel stage needs the tool at all, run the [growth marketing audit checklist](/thoughts/growth-marketing-audit-checklist). For B2B teams, [what a product marketer does](/thoughts/what-does-a-product-marketer-do) covers what buyers need before they reach your sales CRM.`,
     sources: [
       {
         label: "Braze: what a customer engagement platform is",
@@ -808,7 +808,7 @@ For CRM and lifecycle marketers, the first question is not which win-back messag
 
 > **Evidence note:** This framework builds on the behaviour-based segmentation and multilingual WhatsApp work documented in my ApnaKlub experience. It is a proposed approach, not a claim that a specific win-back experiment was run there.
 
-## Reactivation vs win-back: what is the difference?
+## Reactivation vs win-back campaign: what is the difference?
 
 A win-back campaign is one tactic inside customer reactivation. Reactivation is the wider job: working out why someone stopped, then deciding whether a message, a service fix or a product change is what brings them back.
 
@@ -845,7 +845,7 @@ At ApnaKlub, my documented work covered a 200K+ B2B user base. It included behav
 
 The useful lesson is the operating approach: connect the communication to observed buying behaviour and language, rather than assuming a generic reminder is enough. A discount is one possible test, not the default explanation for why someone stopped buying.
 
-## 4. Build a journey that stops when the customer returns
+## 4. Build a win-back campaign journey that stops when the customer returns
 
 Choose one primary return action and make the destination match it. A SKU-led message should lead to a relevant, available product or ordering destination—not an unrelated screen.
 
@@ -986,13 +986,13 @@ Complete one sheet per segment. Keep observed facts separate from your explanati
 
 Review the completed sheet with product, service and growth before launch. If the reason-to-return or event-verification fields are blank, more persuasive copy is not the next fix.
 
-## 8. Decide whether CRM is actually the right fix
+## 8. Decide whether a CRM win-back campaign is actually the right fix
 
 Before approving the campaign, answer four questions: Who is inactive relative to their usual behaviour? What credible reason do they have to return now? Can the product deliver that promise? What evidence will distinguish campaign-driven returns from natural ones?
 
 If the reason to return is missing, revisit product value or positioning first. CRM can make an existing reason timely and relevant. It cannot manufacture a need the customer does not have.
 
-Reactivation is one stage of a wider plan; see [lifecycle marketing strategy: one question per stage](/thoughts/lifecycle-marketing-strategy). Definitions of the terms used here are in the [marketing terms glossary](/thoughts/marketing-glossary).`,
+Reactivation is one stage of a wider plan; see [lifecycle marketing strategy: one question per stage](/thoughts/lifecycle-marketing-strategy). Definitions of the terms used here are in the [marketing terms glossary](/thoughts/marketing-glossary). If the campaign will run on new software, compare options in [Best CRM for 2027](/thoughts/best-crm-for-2027); if inactivity is spread across stages, start with the [growth marketing audit checklist](/thoughts/growth-marketing-audit-checklist). If customers left because the product stopped fitting, read [why CRM fails when retention is a product problem](/thoughts/crm-vs-product-problem).`,
     sources: [
       {
         label: "How to calculate retention rate by cohort and buying rhythm",
@@ -1095,7 +1095,7 @@ Look at behaviour before you look at messages.
 
 If the answers point to drop-off, CRM is the right fix. If they point to clarity, brief product marketing first. If they point to need, the honest move is to raise it as a product question rather than launch another journey.
 
-For how this fits into each funnel stage, see [lifecycle marketing strategy: one question per stage](/thoughts/lifecycle-marketing-strategy). For a worked retention example, see [customer reactivation: diagnose the gap before a win-back campaign](/thoughts/customer-reactivation-before-win-back-campaign).`,
+For how this fits into each funnel stage, see [lifecycle marketing strategy: one question per stage](/thoughts/lifecycle-marketing-strategy). For a worked retention example, see [customer reactivation: diagnose the gap before a win-back campaign](/thoughts/customer-reactivation-before-win-back-campaign). To confirm whether retention is really falling, use the [retention rate formula](/thoughts/retention-rate-formula), and to check every funnel stage at once, use the [growth marketing audit checklist](/thoughts/growth-marketing-audit-checklist).`,
     sources: [
       {
         label: "Marc Andreessen: the only thing that matters (product–market fit)",

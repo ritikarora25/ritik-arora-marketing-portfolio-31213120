@@ -1249,7 +1249,16 @@ ${sections}
 
 ## How to use this glossary
 
-Every definition and formula links to the page it was checked against, such as Google Ads Help, Google Analytics Help, Google Search Central, Bain, Zendesk, Stripe, Mailchimp or Wikipedia. Formulas follow the linked source, but platforms can define details slightly differently, such as what counts as an active user or a conversion, so check your own tool's definition before comparing numbers. Tools are listed because they are widely used, not because of any partnership.`;
+Every definition and formula links to the page it was checked against, such as Google Ads Help, Google Analytics Help, Google Search Central, Bain, Zendesk, Stripe, Mailchimp or Wikipedia. Formulas follow the linked source, but platforms can define details slightly differently, such as what counts as an active user or a conversion, so check your own tool's definition before comparing numbers. Tools are listed because they are widely used, not because of any partnership.
+
+## Guides that put these terms to work
+
+- [Retention rate formula](/thoughts/retention-rate-formula): how to calculate customer retention, churn and cohorts.
+- [Lifecycle marketing strategy](/thoughts/lifecycle-marketing-strategy): one question per funnel stage.
+- [Growth marketing audit checklist](/thoughts/growth-marketing-audit-checklist): CAC, activation and LTV checks for each stage.
+- [Customer reactivation before a win-back campaign](/thoughts/customer-reactivation-before-win-back-campaign): segmenting and winning back lapsed customers.
+- [Best CRM for 2027](/thoughts/best-crm-for-2027): Sales CRM vs Customer Engagement Platform.
+- [What a product marketer does](/thoughts/what-does-a-product-marketer-do): positioning and buyer enablement before sales.`;
 }
 export function glossaryCount() {
   return Object.values(glossary).reduce((n, l) => n + l.length, 0);
